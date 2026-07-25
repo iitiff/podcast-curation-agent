@@ -93,10 +93,10 @@ class DiscoveryConfig(BaseModel):
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    openai_api_key: str = ""
-    openai_stage1_model: str = "gpt-4o-mini"
-    openai_stage2_model: str = "gpt-4o"
-    openai_base_url: str = "https://api.openai.com/v1"
+    # LLM — Gemini
+    gemini_api_key: str = ""
+    gemini_stage1_model: str = "gemini-2.5-flash"
+    gemini_stage2_model: str = "gemini-2.5-flash"
 
     podcast_index_key: str = ""
     podcast_index_secret: str = ""
