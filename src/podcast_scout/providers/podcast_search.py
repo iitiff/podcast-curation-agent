@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import hashlib
-import hmac
 import time
 
 import httpx
@@ -20,8 +19,10 @@ class PodcastIndexProvider(BasePodcastSearchProvider):
 
     def _auth_headers(self) -> dict[str, str]:
         ts = str(int(time.time()))
-        sig = hmac.new(
-            self._secret.encode(), (self._key + ts).encode(), hashlib.sha1
+        # Podcast Index auth: SHA-1 of (apiKey + apiSecret + unixTimestamp)
+        # https://podcastindex-org.github.io/docs-api/#auth
+        sig = hashlib.sha1(
+            (self._key + self._secret + ts).encode("utf-8")
         ).hexdigest()
         return {
             "X-Auth-Key": self._key,
