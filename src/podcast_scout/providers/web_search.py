@@ -1,6 +1,7 @@
-"""Web search providers: Brave, Serper, and null fallback."""
+"""Web search providers: Brave Search + Serper fallback."""
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 import httpx
@@ -8,33 +9,54 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 
 from .base import BaseWebSearchProvider
 
+logger = logging.getLogger(__name__)
+
 
 class BraveSearchProvider(BaseWebSearchProvider):
-    BASE = "https://api.search.brave.com/res/v1/web/search"
+    BASE_URL = "https://api.search.brave.com/res/v1/web/search"
 
     def __init__(self, api_key: str) -> None:
-        self._key = api_key
+        self._client = httpx.AsyncClient(
+            headers={"Accept": "application/json", "X-Subscription-Token": api_key},
+            timeout=15.0,
+        )
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=8))
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=10))
     async def search(self, query: str, max_results: int = 5) -> list[dict[str, Any]]:
-        async with httpx.AsyncClient(timeout=15.0) as client:
-            resp = await client.get(self.BASE, params={"q": f"{query} podcast", "count": max_results}, headers={"Accept": "application/json", "Accept-Encoding": "gzip", "X-Subscription-Token": self._key})
-            resp.raise_for_status()
-            return resp.json().get("web", {}).get("results", [])
+        resp = await self._client.get(
+            self.BASE_URL,
+            params={"q": query, "count": max_results, "search_lang": "en"},
+        )
+        resp.raise_for_status()
+        return resp.json().get("web", {}).get("results", [])
+
+    async def aclose(self) -> None:
+        await self._client.aclose()
 
 
 class SerperProvider(BaseWebSearchProvider):
-    def __init__(self, api_key: str) -> None:
-        self._key = api_key
+    BASE_URL = "https://google.serper.dev/search"
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=8))
+    def __init__(self, api_key: str) -> None:
+        self._client = httpx.AsyncClient(
+            headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
+            timeout=15.0,
+        )
+
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=10))
     async def search(self, query: str, max_results: int = 5) -> list[dict[str, Any]]:
-        async with httpx.AsyncClient(timeout=15.0) as client:
-            resp = await client.post("https://google.serper.dev/search", json={"q": f"{query} podcast", "num": max_results}, headers={"X-API-KEY": self._key, "Content-Type": "application/json"})
-            resp.raise_for_status()
-            return resp.json().get("organic", [])
+        resp = await self._client.post(
+            self.BASE_URL,
+            json={"q": query, "num": max_results},
+        )
+        resp.raise_for_status()
+        return resp.json().get("organic", [])
+
+    async def aclose(self) -> None:
+        await self._client.aclose()
 
 
 class NullWebSearchProvider(BaseWebSearchProvider):
     async def search(self, query: str, max_results: int = 5) -> list[dict[str, Any]]:
+        logger.warning("No web search provider configured; skipping web discovery.")
         return []
