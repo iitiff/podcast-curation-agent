@@ -1,4 +1,4 @@
-"""CLI entry point and main pipeline orchestrator (discovery-only, no OPML)."""
+"""CLI entry point and main pipeline orchestrator."""
 from __future__ import annotations
 
 import asyncio
@@ -13,7 +13,7 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from .config import Settings, load_discovery, load_preferences
+from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
 from .normalize import dedup_episodes
@@ -23,13 +23,16 @@ from .providers.transcription import CascadeTranscriptionProvider
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
 from .ranking import RankedEpisode, RubricScore, _classify, build_daily_queue, stage1_metadata_score
 from .render import render_briefing, render_markdown
-from .rss import build_feed
+from .rss import build_category_feed, build_feed
 from .state import EpisodeRecord, StateManager
 from .summarization import process_episodes
 from .synthesis import generate_synthesis
 
 console = Console()
 log = logging.getLogger(__name__)
+
+# Default category if a show has no category set
+_DEFAULT_CATEGORY = "ai_retail"
 
 
 def _setup_logging(verbose: bool) -> None:
@@ -70,6 +73,42 @@ def _smtp_from_env() -> SMTPConfig | None:
     )
 
 
+def _build_category_map(config_dir) -> dict[str, str]:
+    """Build a mapping of show display_name -> category from shows.yaml."""
+    shows = load_show_config(config_dir)
+    mapping: dict[str, str] = {}
+    for show in shows:
+        name = show.get("display_name") or show.get("match", "")
+        cat = show.get("category", _DEFAULT_CATEGORY)
+        mapping[name.lower()] = cat
+        # Also store by match string for fuzzy lookup
+        mapping[show.get("match", "").lower()] = cat
+    return mapping
+
+
+def _resolve_category(show_title: str, category_map: dict[str, str]) -> str:
+    """Return category for a show title via case-insensitive partial match."""
+    title_lower = show_title.lower()
+    # Exact match first
+    if title_lower in category_map:
+        return category_map[title_lower]
+    # Partial match
+    for key, cat in category_map.items():
+        if key and (key in title_lower or title_lower in key):
+            return cat
+    return _DEFAULT_CATEGORY
+
+
+def _tag_episodes_with_category(
+    episodes: list[RankedEpisode],
+    category_map: dict[str, str],
+) -> None:
+    """Stamp each episode.category in-place based on its show title."""
+    for r in episodes:
+        cat = _resolve_category(r.episode.show_title, category_map)
+        r.episode.category = cat  # type: ignore[attr-defined]
+
+
 async def _run_pipeline(
     settings: Settings,
     run_synthesis: bool = False,
@@ -77,6 +116,7 @@ async def _run_pipeline(
 ) -> dict:
     prefs = load_preferences(settings.config_dir)
     discovery_cfg = load_discovery(settings.config_dir)
+    category_map = _build_category_map(settings.config_dir)
 
     if settings.pages_base_url:
         prefs.feed.base_url = settings.pages_base_url
@@ -84,7 +124,7 @@ async def _run_pipeline(
     state = StateManager(settings.data_dir)
     run_date = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d")
 
-    # 1. Discover episodes from preferences
+    # 1. Discover
     podcast_search = _make_podcast_search(settings)
     web_search = _make_web_search(settings)
 
@@ -97,7 +137,7 @@ async def _run_pipeline(
         lookback_days=settings.lookback_days,
     )
 
-    # 2. Deduplicate against already-seen state
+    # 2. Dedup
     new_episodes, _ = dedup_episodes(all_candidates, state.seen_guids())
     console.print(f"Found {len(new_episodes)} new candidates (after dedup from {len(all_candidates)} discovered)")
 
@@ -105,17 +145,14 @@ async def _run_pipeline(
         console.print("[yellow]No new episodes found. Exiting.[/yellow]")
         return {"queued": 0, "email_only": 0, "errors": {}}
 
-    # 3. LLM setup
+    # 3. LLM
     llm = None
     if settings.gemini_api_key:
-        llm = GeminiProvider(
-            settings.gemini_api_key,
-            settings.gemini_stage2_model,
-        )
+        llm = GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
     else:
         console.print("[yellow]WARNING: No GEMINI_API_KEY — running metadata-only ranking.[/yellow]")
 
-    # 4. Summarize and rank
+    # 4. Summarise + rank
     transcription = CascadeTranscriptionProvider(
         openai_api_key=None,
         enable_whisper=settings.enable_audio_transcription,
@@ -146,7 +183,12 @@ async def _run_pipeline(
         ]
         ranked.sort(key=lambda r: r.score, reverse=True)
 
-    # 5. Build daily queue
+    # 5. Tag each episode with its category
+    _tag_episodes_with_category(ranked, category_map)
+
+    # 6. Build per-category queues
+    # Use global build_daily_queue for the full set (state / email purposes),
+    # then split per category for feed writing.
     rss_queue, email_only = build_daily_queue(
         ranked,
         max_minutes=prefs.length.max_weekly_listen_hours * 60,
@@ -154,9 +196,15 @@ async def _run_pipeline(
         max_read_summary=prefs.output_caps.max_read_summary,
         max_outside=prefs.output_caps.max_outside_feed,
     )
-    console.print(f"Queue: {len(rss_queue)} episodes | Email-only: {len(email_only)}")
 
-    # 6. Weekly synthesis (Fridays or --synthesis flag)
+    all_surfaced = rss_queue + email_only
+
+    # Determine active categories
+    active_categories = list(prefs.categories.keys()) if prefs.categories else [_DEFAULT_CATEGORY]
+
+    console.print(f"Queue: {len(rss_queue)} episodes across {len(active_categories)} categories | Email-only: {len(email_only)}")
+
+    # 7. Weekly synthesis
     synthesis = None
     if run_synthesis and llm:
         synthesis = await generate_synthesis(ranked, prefs, llm)
@@ -166,15 +214,31 @@ async def _run_pipeline(
         _print_summary_table(rss_queue, email_only)
         return {"queued": len(rss_queue), "email_only": len(email_only), "errors": {}}
 
-    # 7. Write outputs
+    # 8. Write outputs
     settings.public_dir.mkdir(parents=True, exist_ok=True)
     base_url = prefs.feed.base_url or settings.pages_base_url
 
+    # Per-category feeds
+    for cat_key in active_categories:
+        cat_cfg = prefs.categories.get(cat_key)
+        slug = cat_cfg.slug if cat_cfg else cat_key.replace("_", "-")
+        xml = build_category_feed(
+            episodes=all_surfaced,
+            category=cat_key,
+            prefs=prefs,
+            base_url=base_url,
+            state=state,
+        )
+        (settings.public_dir / f"{slug}.xml").write_text(xml, encoding="utf-8")
+        console.print(f"  [green]Wrote public/{slug}.xml[/green]")
+
+    # Also write legacy combined feeds for backward compatibility
     listen_xml = build_feed(rss_queue, prefs, "listen", base_url, state)
-    all_xml = build_feed(rss_queue + email_only, prefs, "all", base_url, state)
+    all_xml = build_feed(all_surfaced, prefs, "all", base_url, state)
     (settings.public_dir / "listen.xml").write_text(listen_xml, encoding="utf-8")
     (settings.public_dir / "all.xml").write_text(all_xml, encoding="utf-8")
 
+    # data/latest.json
     data_dir = settings.public_dir / "data"
     data_dir.mkdir(exist_ok=True)
     latest_json = {
@@ -200,7 +264,7 @@ async def _run_pipeline(
     md = render_markdown(rss_queue, email_only, synthesis, run_date)
     (settings.public_dir / "latest.md").write_text(md, encoding="utf-8")
 
-    # 8. Update state
+    # 9. Update state
     from .normalize import utcnow
     for r in ranked:
         state.mark_processed(EpisodeRecord(
@@ -219,7 +283,7 @@ async def _run_pipeline(
     state.snapshot_history(run_date, latest_json)
     state.save()
 
-    # 9. Email digest
+    # 10. Email digest
     smtp = _smtp_from_env()
     if smtp:
         feed_url = f"{base_url}/listen.xml" if base_url else ""
@@ -249,20 +313,23 @@ def _ep_to_dict(r: RankedEpisode) -> dict:
         "summary": r.summary,
         "key_ideas": r.key_ideas,
         "confidence": r.evidence_confidence,
+        "category": getattr(ep, "category", _DEFAULT_CATEGORY),
     }
 
 
 def _print_summary_table(queued: list[RankedEpisode], email_only: list[RankedEpisode]) -> None:
     table = Table(title="Daily Queue", show_header=True)
     table.add_column("#", style="dim", width=3)
+    table.add_column("Cat", width=10)
     table.add_column("Show")
-    table.add_column("Episode", max_width=50)
+    table.add_column("Episode", max_width=45)
     table.add_column("Score", justify="right")
     table.add_column("Class")
     table.add_column("Min", justify="right")
     for i, r in enumerate(queued, 1):
+        cat = getattr(r.episode, "category", "?")
         table.add_row(
-            str(i), r.episode.show_title[:30], r.episode.episode_title[:50],
+            str(i), cat[:10], r.episode.show_title[:28], r.episode.episode_title[:45],
             f"{r.score:.0f}", r.classification, f"{r.episode.duration_minutes:.0f}",
         )
     console.print(table)
@@ -299,7 +366,9 @@ def validate() -> None:
     discovery_cfg = load_discovery(settings.config_dir)
     from .discovery import _build_queries
     queries = _build_queries(prefs, discovery_cfg)
+    cats = list(prefs.categories.keys())
     console.print(f"[green]preferences.yaml OK — {len(prefs.show_priors)} show priors, {len(prefs.interests)} interest topics[/green]")
+    console.print(f"[green]Categories: {', '.join(cats) or 'none (using legacy caps)'}[/green]")
     console.print(f"[green]discovery.yaml OK — {len(queries)} queries will run[/green]")
     for q in queries:
         console.print(f"  [dim]· {q}[/dim]")

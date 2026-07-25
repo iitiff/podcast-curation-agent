@@ -1,155 +1,196 @@
-"""Configuration loading and validation."""
+"""Settings and config loaders."""
 from __future__ import annotations
 
 import os
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
 import yaml
-from pydantic import BaseModel, Field, model_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class FeedConfig(BaseModel):
+@dataclass
+class FeedConfig:
     title: str = "My Podcast Scout"
     description: str = "A ranked weekly listening queue curated by AI."
-    owner_name: str = "Podcast Scout User"
+    owner_name: str = ""
     owner_email: str = ""
     language: str = "en-us"
     base_url: str = ""
 
 
-class PersonaConfig(BaseModel):
-    role: str = "Product leader"
-    focus: str = "AI, technology, and product strategy"
+@dataclass
+class CategoryFeedConfig:
+    slug: str
+    title: str
+    description: str = ""
+    max_listen_fully: int = 3
+    max_read_summary: int = 5
+
+
+@dataclass
+class PersonaConfig:
+    role: str = "Senior product leader"
+    focus: str = "AI, retail, eCommerce"
     seniority: str = "senior"
     preferred_depth: str = "strategic"
 
 
-class LengthConfig(BaseModel):
+@dataclass
+class LengthConfig:
     preferred_min_minutes: int = 20
     preferred_max_minutes: int = 90
     hard_max_minutes: int = 240
     max_weekly_listen_hours: float = 4.0
 
 
-class ClassificationConfig(BaseModel):
-    listen_fully_min_score: int = 75
-    read_summary_min_score: int = 50
-    boundary_override_max: int = 5
+@dataclass
+class ClassificationConfig:
+    listen_fully_min_score: float = 75.0
+    read_summary_min_score: float = 50.0
+    boundary_override_max: float = 5.0
 
 
-class OutputCapsConfig(BaseModel):
+@dataclass
+class OutputCapsConfig:
     max_listen_fully: int = 3
     max_read_summary: int = 5
     max_outside_feed: int = 3
     max_total_surfaced: int = 10
 
 
-class Preferences(BaseModel):
-    feed: FeedConfig = Field(default_factory=FeedConfig)
-    persona: PersonaConfig = Field(default_factory=PersonaConfig)
-    interests: dict[str, float] = Field(default_factory=dict)
-    geography: dict[str, float] = Field(default_factory=dict)
-    length: LengthConfig = Field(default_factory=LengthConfig)
-    classification: ClassificationConfig = Field(default_factory=ClassificationConfig)
-    output_caps: OutputCapsConfig = Field(default_factory=OutputCapsConfig)
-    show_priors: dict[str, float] = Field(default_factory=dict)
-    topic_exclusions: list[str] = Field(default_factory=list)
-    guest_watchlist: list[str] = Field(default_factory=list)
-    competitor_watchlist: list[str] = Field(default_factory=list)
+@dataclass
+class Preferences:
+    feed: FeedConfig = field(default_factory=FeedConfig)
+    categories: dict[str, CategoryFeedConfig] = field(default_factory=dict)
+    persona: PersonaConfig = field(default_factory=PersonaConfig)
+    interests: dict[str, float] = field(default_factory=dict)
+    geography: dict[str, float] = field(default_factory=dict)
+    length: LengthConfig = field(default_factory=LengthConfig)
+    classification: ClassificationConfig = field(default_factory=ClassificationConfig)
+    output_caps: OutputCapsConfig = field(default_factory=OutputCapsConfig)
+    show_priors: dict[str, float] = field(default_factory=dict)
+    topic_exclusions: list[str] = field(default_factory=list)
+    guest_watchlist: list[str] = field(default_factory=list)
+    competitor_watchlist: list[str] = field(default_factory=list)
 
 
-class ShowOverride(BaseModel):
-    match: str
-    display_name: str | None = None
-    canonical_feed_url: str | None = None
-    priority: float | None = None
-    enabled: bool = True
-    language: str | None = None
-    transcript_source: str | None = None  # auto | p20 | publisher | youtube | none
-    max_episodes_per_run: int = 3
-    notes: str | None = None
-
-
-class ShowsConfig(BaseModel):
-    shows: list[ShowOverride] = Field(default_factory=list)
-
-
-class DiscoveryLimits(BaseModel):
+@dataclass
+class DiscoveryConfig:
     max_queries: int = 15
     max_raw_candidates: int = 40
     max_deep_analysis_candidates: int = 10
     max_surfaced_outside_episodes: int = 3
-    outside_quality_threshold: int = 60
+    outside_quality_threshold: float = 60.0
+    static_seeds: list[dict] = field(default_factory=list)
+    entity_seeds: dict[str, list[str]] = field(default_factory=dict)
 
 
-class DiscoveryConfig(BaseModel):
-    discovery: DiscoveryLimits = Field(default_factory=DiscoveryLimits)
-    static_seeds: list[dict[str, Any]] = Field(default_factory=list)
-    entity_seeds: dict[str, list[str]] = Field(default_factory=dict)
+class Settings:
+    def __init__(self) -> None:
+        self.config_dir = Path(os.getenv("CONFIG_DIR", "config"))
+        self.data_dir = Path(os.getenv("DATA_DIR", "data"))
+        self.public_dir = Path(os.getenv("PUBLIC_DIR", "public"))
+        self.templates_dir = Path("src/podcast_scout/templates")
+        self.gemini_api_key = os.getenv("GEMINI_API_KEY", "")
+        self.gemini_stage1_model = os.getenv("GEMINI_STAGE1_MODEL", "gemini-2.5-flash")
+        self.gemini_stage2_model = os.getenv("GEMINI_STAGE2_MODEL", "gemini-2.5-flash")
+        self.podcast_index_key = os.getenv("PODCAST_INDEX_KEY", "")
+        self.podcast_index_secret = os.getenv("PODCAST_INDEX_SECRET", "")
+        self.web_search_api_key = os.getenv("WEB_SEARCH_API_KEY", "")
+        self.web_search_provider = os.getenv("WEB_SEARCH_PROVIDER", "brave")
+        self.enable_audio_transcription = os.getenv("ENABLE_AUDIO_TRANSCRIPTION", "false").lower() == "true"
+        self.max_cost_usd_per_run = float(os.getenv("MAX_COST_USD_PER_RUN", "2.00"))
+        self.max_llm_tokens_per_run = int(os.getenv("MAX_LLM_TOKENS_PER_RUN", "500000"))
+        self.lookback_days = int(os.getenv("LOOKBACK_DAYS", "3"))
+        self.pages_base_url = os.getenv("PAGES_BASE_URL", "").rstrip("/")
 
 
-class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+def _parse_feed(raw: dict) -> FeedConfig:
+    f = raw.get("feed", {})
+    return FeedConfig(
+        title=f.get("title", "My Podcast Scout"),
+        description=f.get("description", ""),
+        owner_name=f.get("owner_name", ""),
+        owner_email=f.get("owner_email", ""),
+        language=f.get("language", "en-us"),
+        base_url=f.get("base_url", ""),
+    )
 
-    # LLM — Gemini
-    gemini_api_key: str = ""
-    gemini_stage1_model: str = "gemini-2.5-flash"
-    gemini_stage2_model: str = "gemini-2.5-flash"
 
-    podcast_index_key: str = ""
-    podcast_index_secret: str = ""
-
-    web_search_api_key: str = ""
-    web_search_provider: str = "brave"  # brave | serper | none
-
-    enable_audio_transcription: bool = False
-
-    max_cost_usd_per_run: float = 2.00
-    max_llm_tokens_per_run: int = 500_000
-
-    pages_base_url: str = ""
-
-    # Pipeline behaviour
-    lookback_days: int = 8
-    config_dir: Path = Path("config")
-    data_dir: Path = Path("data")
-    public_dir: Path = Path("public")
-    templates_dir: Path = Path("templates")
-
-    @model_validator(mode="after")
-    def _apply_pages_base_url(self) -> "Settings":
-        if not self.pages_base_url and os.getenv("GITHUB_REPOSITORY"):
-            repo = os.getenv("GITHUB_REPOSITORY", "")
-            owner = repo.split("/")[0] if "/" in repo else ""
-            name = repo.split("/")[1] if "/" in repo else repo
-            self.pages_base_url = f"https://{owner}.github.io/{name}"
-        return self
+def _parse_categories(raw: dict) -> dict[str, CategoryFeedConfig]:
+    result: dict[str, CategoryFeedConfig] = {}
+    for key, val in raw.get("categories", {}).items():
+        result[key] = CategoryFeedConfig(
+            slug=val.get("slug", key),
+            title=val.get("title", key),
+            description=val.get("description", ""),
+            max_listen_fully=val.get("max_listen_fully", 3),
+            max_read_summary=val.get("max_read_summary", 5),
+        )
+    return result
 
 
 def load_preferences(config_dir: Path) -> Preferences:
     path = config_dir / "preferences.yaml"
-    if not path.exists():
-        return Preferences()
-    with path.open() as f:
-        data = yaml.safe_load(f) or {}
-    return Preferences.model_validate(data)
+    raw: dict[str, Any] = yaml.safe_load(path.read_text()) or {}
 
+    caps = raw.get("output_caps", {})
+    cls = raw.get("classification", {})
+    length = raw.get("length", {})
+    persona = raw.get("persona", {})
 
-def load_shows(config_dir: Path) -> ShowsConfig:
-    path = config_dir / "shows.yaml"
-    if not path.exists():
-        return ShowsConfig()
-    with path.open() as f:
-        data = yaml.safe_load(f) or {}
-    return ShowsConfig.model_validate(data)
+    return Preferences(
+        feed=_parse_feed(raw),
+        categories=_parse_categories(raw),
+        persona=PersonaConfig(
+            role=persona.get("role", "Senior product leader"),
+            focus=persona.get("focus", "AI, retail"),
+            seniority=persona.get("seniority", "senior"),
+            preferred_depth=persona.get("preferred_depth", "strategic"),
+        ),
+        interests=raw.get("interests", {}),
+        geography=raw.get("geography", {}),
+        length=LengthConfig(
+            preferred_min_minutes=length.get("preferred_min_minutes", 20),
+            preferred_max_minutes=length.get("preferred_max_minutes", 90),
+            hard_max_minutes=length.get("hard_max_minutes", 240),
+            max_weekly_listen_hours=length.get("max_weekly_listen_hours", 4.0),
+        ),
+        classification=ClassificationConfig(
+            listen_fully_min_score=cls.get("listen_fully_min_score", 75.0),
+            read_summary_min_score=cls.get("read_summary_min_score", 50.0),
+            boundary_override_max=cls.get("boundary_override_max", 5.0),
+        ),
+        output_caps=OutputCapsConfig(
+            max_listen_fully=caps.get("max_listen_fully", 3),
+            max_read_summary=caps.get("max_read_summary", 5),
+            max_outside_feed=caps.get("max_outside_feed", 3),
+            max_total_surfaced=caps.get("max_total_surfaced", 10),
+        ),
+        show_priors=raw.get("show_priors", {}),
+        topic_exclusions=raw.get("topic_exclusions", []),
+        guest_watchlist=raw.get("guest_watchlist", []),
+        competitor_watchlist=raw.get("competitor_watchlist", []),
+    )
 
 
 def load_discovery(config_dir: Path) -> DiscoveryConfig:
     path = config_dir / "discovery_queries.yaml"
-    if not path.exists():
-        return DiscoveryConfig()
-    with path.open() as f:
-        data = yaml.safe_load(f) or {}
-    return DiscoveryConfig.model_validate(data)
+    raw: dict[str, Any] = yaml.safe_load(path.read_text()) or {}
+    disc = raw.get("discovery", {})
+    return DiscoveryConfig(
+        max_queries=disc.get("max_queries", 15),
+        max_raw_candidates=disc.get("max_raw_candidates", 40),
+        max_deep_analysis_candidates=disc.get("max_deep_analysis_candidates", 10),
+        max_surfaced_outside_episodes=disc.get("max_surfaced_outside_episodes", 3),
+        outside_quality_threshold=disc.get("outside_quality_threshold", 60.0),
+        static_seeds=raw.get("static_seeds", []),
+        entity_seeds=raw.get("entity_seeds", {}),
+    )
+
+
+def load_show_config(config_dir: Path) -> list[dict]:
+    path = config_dir / "shows.yaml"
+    raw = yaml.safe_load(path.read_text()) or {}
+    return raw.get("shows", [])

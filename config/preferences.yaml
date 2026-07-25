@@ -15,6 +15,31 @@ feed:
   # e.g. https://USERNAME.github.io/podcast-cpo-scout
   base_url: ""
 
+# —— Per-category feed config —————————————————————————————————————
+# Each key maps to a shows.yaml `category` value.
+# slug      → filename: public/{slug}.xml
+# title     → RSS <title> for that feed
+# max_listen_fully / max_read_summary → output caps for that category
+categories:
+  ai_retail:
+    slug: ai-retail
+    title: "Podcast Scout — AI & Retail"
+    description: "Curated AI, retail, and product episodes."
+    max_listen_fully: 3
+    max_read_summary: 5
+  startup:
+    slug: startup
+    title: "Podcast Scout — Startup"
+    description: "Curated startup and founder episodes."
+    max_listen_fully: 2
+    max_read_summary: 3
+  chinese:
+    slug: chinese
+    title: "Podcast Scout — 中文播客"
+    description: "精选中文科技与商业播客。"
+    max_listen_fully: 2
+    max_read_summary: 3
+
 # —— Who you are (sent as context to the LLM ranker) ——————————————————
 persona:
   role: "Senior product leader"
@@ -38,7 +63,7 @@ interests:
   organizational_design: 0.8
   supply_chain: 0.5
   fintech: 0.4
-  general_startup: 0.3
+  general_startup: 0.6
   personal_development: 0.1
 
 # —— Geographic priority (weight 0.0–1.0) ————————————————————————
@@ -67,7 +92,7 @@ classification:
   # Allow model to override a boundary by at most this many points
   boundary_override_max: 5
 
-# —— Weekly output caps ———————————————————————————————————
+# —— Weekly output caps (fallback if category not found) ——————————
 output_caps:
   max_listen_fully: 3
   max_read_summary: 5
@@ -78,6 +103,7 @@ output_caps:
 # A higher prior increases, but does not guarantee, ranking.
 # An excellent episode from any show can outrank a mediocre high-prior episode.
 show_priors:
+  # AI / Retail
   "Lenny's Podcast": 0.85
   "How I AI with Claire Vo": 0.9
   "Stratechery": 0.85
@@ -95,12 +121,25 @@ show_priors:
   "Jason & Scot Show": 0.85
   "McKinsey on Consumer and Retail": 0.8
   "The Modern Customer Podcast": 0.8
-  "Y Combinator Startup Podcast": 0.75
   "Product Thinking": 0.8
   "The Growth Podcast": 0.7
   "The SaaS Podcast": 0.65
   "The Prof G Pod": 0.7
   "The Tim Ferriss Show": 0.6
+  # Startup
+  "Y Combinator Startup Podcast": 0.75
+  "My First Million": 0.7
+  "Invest Like the Best": 0.75
+  "20VC with Harry Stebbings": 0.7
+  "Founders Podcast": 0.75
+  "Indie Hackers": 0.65
+  # Chinese
+  "起点学院": 0.8
+  "晚点聊 LateTalk": 0.85
+  "商业就是这样": 0.8
+  "Tech Lead Journal": 0.75
+  "声动早咖啡": 0.75
+  "硅谷101": 0.8
 
 # —— Topic exclusions ————————————————————————————————————
 # Episodes that match these topics get heavily penalized (not hard-excluded).

@@ -13,108 +13,201 @@
 #   language             – ISO 639-1, e.g. "en"
 #   transcript_source    – auto | p20 | publisher | youtube | none
 #   max_episodes_per_run – integer (default: 3)
+#   category             – ai_retail | startup | chinese (used for per-feed routing)
 #   notes                – free-form string for your own reference
 # ────────────────────────────────────────────────────────────────────
 
 shows:
+
+  # ── AI / Retail / Product (default category) ──────────────────────
+
   - match: "Lenny's Podcast"
     display_name: "Lenny's Podcast"
-    # Substack RSS returns 403 — use the direct feed instead
+    category: ai_retail
     canonical_feed_url: "https://www.lennysnewsletter.com/feed/podcast"
     max_episodes_per_run: 2
     language: en
 
   - match: "How I AI"
     display_name: "How I AI with Claire Vo"
+    category: ai_retail
     max_episodes_per_run: 2
     language: en
 
   - match: "Stratechery"
     display_name: "Stratechery"
+    category: ai_retail
     transcript_source: publisher
     max_episodes_per_run: 3
     notes: "Ben Thompson posts full transcripts on stratechery.com for members."
 
   - match: "Sharp Tech"
     display_name: "Sharp Tech with Ben Thompson"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "No Priors"
     display_name: "No Priors"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "Hard Fork"
     display_name: "Hard Fork"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "Retailgentic"
     display_name: "Retailgentic"
+    category: ai_retail
     max_episodes_per_run: 3
 
   - match: "Future Commerce"
     display_name: "Future Commerce"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "Modern Retail"
     display_name: "Modern Retail Podcast"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "Behind the Numbers"
     display_name: "Behind the Numbers: Reimagining Retail"
+    category: ai_retail
     max_episodes_per_run: 3
 
   - match: "Acquired"
     display_name: "Acquired"
+    category: ai_retail
     max_episodes_per_run: 1
     notes: "Long-form; cap at 1 per run. Only surfaces when topic is highly relevant."
 
   - match: "AI + a16z"
     display_name: "AI + a16z"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "a16z Show"
     display_name: "The a16z Show"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "Decoder"
     display_name: "Decoder"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "Jason & Scot"
     display_name: "Jason & Scot Show"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "McKinsey on Consumer"
     display_name: "McKinsey on Consumer and Retail"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "Modern Customer"
     display_name: "The Modern Customer Podcast"
-    max_episodes_per_run: 2
-
-  - match: "Y Combinator"
-    display_name: "Y Combinator Startup Podcast"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "Product Thinking"
     display_name: "Product Thinking"
+    category: ai_retail
     max_episodes_per_run: 2
 
   - match: "Growth Podcast"
     display_name: "The Growth Podcast"
-    # Substack RSS returns 403 — use direct Apple Podcasts-sourced feed
+    category: ai_retail
     canonical_feed_url: "https://feeds.buzzsprout.com/2115322.rss"
     max_episodes_per_run: 1
 
   - match: "SaaS Podcast"
     display_name: "The SaaS Podcast"
+    category: ai_retail
     max_episodes_per_run: 1
 
   - match: "Prof G"
     display_name: "The Prof G Pod"
+    category: ai_retail
     max_episodes_per_run: 1
 
   - match: "Tim Ferriss"
     display_name: "The Tim Ferriss Show"
+    category: ai_retail
     max_episodes_per_run: 1
     notes: "Only surfaces when guest is directly relevant to AI/retail/product."
+
+  # ── Startup ────────────────────────────────────────────────────────
+
+  - match: "Y Combinator"
+    display_name: "Y Combinator Startup Podcast"
+    category: startup
+    max_episodes_per_run: 2
+
+  - match: "My First Million"
+    display_name: "My First Million"
+    category: startup
+    max_episodes_per_run: 2
+
+  - match: "Invest Like the Best"
+    display_name: "Invest Like the Best"
+    category: startup
+    max_episodes_per_run: 1
+
+  - match: "20VC"
+    display_name: "20VC with Harry Stebbings"
+    category: startup
+    max_episodes_per_run: 2
+
+  - match: "Founders"
+    display_name: "Founders Podcast"
+    category: startup
+    max_episodes_per_run: 1
+    notes: "David Senra deep dives on founders. Long-form, cap at 1."
+
+  - match: "The Indie Hackers"
+    display_name: "Indie Hackers"
+    category: startup
+    max_episodes_per_run: 1
+
+  # ── Chinese ────────────────────────────────────────────────────────
+
+  - match: "起点学院"
+    display_name: "起点学院"
+    category: chinese
+    language: zh
+    max_episodes_per_run: 2
+
+  - match: "晚点聊"
+    display_name: "晚点聊 LateTalk"
+    category: chinese
+    language: zh
+    max_episodes_per_run: 2
+
+  - match: "商业就是这样"
+    display_name: "商业就是这样"
+    category: chinese
+    language: zh
+    max_episodes_per_run: 2
+
+  - match: "Tech Lead Journal"
+    display_name: "Tech Lead Journal"
+    category: chinese
+    language: zh
+    max_episodes_per_run: 2
+    notes: "Bilingual EN/ZH — routing to chinese feed by preference."
+
+  - match: "声动早咖啡"
+    display_name: "声动早咖啡"
+    category: chinese
+    language: zh
+    max_episodes_per_run: 3
+
+  - match: "硅谷101"
+    display_name: "硅谷101"
+    category: chinese
+    language: zh
+    max_episodes_per_run: 2
+    notes: "Silicon Valley focused Mandarin podcast."
