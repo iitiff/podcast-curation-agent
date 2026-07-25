@@ -114,17 +114,35 @@ topic_exclusions:
 # —— Guest watchlist —————————————————————————————————————
 # Episodes featuring any of these guests receive a relevance boost.
 guest_watchlist:
+  # Big Tech / AI CEOs
   - "Sam Altman"
   - "Satya Nadella"
+  - "Dario Amodei"
+  - "Demis Hassabis"
+  - "Jensen Huang"
+  - "Sundar Pichai"
+  # Retail / eCommerce executives
   - "Doug McMillon"
   - "John Furner"
   - "Brian Cornell"
+  - "Ron Vachris"          # Costco CEO
   - "Tobias Lütke"
   - "Fidji Simo"
+  - "Leanne Fremar"
+  - "Nate Faust"
+  # Product / strategy thought leaders
   - "Claire Vo"
   - "Shreyas Doshi"
   - "Gibson Biddle"
   - "Marty Cagan"
+  - "Lenny Rachitsky"
+  - "Julie Zhuo"
+  - "Shyvee Shi"
+  # Investors / analysts
+  - "Benedict Evans"
+  - "Mary Meeker"
+  - "Bill Gurley"
+  - "Sarah Tavel"
 
 # —— Competitor / entity watchlist ——————————————————————————
 # Episodes mentioning these companies receive a relevance boost.
@@ -136,6 +154,7 @@ competitor_watchlist:
   - "Shopify"
   - "Google"
   - "OpenAI"
+  - "Anthropic"
   - "Meta"
   - "Mercado Libre"
   - "Loblaw"
@@ -145,3 +164,5 @@ competitor_watchlist:
   - "TikTok Shop"
   - "Kroger"
   - "Albertsons"
+  - "Perplexity"
+  - "Cursor"

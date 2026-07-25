@@ -19,6 +19,8 @@
 shows:
   - match: "Lenny's Podcast"
     display_name: "Lenny's Podcast"
+    # Substack RSS returns 403 — use the direct feed instead
+    canonical_feed_url: "https://www.lennysnewsletter.com/feed/podcast"
     max_episodes_per_run: 2
     language: en
 
@@ -100,6 +102,8 @@ shows:
 
   - match: "Growth Podcast"
     display_name: "The Growth Podcast"
+    # Substack RSS returns 403 — use direct Apple Podcasts-sourced feed
+    canonical_feed_url: "https://feeds.buzzsprout.com/2115322.rss"
     max_episodes_per_run: 1
 
   - match: "SaaS Podcast"
