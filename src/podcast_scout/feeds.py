@@ -1,6 +1,7 @@
-"""Fetch and parse RSS/Atom podcast feeds into NormalizedEpisode objects."""
+"""RSS/Atom feed fetching and episode extraction."""
 from __future__ import annotations
 
+import asyncio
 import logging
 from datetime import datetime, timedelta, timezone
 from typing import Any
@@ -12,146 +13,157 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from .normalize import Enclosure, NormalizedEpisode, make_guid, parse_duration, utcnow
 from .opml import OPMLFeed
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
+
+
+@retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=20))
+async def fetch_feed_text(url: str, timeout: int = 20) -> str:
+    async with httpx.AsyncClient(timeout=timeout, follow_redirects=True) as client:
+        resp = await client.get(url, headers={"User-Agent": "PodcastScout/0.1 +https://github.com"})
+        resp.raise_for_status()
+        return resp.text
 
 
 def _parse_date(entry: Any) -> datetime:
     for field in ("published_parsed", "updated_parsed"):
-        t = getattr(entry, field, None)
-        if t:
+        val = getattr(entry, field, None)
+        if val:
             try:
-                import calendar
-                ts = calendar.timegm(t)
-                return datetime.fromtimestamp(ts, tz=timezone.utc)
+                return datetime(*val[:6], tzinfo=timezone.utc)
             except Exception:
-                continue
+                pass
     return utcnow()
 
 
 def _extract_enclosure(entry: Any) -> Enclosure | None:
     for enc in getattr(entry, "enclosures", []):
         url = getattr(enc, "href", "") or getattr(enc, "url", "")
-        if url and "audio" in getattr(enc, "type", "audio/"):
+        if url and "audio" in getattr(enc, "type", "audio/mpeg"):
             return Enclosure(
                 url=url,
                 mime_type=getattr(enc, "type", "audio/mpeg"),
                 length=int(getattr(enc, "length", 0) or 0),
             )
-    # Some feeds put audio in media:content
-    for mc in getattr(entry, "media_content", []):
-        url = mc.get("url", "")
-        if url and "audio" in mc.get("type", "audio/"):
-            return Enclosure(url=url, mime_type=mc.get("type", "audio/mpeg"))
     return None
 
 
-def _extract_guests(entry: Any) -> list[str]:
-    """Best-effort guest extraction from tags and title."""
+def _extract_guests(title: str, description: str) -> list[str]:
+    """Heuristic guest extraction from episode title/description."""
     guests: list[str] = []
-    tags = getattr(entry, "tags", []) or []
-    for tag in tags:
-        term = getattr(tag, "term", "") or ""
-        if term and len(term) < 60:
-            guests.append(term)
-    return guests[:10]
+    import re
+    patterns = [
+        r"with ([A-Z][a-z]+ [A-Z][a-z]+)",
+        r"feat\.?\s+([A-Z][a-z]+ [A-Z][a-z]+)",
+        r"featuring ([A-Z][a-z]+ [A-Z][a-z]+)",
+        r"guest[:\s]+([A-Z][a-z]+ [A-Z][a-z]+)",
+    ]
+    for text in (title, description[:500]):
+        for pat in patterns:
+            matches = re.findall(pat, text)
+            guests.extend(matches)
+    return list(dict.fromkeys(guests))[:5]  # dedupe, cap at 5
 
 
-def _find_p20_transcript(entry: Any) -> str:
-    """Look for a Podcasting 2.0 <podcast:transcript> tag."""
-    # feedparser exposes custom namespaces via entry items
-    for key, val in entry.items():
-        if "transcript" in key.lower() and isinstance(val, list):
-            for item in val:
-                url = item.get("url", "") if isinstance(item, dict) else ""
-                if url:
-                    return url
-    return ""
+def parse_feed_entries(
+    feed_text: str,
+    feed_url: str,
+    show_title: str,
+    lookback_cutoff: datetime,
+    max_episodes: int = 3,
+) -> list[NormalizedEpisode]:
+    parsed = feedparser.parse(feed_text)
+    episodes: list[NormalizedEpisode] = []
 
+    # Fall back to feed title if show_title not provided
+    feed_show_title = show_title or parsed.feed.get("title", "Unknown Show")
 
-@retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=20))
-async def fetch_feed_raw(url: str, client: httpx.AsyncClient) -> str:
-    resp = await client.get(url, follow_redirects=True)
-    resp.raise_for_status()
-    return resp.text
+    for entry in parsed.entries:
+        pub_date = _parse_date(entry)
+        if pub_date < lookback_cutoff:
+            continue
+
+        original_guid = entry.get("id") or entry.get("guid") or entry.get("link", "")
+        if not original_guid:
+            continue
+
+        guid = make_guid(feed_url, original_guid)
+        title = entry.get("title", "Untitled")
+        desc = entry.get("summary") or entry.get("description") or ""
+        duration_raw = entry.get("itunes_duration") or ""
+        enclosure = _extract_enclosure(entry)
+        ep_url = entry.get("link", "")
+        image = (
+            entry.get("image", {}).get("href", "")
+            or parsed.feed.get("image", {}).get("href", "")
+        )
+        # Podcasting 2.0 transcript tag
+        transcript_url = ""
+        for link in entry.get("links", []):
+            if "transcript" in link.get("rel", "").lower():
+                transcript_url = link.get("href", "")
+                break
+
+        episodes.append(
+            NormalizedEpisode(
+                guid=guid,
+                source_feed_url=feed_url,
+                original_guid=original_guid,
+                show_title=feed_show_title,
+                episode_title=title,
+                description=desc[:2000],
+                published=pub_date,
+                duration_seconds=parse_duration(duration_raw),
+                guests=_extract_guests(title, desc),
+                episode_url=ep_url,
+                enclosure=enclosure,
+                image_url=image,
+                transcript_url=transcript_url,
+                show_notes_html=desc,
+            )
+        )
+        if len(episodes) >= max_episodes:
+            break
+
+    return episodes
 
 
 async def fetch_episodes_from_feed(
     feed: OPMLFeed,
     lookback_days: int,
-    max_episodes: int,
-    client: httpx.AsyncClient,
-) -> list[NormalizedEpisode]:
-    """Fetch and normalize episodes from a single RSS feed."""
+    max_episodes: int = 3,
+) -> tuple[list[NormalizedEpisode], str | None]:
+    """Fetch and parse episodes from a single feed. Returns (episodes, error_msg)."""
     cutoff = utcnow() - timedelta(days=lookback_days)
-    episodes: list[NormalizedEpisode] = []
-
     try:
-        raw = await fetch_feed_raw(feed.xml_url, client)
-    except Exception as exc:
-        logger.warning("Failed to fetch feed %s: %s", feed.xml_url, exc)
-        return []
-
-    try:
-        parsed = feedparser.parse(raw)
-    except Exception as exc:
-        logger.warning("Failed to parse feed %s: %s", feed.xml_url, exc)
-        return []
-
-    show_title = (
-        getattr(parsed.feed, "title", "") or feed.title or "Unknown Show"
-    ).strip()
-    show_image = getattr(parsed.feed, "image", {}).get("href", "") or ""
-
-    count = 0
-    for entry in parsed.entries:
-        if count >= max_episodes:
-            break
-
-        pub_date = _parse_date(entry)
-        if pub_date < cutoff:
-            continue
-
-        original_guid = (
-            getattr(entry, "id", "")
-            or getattr(entry, "guid", "")
-            or getattr(entry, "link", "")
-            or f"{feed.xml_url}#{entry.get('title', count)}"
+        text = await fetch_feed_text(feed.xml_url)
+        episodes = parse_feed_entries(
+            text, feed.xml_url, feed.title, cutoff, max_episodes
         )
-        guid = make_guid(feed.xml_url, original_guid)
+        return episodes, None
+    except Exception as exc:
+        log.warning("Feed fetch failed for %s: %s", feed.title, exc)
+        return [], str(exc)
 
-        enclosure = _extract_enclosure(entry)
-        duration_raw = (
-            getattr(entry, "itunes_duration", None)
-            or getattr(entry, "duration", None)
-        )
-        description = (
-            getattr(entry, "summary", "")
-            or getattr(entry, "description", "")
-            or ""
-        )[:5000]
 
-        episodes.append(
-            NormalizedEpisode(
-                guid=guid,
-                source_feed_url=feed.xml_url,
-                original_guid=original_guid,
-                show_title=show_title,
-                episode_title=(
-                    getattr(entry, "title", "Untitled Episode") or "Untitled Episode"
-                ).strip(),
-                description=description,
-                published=pub_date,
-                duration_seconds=parse_duration(str(duration_raw) if duration_raw else None),
-                guests=_extract_guests(entry),
-                keywords=[t.get("term", "") for t in getattr(entry, "tags", []) if isinstance(t, dict)][:15],
-                episode_url=getattr(entry, "link", "") or "",
-                enclosure=enclosure,
-                image_url=getattr(entry, "image", {}).get("href", "") or show_image,
-                transcript_url=_find_p20_transcript(entry),
-                show_notes_html=description,
+async def fetch_all_feeds(
+    feeds: list[OPMLFeed],
+    lookback_days: int,
+    max_episodes_per_feed: int = 3,
+    concurrency: int = 8,
+) -> tuple[list[NormalizedEpisode], dict[str, str]]:
+    """Fetch all feeds concurrently. Returns (all_episodes, {feed_title: error})."""
+    semaphore = asyncio.Semaphore(concurrency)
+    errors: dict[str, str] = {}
+    all_episodes: list[NormalizedEpisode] = []
+
+    async def bounded_fetch(feed: OPMLFeed) -> None:
+        async with semaphore:
+            episodes, err = await fetch_episodes_from_feed(
+                feed, lookback_days, max_episodes_per_feed
             )
-        )
-        count += 1
+            if err:
+                errors[feed.title] = err
+            all_episodes.extend(episodes)
 
-    logger.info("Fetched %d episodes from %s", len(episodes), show_title)
-    return episodes
+    await asyncio.gather(*[bounded_fetch(f) for f in feeds])
+    return all_episodes, errors

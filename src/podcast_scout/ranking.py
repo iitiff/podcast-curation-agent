@@ -3,240 +3,325 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import TYPE_CHECKING
+from typing import Any
 
 from pydantic import BaseModel, Field
 
+from .config import Preferences
 from .normalize import NormalizedEpisode
+from .providers.base import BaseLLMProvider, LLMMessage, TranscriptResult
 
-if TYPE_CHECKING:
-    from .config import Preferences
-    from .providers.llm import OpenAIProvider
-
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
-class RubricScores(BaseModel):
-    relevance: float = Field(0, ge=0, le=30)
-    novelty: float = Field(0, ge=0, le=15)
-    guest_authority: float = Field(0, ge=0, le=15)
-    actionability: float = Field(0, ge=0, le=15)
-    evidence: float = Field(0, ge=0, le=10)
-    strategic_importance: float = Field(0, ge=0, le=10)
-    learning_value_per_minute: float = Field(0, ge=0, le=5)
-    # Penalties (stored as positive numbers, subtracted)
-    penalty_repetition: float = Field(0, ge=0, le=15)
-    penalty_promotional: float = Field(0, ge=0, le=15)
-    penalty_weak_evidence: float = Field(0, ge=0, le=10)
-    penalty_low_confidence: float = Field(0, ge=0, le=15)
-    penalty_motivational: float = Field(0, ge=0, le=10)
-    penalty_low_relevance: float = Field(0, ge=0, le=20)
-    boundary_override: float = Field(0, ge=-5, le=5)
-    override_justification: str = ""
+class RubricScore(BaseModel):
+    relevance: float = 0        # 0-30
+    novelty: float = 0          # 0-15
+    guest_authority: float = 0  # 0-15
+    actionability: float = 0    # 0-15
+    evidence: float = 0         # 0-10
+    strategic_importance: float = 0  # 0-10
+    learning_per_minute: float = 0   # 0-5
+    # Penalties (negative values)
+    repetition_penalty: float = 0    # up to -15
+    generic_penalty: float = 0       # up to -15
+    weak_evidence_penalty: float = 0 # up to -10
+    confidence_penalty: float = 0    # up to -15
+    motivational_penalty: float = 0  # up to -10
+    relevance_penalty: float = 0     # up to -20
 
     @property
     def total(self) -> float:
-        raw = (
-            self.relevance
-            + self.novelty
-            + self.guest_authority
-            + self.actionability
-            + self.evidence
-            + self.strategic_importance
-            + self.learning_value_per_minute
-            - self.penalty_repetition
-            - self.penalty_promotional
-            - self.penalty_weak_evidence
-            - self.penalty_low_confidence
-            - self.penalty_motivational
-            - self.penalty_low_relevance
+        base = (
+            self.relevance + self.novelty + self.guest_authority
+            + self.actionability + self.evidence
+            + self.strategic_importance + self.learning_per_minute
         )
-        return max(0.0, min(100.0, raw + self.boundary_override))
+        penalties = (
+            self.repetition_penalty + self.generic_penalty
+            + self.weak_evidence_penalty + self.confidence_penalty
+            + self.motivational_penalty + self.relevance_penalty
+        )
+        return max(0.0, min(100.0, base + penalties))
+
+
+class Stage1Result(BaseModel):
+    guid: str
+    score: float
+    reason: str
+    should_deep_process: bool
 
 
 class RankedEpisode(BaseModel):
     episode: NormalizedEpisode
-    stage1_score: float = 0.0
-    scores: RubricScores | None = None
-    final_score: float = 0.0
-    classification: str = "Skip"  # Listen Fully | Read Summary Only | Skip
-    confidence: str = "low"  # high | medium | low
-    why_ranked: str = ""
-    executive_summary: str = ""
+    score: float
+    rubric: RubricScore
+    classification: str  # Listen Fully | Read Summary Only | Skip
+    classification_reason: str = ""
+    evidence_confidence: str = "low"  # high | medium | low
+    summary: str = ""
     key_ideas: list[str] = Field(default_factory=list)
     implications: str = ""
     who_should_listen: str = ""
-    summary_captures: str = ""
+    summary_captures_value: str = ""
     listen_nuance: str = ""
-    skip_reason: str = ""
+    transcript_source: str = "none"
+    tokens_used: int = 0
 
 
-# ───────────────────────── Stage 1: Metadata ranking ─────────────────────────
+class _Stage1LLMOutput(BaseModel):
+    score: float
+    reason: str
+    should_deep_process: bool
 
-def stage1_score(ep: NormalizedEpisode, prefs: "Preferences") -> float:
-    """Fast metadata-based scoring. No LLM calls."""
+
+class _Stage2LLMOutput(BaseModel):
+    rubric: dict[str, float]
+    classification: str
+    classification_reason: str
+    summary: str
+    key_ideas: list[str]
+    implications: str
+    who_should_listen: str
+    summary_captures_value: str
+    listen_nuance: str
+
+
+def _show_prior(show_title: str, prefs: Preferences) -> float:
+    for name, prior in prefs.show_priors.items():
+        if name.lower() in show_title.lower():
+            return prior
+    return 0.5
+
+
+def _is_acquired(show_title: str) -> bool:
+    return "acquired" in show_title.lower()
+
+
+def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Result:
+    """Fast metadata-only score. No LLM call."""
     score = 0.0
+    reasons = []
 
     # Interest keyword matching
     text = f"{ep.show_title} {ep.episode_title} {ep.description}".lower()
     interest_hits = sum(
-        weight
-        for topic, weight in prefs.interests.items()
-        if topic.replace("_", " ") in text or topic.replace("_", "") in text
+        weight for topic, weight in prefs.interests.items()
+        if topic.replace("_", " ") in text
     )
-    score += min(30.0, interest_hits * 8)
+    relevance = min(30.0, interest_hits * 8)
+    score += relevance
+
+    # Show prior boost
+    prior = _show_prior(ep.show_title, prefs)
+    score += prior * 15
+    reasons.append(f"show_prior={prior:.2f}")
 
     # Guest watchlist boost
     for guest in prefs.guest_watchlist:
         if guest.lower() in text:
-            score += 10
+            score += 8
+            reasons.append(f"guest:{guest}")
             break
 
     # Competitor watchlist boost
     competitor_hits = sum(1 for c in prefs.competitor_watchlist if c.lower() in text)
     score += min(10.0, competitor_hits * 3)
 
-    # Show prior
-    show_prior = _lookup_show_prior(ep.show_title, prefs.show_priors)
-    score += show_prior * 15
+    # Duration penalty
+    dur = ep.duration_minutes
+    if dur > 0:
+        if dur < prefs.length.preferred_min_minutes:
+            score -= 5
+        elif dur > prefs.length.hard_max_minutes and not _is_acquired(ep.show_title):
+            score -= 10
 
     # Topic exclusion penalty
     for excl in prefs.topic_exclusions:
         if excl.lower() in text:
             score -= 20
-            break
+            reasons.append(f"excluded_topic:{excl}")
 
-    # Duration fit
-    mins = ep.duration_minutes
-    if mins > 0:
-        if prefs.length.preferred_min_minutes <= mins <= prefs.length.preferred_max_minutes:
-            score += 5
-        elif mins > prefs.length.hard_max_minutes:
-            score -= 10
+    score = max(0.0, min(100.0, score))
+    should_deep = score >= 35 or any(g.lower() in text for g in prefs.guest_watchlist)
 
-    return max(0.0, min(100.0, score))
-
-
-def _lookup_show_prior(show_title: str, priors: dict[str, float]) -> float:
-    title_lower = show_title.lower()
-    for key, val in priors.items():
-        if key.lower() in title_lower or title_lower in key.lower():
-            return val
-    return 0.5
+    return Stage1Result(
+        guid=ep.guid,
+        score=score,
+        reason=", ".join(reasons) or "metadata_baseline",
+        should_deep_process=should_deep,
+    )
 
 
-# ───────────────────────── Stage 2: LLM deep ranking ─────────────────────────
-
-STAGE2_SYSTEM_PROMPT = """You are a podcast ranking assistant for a {role} focused on {focus}.
-Your job is to score a podcast episode using the rubric below and return valid JSON only.
-
-RUBRIC (score each dimension):
-- relevance (0-30): How directly relevant is this to the listener's stated interests?
-- novelty (0-15): Does it contain non-obvious insights or new information?
-- guest_authority (0-15): Does the guest have firsthand authority and direct experience?
-- actionability (0-15): Can a product or retail leader act on what they learn?
-- evidence (0-10): Are claims backed by data, case studies, or concrete examples?
-- strategic_importance (0-10): Is this timely and strategically important right now?
-- learning_value_per_minute (0-5): High value per minute of listening time?
-
-PENALTIES (score each as a positive number to be subtracted):
-- penalty_repetition (0-15): Repeats ideas covered better elsewhere
-- penalty_promotional (0-15): Generic commentary or promotional interview
-- penalty_weak_evidence (0-10): Vague predictions, no supporting evidence
-- penalty_low_confidence (0-15): Based only on title/short description
-- penalty_motivational (0-10): Primarily motivational or personal-development content
-- penalty_low_relevance (0-20): Poor relevance to current priorities
-
-OPTIONAL:
-- boundary_override (-5 to +5): Override score boundary if justified
-- override_justification: Required if boundary_override != 0
-
-Return ONLY this JSON structure, no markdown:
-{{
-  "relevance": 0,
-  "novelty": 0,
-  "guest_authority": 0,
-  "actionability": 0,
-  "evidence": 0,
-  "strategic_importance": 0,
-  "learning_value_per_minute": 0,
-  "penalty_repetition": 0,
-  "penalty_promotional": 0,
-  "penalty_weak_evidence": 0,
-  "penalty_low_confidence": 0,
-  "penalty_motivational": 0,
-  "penalty_low_relevance": 0,
-  "boundary_override": 0,
-  "override_justification": "",
-  "why_ranked": "One sentence.",
-  "executive_summary": "150-300 word summary.",
-  "key_ideas": ["idea 1", "idea 2", "idea 3"],
-  "implications": "Implications for retail/product leaders.",
-  "who_should_listen": "Who benefits most from this episode.",
-  "summary_captures": "What the summary captures vs listening.",
-  "listen_nuance": "What nuance is lost by not listening (for Listen Fully only).",
-  "skip_reason": "One sentence reason if skipped."
-}}"""
-
-
-async def stage2_rank(
+async def stage2_deep_rank(
     ep: NormalizedEpisode,
-    source_text: str,
-    confidence: str,
-    prefs: "Preferences",
-    llm: "OpenAIProvider",
+    transcript: TranscriptResult,
+    prefs: Preferences,
+    llm: BaseLLMProvider,
+    token_budget: int = 3000,
 ) -> RankedEpisode:
-    """Deep LLM-based ranking for top-candidate episodes."""
-    system = STAGE2_SYSTEM_PROMPT.format(
-        role=prefs.persona.role,
-        focus=prefs.persona.focus,
+    """Full LLM-powered ranking with rubric scoring."""
+    persona_ctx = (
+        f"You are ranking podcasts for a {prefs.persona.seniority} {prefs.persona.role} "
+        f"whose focus is: {prefs.persona.focus}. "
+        f"Preferred depth: {prefs.persona.preferred_depth}."
     )
-    user_msg = f"""Show: {ep.show_title}
-Title: {ep.episode_title}
-Published: {ep.published.date()}
-Duration: {ep.duration_minutes:.0f} min
-Guests: {', '.join(ep.guests) or 'Unknown'}
-Evidence confidence: {confidence}
 
-Source text (may be truncated):
-{source_text[:6000]}"""
+    source_text = transcript.text[:6000] if transcript.text else (
+        f"{ep.episode_title}\n\n{ep.description}"
+    )
+    confidence = transcript.confidence
 
+    system_prompt = f"""{persona_ctx}
+
+Score this podcast episode on a 100-point rubric and produce a structured JSON output.
+
+RUBRIC (base points):
+- relevance: 0-30 (how closely does it match the user's interest areas)
+- novelty: 0-15 (new insight, not a rehash)
+- guest_authority: 0-15 (firsthand expertise)
+- actionability: 0-15 (can the user act on this)
+- evidence: 0-10 (data, case studies, concrete examples)
+- strategic_importance: 0-10 (timeliness, competitive relevance)
+- learning_per_minute: 0-5 (density of value)
+
+PENALTIES (negative):
+- repetition_penalty: 0 to -15
+- generic_penalty: 0 to -15
+- weak_evidence_penalty: 0 to -10
+- confidence_penalty: 0 to -15 (use -{15*(1 if confidence=='low' else 5 if confidence=='medium' else 0)} as baseline)
+- motivational_penalty: 0 to -10
+- relevance_penalty: 0 to -20
+
+CLASSIFICATION (based on total score):
+- "Listen Fully" if score >= 75
+- "Read Summary Only" if score >= 50
+- "Skip" if below 50
+You may adjust boundary by up to 5 points with written justification.
+
+NEVER invent specific claims not present in the source text when confidence is low.
+Source confidence: {confidence}
+"""
+
+    user_msg = f"""SHOW: {ep.show_title}
+EPISODE: {ep.episode_title}
+GUESTS: {', '.join(ep.guests) or 'unknown'}
+DURATION: {ep.duration_minutes:.0f} min
+SOURCE TEXT ({confidence} confidence):
+{source_text}
+
+Return JSON with keys: rubric (dict of all rubric+penalty fields), classification, classification_reason,
+summary (150-300 words), key_ideas (list of 2-3 strings), implications, who_should_listen,
+summary_captures_value, listen_nuance."""
+
+    tokens_used = 0
     try:
-        raw = await llm.complete(
+        resp = await llm.complete(
             messages=[
-                {"role": "system", "content": system},
-                {"role": "user", "content": user_msg},
+                LLMMessage(role="system", content=system_prompt),
+                LLMMessage(role="user", content=user_msg),
             ],
-            model=llm.stage2_model,
-            max_tokens=1200,
+            max_tokens=token_budget,
         )
-        data = json.loads(raw)
-        scores = RubricScores.model_validate(data)
+        tokens_used = resp.input_tokens + resp.output_tokens
+        data = json.loads(resp.content)
+        rubric_data = data.get("rubric", {})
+        rubric = RubricScore(**{k: float(v) for k, v in rubric_data.items() if k in RubricScore.model_fields})
+        score = rubric.total
+
+        return RankedEpisode(
+            episode=ep,
+            score=score,
+            rubric=rubric,
+            classification=data.get("classification", _classify(score, prefs)),
+            classification_reason=data.get("classification_reason", ""),
+            evidence_confidence=confidence,
+            summary=data.get("summary", ""),
+            key_ideas=data.get("key_ideas", []),
+            implications=data.get("implications", ""),
+            who_should_listen=data.get("who_should_listen", ""),
+            summary_captures_value=data.get("summary_captures_value", ""),
+            listen_nuance=data.get("listen_nuance", ""),
+            transcript_source=transcript.source,
+            tokens_used=tokens_used,
+        )
     except Exception as exc:
-        logger.warning("Stage 2 ranking failed for '%s': %s", ep.episode_title, exc)
-        scores = RubricScores(penalty_low_confidence=15)
+        log.warning("Stage 2 ranking failed for %s: %s", ep.episode_title, exc)
+        # Fallback: use metadata score
+        s1 = stage1_metadata_score(ep, prefs)
+        rubric = RubricScore(relevance=min(30, s1.score * 0.4))
+        return RankedEpisode(
+            episode=ep,
+            score=s1.score,
+            rubric=rubric,
+            classification=_classify(s1.score, prefs),
+            classification_reason="LLM unavailable; metadata fallback",
+            evidence_confidence="low",
+            summary=ep.description[:300] if ep.description else "Summary unavailable.",
+            transcript_source="none",
+            tokens_used=tokens_used,
+        )
 
-    final = scores.total
-    cfg = prefs.classification
-    if final >= cfg.listen_fully_min_score:
-        classification = "Listen Fully"
-    elif final >= cfg.read_summary_min_score:
-        classification = "Read Summary Only"
-    else:
-        classification = "Skip"
 
-    return RankedEpisode(
-        episode=ep,
-        scores=scores,
-        final_score=final,
-        classification=classification,
-        confidence=confidence,
-        why_ranked=data.get("why_ranked", "") if isinstance(data, dict) else "",
-        executive_summary=data.get("executive_summary", "") if isinstance(data, dict) else "",
-        key_ideas=data.get("key_ideas", []) if isinstance(data, dict) else [],
-        implications=data.get("implications", "") if isinstance(data, dict) else "",
-        who_should_listen=data.get("who_should_listen", "") if isinstance(data, dict) else "",
-        summary_captures=data.get("summary_captures", "") if isinstance(data, dict) else "",
-        listen_nuance=data.get("listen_nuance", "") if isinstance(data, dict) else "",
-        skip_reason=data.get("skip_reason", "") if isinstance(data, dict) else "",
-    )
+def _classify(score: float, prefs: Preferences) -> str:
+    if score >= prefs.classification.listen_fully_min_score:
+        return "Listen Fully"
+    if score >= prefs.classification.read_summary_min_score:
+        return "Read Summary Only"
+    return "Skip"
+
+
+def build_daily_queue(
+    ranked: list[RankedEpisode],
+    max_minutes: float,
+    max_listen_fully: int,
+    max_read_summary: int,
+    max_outside: int,
+) -> tuple[list[RankedEpisode], list[RankedEpisode]]:
+    """Split ranked episodes into (queued_for_rss, email_only).
+    Acquired episodes are always queued regardless of time budget.
+    Returns (rss_queue, email_only).
+    """
+    sorted_eps = sorted(ranked, key=lambda r: r.score, reverse=True)
+
+    rss_queue: list[RankedEpisode] = []
+    email_only: list[RankedEpisode] = []
+    total_minutes = 0.0
+    listen_count = 0
+    summary_count = 0
+    outside_count = 0
+
+    for r in sorted_eps:
+        if r.classification == "Skip":
+            continue  # silently dropped
+
+        is_acquired = _is_acquired(r.episode.show_title)
+        dur = r.episode.duration_minutes or 30  # default 30 min if unknown
+        is_outside = r.episode.is_outside_feed
+
+        # Check caps
+        if r.classification == "Listen Fully" and listen_count >= max_listen_fully:
+            email_only.append(r)
+            continue
+        if r.classification == "Read Summary Only" and summary_count >= max_read_summary:
+            email_only.append(r)
+            continue
+        if is_outside and outside_count >= max_outside:
+            email_only.append(r)
+            continue
+
+        # Time budget (Acquired bypasses)
+        if not is_acquired and total_minutes + dur > max_minutes:
+            email_only.append(r)
+            continue
+
+        rss_queue.append(r)
+        total_minutes += dur if not is_acquired else 0  # don't count Acquired against budget
+        if r.classification == "Listen Fully":
+            listen_count += 1
+        elif r.classification == "Read Summary Only":
+            summary_count += 1
+        if is_outside:
+            outside_count += 1
+
+    return rss_queue, email_only
