@@ -1,0 +1,89 @@
+name: Daily Podcast Scout
+
+on:
+  schedule:
+    # Run Mon-Fri at 05:00 UTC (evening AU time)
+    - cron: '0 5 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: 'Override lookback window (days)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Dry run (no writes/email)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh && echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run scout
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_INDEX_KEY: ${{ secrets.PODCAST_INDEX_KEY }}
+          PODCAST_INDEX_SECRET: ${{ secrets.PODCAST_INDEX_SECRET }}
+          WEB_SEARCH_API_KEY: ${{ secrets.WEB_SEARCH_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_TO: ${{ secrets.SMTP_TO }}
+          PAGES_BASE_URL: ${{ secrets.PAGES_BASE_URL }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.lookback_days }}" != "" ]; then
+            ARGS="$ARGS --lookback ${{ inputs.lookback_days }}"
+          fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          uv run podcast-scout run $ARGS
+
+      - name: Commit updated state
+        if: "!inputs.dry_run"
+        run: |
+          git config user.name "podcast-scout[bot]"
+          git config user.email "podcast-scout[bot]@users.noreply.github.com"
+          git add data/ public/ || true
+          git diff --cached --quiet || git commit -m "chore: update state and public feed [skip ci]"
+          git push
+
+      - name: Setup Pages
+        if: "!inputs.dry_run"
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        if: "!inputs.dry_run"
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public/
+
+      - id: deploy
+        name: Deploy to GitHub Pages
+        if: "!inputs.dry_run"
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Podcast Scout — {{ run_date }}</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 800px; margin: 0 auto; padding: 24px; color: #1a1a1a; }
+  h1 { font-size: 24px; border-bottom: 2px solid #eee; padding-bottom: 12px; }
+  h2 { font-size: 18px; margin: 32px 0 8px; color: #111; }
+  .ep { border-bottom: 1px solid #eee; padding: 16px 0; }
+  .ep-meta { font-size: 12px; color: #888; margin: 4px 0; }
+  .ep-title { font-size: 16px; font-weight: 600; }
+  .ep-summary { font-size: 14px; color: #444; margin-top: 8px; line-height: 1.6; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-left: 8px; }
+  .listen { background: #e8f5e9; color: #2e7d32; }
+  .summary { background: #e3f2fd; color: #1565c0; }
+  .outside { background: #fff3e0; color: #e65100; }
+  .key-ideas { margin: 8px 0; padding-left: 20px; font-size: 14px; color: #333; }
+  .score { color: #888; font-size: 13px; }
+  a.listen-link { color: #0066cc; font-size: 13px; }
+  .synthesis { background: #f9f9f9; border-left: 3px solid #ccc; padding: 16px; margin: 16px 0; border-radius: 4px; }
+  .synthesis h3 { margin: 0 0 8px; font-size: 15px; }
+  .meta-footer { font-size: 11px; color: #bbb; margin-top: 40px; border-top: 1px solid #eee; padding-top: 12px; }
+  .feed-links { background: #f5f5f5; padding: 12px 16px; border-radius: 6px; font-size: 13px; margin: 16px 0; }
+</style>
+</head>
+<body>
+<h1>🎧 Podcast Scout — {{ run_date }}</h1>
+
+{% if feed_url %}
+<div class="feed-links">
+  📲 <strong>Add to Pocket Casts:</strong>
+  <a href="{{ feed_url }}">Listen Feed</a>
+  {% if all_feed_url %} | <a href="{{ all_feed_url }}">All Feed (summaries too)</a>{% endif %}
+</div>
+{% endif %}
+
+{% if queued %}
+<h2>🎧 In Your Queue Today ({{ queued|length }} episodes)</h2>
+{% for r in queued %}
+<div class="ep">
+  <div class="ep-meta">
+    {{ r.episode.show_title }}
+    {% if r.classification == 'Listen Fully' %}<span class="badge listen">Listen Fully</span>{% else %}<span class="badge summary">Read Summary</span>{% endif %}
+    {% if r.episode.is_outside_feed %}<span class="badge outside">🌐 Outside</span>{% endif %}
+  </div>
+  <div class="ep-title">
+    {% if r.episode.episode_url %}<a href="{{ r.episode.episode_url }}" style="color:#1a1a1a;text-decoration:none">{{ r.episode.episode_title }}</a>{% else %}{{ r.episode.episode_title }}{% endif %}
+    <span class="score">— {{ r.score|round|int }}/100</span>
+  </div>
+  {% if r.episode.duration_seconds %}
+  <div class="ep-meta">⏱ {{ (r.episode.duration_seconds / 60)|round|int }} min | Confidence: {{ r.evidence_confidence }}</div>
+  {% endif %}
+  {% if r.summary %}<div class="ep-summary">{{ r.summary }}</div>{% endif %}
+  {% if r.key_ideas %}
+  <ul class="key-ideas">
+    {% for idea in r.key_ideas %}<li>{{ idea }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  {% if r.episode.episode_url %}<a class="listen-link" href="{{ r.episode.episode_url }}">▶ Listen / Read original →</a>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if email_only %}
+<h2>📌 Also Good This Week ({{ email_only|length }})</h2>
+{% for r in email_only %}
+<div class="ep">
+  <div class="ep-meta">{{ r.episode.show_title }}</div>
+  <div class="ep-title">
+    {% if r.episode.episode_url %}<a href="{{ r.episode.episode_url }}" style="color:#555;text-decoration:none">{{ r.episode.episode_title }}</a>{% else %}{{ r.episode.episode_title }}{% endif %}
+    <span class="score">— {{ r.score|round|int }}/100</span>
+  </div>
+  {% if r.summary %}<div class="ep-summary">{{ r.summary[:200] }}...</div>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if synthesis %}
+<h2>📊 Weekly Synthesis</h2>
+<div class="synthesis">
+  {% if synthesis.major_themes %}
+  <h3>Major Themes</h3>
+  <ul>{% for t in synthesis.major_themes %}<li>{{ t }}</li>{% endfor %}</ul>
+  {% endif %}
+  {% if synthesis.weak_signal %}<p><strong>Weak Signal:</strong> {{ synthesis.weak_signal }}</p>{% endif %}
+  {% if synthesis.overhyped_belief %}<p><strong>Overhyped:</strong> {{ synthesis.overhyped_belief }}</p>{% endif %}
+  {% if synthesis.retailer_implications %}<p><strong>Retailer Implications:</strong> {{ synthesis.retailer_implications }}</p>{% endif %}
+  {% if synthesis.product_ideas %}
+  <h3>Product Ideas</h3>
+  <ul>{% for idea in synthesis.product_ideas %}<li>{{ idea }}</li>{% endfor %}</ul>
+  {% endif %}
+  {% if synthesis.synthesis_note %}<p class="score">{{ synthesis.synthesis_note }}</p>{% endif %}
+</div>
+{% endif %}
+
+<div class="meta-footer">Generated {{ generated_at }} by <a href="https://github.com/iitiff/podcast-curation-agent">podcast-curation-agent</a></div>
+</body>
+</html>

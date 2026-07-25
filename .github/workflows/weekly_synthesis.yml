@@ -1,0 +1,58 @@
+name: Weekly Synthesis
+
+on:
+  schedule:
+    # Run every Friday at 06:00 UTC
+    - cron: '0 6 * * 5'
+  workflow_dispatch:
+
+jobs:
+  synthesis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh && echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run scout with synthesis
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_INDEX_KEY: ${{ secrets.PODCAST_INDEX_KEY }}
+          PODCAST_INDEX_SECRET: ${{ secrets.PODCAST_INDEX_SECRET }}
+          WEB_SEARCH_API_KEY: ${{ secrets.WEB_SEARCH_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_TO: ${{ secrets.SMTP_TO }}
+          PAGES_BASE_URL: ${{ secrets.PAGES_BASE_URL }}
+        run: uv run podcast-scout run --synthesis
+
+      - name: Commit updated state
+        run: |
+          git config user.name "podcast-scout[bot]"
+          git config user.email "podcast-scout[bot]@users.noreply.github.com"
+          git add data/ public/ || true
+          git diff --cached --quiet || git commit -m "chore: weekly synthesis state update [skip ci]"
+          git push
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public/
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
