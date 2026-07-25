@@ -1,185 +1,121 @@
-"""RSS 2.0 feed generation for listen.xml and all.xml."""
+"""RSS 2.0 feed generator for Pocket Casts-compatible output."""
 from __future__ import annotations
 
+import hashlib
 import html
-import logging
 from datetime import datetime, timezone
-from pathlib import Path
-from xml.etree import ElementTree as ET
+from xml.etree.ElementTree import Element, SubElement, tostring, indent
 
 from .config import Preferences
 from .normalize import utcnow
 from .ranking import RankedEpisode
 from .state import StateManager
 
-logger = logging.getLogger(__name__)
-
-NS = {
-    "atom": "http://www.w3.org/2005/Atom",
-    "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
-    "content": "http://purl.org/rss/1.0/modules/content/",
-    "podcast": "https://podcastindex.org/namespace/1.0",
+_RSS_NS = {
+    "xmlns:atom": "http://www.w3.org/2005/Atom",
+    "xmlns:itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+    "xmlns:content": "http://purl.org/rss/1.0/modules/content/",
+    "version": "2.0",
 }
 
-for prefix, uri in NS.items():
-    ET.register_namespace(prefix, uri)
+
+def _e(text: str) -> str:
+    """XML-safe escape."""
+    return html.escape(str(text), quote=True)
 
 
-def _rfc822(dt: datetime) -> str:
-    return dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
+def _prefix(r: RankedEpisode, rank: int | None = None) -> str:
+    if r.episode.is_outside_feed:
+        outside = "🌐 OUTSIDE — "
+    else:
+        outside = ""
+    if r.classification == "Listen Fully":
+        num = f" #{rank}" if rank else ""
+        return f"{outside}🎧 LISTEN{num} — {r.episode.show_title}: {r.episode.episode_title}"
+    return f"{outside}📖 SUMMARY — {r.episode.show_title}: {r.episode.episode_title}"
 
 
-def _safe(text: str) -> str:
-    return html.escape(text or "", quote=False)
+def _show_notes_html(r: RankedEpisode) -> str:
+    lines = [
+        f"<p><strong>Score: {r.score:.0f}/100</strong> | "
+        f"{r.classification} | Confidence: {r.evidence_confidence}</p>",
+        f"<p><em>{_e(r.classification_reason)}</em></p>",
+        f"<h3>Summary</h3><p>{_e(r.summary)}</p>",
+    ]
+    if r.key_ideas:
+        lines.append("<h3>Key Ideas</h3><ul>")
+        for idea in r.key_ideas:
+            lines.append(f"<li>{_e(idea)}</li>")
+        lines.append("</ul>")
+    if r.implications:
+        lines.append(f"<h3>Implications</h3><p>{_e(r.implications)}</p>")
+    if r.episode.episode_url:
+        lines.append(f'<p><a href="{_e(r.episode.episode_url)}">Listen / Read original</a></p>')
+    return "".join(lines)
 
 
-def _episode_label(ep: RankedEpisode, rank: int | None = None) -> str:
-    prefix = {
-        "Listen Fully": f"\U0001f3a7 LISTEN",
-        "Read Summary Only": "\U0001f4d6 SUMMARY",
-    }.get(ep.classification, "\u23ed\ufe0f SKIP")
-    if ep.episode.is_outside_feed:
-        prefix += " \U0001f310 OUTSIDE"
-    rank_str = f" #{rank}" if rank and ep.classification == "Listen Fully" else ""
-    return f"{prefix}{rank_str} \u2014 {ep.episode.show_title}: {ep.episode.episode_title}"
-
-
-def _build_channel(
-    root: ET.Element,
-    feed_title: str,
-    feed_desc: str,
+def build_feed(
+    episodes: list[RankedEpisode],
     prefs: Preferences,
-    self_url: str,
-    artwork_url: str,
-) -> ET.Element:
-    channel = ET.SubElement(root, "channel")
-    ET.SubElement(channel, "title").text = feed_title
-    ET.SubElement(channel, "description").text = feed_desc
-    ET.SubElement(channel, "language").text = prefs.feed.language
-    ET.SubElement(channel, "lastBuildDate").text = _rfc822(utcnow())
-    ET.SubElement(channel, "{http://www.itunes.com/dtds/podcast-1.0.dtd}explicit").text = "false"
-    ET.SubElement(channel, "{http://www.itunes.com/dtds/podcast-1.0.dtd}block").text = "Yes"
-    if artwork_url:
-        img = ET.SubElement(channel, "image")
-        ET.SubElement(img, "url").text = artwork_url
-        ET.SubElement(img, "title").text = feed_title
-        it_img = ET.SubElement(
-            channel, "{http://www.itunes.com/dtds/podcast-1.0.dtd}image"
-        )
-        it_img.set("href", artwork_url)
-    if self_url:
-        atom_link = ET.SubElement(
-            channel, "{http://www.w3.org/2005/Atom}link"
-        )
-        atom_link.set("rel", "self")
-        atom_link.set("type", "application/rss+xml")
-        atom_link.set("href", self_url)
-    if prefs.feed.owner_name:
-        owner = ET.SubElement(channel, "{http://www.itunes.com/dtds/podcast-1.0.dtd}owner")
-        ET.SubElement(owner, "{http://www.itunes.com/dtds/podcast-1.0.dtd}name").text = prefs.feed.owner_name
-    return channel
-
-
-def _add_item(channel: ET.Element, ep: RankedEpisode, label: str) -> None:
-    enclosure = ep.episode.enclosure
-    if enclosure is None:
-        logger.warning("Skipping '%s' — no enclosure", ep.episode.episode_title)
-        return
-
-    item = ET.SubElement(channel, "item")
-    ET.SubElement(item, "title").text = _safe(label)
-    ET.SubElement(item, "guid").text = ep.episode.guid
-    ET.SubElement(item, "pubDate").text = _rfc822(utcnow())
-    ET.SubElement(item, "link").text = ep.episode.episode_url or ""
-
-    enc_el = ET.SubElement(item, "enclosure")
-    enc_el.set("url", enclosure.url)
-    enc_el.set("type", enclosure.mime_type)
-    enc_el.set("length", str(enclosure.length))
-
-    summary_html = f"""
-<p><strong>Score:</strong> {ep.final_score:.0f}/100 &mdash;
-<strong>Classification:</strong> {ep.classification} &mdash;
-<strong>Confidence:</strong> {ep.confidence}</p>
-<p><strong>Why ranked:</strong> {_safe(ep.why_ranked)}</p>
-<h3>Executive Summary</h3>
-<p>{_safe(ep.executive_summary)}</p>
-{('<h3>Key Ideas</h3><ul>' + ''.join(f'<li>{_safe(i)}</li>' for i in ep.key_ideas) + '</ul>') if ep.key_ideas else ''}
-{('<h3>Implications</h3><p>' + _safe(ep.implications) + '</p>') if ep.implications else ''}
-<p><a href="{ep.episode.episode_url}">Listen to original episode</a></p>
-""".strip()
-    ET.SubElement(
-        item, "{http://purl.org/rss/1.0/modules/content/}encoded"
-    ).text = summary_html
-    ET.SubElement(
-        item, "{http://www.itunes.com/dtds/podcast-1.0.dtd}summary"
-    ).text = ep.executive_summary[:4000] if ep.executive_summary else ""
-    if ep.episode.duration_seconds:
-        ET.SubElement(
-            item, "{http://www.itunes.com/dtds/podcast-1.0.dtd}duration"
-        ).text = str(ep.episode.duration_seconds)
-    if ep.episode.image_url:
-        img_el = ET.SubElement(
-            item, "{http://www.itunes.com/dtds/podcast-1.0.dtd}image"
-        )
-        img_el.set("href", ep.episode.image_url)
-
-
-def generate_feeds(
-    ranked: list[RankedEpisode],
-    prefs: Preferences,
-    public_dir: Path,
+    feed_type: str,  # "listen" | "all"
+    base_url: str,
     state: StateManager,
-    retention_days: int = 90,
-    artwork_url: str = "",
-) -> None:
-    """Write listen.xml (Listen Fully only) and all.xml (Listen + Summary)."""
-    base_url = prefs.feed.base_url.rstrip("/")
-    feed_title = prefs.feed.title
-    feed_desc = prefs.feed.description
+    existing_items: list[dict] | None = None,
+) -> str:
+    """Build RSS 2.0 XML string."""
+    rss = Element("rss", attrib=_RSS_NS)
+    channel = SubElement(rss, "channel")
 
-    # Build listen.xml — Listen Fully with enclosures only
-    listen_root = ET.Element("rss", version="2.0")
-    listen_channel = _build_channel(
-        listen_root, feed_title, feed_desc, prefs,
-        self_url=f"{base_url}/listen.xml" if base_url else "",
-        artwork_url=artwork_url,
-    )
+    feed_url = f"{base_url.rstrip('/')}/{'listen.xml' if feed_type == 'listen' else 'all.xml'}"
 
-    # Build all.xml
-    all_root = ET.Element("rss", version="2.0")
-    all_channel = _build_channel(
-        all_root, f"{feed_title} — All", feed_desc, prefs,
-        self_url=f"{base_url}/all.xml" if base_url else "",
-        artwork_url=artwork_url,
-    )
+    SubElement(channel, "title").text = prefs.feed.title
+    SubElement(channel, "description").text = prefs.feed.description
+    SubElement(channel, "link").text = base_url or "https://example.com"
+    SubElement(channel, "language").text = prefs.feed.language
+    SubElement(channel, "lastBuildDate").text = utcnow().strftime("%a, %d %b %Y %H:%M:%S +0000")
+    SubElement(channel, "itunes:explicit").text = "false"
+    SubElement(channel, "itunes:block").text = "Yes"
+    atom_link = SubElement(channel, "atom:link")
+    atom_link.set("href", feed_url)
+    atom_link.set("rel", "self")
+    atom_link.set("type", "application/rss+xml")
+    if prefs.feed.owner_name:
+        owner = SubElement(channel, "itunes:owner")
+        SubElement(owner, "itunes:name").text = prefs.feed.owner_name
+        if prefs.feed.owner_email:
+            SubElement(owner, "itunes:email").text = prefs.feed.owner_email
+
+    # Filter by type
+    if feed_type == "listen":
+        items = [r for r in episodes if r.classification == "Listen Fully" and r.episode.enclosure]
+    else:
+        items = [r for r in episodes if r.classification in ("Listen Fully", "Read Summary Only")]
 
     listen_rank = 1
-    for ep in ranked:
-        if ep.classification == "Skip":
-            continue
-        label = _episode_label(ep, rank=listen_rank if ep.classification == "Listen Fully" else None)
-        if ep.classification == "Listen Fully":
-            _add_item(listen_channel, ep, label)
+    for r in items:
+        item = SubElement(channel, "item")
+        rank = listen_rank if r.classification == "Listen Fully" else None
+        SubElement(item, "title").text = _prefix(r, rank)
+        if r.classification == "Listen Fully":
             listen_rank += 1
-        _add_item(all_channel, ep, label)
-        state.add_published(ep.episode.guid)
+        SubElement(item, "link").text = r.episode.episode_url or ""
+        SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
+        pub_date = r.episode.published.strftime("%a, %d %b %Y %H:%M:%S +0000")
+        SubElement(item, "pubDate").text = pub_date
+        SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
+        notes = SubElement(item, "content:encoded")
+        notes.text = _show_notes_html(r)
+        desc = SubElement(item, "description")
+        desc.text = r.summary or r.episode.description[:300]
+        if r.episode.enclosure:
+            enc = SubElement(item, "enclosure")
+            enc.set("url", r.episode.enclosure.url)
+            enc.set("type", r.episode.enclosure.mime_type)
+            enc.set("length", str(r.episode.enclosure.length))
+        if r.episode.image_url:
+            img = SubElement(item, "itunes:image")
+            img.set("href", r.episode.image_url)
+        state.add_published(r.episode.guid)
 
-    public_dir.mkdir(parents=True, exist_ok=True)
-    _write_xml(listen_root, public_dir / "listen.xml")
-    _write_xml(all_root, public_dir / "all.xml")
-    logger.info("RSS feeds written to %s", public_dir)
-
-
-def _write_xml(root: ET.Element, path: Path) -> None:
-    tree = ET.ElementTree(root)
-    ET.indent(tree, space="  ")
-    with path.open("wb") as f:
-        f.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
-        tree.write(f, encoding="unicode", xml_declaration=False)
-    # Validate by re-parsing
-    try:
-        ET.parse(path)  # noqa: S314
-        logger.debug("XML validation passed: %s", path)
-    except ET.ParseError as exc:
-        logger.error("Generated XML is invalid at %s: %s", path, exc)
+    indent(rss, space="  ")
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + tostring(rss, encoding="unicode")

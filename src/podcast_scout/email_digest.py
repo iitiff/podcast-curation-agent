@@ -1,155 +1,145 @@
-"""Daily email digest — sends a summary of all scored episodes via SMTP."""
+"""Daily email digest sender via SMTP."""
 from __future__ import annotations
 
 import logging
 import smtplib
-import ssl
-from datetime import date
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from pathlib import Path
-from typing import Any
-
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from typing import NamedTuple
 
 from .ranking import RankedEpisode
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
-class SMTPConfig:
-    def __init__(
-        self,
-        host: str,
-        port: int,
-        user: str,
-        password: str,
-        to_address: str,
-        use_tls: bool = True,
-    ) -> None:
-        self.host = host
-        self.port = port
-        self.user = user
-        self.password = password
-        self.to_address = to_address
-        self.use_tls = use_tls
+class SMTPConfig(NamedTuple):
+    host: str
+    port: int
+    user: str
+    password: str
+    to: str
+    from_addr: str = ""
+    use_tls: bool = True
 
 
-def _build_html_digest(
-    ranked: list[RankedEpisode],
+def _duration_str(minutes: float) -> str:
+    if minutes <= 0:
+        return "unknown length"
+    h = int(minutes // 60)
+    m = int(minutes % 60)
+    return f"{h}h {m}m" if h else f"{m}m"
+
+
+def _episode_row_html(r: RankedEpisode, label: str) -> str:
+    ep = r.episode
+    link = ep.episode_url or ep.source_feed_url
+    dur = _duration_str(ep.duration_minutes)
+    score_badge = f"<span style='color:#888;font-size:12px'>Score {r.score:.0f}/100 · {dur}</span>"
+    summary_snippet = (r.summary or ep.description or "")[:200].strip()
+    if summary_snippet:
+        summary_snippet += "..."
+    return f"""
+<tr>
+  <td style='padding:12px 0;border-bottom:1px solid #eee;vertical-align:top'>
+    <div style='font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.5px'>{label}</div>
+    <div style='font-size:16px;font-weight:600;margin:4px 0'>
+      <a href='{link}' style='color:#1a1a1a;text-decoration:none'>{ep.show_title}: {ep.episode_title}</a>
+    </div>
+    <div style='margin:2px 0'>{score_badge}</div>
+    <div style='font-size:14px;color:#444;margin-top:6px;line-height:1.5'>{summary_snippet}</div>
+    <div style='margin-top:6px'><a href='{link}' style='font-size:13px;color:#0066cc'>▶ Listen / Read →</a></div>
+  </td>
+</tr>"""
+
+
+def build_email_html(
+    queued: list[RankedEpisode],
+    email_only: list[RankedEpisode],
     run_date: str,
-    feed_url: str,
-    templates_dir: Path,
+    feed_url: str = "",
 ) -> str:
-    try:
-        env = Environment(
-            loader=FileSystemLoader(str(templates_dir)),
-            autoescape=select_autoescape(["html"]),
-            trim_blocks=True,
-            lstrip_blocks=True,
-        )
-        tmpl = env.get_template("email.html.j2")
-        listen = [e for e in ranked if e.classification == "Listen Fully"]
-        summary_only = [e for e in ranked if e.classification == "Read Summary Only"]
-        outside = [e for e in ranked if e.episode.is_outside_feed and e.classification != "Skip"]
-        acquired = [
-            e for e in ranked
-            if "acquired" in e.episode.show_title.lower()
-            and e.classification != "Skip"
-        ]
-        return tmpl.render(
-            run_date=run_date,
-            listen=listen,
-            summary_only=summary_only,
-            outside=outside,
-            acquired=acquired,
-            feed_url=feed_url,
-        )
-    except Exception as exc:
-        logger.warning("Email template render failed: %s; using plain fallback.", exc)
-        return _build_plain_fallback(ranked, run_date, feed_url)
+    """Build the full HTML email body."""
+    sections: list[str] = []
 
+    if queued:
+        rows = ""
+        for r in queued:
+            if r.classification == "Listen Fully":
+                label = "🎧 In Your Queue"
+            else:
+                label = "📖 In Your Queue (Summary)"
+            if r.episode.is_outside_feed:
+                label = "🌐 Outside Discovery · " + label
+            rows += _episode_row_html(r, label)
+        sections.append(f"""
+<h2 style='font-size:18px;margin:24px 0 8px;color:#111'>🎧 Today\'s Queue ({len(queued)} episodes)</h2>
+<p style='color:#555;font-size:13px;margin:0 0 12px'>These are loaded into your Pocket Casts feed.</p>
+<table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
 
-def _build_plain_fallback(
-    ranked: list[RankedEpisode],
-    run_date: str,
-    feed_url: str,
-) -> str:
-    lines = [f"<h2>Podcast Scout Digest — {run_date}</h2>"]
+    if email_only:
+        # Separate outside vs followed
+        outside = [r for r in email_only if r.episode.is_outside_feed]
+        followed = [r for r in email_only if not r.episode.is_outside_feed]
 
-    sections = [
-        ("\U0001f3a7 In Your Queue", [e for e in ranked if e.classification == "Listen Fully"]),
-        ("\U0001f4d6 Worth Reading", [e for e in ranked if e.classification == "Read Summary Only"]),
-        ("\U0001f310 Outside Your Feed", [e for e in ranked if e.episode.is_outside_feed and e.classification != "Skip"]),
-    ]
+        if followed:
+            rows = "".join(_episode_row_html(r, "📌 Worth Your Attention") for r in followed)
+            sections.append(f"""
+<h2 style='font-size:18px;margin:24px 0 8px;color:#111'>📌 Also Good This Week</h2>
+<p style='color:#555;font-size:13px;margin:0 0 12px'>Scored well but didn\'t fit today\'s 2-hour queue.</p>
+<table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
 
-    for section_title, episodes in sections:
-        if not episodes:
-            continue
-        lines.append(f"<h3>{section_title}</h3><ul>")
-        for ep in episodes:
-            url = ep.episode.episode_url or "#"
-            lines.append(
-                f"<li><strong><a href='{url}'>{ep.episode.show_title}: "
-                f"{ep.episode.episode_title}</a></strong> "
-                f"(Score: {ep.final_score:.0f}, "
-                f"{ep.episode.duration_minutes:.0f} min)<br>"
-                f"{ep.executive_summary[:300]}...</li>"
-            )
-        lines.append("</ul>")
+        if outside:
+            rows = "".join(_episode_row_html(r, "🌐 Outside Discovery") for r in outside)
+            sections.append(f"""
+<h2 style='font-size:18px;margin:24px 0 8px;color:#111'>🌐 Outside Your Feed</h2>
+<p style='color:#555;font-size:13px;margin:0 0 12px'>Discovered beyond your subscriptions.</p>
+<table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
 
+    feed_note = ""
     if feed_url:
-        lines.append(f"<p><a href='{feed_url}'>Open your curated feed in Pocket Casts</a></p>")
-    return "\n".join(lines)
+        feed_note = f"<p style='font-size:12px;color:#999;margin-top:32px'>Pocket Casts feed: <a href='{feed_url}'>{feed_url}</a></p>"
+
+    body = "".join(sections)
+    return f"""<!DOCTYPE html>
+<html><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+</head>
+<body style='font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;max-width:640px;margin:0 auto;padding:24px;color:#1a1a1a'>
+<h1 style='font-size:22px;border-bottom:2px solid #eee;padding-bottom:12px'>Your Podcast Scout — {run_date}</h1>
+{body}
+{feed_note}
+<p style='font-size:11px;color:#bbb;margin-top:40px'>Generated by podcast-curation-agent · <a href='https://github.com/iitiff/podcast-curation-agent' style='color:#bbb'>source</a></p>
+</body></html>"""
 
 
 def send_digest(
-    ranked: list[RankedEpisode],
-    smtp_cfg: SMTPConfig,
-    run_date: str,
-    feed_url: str,
-    templates_dir: Path,
+    smtp: SMTPConfig,
+    subject: str,
+    html_body: str,
+    text_body: str = "",
 ) -> None:
-    """Send the daily digest email. Logs and continues on failure."""
-    # Only send if there's something worth reporting
-    surfaced = [e for e in ranked if e.classification != "Skip"]
-    if not surfaced:
-        logger.info("No episodes to report; skipping email digest.")
-        return
-
-    html_body = _build_html_digest(ranked, run_date, feed_url, templates_dir)
-
-    subject_counts = []
-    listen_count = sum(1 for e in surfaced if e.classification == "Listen Fully")
-    summary_count = sum(1 for e in surfaced if e.classification == "Read Summary Only")
-    outside_count = sum(1 for e in surfaced if e.episode.is_outside_feed)
-    if listen_count:
-        subject_counts.append(f"{listen_count} to listen")
-    if summary_count:
-        subject_counts.append(f"{summary_count} to read")
-    if outside_count:
-        subject_counts.append(f"{outside_count} outside discovery")
-
-    subject = f"Podcast Scout {run_date} — {', '.join(subject_counts) or 'Daily Digest'}"
-
+    from_addr = smtp.from_addr or smtp.user
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
-    msg["From"] = smtp_cfg.user
-    msg["To"] = smtp_cfg.to_address
-    msg.attach(MIMEText(html_body, "html", "utf-8"))
+    msg["From"] = from_addr
+    msg["To"] = smtp.to
+
+    if text_body:
+        msg.attach(MIMEText(text_body, "plain"))
+    msg.attach(MIMEText(html_body, "html"))
 
     try:
-        if smtp_cfg.use_tls:
-            context = ssl.create_default_context()
-            with smtplib.SMTP(smtp_cfg.host, smtp_cfg.port) as server:
+        if smtp.use_tls:
+            with smtplib.SMTP(smtp.host, smtp.port) as server:
                 server.ehlo()
-                server.starttls(context=context)
-                server.login(smtp_cfg.user, smtp_cfg.password)
-                server.sendmail(smtp_cfg.user, smtp_cfg.to_address, msg.as_string())
+                server.starttls()
+                server.login(smtp.user, smtp.password)
+                server.sendmail(from_addr, smtp.to, msg.as_string())
         else:
-            with smtplib.SMTP_SSL(smtp_cfg.host, smtp_cfg.port) as server:
-                server.login(smtp_cfg.user, smtp_cfg.password)
-                server.sendmail(smtp_cfg.user, smtp_cfg.to_address, msg.as_string())
-        logger.info("Digest email sent to %s", smtp_cfg.to_address)
+            with smtplib.SMTP_SSL(smtp.host, smtp.port) as server:
+                server.login(smtp.user, smtp.password)
+                server.sendmail(from_addr, smtp.to, msg.as_string())
+        log.info("Email digest sent to %s", smtp.to)
     except Exception as exc:
-        logger.error("Failed to send digest email: %s", exc)
+        log.error("Failed to send email digest: %s", exc)
+        raise

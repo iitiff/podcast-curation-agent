@@ -1,73 +1,75 @@
-"""Weekly cross-episode synthesis using LLM."""
+"""Weekly cross-episode synthesis (runs on Fridays)."""
 from __future__ import annotations
 
 import json
 import logging
-from typing import TYPE_CHECKING, Any
 
+from pydantic import BaseModel, Field
+
+from .config import Preferences
+from .providers.base import BaseLLMProvider, LLMMessage
 from .ranking import RankedEpisode
 
-if TYPE_CHECKING:
-    from .config import Preferences
-    from .providers.llm import OpenAIProvider
+log = logging.getLogger(__name__)
 
-logger = logging.getLogger(__name__)
 
-SYNTHESIS_PROMPT = """You are a strategic analyst for a senior retail and eCommerce product leader.
-
-Given the following podcast episode summaries from this week, produce a cross-episode synthesis.
-
-Return ONLY valid JSON:
-{{
-  "themes": ["theme 1", "theme 2", "theme 3"],
-  "agreements": "Where credible speakers agree this week.",
-  "disagreements": "Where credible speakers disagree.",
-  "weak_signal": "One emerging weak signal worth watching.",
-  "overhyped": "One potentially overhyped industry belief.",
-  "retailer_implications": "Implications for a large omnichannel retailer like Walmart.",
-  "product_ideas": [
-    "Product idea or experiment 1",
-    "Product idea or experiment 2",
-    "Product idea or experiment 3"
-  ]
-}}"""
+class WeeklySynthesis(BaseModel):
+    major_themes: list[str] = Field(default_factory=list)
+    areas_of_agreement: str = ""
+    areas_of_disagreement: str = ""
+    weak_signal: str = ""
+    overhyped_belief: str = ""
+    retailer_implications: str = ""
+    product_ideas: list[str] = Field(default_factory=list)
+    synthesis_note: str = ""
 
 
 async def generate_synthesis(
-    ranked: list[RankedEpisode],
-    prefs: "Preferences",
-    llm: "OpenAIProvider",
-) -> dict[str, Any]:
-    surfaced = [
-        ep for ep in ranked
-        if ep.classification in ("Listen Fully", "Read Summary Only")
-    ]
-    if not surfaced:
-        return {"themes": [], "agreements": "", "disagreements": "",
-                "weak_signal": "", "overhyped": "", "retailer_implications": "",
-                "product_ideas": []}
+    episodes: list[RankedEpisode],
+    prefs: Preferences,
+    llm: BaseLLMProvider,
+) -> WeeklySynthesis:
+    if not episodes:
+        return WeeklySynthesis(synthesis_note="No episodes processed this week.")
 
-    episode_text = "\n\n".join(
-        f"Show: {ep.episode.show_title}\n"
-        f"Title: {ep.episode.episode_title}\n"
-        f"Score: {ep.final_score:.0f}\n"
-        f"Summary: {ep.executive_summary[:500]}"
-        for ep in surfaced[:8]
-    )
+    summaries = []
+    for r in episodes[:10]:  # cap context
+        summaries.append(
+            f"SHOW: {r.episode.show_title}\n"
+            f"EPISODE: {r.episode.episode_title}\n"
+            f"SCORE: {r.score:.0f}\n"
+            f"SUMMARY: {r.summary[:400]}\n"
+        )
+
+    context = "\n---\n".join(summaries)
+    system = f"""You are a strategic analyst for a {prefs.persona.seniority} {prefs.persona.role}.
+Focus: {prefs.persona.focus}.
+Analyse the week's top podcast episodes and produce a cross-episode synthesis.
+Return valid JSON only."""
+
+    user = f"""EPISODES THIS WEEK:
+{context}
+
+Return JSON with keys:
+- major_themes: list of 3 strings
+- areas_of_agreement: string
+- areas_of_disagreement: string  
+- weak_signal: string (one emerging signal, do not force if evidence is weak)
+- overhyped_belief: string
+- retailer_implications: string (implications for a large omnichannel retailer)
+- product_ideas: list of 3-5 strings
+- synthesis_note: string (any caveats about thin evidence)"""
 
     try:
-        raw = await llm.complete(
+        resp = await llm.complete(
             messages=[
-                {"role": "system", "content": SYNTHESIS_PROMPT},
-                {"role": "user", "content": episode_text},
+                LLMMessage(role="system", content=system),
+                LLMMessage(role="user", content=user),
             ],
-            model=llm.stage2_model,
-            max_tokens=1000,
+            max_tokens=1500,
         )
-        return json.loads(raw)
+        data = json.loads(resp.content)
+        return WeeklySynthesis(**{k: v for k, v in data.items() if k in WeeklySynthesis.model_fields})
     except Exception as exc:
-        logger.warning("Synthesis generation failed: %s", exc)
-        return {"themes": ["Synthesis unavailable this week."],
-                "agreements": "", "disagreements": "",
-                "weak_signal": "", "overhyped": "",
-                "retailer_implications": "", "product_ideas": []}
+        log.warning("Synthesis generation failed: %s", exc)
+        return WeeklySynthesis(synthesis_note=f"Synthesis unavailable: {exc}")
