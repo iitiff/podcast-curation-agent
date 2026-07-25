@@ -26,7 +26,7 @@ jobs:
 
       - name: Run scout with synthesis
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PODCAST_INDEX_KEY: ${{ secrets.PODCAST_INDEX_KEY }}
           PODCAST_INDEX_SECRET: ${{ secrets.PODCAST_INDEX_SECRET }}
           WEB_SEARCH_API_KEY: ${{ secrets.WEB_SEARCH_API_KEY }}
