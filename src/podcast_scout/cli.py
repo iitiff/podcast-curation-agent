@@ -135,7 +135,7 @@ async def _run_pipeline(
         ranked = [
             RankedEpisode(
                 episode=ep,
-                score=(s1 := stage1_metadata_score(ep, prefs)).score,
+                score=s1.score,
                 rubric=RubricScore(),
                 classification=_classify(s1.score, prefs),
                 classification_reason="metadata only (no LLM key)",
