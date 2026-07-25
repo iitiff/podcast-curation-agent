@@ -1,116 +1,116 @@
-# =============================================================================
+# ────────────────────────────────────────────────────────────────────
 # Podcast Scout — Per-Show Configuration Overrides
-# =============================================================================
-# Each entry overrides or supplements the OPML subscription list.
 #
-# Fields (all optional unless noted):
-#   feed_url        : canonical RSS URL to use instead of the OPML entry
-#   name            : display name override
-#   priority        : float 0.5–2.0, overrides preferences.yaml show_prior
-#   enabled         : true/false  (default: true)
-#   language        : preferred language, e.g. "en"
-#   transcript_source: hint for transcript fetcher: auto | podcastindex | webpage | youtube | none
-#   max_episodes_per_run: integer cap (default: from config)
-#   notes           : free-text memo visible in diagnostics
-# =============================================================================
+# Keys are matched against the show title from the OPML (case-insensitive,
+# partial match allowed). The canonical_feed_url field, when set, replaces
+# the URL from the OPML so you can point at a better or more stable feed.
+#
+# Fields (all optional):
+#   canonical_feed_url   – override the feed URL from OPML
+#   display_name         – friendly name used in outputs
+#   priority             – float 0.0–1.0 (default from preferences.yaml show_priors)
+#   enabled              – set false to skip this show entirely
+#   language             – ISO 639-1, e.g. "en"
+#   transcript_source    – auto | p20 | publisher | youtube | none
+#   max_episodes_per_run – integer (default: 3)
+#   notes                – free-form string for your own reference
+# ────────────────────────────────────────────────────────────────────
 
 shows:
-  - name: "Stratechery"
-    feed_url: "https://stratechery.com/feed/podcast/"
-    priority: 1.8
-    language: en
-    notes: "Ben Thompson — subscriber feed; replace feed_url with your authenticated URL"
-
-  - name: "Sharp Tech with Ben Thompson"
-    priority: 1.6
+  - match: "Lenny's Podcast"
+    display_name: "Lenny's Podcast"
+    max_episodes_per_run: 2
     language: en
 
-  - name: "Lenny's Podcast"
-    priority: 1.6
-    language: en
-    transcript_source: webpage
-
-  - name: "How I AI with Claire Vo"
-    priority: 1.7
+  - match: "How I AI"
+    display_name: "How I AI with Claire Vo"
+    max_episodes_per_run: 2
     language: en
 
-  - name: "No Priors"
-    priority: 1.6
-    language: en
+  - match: "Stratechery"
+    display_name: "Stratechery"
+    transcript_source: publisher
+    max_episodes_per_run: 3
+    notes: "Ben Thompson posts full transcripts on stratechery.com for members."
 
-  - name: "Hard Fork"
-    priority: 1.4
-    language: en
+  - match: "Sharp Tech"
+    display_name: "Sharp Tech with Ben Thompson"
+    max_episodes_per_run: 2
 
-  - name: "Retailgentic"
-    priority: 1.8
-    language: en
+  - match: "No Priors"
+    display_name: "No Priors"
+    max_episodes_per_run: 2
 
-  - name: "Future Commerce"
-    priority: 1.6
-    language: en
+  - match: "Hard Fork"
+    display_name: "Hard Fork"
+    max_episodes_per_run: 2
 
-  - name: "Modern Retail Podcast"
-    priority: 1.6
-    language: en
+  - match: "Retailgentic"
+    display_name: "Retailgentic"
+    max_episodes_per_run: 3
 
-  - name: "Behind the Numbers: Reimagining Retail"
-    priority: 1.5
-    language: en
+  - match: "Future Commerce"
+    display_name: "Future Commerce"
+    max_episodes_per_run: 2
 
-  - name: "Acquired"
-    priority: 1.5
-    language: en
+  - match: "Modern Retail"
+    display_name: "Modern Retail Podcast"
+    max_episodes_per_run: 2
+
+  - match: "Behind the Numbers"
+    display_name: "Behind the Numbers: Reimagining Retail"
+    max_episodes_per_run: 3
+
+  - match: "Acquired"
+    display_name: "Acquired"
     max_episodes_per_run: 1
-    notes: "Long-form; cap at 1 per run. Must be clearly on-topic to rank as Listen Fully."
+    notes: "Long-form; cap at 1 per run. Only surfaces when topic is highly relevant."
 
-  - name: "AI + a16z"
-    priority: 1.6
-    language: en
+  - match: "AI + a16z"
+    display_name: "AI + a16z"
+    max_episodes_per_run: 2
 
-  - name: "The a16z Show"
-    priority: 1.5
-    language: en
+  - match: "a16z Show"
+    display_name: "The a16z Show"
+    max_episodes_per_run: 2
 
-  - name: "Decoder"
-    priority: 1.5
-    language: en
-    transcript_source: webpage
-    notes: "The Verge publishes full transcripts at theverge.com"
+  - match: "Decoder"
+    display_name: "Decoder"
+    max_episodes_per_run: 2
 
-  - name: "Jason & Scot Show"
-    priority: 1.5
-    language: en
+  - match: "Jason & Scot"
+    display_name: "Jason & Scot Show"
+    max_episodes_per_run: 2
 
-  - name: "McKinsey on Consumer and Retail"
-    priority: 1.4
-    language: en
+  - match: "McKinsey on Consumer"
+    display_name: "McKinsey on Consumer and Retail"
+    max_episodes_per_run: 2
 
-  - name: "The Modern Customer Podcast"
-    priority: 1.4
-    language: en
+  - match: "Modern Customer"
+    display_name: "The Modern Customer Podcast"
+    max_episodes_per_run: 2
 
-  - name: "Y Combinator Startup Podcast"
-    priority: 1.4
-    language: en
+  - match: "Y Combinator"
+    display_name: "Y Combinator Startup Podcast"
+    max_episodes_per_run: 2
 
-  - name: "Product Thinking"
-    priority: 1.5
-    language: en
+  - match: "Product Thinking"
+    display_name: "Product Thinking"
+    max_episodes_per_run: 2
 
-  - name: "The Growth Podcast"
-    priority: 1.3
-    language: en
+  - match: "Growth Podcast"
+    display_name: "The Growth Podcast"
+    max_episodes_per_run: 1
 
-  - name: "The SaaS Podcast"
-    priority: 1.3
-    language: en
+  - match: "SaaS Podcast"
+    display_name: "The SaaS Podcast"
+    max_episodes_per_run: 1
 
-  - name: "The Prof G Pod"
-    priority: 1.4
-    language: en
+  - match: "Prof G"
+    display_name: "The Prof G Pod"
+    max_episodes_per_run: 1
 
-  - name: "The Tim Ferriss Show"
-    priority: 1.2
-    language: en
-    notes: "Very long; deprioritize unless guest is directly relevant."
+  - match: "Tim Ferriss"
+    display_name: "The Tim Ferriss Show"
+    max_episodes_per_run: 1
+    notes: "Only surfaces when guest is directly relevant to AI/retail/product."

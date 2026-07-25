@@ -1,62 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <opml version="2.0">
   <head>
-    <title>Podcast Subscriptions Export</title>
+    <title>Pocket Casts Subscriptions</title>
   </head>
   <body>
     <outline text="Podcasts">
-      <!-- Replace this file with your own Pocket Casts OPML export. -->
-      <!-- In Pocket Casts: Profile → ... → Export as OPML           -->
-      <!-- Save the file as config/subscriptions.opml (gitignored)   -->
-
       <!-- AI & Technology -->
       <outline type="rss"
-               text="Hard Fork"
-               xmlUrl="https://feeds.simplecast.com/l2i9YnTd"
-               htmlUrl="https://www.nytimes.com/column/hard-fork" />
+        text="No Priors: Artificial Intelligence | Technology | Startups"
+        xmlUrl="https://feeds.simplecast.com/SkR9XMQV"
+        htmlUrl="https://www.nopriorsshow.com/" />
 
       <outline type="rss"
-               text="No Priors: Artificial Intelligence | Technology | Startups"
-               xmlUrl="https://feeds.megaphone.fm/nopriors"
-               htmlUrl="https://www.nopriorsai.com/" />
+        text="Hard Fork"
+        xmlUrl="https://feeds.simplecast.com/l2i9YnTd"
+        htmlUrl="https://www.nytimes.com/column/hard-fork" />
 
       <outline type="rss"
-               text="AI + a16z"
-               xmlUrl="https://feeds.simplecast.com/aianda16z"
-               htmlUrl="https://a16z.com/podcasts/ai-and-a16z/" />
+        text="AI + a16z"
+        xmlUrl="https://feeds.simplecast.com/art19_a16z_ai"
+        htmlUrl="https://a16z.com/podcasts/ai/" />
+
+      <outline type="rss"
+        text="Decoder with Nilay Patel"
+        xmlUrl="https://feeds.megaphone.fm/vergecast"
+        htmlUrl="https://www.theverge.com/decoder-podcast-with-nilay-patel" />
 
       <!-- Retail & eCommerce -->
       <outline type="rss"
-               text="Modern Retail Podcast"
-               xmlUrl="https://feeds.megaphone.fm/modernretail"
-               htmlUrl="https://www.modernretail.co/podcast/" />
+        text="Modern Retail Podcast"
+        xmlUrl="https://feeds.megaphone.fm/modernretail"
+        htmlUrl="https://www.modernretail.co/" />
 
       <outline type="rss"
-               text="Jason &amp; Scot Show"
-               xmlUrl="https://jasondavidscott.libsyn.com/rss"
-               htmlUrl="https://www.jasonandscot.com/" />
+        text="Behind the Numbers: Reimagining Retail | An eMarketer Podcast"
+        xmlUrl="https://feeds.megaphone.fm/MKTS6898300535"
+        htmlUrl="https://www.emarketer.com/podcasts" />
 
       <outline type="rss"
-               text="Future Commerce"
-               xmlUrl="https://feeds.buzzsprout.com/228152.rss"
-               htmlUrl="https://futurecommerce.com/" />
-
-      <!-- Product Management -->
-      <outline type="rss"
-               text="Lenny's Podcast: Product | Growth | Career"
-               xmlUrl="https://feeds.buzzsprout.com/1716483.rss"
-               htmlUrl="https://www.lennyspodcast.com/" />
+        text="Jason &amp; Scot Show - E-Commerce And Retail News"
+        xmlUrl="https://feed.podbean.com/jasonandscot/feed.xml"
+        htmlUrl="https://jasonandscot.com/" />
 
       <outline type="rss"
-               text="Product Thinking"
-               xmlUrl="https://feeds.simplecast.com/productthinking"
-               htmlUrl="https://melissaperri.com/podcast" />
+        text="Future Commerce Podcast"
+        xmlUrl="https://feeds.simplecast.com/LGPNiGIL"
+        htmlUrl="https://futurecommerce.com/" />
 
-      <!-- Strategy -->
+      <!-- Product & Strategy -->
       <outline type="rss"
-               text="Acquired"
-               xmlUrl="https://feeds.megaphone.fm/acquired"
-               htmlUrl="https://www.acquired.fm/" />
+        text="Lenny's Podcast: Product | Growth | Career"
+        xmlUrl="https://feeds.transistor.fm/lenny-s-podcast-product-growth-career"
+        htmlUrl="https://www.lennyspodcast.com/" />
+
+      <outline type="rss"
+        text="Product Thinking"
+        xmlUrl="https://feeds.simplecast.com/productthinkingrss"
+        htmlUrl="https://www.productthinking.cc/" />
+
+      <outline type="rss"
+        text="Y Combinator Startup Podcast"
+        xmlUrl="https://feeds.simplecast.com/tOjNXec5"
+        htmlUrl="https://www.ycombinator.com/podcast" />
+
+      <outline type="rss"
+        text="Acquired"
+        xmlUrl="https://acquired.fm/rss"
+        htmlUrl="https://www.acquired.fm/" />
+
+      <!-- Business & Analysis -->
+      <outline type="rss"
+        text="Stratechery"
+        xmlUrl="https://stratechery.com/feed/podcast/"
+        htmlUrl="https://stratechery.com/" />
+
+      <outline type="rss"
+        text="Sharp Tech with Ben Thompson"
+        xmlUrl="https://sharptech.fm/member/feed/"
+        htmlUrl="https://sharptech.fm/" />
+
+      <outline type="rss"
+        text="The Prof G Pod with Scott Galloway"
+        xmlUrl="https://feeds.megaphone.fm/profgpod"
+        htmlUrl="https://www.profgpod.com/" />
     </outline>
   </body>
 </opml>

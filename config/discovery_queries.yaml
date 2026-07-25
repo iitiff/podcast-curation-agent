@@ -1,56 +1,94 @@
-# =============================================================================
-# Podcast Scout — Outside-Feed Discovery Query Templates
-# =============================================================================
-# These templates are used to generate weekly search queries for the
-# "Outside Your Feed" discovery layer.
+# ────────────────────────────────────────────────────────────────────
+# Podcast Scout — Discovery Query Seeds
 #
-# The agent also generates dynamic queries from:
-#   - your interest taxonomy (preferences.yaml)
-#   - notable topics found in the followed-feed scan that week
-#   - current AI and retail developments detected via web search
+# These static seeds are combined with dynamically-generated queries
+# derived from the current week's episode scan (topics, guests, entities).
 #
-# Static templates here ensure baseline coverage of your watchlist topics.
-# Max queries per run is controlled by config (default: 15).
-# =============================================================================
+# The agent will use at most `max_queries` total (static + dynamic).
+# Set `enabled: false` on any seed to pause it without deleting it.
+# ────────────────────────────────────────────────────────────────────
 
-static_templates:
-  # Slot in a specific competitor or platform each week (rotated)
-  - "podcast episode {competitor} strategy {year}"
-  - "{competitor} executive interview podcast {year}"
+discovery:
+  max_queries: 15
+  max_raw_candidates: 40
+  max_deep_analysis_candidates: 10
+  max_surfaced_outside_episodes: 3
+  # Minimum score an outside episode must reach to displace a followed-show episode
+  outside_quality_threshold: 60
 
-  # Topic-driven discovery
-  - "AI agents retail eCommerce podcast episode {year}"
-  - "agentic commerce podcast episode"
-  - "retail media network strategy podcast"
-  - "personalization CRM product strategy podcast episode"
-  - "marketplace seller platform podcast {year}"
-  - "loyalty membership eCommerce podcast episode"
-  - "product management AI-enabled teams podcast"
-  - "omnichannel customer experience podcast {year}"
+static_seeds:
+  - query: "AI agents retail eCommerce podcast"
+    enabled: true
+    weight: 1.0
 
-  # Guest-authority driven
-  - "retail executive podcast interview {year}"
-  - "CPO product leader podcast interview AI commerce"
+  - query: "agentic commerce product strategy podcast"
+    enabled: true
+    weight: 1.0
 
-# Dynamic query generation settings
-dynamic_queries:
-  # How many additional queries to generate from this week's episode topics
-  from_episode_topics: 5
-  # How many to generate from trending AI/retail signals via web search
-  from_web_signals: 3
+  - query: "retail media network monetization podcast"
+    enabled: true
+    weight: 0.9
 
-# Competitor rotation list — one is injected into template queries each week
-competitor_rotation:
-  - Amazon
-  - Target
-  - Costco
-  - Instacart
-  - Shopify
-  - Google
-  - OpenAI
-  - Meta
-  - Mercado Libre
-  - Loblaw
-  - TikTok Shop
-  - Temu
-  - Walmex
+  - query: "personalization CRM customer experience podcast"
+    enabled: true
+    weight: 0.9
+
+  - query: "marketplace seller platform product management podcast"
+    enabled: true
+    weight: 0.85
+
+  - query: "membership loyalty program strategy podcast"
+    enabled: true
+    weight: 0.85
+
+  - query: "Walmart Target Costco competitive strategy podcast"
+    enabled: true
+    weight: 0.9
+
+  - query: "Amazon Shopify eCommerce platform podcast 2025"
+    enabled: true
+    weight: 0.85
+
+  - query: "AI product team organizational design podcast"
+    enabled: true
+    weight: 0.8
+
+  - query: "large language model enterprise retail application podcast"
+    enabled: true
+    weight: 0.8
+
+  - query: "omnichannel customer journey strategy podcast"
+    enabled: true
+    weight: 0.75
+
+  - query: "product led growth B2C marketplace podcast"
+    enabled: true
+    weight: 0.7
+
+# Entity-specific one-shots (refreshed each run by the agent)
+entity_seeds:
+  competitors:
+    - Amazon
+    - Target
+    - Costco
+    - Instacart
+    - Shopify
+    - Mercado Libre
+    - Loblaw
+    - Walmex
+    - Temu
+    - TikTok Shop
+  ai_companies:
+    - OpenAI
+    - Anthropic
+    - Google DeepMind
+    - Microsoft
+    - Meta AI
+  topic_areas:
+    - "retail AI"
+    - "eCommerce personalization"
+    - "agentic shopping"
+    - "retail media"
+    - "loyalty programs"
+    - "product strategy"
+    - "AI agents"
