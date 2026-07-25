@@ -143,22 +143,33 @@ def _build_queries(prefs: Preferences, cfg: DiscoveryConfig) -> list[str]:
 
     Note: show_priors are intentionally excluded — those shows are polled
     directly via RSS (poll_followed_shows) so keyword search is redundant
-    and unreliable for them.
+    and unreliable for them.  We also avoid generic queries that pull in
+    off-topic episodes; every query is anchored to a specific topic, guest,
+    or competitor rather than just '{topic} podcast episode'.
     """
+    # Build a lowercase set of all followed show names so we can filter
+    # search results that come back from those shows (already covered by
+    # path 1 above).
+    followed_show_names: set[str] = {
+        name.lower() for name in prefs.show_priors
+    }
+
     queries: list[str] = []
 
-    # One query per interest topic
+    # One query per interest topic — but anchored to the persona's focus
+    # area so the query is specific enough to avoid off-topic results.
+    persona_anchor = prefs.persona.focus.split(",")[0].strip()  # first focus area
     for topic in prefs.interests:
         readable = topic.replace("_", " ")
-        queries.append(f"{readable} podcast episode")
+        queries.append(f"{readable} {persona_anchor}")
 
-    # Guest watchlist
+    # Guest watchlist — direct name search for interviews
     for guest in prefs.guest_watchlist:
         queries.append(f"{guest} podcast interview")
 
-    # Competitor / entity watchlist
+    # Competitor / entity watchlist — strategy angle
     for entity in prefs.competitor_watchlist:
-        queries.append(f"{entity} podcast strategy")
+        queries.append(f"{entity} strategy podcast")
 
     # Entity seeds from discovery config (optional extras)
     for entity in (
@@ -182,6 +193,7 @@ def _build_queries(prefs: Preferences, cfg: DiscoveryConfig) -> list[str]:
 async def _search_one(
     query: str,
     podcast_search: BasePodcastSearchProvider,
+    followed_show_names: set[str],
     max_results: int = 5,
 ) -> list[NormalizedEpisode]:
     results = []
@@ -189,6 +201,13 @@ async def _search_one(
         hits = await podcast_search.search_episodes(query, max_results=max_results)
         for r in hits:
             if not r.feed_url:
+                continue
+            # Skip episodes from shows already covered by direct RSS polling
+            if r.show_title and r.show_title.lower() in followed_show_names:
+                log.debug(
+                    "Search discovery: skipping '%s' — already a followed show",
+                    r.show_title,
+                )
                 continue
             ep = NormalizedEpisode(
                 guid=make_guid(r.feed_url, r.episode_title or r.feed_url),
@@ -242,6 +261,9 @@ async def discover_episodes(
         len(prefs.show_priors),
     )
 
+    # Build a set of followed show names for search-result filtering
+    followed_show_names: set[str] = {name.lower() for name in prefs.show_priors}
+
     # --- Path 2: search-based discovery ---
     queries = _build_queries(prefs, cfg)
     log.info("Running %d search discovery queries", len(queries))
@@ -251,7 +273,7 @@ async def discover_episodes(
 
     async def bounded(q: str) -> None:
         async with semaphore:
-            eps = await _search_one(q, podcast_search)
+            eps = await _search_one(q, podcast_search, followed_show_names)
             search_candidates.extend(eps)
 
     await asyncio.gather(*[bounded(q) for q in queries])

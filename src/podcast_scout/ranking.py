@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -96,6 +97,48 @@ def _show_prior(show_title: str, prefs: Preferences) -> float:
 
 def _is_acquired(show_title: str) -> bool:
     return "acquired" in show_title.lower()
+
+
+def _parse_llm_json(raw: str) -> dict:
+    """Robustly parse JSON from LLM output.
+
+    Handles two common failure modes:
+    1. The model wraps output in a ```json ... ``` markdown fence.
+    2. The model produces slightly malformed JSON (unterminated strings,
+       trailing commas).  We try stdlib json first; if that fails we
+       attempt a manual fence-strip + second parse before giving up.
+    """
+    # Strip leading/trailing whitespace
+    text = raw.strip()
+
+    # Remove markdown code fence if present
+    fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text, re.IGNORECASE)
+    if fence_match:
+        text = fence_match.group(1).strip()
+
+    # First attempt: standard json
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+
+    # Second attempt: truncate at last complete top-level value.
+    # Find the last } that could close the root object and try up to that.
+    last_brace = text.rfind("}")
+    if last_brace != -1:
+        try:
+            return json.loads(text[: last_brace + 1])
+        except json.JSONDecodeError:
+            pass
+
+    # Third attempt: use json-repair if available
+    try:
+        import json_repair  # type: ignore
+        return json_repair.loads(text)  # type: ignore[return-value]
+    except Exception:
+        pass
+
+    raise ValueError(f"Could not parse LLM JSON output (length={len(raw)})")
 
 
 def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Result:
@@ -201,6 +244,9 @@ You may adjust boundary by up to 5 points with written justification.
 
 NEVER invent specific claims not present in the source text when confidence is low.
 Source confidence: {confidence}
+
+IMPORTANT: Return ONLY a raw JSON object. Do NOT wrap in markdown code fences.
+All string values must be properly escaped. Do NOT use boolean values for string fields.
 """
 
     user_msg = f"""SHOW: {ep.show_title}
@@ -212,7 +258,7 @@ SOURCE TEXT ({confidence} confidence):
 
 Return JSON with keys: rubric (dict of all rubric+penalty fields), classification, classification_reason,
 summary (150-300 words), key_ideas (list of 2-3 strings), implications, who_should_listen,
-summary_captures_value, listen_nuance."""
+summary_captures_value (string: "yes" | "partial" | "no"), listen_nuance (string)."""
 
     tokens_used = 0
     try:
@@ -224,24 +270,32 @@ summary_captures_value, listen_nuance."""
             max_tokens=token_budget,
         )
         tokens_used = resp.input_tokens + resp.output_tokens
-        data = json.loads(resp.content)
+        data = _parse_llm_json(resp.content)
         rubric_data = data.get("rubric", {})
         rubric = RubricScore(**{k: float(v) for k, v in rubric_data.items() if k in RubricScore.model_fields})
         score = rubric.total
+
+        # Coerce potentially-boolean fields to str before Pydantic validation
+        def _str(val: Any, fallback: str = "") -> str:
+            if val is None:
+                return fallback
+            if isinstance(val, bool):
+                return "yes" if val else "no"
+            return str(val)
 
         return RankedEpisode(
             episode=ep,
             score=score,
             rubric=rubric,
             classification=data.get("classification", _classify(score, prefs)),
-            classification_reason=data.get("classification_reason", ""),
+            classification_reason=_str(data.get("classification_reason")),
             evidence_confidence=confidence,
-            summary=data.get("summary", ""),
+            summary=_str(data.get("summary")),
             key_ideas=data.get("key_ideas", []),
-            implications=data.get("implications", ""),
-            who_should_listen=data.get("who_should_listen", ""),
-            summary_captures_value=data.get("summary_captures_value", ""),
-            listen_nuance=data.get("listen_nuance", ""),
+            implications=_str(data.get("implications")),
+            who_should_listen=_str(data.get("who_should_listen")),
+            summary_captures_value=_str(data.get("summary_captures_value")),
+            listen_nuance=_str(data.get("listen_nuance")),
             transcript_source=transcript.source,
             tokens_used=tokens_used,
         )
