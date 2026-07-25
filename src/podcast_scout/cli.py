@@ -17,7 +17,7 @@ from .config import Settings, load_discovery, load_preferences
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
 from .normalize import dedup_episodes
-from .providers.llm import OpenAIProvider
+from .providers.llm import GeminiProvider
 from .providers.podcast_search import ITunesSearchProvider, PodcastIndexProvider
 from .providers.transcription import CascadeTranscriptionProvider
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
@@ -107,18 +107,17 @@ async def _run_pipeline(
 
     # 3. LLM setup
     llm = None
-    if settings.openai_api_key:
-        llm = OpenAIProvider(
-            settings.openai_api_key,
-            settings.openai_stage2_model,
-            settings.openai_base_url,
+    if settings.gemini_api_key:
+        llm = GeminiProvider(
+            settings.gemini_api_key,
+            settings.gemini_stage2_model,
         )
     else:
-        console.print("[yellow]WARNING: No OPENAI_API_KEY — running metadata-only ranking.[/yellow]")
+        console.print("[yellow]WARNING: No GEMINI_API_KEY — running metadata-only ranking.[/yellow]")
 
     # 4. Summarize and rank
     transcription = CascadeTranscriptionProvider(
-        openai_api_key=settings.openai_api_key,
+        openai_api_key=None,
         enable_whisper=settings.enable_audio_transcription,
     )
 
