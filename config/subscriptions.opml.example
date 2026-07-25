@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+  <head>
+    <title>Podcast Subscriptions Export</title>
+  </head>
+  <body>
+    <outline text="Podcasts">
+      <!-- Replace this file with your own Pocket Casts OPML export. -->
+      <!-- In Pocket Casts: Profile → ... → Export as OPML           -->
+      <!-- Save the file as config/subscriptions.opml (gitignored)   -->
+
+      <!-- AI & Technology -->
+      <outline type="rss"
+               text="Hard Fork"
+               xmlUrl="https://feeds.simplecast.com/l2i9YnTd"
+               htmlUrl="https://www.nytimes.com/column/hard-fork" />
+
+      <outline type="rss"
+               text="No Priors: Artificial Intelligence | Technology | Startups"
+               xmlUrl="https://feeds.megaphone.fm/nopriors"
+               htmlUrl="https://www.nopriorsai.com/" />
+
+      <outline type="rss"
+               text="AI + a16z"
+               xmlUrl="https://feeds.simplecast.com/aianda16z"
+               htmlUrl="https://a16z.com/podcasts/ai-and-a16z/" />
+
+      <!-- Retail & eCommerce -->
+      <outline type="rss"
+               text="Modern Retail Podcast"
+               xmlUrl="https://feeds.megaphone.fm/modernretail"
+               htmlUrl="https://www.modernretail.co/podcast/" />
+
+      <outline type="rss"
+               text="Jason &amp; Scot Show"
+               xmlUrl="https://jasondavidscott.libsyn.com/rss"
+               htmlUrl="https://www.jasonandscot.com/" />
+
+      <outline type="rss"
+               text="Future Commerce"
+               xmlUrl="https://feeds.buzzsprout.com/228152.rss"
+               htmlUrl="https://futurecommerce.com/" />
+
+      <!-- Product Management -->
+      <outline type="rss"
+               text="Lenny's Podcast: Product | Growth | Career"
+               xmlUrl="https://feeds.buzzsprout.com/1716483.rss"
+               htmlUrl="https://www.lennyspodcast.com/" />
+
+      <outline type="rss"
+               text="Product Thinking"
+               xmlUrl="https://feeds.simplecast.com/productthinking"
+               htmlUrl="https://melissaperri.com/podcast" />
+
+      <!-- Strategy -->
+      <outline type="rss"
+               text="Acquired"
+               xmlUrl="https://feeds.megaphone.fm/acquired"
+               htmlUrl="https://www.acquired.fm/" />
+    </outline>
+  </body>
+</opml>

@@ -1,0 +1,161 @@
+# =============================================================================
+# Podcast Scout — User Preferences
+# =============================================================================
+# This file is YOUR configuration. Edit it to match your role, interests, and
+# listening habits. Nothing in the application is hardcoded to a specific user.
+#
+# All fields are optional unless marked REQUIRED.
+# =============================================================================
+
+# REQUIRED: Used as the RSS feed title and briefing header.
+owner_name: "Your Name"
+
+# REQUIRED: Shown in feed description and briefing subtitle.
+role_description: "Senior Product Leader focused on AI, retail, and eCommerce"
+
+# Feed branding (appears in RSS <title> and HTML briefing header)
+feed_title: "My Podcast Scout"
+feed_description: "A ranked weekly listening queue curated to my interests."
+
+# ---------------------------------------------------------------------------
+# Interest Taxonomy
+# ---------------------------------------------------------------------------
+# List your primary interest areas. These drive Stage 1 keyword ranking and
+# Stage 2 LLM relevance scoring. Be specific — vague terms reduce precision.
+# Weight is 1–10. Higher weight = stronger signal boost.
+
+interests:
+  - topic: "artificial intelligence"
+    weight: 10
+  - topic: "AI agents and agentic workflows"
+    weight: 10
+  - topic: "retail and eCommerce"
+    weight: 9
+  - topic: "agentic commerce"
+    weight: 9
+  - topic: "customer experience"
+    weight: 8
+  - topic: "personalization and CRM"
+    weight: 8
+  - topic: "product management and product strategy"
+    weight: 9
+  - topic: "marketplace and seller platforms"
+    weight: 8
+  - topic: "membership and loyalty"
+    weight: 7
+  - topic: "retail media"
+    weight: 8
+  - topic: "organizational design for AI-enabled product teams"
+    weight: 7
+  - topic: "Walmart competitors"
+    weight: 7
+
+# Topics to explicitly exclude from surfacing (will trigger a penalty)
+topic_exclusions:
+  - "crypto and NFTs"
+  - "day trading"
+  - "pure motivational content"
+  - "celebrity gossip"
+
+# ---------------------------------------------------------------------------
+# Geographic Priority
+# ---------------------------------------------------------------------------
+# Episodes focused on lower-priority geographies get a mild penalty.
+# Use ISO country codes or plain names.
+geographic_priority:
+  - United States
+  - Canada
+  - Mexico
+
+# ---------------------------------------------------------------------------
+# Competitor & Entity Watchlist
+# ---------------------------------------------------------------------------
+# Mentioning these entities in a title/description boosts relevance score.
+competitor_watchlist:
+  - Amazon
+  - Target
+  - Costco
+  - Instacart
+  - Shopify
+  - Google
+  - OpenAI
+  - Meta
+  - Mercado Libre
+  - Loblaw
+  - Walmex
+  - TikTok Shop
+  - Temu
+
+# ---------------------------------------------------------------------------
+# Guest Watchlist
+# ---------------------------------------------------------------------------
+# Mentioning these guests boosts the episode's authority score.
+guest_watchlist:
+  - "Jensen Huang"
+  - "Sam Altman"
+  - "Satya Nadella"
+  - "Doug McMillon"
+  - "Brian Cornell"
+  - "Tobias Lütke"
+
+# ---------------------------------------------------------------------------
+# Listening Preferences
+# ---------------------------------------------------------------------------
+# max_weekly_minutes: hard cap on total recommended listening per week.
+# preferred_episode_length_minutes: episodes near this length get a mild boost.
+# preferred_depth: "deep" favors long-form; "brief" favors < 30 min episodes.
+max_weekly_minutes: 180
+preferred_episode_length_minutes: 45
+preferred_depth: "deep"   # options: deep | balanced | brief
+
+# ---------------------------------------------------------------------------
+# Classification Thresholds
+# ---------------------------------------------------------------------------
+# Adjust if the defaults (75 / 50) are too aggressive or too lenient.
+listen_fully_threshold: 75
+read_summary_threshold: 50
+# Model override window: how many points above/below a boundary the LLM
+# may push a classification, with a written justification required.
+model_override_window: 5
+
+# ---------------------------------------------------------------------------
+# Weekly Output Caps
+# ---------------------------------------------------------------------------
+max_listen_fully: 3
+max_read_summary: 5
+max_outside_feed: 3
+max_total_surfaced: 10
+
+# ---------------------------------------------------------------------------
+# Show Priors
+# ---------------------------------------------------------------------------
+# Prior weight is 0.5–2.0. Default is 1.0.
+# A prior > 1.0 means: "I generally trust this show; give it a head start."
+# A prior < 1.0 means: "Be more skeptical; this show needs a stronger episode."
+# Priors influence Stage 1 filtering only. A great episode always wins.
+#
+# These are DEFAULTS. Per-show overrides in config/shows.yaml take precedence.
+show_priors:
+  "Lenny's Podcast": 1.6
+  "How I AI with Claire Vo": 1.7
+  "Stratechery": 1.8
+  "Sharp Tech with Ben Thompson": 1.6
+  "No Priors": 1.6
+  "Hard Fork": 1.4
+  "Retailgentic": 1.8
+  "Future Commerce": 1.6
+  "Modern Retail Podcast": 1.6
+  "Behind the Numbers: Reimagining Retail": 1.5
+  "Acquired": 1.5
+  "AI + a16z": 1.6
+  "The a16z Show": 1.5
+  "Decoder": 1.5
+  "Jason & Scot Show": 1.5
+  "McKinsey on Consumer and Retail": 1.4
+  "The Modern Customer Podcast": 1.4
+  "Y Combinator Startup Podcast": 1.4
+  "Product Thinking": 1.5
+  "The Growth Podcast": 1.3
+  "The SaaS Podcast": 1.3
+  "The Prof G Pod": 1.4
+  "The Tim Ferriss Show": 1.2

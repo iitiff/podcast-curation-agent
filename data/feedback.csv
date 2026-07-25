@@ -1,0 +1,7 @@
+episode_id,listened,rating,summary_was_enough,notes,date
+# episode_id: stable GUID derived from feed URL + original episode GUID
+# listened: true/false
+# rating: 1-5 (5 = excellent)
+# summary_was_enough: true/false
+# notes: free text
+# date: YYYY-MM-DD

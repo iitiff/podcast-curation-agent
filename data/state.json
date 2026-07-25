@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "last_run": null,
+  "processed_episodes": {},
+  "published_guids": {
+    "listen": [],
+    "all": []
+  },
+  "discovery_history": [],
+  "show_priors_learned": {},
+  "topic_priors_learned": {},
+  "guest_priors_learned": {}
+}
