@@ -1,15 +1,26 @@
 """Episode summarization orchestrator: obtains best transcript then deep-ranks."""
 from __future__ import annotations
 
-import asyncio
 import logging
 
 from .config import Preferences
 from .normalize import NormalizedEpisode
 from .providers.base import BaseLLMProvider, BaseTranscriptionProvider
-from .ranking import RankedEpisode, Stage1Result, stage2_deep_rank, stage1_metadata_score
+from .ranking import (
+    RankedEpisode,
+    RubricScore,
+    Stage1Result,
+    _classify,
+    stage1_metadata_score,
+    stage2_batch_rank,
+)
 
 log = logging.getLogger(__name__)
+
+# Maximum episodes per batch LLM call.
+# Keeping this low (5) avoids hitting token limits on the free Gemini tier
+# while still cutting API calls by ~5x vs one-call-per-episode.
+_BATCH_SIZE = 5
 
 
 async def process_episodes(
@@ -21,7 +32,11 @@ async def process_episodes(
     token_budget_per_episode: int = 3000,
     total_token_budget: int = 400_000,
 ) -> list[RankedEpisode]:
-    """Stage 1 filter then Stage 2 deep-rank top candidates."""
+    """Stage 1 filter then Stage 2 deep-rank top candidates.
+
+    Stage 2 calls are batched (_BATCH_SIZE episodes per LLM request) to
+    minimise API quota consumption on the free Gemini tier.
+    """
     # Stage 1: metadata rank all
     s1_results: list[tuple[NormalizedEpisode, Stage1Result]] = []
     for ep in episodes:
@@ -35,47 +50,48 @@ async def process_episodes(
         if s1.should_deep_process
     ][:max_deep_process]
 
-    # For episodes not deep-processed, build a lightweight RankedEpisode from S1
     deep_guids = {ep.guid for ep in deep_candidates}
     ranked: list[RankedEpisode] = []
     tokens_used = 0
 
-    async def process_one(ep: NormalizedEpisode) -> RankedEpisode:
-        nonlocal tokens_used
-        if tokens_used >= total_token_budget:
-            log.warning("Token budget exhausted, falling back to metadata for %s", ep.episode_title)
-            s1 = stage1_metadata_score(ep, prefs)
-            from .ranking import RubricScore, _classify
-            return RankedEpisode(
-                episode=ep,
-                score=s1.score,
-                rubric=RubricScore(),
-                classification=_classify(s1.score, prefs),
-                classification_reason="token budget exhausted",
-                evidence_confidence="low",
-                summary=ep.description[:300] or "No summary available.",
-            )
+    # Fetch transcripts for all deep candidates first (these are cheap/free)
+    transcript_map = {}
+    for ep in deep_candidates:
         transcript = await transcription.get_transcript(
             episode_url=ep.episode_url,
             audio_url=ep.enclosure.url if ep.enclosure else "",
         )
-        result = await stage2_deep_rank(ep, transcript, prefs, llm, token_budget_per_episode)
-        tokens_used += result.tokens_used
-        return result
+        transcript_map[ep.guid] = transcript
 
-    deep_results = await asyncio.gather(*[process_one(ep) for ep in deep_candidates])
-    ranked.extend(deep_results)
+    # Batch Stage 2 LLM calls: process _BATCH_SIZE episodes per API call
+    for batch_start in range(0, len(deep_candidates), _BATCH_SIZE):
+        if tokens_used >= total_token_budget:
+            log.warning("Token budget exhausted at batch %d", batch_start // _BATCH_SIZE)
+            # Remaining deep candidates fall through to metadata fallback below
+            break
 
-    # Add S1-only episodes that weren't deep processed
-    from .ranking import RubricScore, _classify
+        batch = deep_candidates[batch_start: batch_start + _BATCH_SIZE]
+        items = [(ep, transcript_map[ep.guid]) for ep in batch]
+
+        # token_budget passed is per-episode * batch size so the model has
+        # enough room to write all summaries
+        batch_token_budget = token_budget_per_episode * len(batch)
+        batch_results = await stage2_batch_rank(items, prefs, llm, token_budget=batch_token_budget)
+
+        for r in batch_results:
+            tokens_used += r.tokens_used
+        ranked.extend(batch_results)
+
+    # Add S1-only episodes (not deep-processed, or budget exhausted)
+    processed_guids = {r.episode.guid for r in ranked}
     for ep, s1 in s1_results:
-        if ep.guid not in deep_guids:
+        if ep.guid not in processed_guids:
             ranked.append(RankedEpisode(
                 episode=ep,
                 score=s1.score,
                 rubric=RubricScore(),
                 classification=_classify(s1.score, prefs),
-                classification_reason="stage1 only",
+                classification_reason="stage1 only" if ep.guid not in deep_guids else "token budget exhausted",
                 evidence_confidence="low",
                 summary=ep.description[:300] or "No summary available.",
             ))

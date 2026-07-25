@@ -141,6 +141,53 @@ def _parse_llm_json(raw: str) -> dict:
     raise ValueError(f"Could not parse LLM JSON output (length={len(raw)})")
 
 
+def _parse_llm_json_array(raw: str) -> list:
+    """Parse a JSON array from LLM output, handling markdown fences."""
+    text = raw.strip()
+
+    fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text, re.IGNORECASE)
+    if fence_match:
+        text = fence_match.group(1).strip()
+
+    # First attempt
+    try:
+        result = json.loads(text)
+        if isinstance(result, list):
+            return result
+        # Model may have returned {"results": [...]}
+        if isinstance(result, dict):
+            for v in result.values():
+                if isinstance(v, list):
+                    return v
+    except json.JSONDecodeError:
+        pass
+
+    # Find first [ ... ] block
+    start = text.find("[")
+    end = text.rfind("]")
+    if start != -1 and end != -1 and end > start:
+        try:
+            result = json.loads(text[start:end + 1])
+            if isinstance(result, list):
+                return result
+        except json.JSONDecodeError:
+            pass
+
+    try:
+        import json_repair  # type: ignore
+        result = json_repair.loads(text)  # type: ignore
+        if isinstance(result, list):
+            return result
+        if isinstance(result, dict):
+            for v in result.values():
+                if isinstance(v, list):
+                    return v
+    except Exception:
+        pass
+
+    raise ValueError(f"Could not parse LLM JSON array (length={len(raw)})")
+
+
 def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Result:
     """Fast metadata-only score. No LLM call."""
     score = 0.0
@@ -196,6 +243,162 @@ def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Re
     )
 
 
+def _build_episode_block(idx: int, ep: NormalizedEpisode, transcript: TranscriptResult) -> str:
+    """Build a compact text block for one episode within a batch prompt."""
+    source_text = transcript.text[:2000] if transcript.text else (
+        f"{ep.episode_title}\n\n{ep.description}"
+    )
+    return (
+        f"--- EPISODE {idx} ---\n"
+        f"SHOW: {ep.show_title}\n"
+        f"EPISODE: {ep.episode_title}\n"
+        f"GUESTS: {', '.join(ep.guests) or 'unknown'}\n"
+        f"DURATION: {ep.duration_minutes:.0f} min\n"
+        f"TRANSCRIPT CONFIDENCE: {transcript.confidence}\n"
+        f"TEXT:\n{source_text}\n"
+    )
+
+
+async def stage2_batch_rank(
+    items: list[tuple[NormalizedEpisode, TranscriptResult]],
+    prefs: Preferences,
+    llm: BaseLLMProvider,
+    token_budget: int = 8000,
+) -> list[RankedEpisode]:
+    """Rank multiple episodes in a SINGLE LLM call to conserve API quota.
+
+    Sends all episodes together and parses a JSON array response.
+    Falls back to metadata scoring for any episode whose entry can't be parsed.
+    """
+    if not items:
+        return []
+
+    persona_ctx = (
+        f"You are ranking podcasts for a {prefs.persona.seniority} {prefs.persona.role} "
+        f"whose focus is: {prefs.persona.focus}. "
+        f"Preferred depth: {prefs.persona.preferred_depth}."
+    )
+
+    episode_blocks = "\n".join(
+        _build_episode_block(i, ep, tr) for i, (ep, tr) in enumerate(items)
+    )
+
+    system_prompt = f"""{persona_ctx}
+
+You will receive {len(items)} podcast episode(s). Score EACH on a 100-point rubric and return a
+JSON ARRAY (one object per episode, in the same order). Do NOT wrap in markdown fences.
+
+RUBRIC (base points):
+- relevance: 0-30
+- novelty: 0-15
+- guest_authority: 0-15
+- actionability: 0-15
+- evidence: 0-10
+- strategic_importance: 0-10
+- learning_per_minute: 0-5
+
+PENALTIES (negative):
+- repetition_penalty: 0 to -15
+- generic_penalty: 0 to -15
+- weak_evidence_penalty: 0 to -10
+- confidence_penalty: 0 to -15
+- motivational_penalty: 0 to -10
+- relevance_penalty: 0 to -20
+
+CLASSIFICATION:
+- "Listen Fully" if total >= 75
+- "Read Summary Only" if total >= 50
+- "Skip" otherwise
+
+For EACH episode return an object with keys:
+  rubric (dict), classification, classification_reason,
+  summary (100-200 words), key_ideas (list of 2-3 strings),
+  implications, who_should_listen, summary_captures_value ("yes"|"partial"|"no"), listen_nuance
+
+Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
+
+    user_msg = f"Rank these {len(items)} episode(s):\n\n{episode_blocks}"
+
+    tokens_used = 0
+    try:
+        resp = await llm.complete(
+            messages=[
+                LLMMessage(role="system", content=system_prompt),
+                LLMMessage(role="user", content=user_msg),
+            ],
+            max_tokens=token_budget,
+        )
+        tokens_used = resp.input_tokens + resp.output_tokens
+        entries = _parse_llm_json_array(resp.content)
+    except Exception as exc:
+        log.warning("Batch Stage 2 LLM call failed: %s — falling back to metadata for all", exc)
+        entries = []
+
+    results: list[RankedEpisode] = []
+    for i, (ep, transcript) in enumerate(items):
+        data = entries[i] if i < len(entries) and isinstance(entries[i], dict) else {}
+        if not data:
+            log.warning("No batch result for episode %d (%s) — using metadata fallback", i, ep.episode_title)
+            s1 = stage1_metadata_score(ep, prefs)
+            results.append(RankedEpisode(
+                episode=ep,
+                score=s1.score,
+                rubric=RubricScore(relevance=min(30, s1.score * 0.4)),
+                classification=_classify(s1.score, prefs),
+                classification_reason="LLM batch entry missing; metadata fallback",
+                evidence_confidence="low",
+                summary=ep.description[:300] or "Summary unavailable.",
+                transcript_source=transcript.source,
+                tokens_used=0,
+            ))
+            continue
+
+        try:
+            rubric_data = data.get("rubric", {})
+            rubric = RubricScore(**{k: float(v) for k, v in rubric_data.items() if k in RubricScore.model_fields})
+            score = rubric.total
+
+            def _str(val: Any, fallback: str = "") -> str:
+                if val is None:
+                    return fallback
+                if isinstance(val, bool):
+                    return "yes" if val else "no"
+                return str(val)
+
+            results.append(RankedEpisode(
+                episode=ep,
+                score=score,
+                rubric=rubric,
+                classification=data.get("classification", _classify(score, prefs)),
+                classification_reason=_str(data.get("classification_reason")),
+                evidence_confidence=transcript.confidence,
+                summary=_str(data.get("summary")),
+                key_ideas=data.get("key_ideas", []),
+                implications=_str(data.get("implications")),
+                who_should_listen=_str(data.get("who_should_listen")),
+                summary_captures_value=_str(data.get("summary_captures_value")),
+                listen_nuance=_str(data.get("listen_nuance")),
+                transcript_source=transcript.source,
+                tokens_used=tokens_used // len(items),
+            ))
+        except Exception as exc:
+            log.warning("Could not parse batch entry %d for %s: %s", i, ep.episode_title, exc)
+            s1 = stage1_metadata_score(ep, prefs)
+            results.append(RankedEpisode(
+                episode=ep,
+                score=s1.score,
+                rubric=RubricScore(relevance=min(30, s1.score * 0.4)),
+                classification=_classify(s1.score, prefs),
+                classification_reason="batch parse error; metadata fallback",
+                evidence_confidence="low",
+                summary=ep.description[:300] or "Summary unavailable.",
+                transcript_source=transcript.source,
+                tokens_used=0,
+            ))
+
+    return results
+
+
 async def stage2_deep_rank(
     ep: NormalizedEpisode,
     transcript: TranscriptResult,
@@ -203,7 +406,10 @@ async def stage2_deep_rank(
     llm: BaseLLMProvider,
     token_budget: int = 3000,
 ) -> RankedEpisode:
-    """Full LLM-powered ranking with rubric scoring."""
+    """Full LLM-powered ranking with rubric scoring (single episode).
+
+    Prefer stage2_batch_rank when processing multiple episodes to save quota.
+    """
     persona_ctx = (
         f"You are ranking podcasts for a {prefs.persona.seniority} {prefs.persona.role} "
         f"whose focus is: {prefs.persona.focus}. "
