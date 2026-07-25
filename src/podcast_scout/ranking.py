@@ -3,270 +3,240 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any
+from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, Field
 
-from .config import Preferences
 from .normalize import NormalizedEpisode
 
-log = logging.getLogger(__name__)
+if TYPE_CHECKING:
+    from .config import Preferences
+    from .providers.llm import OpenAIProvider
 
-CLASSIFICATION_LISTEN = "Listen Fully"
-CLASSIFICATION_SUMMARY = "Read Summary Only"
-CLASSIFICATION_SKIP = "Skip"
-
-STAGE1_SYSTEM = """
-You are a podcast ranking assistant for a senior retail and eCommerce product leader.
-Your job is to score episodes based ONLY on their metadata (title, description, guests, keywords).
-You must be strict. Generic interviews and motivational content score low.
-Return JSON only.
-"""
-
-STAGE2_SYSTEM = """
-You are a podcast intelligence analyst for a senior retail/eCommerce product leader.
-Analyze the episode content deeply and produce a detailed ranking and executive summary.
-Be rigorous. Penalize vague predictions, generic advice, and promotional content.
-Return JSON only.
-"""
+logger = logging.getLogger(__name__)
 
 
-class RubricScore(BaseModel):
-    relevance: int = Field(0, ge=0, le=30, description="Relevance to interests 0-30")
-    novelty: int = Field(0, ge=0, le=15, description="Novelty/non-obvious insight 0-15")
-    guest_authority: int = Field(0, ge=0, le=15, description="Guest authority 0-15")
-    actionability: int = Field(0, ge=0, le=15, description="Actionability 0-15")
-    evidence: int = Field(0, ge=0, le=10, description="Evidence/data/case studies 0-10")
-    strategic_importance: int = Field(0, ge=0, le=10, description="Strategic importance 0-10")
-    learning_value_per_min: int = Field(0, ge=0, le=5, description="Learning value per minute 0-5")
-
-    # Penalties (stored as negative values)
-    penalty_repetition: int = Field(0, ge=-15, le=0)
-    penalty_generic: int = Field(0, ge=-15, le=0)
-    penalty_weak_evidence: int = Field(0, ge=-10, le=0)
-    penalty_low_confidence: int = Field(0, ge=-15, le=0)
-    penalty_motivational: int = Field(0, ge=-10, le=0)
-    penalty_poor_relevance: int = Field(0, ge=-20, le=0)
+class RubricScores(BaseModel):
+    relevance: float = Field(0, ge=0, le=30)
+    novelty: float = Field(0, ge=0, le=15)
+    guest_authority: float = Field(0, ge=0, le=15)
+    actionability: float = Field(0, ge=0, le=15)
+    evidence: float = Field(0, ge=0, le=10)
+    strategic_importance: float = Field(0, ge=0, le=10)
+    learning_value_per_minute: float = Field(0, ge=0, le=5)
+    # Penalties (stored as positive numbers, subtracted)
+    penalty_repetition: float = Field(0, ge=0, le=15)
+    penalty_promotional: float = Field(0, ge=0, le=15)
+    penalty_weak_evidence: float = Field(0, ge=0, le=10)
+    penalty_low_confidence: float = Field(0, ge=0, le=15)
+    penalty_motivational: float = Field(0, ge=0, le=10)
+    penalty_low_relevance: float = Field(0, ge=0, le=20)
+    boundary_override: float = Field(0, ge=-5, le=5)
+    override_justification: str = ""
 
     @property
-    def total(self) -> int:
-        base = (
-            self.relevance + self.novelty + self.guest_authority
-            + self.actionability + self.evidence + self.strategic_importance
-            + self.learning_value_per_min
+    def total(self) -> float:
+        raw = (
+            self.relevance
+            + self.novelty
+            + self.guest_authority
+            + self.actionability
+            + self.evidence
+            + self.strategic_importance
+            + self.learning_value_per_minute
+            - self.penalty_repetition
+            - self.penalty_promotional
+            - self.penalty_weak_evidence
+            - self.penalty_low_confidence
+            - self.penalty_motivational
+            - self.penalty_low_relevance
         )
-        penalties = (
-            self.penalty_repetition + self.penalty_generic
-            + self.penalty_weak_evidence + self.penalty_low_confidence
-            + self.penalty_motivational + self.penalty_poor_relevance
-        )
-        return max(0, min(100, base + penalties))
+        return max(0.0, min(100.0, raw + self.boundary_override))
 
 
-class Stage1Result(BaseModel):
-    guid: str
-    score: int
-    rubric: RubricScore
-    classification: str
-    reason: str
-    advance_to_stage2: bool
-
-
-class Stage2Result(BaseModel):
-    guid: str
-    score: int
-    rubric: RubricScore
-    classification: str
-    classification_override_justification: str = ""
-    evidence_confidence: str  # High | Medium | Low
-    executive_summary: str
-    key_ideas: list[str]
+class RankedEpisode(BaseModel):
+    episode: NormalizedEpisode
+    stage1_score: float = 0.0
+    scores: RubricScores | None = None
+    final_score: float = 0.0
+    classification: str = "Skip"  # Listen Fully | Read Summary Only | Skip
+    confidence: str = "low"  # high | medium | low
+    why_ranked: str = ""
+    executive_summary: str = ""
+    key_ideas: list[str] = Field(default_factory=list)
     implications: str = ""
     who_should_listen: str = ""
-    summary_captures_value: str = ""
+    summary_captures: str = ""
     listen_nuance: str = ""
     skip_reason: str = ""
-    guests_identified: list[str] = Field(default_factory=list)
 
 
-def _classify(score: int, prefs: Preferences, override_justification: str = "") -> str:
-    cfg = prefs.classification
-    if score >= cfg.listen_fully_min_score:
-        return CLASSIFICATION_LISTEN
-    elif score >= cfg.read_summary_min_score:
-        return CLASSIFICATION_SUMMARY
-    else:
-        return CLASSIFICATION_SKIP
+# ───────────────────────── Stage 1: Metadata ranking ─────────────────────────
 
+def stage1_score(ep: NormalizedEpisode, prefs: "Preferences") -> float:
+    """Fast metadata-based scoring. No LLM calls."""
+    score = 0.0
 
-def stage1_rank(
-    episodes: list[NormalizedEpisode],
-    prefs: Preferences,
-    llm_client: Any,
-    model: str,
-) -> list[Stage1Result]:
-    """Inexpensive metadata-based first pass. Returns all episodes with scores."""
-    results: list[Stage1Result] = []
-
-    interest_str = ", ".join(
-        f"{k} ({v})" for k, v in sorted(prefs.interests.items(), key=lambda x: -x[1])
+    # Interest keyword matching
+    text = f"{ep.show_title} {ep.episode_title} {ep.description}".lower()
+    interest_hits = sum(
+        weight
+        for topic, weight in prefs.interests.items()
+        if topic.replace("_", " ") in text or topic.replace("_", "") in text
     )
-    persona_str = f"{prefs.persona.role} focused on {prefs.persona.focus}"
-    competitors = ", ".join(prefs.competitor_watchlist[:10])
-    watchlist = ", ".join(prefs.guest_watchlist[:10])
-    exclusions = ", ".join(prefs.topic_exclusions)
+    score += min(30.0, interest_hits * 8)
 
-    for ep in episodes:
-        show_prior = prefs.show_priors.get(ep.show_title, 0.5)
-        prompt = f"""Score this podcast episode for: {persona_str}
+    # Guest watchlist boost
+    for guest in prefs.guest_watchlist:
+        if guest.lower() in text:
+            score += 10
+            break
 
-Interest weights: {interest_str}
-Guest watchlist (boost): {watchlist}
-Competitor watchlist (boost): {competitors}
-Topic exclusions (penalise): {exclusions}
-Show prior weight: {show_prior}
+    # Competitor watchlist boost
+    competitor_hits = sum(1 for c in prefs.competitor_watchlist if c.lower() in text)
+    score += min(10.0, competitor_hits * 3)
 
-Episode metadata:
-- Show: {ep.show_title}
-- Title: {ep.episode_title}
-- Published: {ep.published.date()}
-- Duration: {ep.duration_minutes:.0f} min
-- Description: {ep.description[:800]}
-- Guests: {', '.join(ep.guests) or 'unknown'}
-- Keywords: {', '.join(ep.keywords[:10])}
+    # Show prior
+    show_prior = _lookup_show_prior(ep.show_title, prefs.show_priors)
+    score += show_prior * 15
 
-Return JSON with fields:
-  guid (string, use "{ep.guid}"),
-  score (int 0-100),
-  rubric (object with all rubric fields),
-  classification ("Listen Fully" | "Read Summary Only" | "Skip"),
-  reason (string, 1-2 sentences),
-  advance_to_stage2 (bool, true if score >= 50)
-"""
-        try:
-            response = llm_client.chat.completions.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": STAGE1_SYSTEM},
-                    {"role": "user", "content": prompt},
-                ],
-                response_format={"type": "json_object"},
-                temperature=0.1,
-            )
-            raw = json.loads(response.choices[0].message.content)
-            rubric = RubricScore.model_validate(raw.get("rubric", {}))
-            score = rubric.total
-            result = Stage1Result(
-                guid=ep.guid,
-                score=score,
-                rubric=rubric,
-                classification=_classify(score, prefs),
-                reason=raw.get("reason", ""),
-                advance_to_stage2=score >= prefs.classification.read_summary_min_score,
-            )
-            results.append(result)
-            log.info("Stage1 %s — %s: score=%d", ep.show_title, ep.episode_title[:50], score)
-        except Exception as exc:
-            log.warning("Stage1 failed for %s: %s", ep.guid, exc)
-            results.append(
-                Stage1Result(
-                    guid=ep.guid,
-                    score=0,
-                    rubric=RubricScore(),
-                    classification=CLASSIFICATION_SKIP,
-                    reason=f"Ranking failed: {exc}",
-                    advance_to_stage2=False,
-                )
-            )
+    # Topic exclusion penalty
+    for excl in prefs.topic_exclusions:
+        if excl.lower() in text:
+            score -= 20
+            break
 
-    return results
+    # Duration fit
+    mins = ep.duration_minutes
+    if mins > 0:
+        if prefs.length.preferred_min_minutes <= mins <= prefs.length.preferred_max_minutes:
+            score += 5
+        elif mins > prefs.length.hard_max_minutes:
+            score -= 10
+
+    return max(0.0, min(100.0, score))
 
 
-def stage2_rank(
-    episodes: list[NormalizedEpisode],
-    stage1_results: dict[str, Stage1Result],
-    prefs: Preferences,
-    llm_client: Any,
-    model: str,
-) -> list[Stage2Result]:
-    """Deep content-aware ranking for top candidates."""
-    results: list[Stage2Result] = []
-    persona_str = f"{prefs.persona.role} focused on {prefs.persona.focus}"
-    competitors = ", ".join(prefs.competitor_watchlist[:10])
+def _lookup_show_prior(show_title: str, priors: dict[str, float]) -> float:
+    title_lower = show_title.lower()
+    for key, val in priors.items():
+        if key.lower() in title_lower or title_lower in key.lower():
+            return val
+    return 0.5
 
-    for ep in episodes:
-        s1 = stage1_results.get(ep.guid)
-        confidence = "Low"
-        content = ep.description[:3000]
 
-        if ep.transcript_url:
-            confidence = "High"
-        elif len(ep.description) > 500:
-            confidence = "Medium"
+# ───────────────────────── Stage 2: LLM deep ranking ─────────────────────────
 
-        prompt = f"""Deep-rank this podcast episode for: {persona_str}
-Strategically relevant companies: {competitors}
+STAGE2_SYSTEM_PROMPT = """You are a podcast ranking assistant for a {role} focused on {focus}.
+Your job is to score a podcast episode using the rubric below and return valid JSON only.
 
-Episode:
-- Show: {ep.show_title}
-- Title: {ep.episode_title}
-- Published: {ep.published.date()}
-- Duration: {ep.duration_minutes:.0f} min
-- Guests: {', '.join(ep.guests) or 'unknown'}
-- Stage 1 score: {s1.score if s1 else 'N/A'}
-- Source confidence: {confidence}
+RUBRIC (score each dimension):
+- relevance (0-30): How directly relevant is this to the listener's stated interests?
+- novelty (0-15): Does it contain non-obvious insights or new information?
+- guest_authority (0-15): Does the guest have firsthand authority and direct experience?
+- actionability (0-15): Can a product or retail leader act on what they learn?
+- evidence (0-10): Are claims backed by data, case studies, or concrete examples?
+- strategic_importance (0-10): Is this timely and strategically important right now?
+- learning_value_per_minute (0-5): High value per minute of listening time?
 
-Content ({confidence} confidence):
-{content}
+PENALTIES (score each as a positive number to be subtracted):
+- penalty_repetition (0-15): Repeats ideas covered better elsewhere
+- penalty_promotional (0-15): Generic commentary or promotional interview
+- penalty_weak_evidence (0-10): Vague predictions, no supporting evidence
+- penalty_low_confidence (0-15): Based only on title/short description
+- penalty_motivational (0-10): Primarily motivational or personal-development content
+- penalty_low_relevance (0-20): Poor relevance to current priorities
 
-Return JSON:
-  guid: "{ep.guid}"
-  score: int 0-100
-  rubric: {{all rubric fields}}
-  classification: "Listen Fully" | "Read Summary Only" | "Skip"
-  classification_override_justification: string (if overriding stage1, explain why)
-  evidence_confidence: "{confidence}"
-  executive_summary: string 150-300 words
-  key_ideas: [string, string, string]
-  implications: string (Walmart/retail/CX/product implications)
-  who_should_listen: string
-  summary_captures_value: string (for Read Summary Only)
-  listen_nuance: string (for Listen Fully — what summary misses)
-  skip_reason: string (for Skip)
-  guests_identified: [string]
-"""
-        try:
-            response = llm_client.chat.completions.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": STAGE2_SYSTEM},
-                    {"role": "user", "content": prompt},
-                ],
-                response_format={"type": "json_object"},
-                temperature=0.2,
-            )
-            raw = json.loads(response.choices[0].message.content)
-            rubric = RubricScore.model_validate(raw.get("rubric", {}))
-            score = rubric.total
-            result = Stage2Result(
-                guid=ep.guid,
-                score=score,
-                rubric=rubric,
-                classification=_classify(score, prefs),
-                classification_override_justification=raw.get("classification_override_justification", ""),
-                evidence_confidence=raw.get("evidence_confidence", confidence),
-                executive_summary=raw.get("executive_summary", ""),
-                key_ideas=raw.get("key_ideas", []),
-                implications=raw.get("implications", ""),
-                who_should_listen=raw.get("who_should_listen", ""),
-                summary_captures_value=raw.get("summary_captures_value", ""),
-                listen_nuance=raw.get("listen_nuance", ""),
-                skip_reason=raw.get("skip_reason", ""),
-                guests_identified=raw.get("guests_identified", []),
-            )
-            results.append(result)
-            log.info("Stage2 %s — %s: score=%d cls=%s", ep.show_title, ep.episode_title[:50], score, result.classification)
-        except Exception as exc:
-            log.warning("Stage2 failed for %s: %s", ep.guid, exc)
+OPTIONAL:
+- boundary_override (-5 to +5): Override score boundary if justified
+- override_justification: Required if boundary_override != 0
 
-    return results
+Return ONLY this JSON structure, no markdown:
+{{
+  "relevance": 0,
+  "novelty": 0,
+  "guest_authority": 0,
+  "actionability": 0,
+  "evidence": 0,
+  "strategic_importance": 0,
+  "learning_value_per_minute": 0,
+  "penalty_repetition": 0,
+  "penalty_promotional": 0,
+  "penalty_weak_evidence": 0,
+  "penalty_low_confidence": 0,
+  "penalty_motivational": 0,
+  "penalty_low_relevance": 0,
+  "boundary_override": 0,
+  "override_justification": "",
+  "why_ranked": "One sentence.",
+  "executive_summary": "150-300 word summary.",
+  "key_ideas": ["idea 1", "idea 2", "idea 3"],
+  "implications": "Implications for retail/product leaders.",
+  "who_should_listen": "Who benefits most from this episode.",
+  "summary_captures": "What the summary captures vs listening.",
+  "listen_nuance": "What nuance is lost by not listening (for Listen Fully only).",
+  "skip_reason": "One sentence reason if skipped."
+}}"""
+
+
+async def stage2_rank(
+    ep: NormalizedEpisode,
+    source_text: str,
+    confidence: str,
+    prefs: "Preferences",
+    llm: "OpenAIProvider",
+) -> RankedEpisode:
+    """Deep LLM-based ranking for top-candidate episodes."""
+    system = STAGE2_SYSTEM_PROMPT.format(
+        role=prefs.persona.role,
+        focus=prefs.persona.focus,
+    )
+    user_msg = f"""Show: {ep.show_title}
+Title: {ep.episode_title}
+Published: {ep.published.date()}
+Duration: {ep.duration_minutes:.0f} min
+Guests: {', '.join(ep.guests) or 'Unknown'}
+Evidence confidence: {confidence}
+
+Source text (may be truncated):
+{source_text[:6000]}"""
+
+    try:
+        raw = await llm.complete(
+            messages=[
+                {"role": "system", "content": system},
+                {"role": "user", "content": user_msg},
+            ],
+            model=llm.stage2_model,
+            max_tokens=1200,
+        )
+        data = json.loads(raw)
+        scores = RubricScores.model_validate(data)
+    except Exception as exc:
+        logger.warning("Stage 2 ranking failed for '%s': %s", ep.episode_title, exc)
+        scores = RubricScores(penalty_low_confidence=15)
+
+    final = scores.total
+    cfg = prefs.classification
+    if final >= cfg.listen_fully_min_score:
+        classification = "Listen Fully"
+    elif final >= cfg.read_summary_min_score:
+        classification = "Read Summary Only"
+    else:
+        classification = "Skip"
+
+    return RankedEpisode(
+        episode=ep,
+        scores=scores,
+        final_score=final,
+        classification=classification,
+        confidence=confidence,
+        why_ranked=data.get("why_ranked", "") if isinstance(data, dict) else "",
+        executive_summary=data.get("executive_summary", "") if isinstance(data, dict) else "",
+        key_ideas=data.get("key_ideas", []) if isinstance(data, dict) else [],
+        implications=data.get("implications", "") if isinstance(data, dict) else "",
+        who_should_listen=data.get("who_should_listen", "") if isinstance(data, dict) else "",
+        summary_captures=data.get("summary_captures", "") if isinstance(data, dict) else "",
+        listen_nuance=data.get("listen_nuance", "") if isinstance(data, dict) else "",
+        skip_reason=data.get("skip_reason", "") if isinstance(data, dict) else "",
+    )

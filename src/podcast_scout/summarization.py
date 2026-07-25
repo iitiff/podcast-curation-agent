@@ -1,75 +1,63 @@
-"""Executive summary generation and synthesis."""
+"""Transcript fetching and evidence-level determination for Stage 2."""
 from __future__ import annotations
 
 import logging
-from typing import Any
 
-from .config import Preferences
+import httpx
+
 from .normalize import NormalizedEpisode
-from .ranking import Stage2Result
+from .providers.transcription import (
+    PublisherTranscriptScraper,
+    TranscriptConfidence,
+    TranscriptResult,
+)
 
-log = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
-SYNTHESIS_SYSTEM = """
-You are a strategic analyst for a senior retail and eCommerce product leader.
-You will receive a set of podcast episode summaries from this week.
-Your job is to synthesise themes, agreements, disagreements, weak signals,
-overhyped beliefs, and actionable implications.
-Be concise, specific, and rigorous. Return JSON only.
-"""
+MAX_SOURCE_CHARS = 12_000
 
 
-def synthesize_week(
-    episodes: list[NormalizedEpisode],
-    results: list[Stage2Result],
-    prefs: Preferences,
-    llm_client: Any,
-    model: str,
-) -> dict:
-    """Generate weekly cross-episode synthesis."""
-    if not results:
-        return {"error": "No episodes to synthesize"}
+async def get_best_source_text(
+    ep: NormalizedEpisode,
+    scraper: PublisherTranscriptScraper,
+    client: httpx.AsyncClient,
+) -> TranscriptResult:
+    """
+    Obtain the best available source text in priority order:
+    1. Podcasting 2.0 transcript tag
+    2. Publisher webpage transcript/show notes
+    3. Episode description (fallback)
+    """
+    # 1. P2.0 transcript URL
+    if ep.transcript_url:
+        try:
+            resp = await client.get(ep.transcript_url, follow_redirects=True)
+            resp.raise_for_status()
+            text = resp.text[:MAX_SOURCE_CHARS]
+            if len(text) > 1000:
+                logger.debug("P2.0 transcript for '%s': %d chars", ep.episode_title, len(text))
+                return TranscriptResult(text, TranscriptConfidence.HIGH, "p20_transcript")
+        except Exception as exc:
+            logger.debug("P2.0 transcript fetch failed: %s", exc)
 
-    ep_map = {ep.guid: ep for ep in episodes}
-    summaries = []
-    for r in results[:10]:  # cap context
-        ep = ep_map.get(r.guid)
-        if not ep:
-            continue
-        summaries.append(
-            f"Show: {ep.show_title}\n"
-            f"Episode: {ep.episode_title}\n"
-            f"Classification: {r.classification}\n"
-            f"Summary: {r.executive_summary[:400]}\n"
-            f"Key ideas: {'; '.join(r.key_ideas)}\n"
+    # 2. Publisher page scrape
+    if ep.episode_url:
+        result = await scraper.fetch(ep.episode_url)
+        if result and len(result.text) > 500:
+            return result
+
+    # 3. Show notes / description fallback
+    if ep.show_notes_html and len(ep.show_notes_html) > 200:
+        return TranscriptResult(
+            ep.show_notes_html[:MAX_SOURCE_CHARS],
+            TranscriptConfidence.MEDIUM,
+            "show_notes",
+        )
+    if ep.description:
+        return TranscriptResult(
+            ep.description[:MAX_SOURCE_CHARS],
+            TranscriptConfidence.LOW,
+            "description_only",
         )
 
-    persona = f"{prefs.persona.role} focused on {prefs.persona.focus}"
-    prompt = f"""Synthesize these {len(summaries)} podcast episodes for: {persona}
-
-{'---'.join(summaries)}
-
-Return JSON:
-  major_themes: [{{theme: str, evidence: str}}, ...] (3 items)
-  agreements: [str] (2-3 points where speakers agree)
-  disagreements: [str] (credible speakers who disagree)
-  weak_signal: str (one emerging trend not yet mainstream)
-  overhyped_belief: str (one popular claim that may be wrong)
-  retailer_implications: str (implications for a large omnichannel retailer)
-  product_ideas: [str] (3-5 experiments or questions worth exploring)
-"""
-    try:
-        response = llm_client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": SYNTHESIS_SYSTEM},
-                {"role": "user", "content": prompt},
-            ],
-            response_format={"type": "json_object"},
-            temperature=0.3,
-        )
-        import json
-        return json.loads(response.choices[0].message.content)
-    except Exception as exc:
-        log.warning("Synthesis failed: %s", exc)
-        return {"error": str(exc)}
+    return TranscriptResult("", TranscriptConfidence.LOW, "no_source")

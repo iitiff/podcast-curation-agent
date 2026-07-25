@@ -2,81 +2,26 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timedelta, timezone
+from typing import TYPE_CHECKING, Any
 
-from .config import DiscoveryConfig, Preferences, Settings
-from .normalize import NormalizedEpisode
+import feedparser
+import httpx
 
-log = logging.getLogger(__name__)
+from .normalize import Enclosure, NormalizedEpisode, make_guid, parse_duration, utcnow
+from .providers.base import BasePodcastSearchProvider, BaseWebSearchProvider
 
+if TYPE_CHECKING:
+    from .config import DiscoveryConfig, Preferences
 
-class DiscoveryProvider:
-    """Abstract base for podcast search providers."""
-
-    def search(self, query: str, max_results: int = 5) -> list[dict]:
-        raise NotImplementedError
-
-
-class PodcastIndexProvider(DiscoveryProvider):
-    def __init__(self, api_key: str, api_secret: str) -> None:
-        self._key = api_key
-        self._secret = api_secret
-
-    def search(self, query: str, max_results: int = 5) -> list[dict]:
-        import hashlib
-        import time
-        import httpx
-
-        epoch = int(time.time())
-        auth_hash = hashlib.sha1(
-            f"{self._key}{self._secret}{epoch}".encode()
-        ).hexdigest()
-        headers = {
-            "X-Auth-Key": self._key,
-            "X-Auth-Date": str(epoch),
-            "Authorization": auth_hash,
-            "User-Agent": "PodcastScout/0.1",
-        }
-        try:
-            with httpx.Client(timeout=15) as client:
-                r = client.get(
-                    "https://api.podcastindex.org/api/1.0/search/byterm",
-                    params={"q": query, "max": max_results, "clean": True},
-                    headers=headers,
-                )
-                r.raise_for_status()
-                return r.json().get("feeds", [])
-        except Exception as exc:
-            log.warning("PodcastIndex search failed for '%s': %s", query, exc)
-            return []
+logger = logging.getLogger(__name__)
 
 
-class BraveSearchProvider:
-    def __init__(self, api_key: str) -> None:
-        self._key = api_key
-
-    def search(self, query: str, max_results: int = 5) -> list[dict]:
-        import httpx
-        try:
-            with httpx.Client(timeout=15) as client:
-                r = client.get(
-                    "https://api.search.brave.com/res/v1/web/search",
-                    params={"q": f"{query} podcast episode site:podcastindex.org OR site:open.spotify.com", "count": max_results},
-                    headers={"Accept": "application/json", "X-Subscription-Token": self._key},
-                )
-                r.raise_for_status()
-                return r.json().get("web", {}).get("results", [])
-        except Exception as exc:
-            log.warning("Brave search failed for '%s': %s", query, exc)
-            return []
-
-
-def build_dynamic_queries(
-    followed_episodes: list[NormalizedEpisode],
-    prefs: Preferences,
-    discovery_cfg: DiscoveryConfig,
+def build_discovery_queries(
+    prefs: "Preferences",
+    discovery_cfg: "DiscoveryConfig",
+    dynamic_topics: list[str] | None = None,
 ) -> list[str]:
-    """Build discovery queries from this week's episode topics + static seeds."""
+    """Combine static seeds with dynamic topics from this week's scan."""
     queries: list[str] = []
 
     # Static seeds
@@ -84,74 +29,114 @@ def build_dynamic_queries(
         if seed.get("enabled", True):
             queries.append(seed["query"])
 
-    # Dynamic: extract keywords from followed-feed episode titles this week
-    all_keywords: list[str] = []
-    for ep in followed_episodes[:20]:
-        all_keywords.extend(ep.keywords[:3])
-        # Pull meaningful words from title
-        words = [w for w in ep.episode_title.split() if len(w) > 4]
-        all_keywords.extend(words[:3])
+    # Dynamic topics from current run
+    if dynamic_topics:
+        for topic in dynamic_topics[:5]:
+            queries.append(f"{topic} podcast episode")
 
-    # Deduplicate and build compound queries from entity seeds
-    for entity in discovery_cfg.entity_seeds.get("competitors", [])[:5]:
-        queries.append(f"{entity} strategy podcast episode 2025")
-    for topic in discovery_cfg.entity_seeds.get("topic_areas", [])[:5]:
-        queries.append(f"{topic} podcast expert interview")
+    # Entity seeds
+    for entity in discovery_cfg.entity_seeds.get("competitors", [])[:3]:
+        queries.append(f"{entity} strategy podcast 2025")
+    for entity in discovery_cfg.entity_seeds.get("ai_companies", [])[:2]:
+        queries.append(f"{entity} product AI podcast")
 
-    max_q = discovery_cfg.discovery.max_queries
-    return list(dict.fromkeys(queries))[:max_q]  # dedup, cap
+    # Deduplicate while preserving order
+    seen: set[str] = set()
+    deduped: list[str] = []
+    for q in queries:
+        if q not in seen:
+            seen.add(q)
+            deduped.append(q)
+
+    return deduped[: discovery_cfg.discovery.max_queries]
 
 
-def discover_outside_episodes(
-    followed_episodes: list[NormalizedEpisode],
-    prefs: Preferences,
-    settings: Settings,
-    discovery_cfg: DiscoveryConfig,
-    since: datetime,
+async def discover_outside_episodes(
+    queries: list[str],
+    podcast_search: BasePodcastSearchProvider,
+    web_search: BaseWebSearchProvider,
+    discovery_cfg: "DiscoveryConfig",
+    lookback_days: int,
+    client: httpx.AsyncClient,
 ) -> list[NormalizedEpisode]:
-    """Run bounded outside-feed discovery. Returns raw candidates."""
-    if not settings.podcast_index_key and not settings.web_search_api_key:
-        log.info("No discovery API keys configured — skipping outside-feed discovery")
-        return []
+    """Run discovery queries and return raw candidate episodes."""
+    raw_candidates: list[dict[str, Any]] = []
+    limits = discovery_cfg.discovery
 
-    provider: DiscoveryProvider | None = None
-    if settings.podcast_index_key:
-        provider = PodcastIndexProvider(settings.podcast_index_key, settings.podcast_index_secret)
-    # Web search provider not used for feed discovery directly — used for validation
+    for query in queries[: limits.max_queries]:
+        try:
+            results = await podcast_search.search_episodes(query, max_results=5)
+            raw_candidates.extend(results)
+        except Exception as exc:
+            logger.warning("Podcast search failed for '%s': %s", query, exc)
 
-    if not provider:
-        return []
-
-    queries = build_dynamic_queries(followed_episodes, prefs, discovery_cfg)
-    log.info("Running %d outside-feed discovery queries", len(queries))
-
-    from .feeds import fetch_feed
-    from .config import ShowsConfig
-    seen_urls: set[str] = {ep.source_feed_url for ep in followed_episodes}
-    candidates: list[NormalizedEpisode] = []
-    max_raw = discovery_cfg.discovery.max_raw_candidates
-
-    for query in queries:
-        if len(candidates) >= max_raw:
+        if len(raw_candidates) >= limits.max_raw_candidates:
             break
-        feeds = provider.search(query, max_results=5)
-        for feed_info in feeds:
-            feed_url = feed_info.get("url") or feed_info.get("feedUrl") or ""
-            if not feed_url or feed_url in seen_urls:
-                continue
-            show_title = feed_info.get("title") or feed_info.get("titleOriginal") or "Unknown"
-            seen_urls.add(feed_url)
-            eps = fetch_feed(
-                feed_url=feed_url,
-                show_title=show_title,
-                since=since,
-                settings=settings,
-                shows_config=ShowsConfig(),
-                is_outside=True,
-            )
-            candidates.extend(eps)
-            if len(candidates) >= max_raw:
-                break
 
-    log.info("Outside-feed discovery found %d raw candidates", len(candidates))
-    return candidates[:max_raw]
+    # Convert raw candidates to NormalizedEpisode objects
+    episodes: list[NormalizedEpisode] = []
+    seen_feed_urls: set[str] = set()
+    cutoff = utcnow().replace(tzinfo=None)
+
+    for candidate in raw_candidates[: limits.max_raw_candidates]:
+        feed_url = candidate.get("url") or candidate.get("feedUrl", "")
+        if not feed_url or feed_url in seen_feed_urls:
+            continue
+        seen_feed_urls.add(feed_url)
+
+        # Fetch the feed to get actual episodes
+        try:
+            resp = await client.get(feed_url, follow_redirects=True, timeout=15.0)
+            resp.raise_for_status()
+            parsed = feedparser.parse(resp.text)
+        except Exception as exc:
+            logger.debug("Failed to fetch discovery feed %s: %s", feed_url, exc)
+            continue
+
+        show_title = (
+            getattr(parsed.feed, "title", "")
+            or candidate.get("title", "Unknown Show")
+        ).strip()
+
+        for entry in parsed.entries[:3]:
+            original_guid = getattr(entry, "id", "") or getattr(entry, "link", feed_url)
+            guid = make_guid(feed_url, original_guid)
+
+            enclosure = None
+            for enc in getattr(entry, "enclosures", []):
+                url = getattr(enc, "href", "") or getattr(enc, "url", "")
+                if url:
+                    enclosure = Enclosure(
+                        url=url,
+                        mime_type=getattr(enc, "type", "audio/mpeg"),
+                        length=int(getattr(enc, "length", 0) or 0),
+                    )
+                    break
+
+            episodes.append(
+                NormalizedEpisode(
+                    guid=guid,
+                    source_feed_url=feed_url,
+                    original_guid=original_guid,
+                    show_title=show_title,
+                    episode_title=(
+                        getattr(entry, "title", "Untitled") or "Untitled"
+                    ).strip(),
+                    description=(
+                        getattr(entry, "summary", "") or ""
+                    )[:3000],
+                    published=utcnow(),
+                    duration_seconds=parse_duration(
+                        str(getattr(entry, "itunes_duration", "") or "")
+                    ),
+                    episode_url=getattr(entry, "link", "") or "",
+                    enclosure=enclosure,
+                    is_outside_feed=True,
+                )
+            )
+
+        if len(episodes) >= limits.max_deep_analysis_candidates:
+            break
+
+    logger.info("Discovery found %d outside candidates", len(episodes))
+    return episodes
