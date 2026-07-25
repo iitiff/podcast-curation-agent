@@ -36,6 +36,7 @@ class NormalizedEpisode(BaseModel):
 
     # Source tracking
     is_outside_feed: bool = False
+    is_followed_show: bool = False  # True when fetched directly from a followed show's RSS feed
     transcript_url: str = ""
     show_notes_html: str = ""
 
