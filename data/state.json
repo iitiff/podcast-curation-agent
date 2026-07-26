@@ -2,7 +2,7 @@
   "seen_guids": [],
   "published_guids": [],
   "episode_records": {},
-  "last_run": "2026-07-26T20:08:12.972097+00:00",
+  "last_run": "2026-07-26T20:20:32.848796+00:00",
   "published": [
     "88610221f5aa0101",
     "c5adbd47553e3d8d",
@@ -20,7 +20,17 @@
     "0aa9cdd123be2909",
     "02fce9f57fb0ca25",
     "233712672e620be9",
-    "73f5620850201b77"
+    "73f5620850201b77",
+    "17b74684842e3172",
+    "4d6ea8e3dc926d5c",
+    "eb2983a5ab4588d3",
+    "ccfa58dabbcfa510",
+    "39fe21975e05a5ad",
+    "abcbb861771b6fe7",
+    "811810d0bee68661",
+    "d26f1dc68dccaa99",
+    "e453d0bdd826e0c4",
+    "0a7a67cf37bbaaba"
   ],
   "processed": {
     "88610221f5aa0101": {
@@ -209,6 +219,116 @@
       "classification": "Listen Fully",
       "is_outside_feed": false,
       "source_feed_url": "https://feeds.megaphone.fm/CPUAI1584649469"
+    },
+    "eb2983a5ab4588d3": {
+      "guid": "eb2983a5ab4588d3",
+      "show_title": "The Prof G Pod",
+      "episode_title": "Inside the Anti-Social Century \u2014 with Derek Thompson",
+      "published": "2026-07-23T08:00:00Z",
+      "processed_at": "2026-07-26T20:20:32.848644Z",
+      "score": 86.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+    },
+    "17b74684842e3172": {
+      "guid": "17b74684842e3172",
+      "show_title": "Think Fast Talk Smart",
+      "episode_title": "308. Ask Matt Anything: From Nerves to Know-How in High-Stakes Moments",
+      "published": "2026-07-23T13:00:00Z",
+      "processed_at": "2026-07-26T20:20:32.848708Z",
+      "score": 79.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques"
+    },
+    "4d6ea8e3dc926d5c": {
+      "guid": "4d6ea8e3dc926d5c",
+      "show_title": "Think Fast Talk Smart",
+      "episode_title": "307. Accent-uate, Don't Compensate: Why Clarity Matters More Than Perfection",
+      "published": "2026-07-20T13:00:00Z",
+      "processed_at": "2026-07-26T20:20:32.848721Z",
+      "score": 66.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques"
+    },
+    "ccfa58dabbcfa510": {
+      "guid": "ccfa58dabbcfa510",
+      "show_title": "\u6587\u68ee\u8aaa\u66f8",
+      "episode_title": "\u5927\u8166\u4e0d\u6703\u8a18\u4f4f\u4efb\u4f55\u4e00\u4ef6\u4e8b\uff0c\u9664\u975e\u4f60\u601d\u8003\u5b83\uff5c\u300a\u5b78\u751f\u70ba\u4ec0\u9ebc\u4e0d\u559c\u6b61\u4e0a\u5b78\u300b",
+      "published": "2026-07-24T08:00:00Z",
+      "processed_at": "2026-07-26T20:20:32.848729Z",
+      "score": 62.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss"
+    },
+    "39fe21975e05a5ad": {
+      "guid": "39fe21975e05a5ad",
+      "show_title": "\u6587\u68ee\u8aaa\u66f8",
+      "episode_title": "\u523b\u610f\u88dd\u51fa\u597d\u5947\u5fc3\u3001\u52aa\u529b\u5c2c\u804a\uff0c\u592a\u591a\u4ea4\u969b\u5957\u8def\u53ea\u662f\u6703\u8b93\u95dc\u4fc2\u8b8a\u5dee feat. \u601d\u7dad\u69d3\u687f",
+      "published": "2026-07-20T05:00:00Z",
+      "processed_at": "2026-07-26T20:20:32.848736Z",
+      "score": 58.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss"
+    },
+    "abcbb861771b6fe7": {
+      "guid": "abcbb861771b6fe7",
+      "show_title": "The Real Story",
+      "episode_title": "Nightmare Bar Shut Down in Chicago; Government Going After Citizens with Keith Dekau; Watchdog Wednesday",
+      "published": "2026-07-22T17:09:28Z",
+      "processed_at": "2026-07-26T20:20:32.848744Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+    },
+    "811810d0bee68661": {
+      "guid": "811810d0bee68661",
+      "show_title": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "episode_title": "\u3010\u5f71\u5287\u5206\u6790\u3011\u300c\u662f\u4e0d\u662f\u6211\u5bb3\u4e86\u4f60\uff1f\u300d\u904e\u5ea6\u52aa\u529b\u7684\u4eba\uff0c\u6700\u6df1\u7684\u7f6a\u60e1\u611f\uff5c\u5fc3\u7406\u5b78\u89e3\u6790\u300a\u6b20\u59b3\u7684\u90a3\u5834\u5a5a\u79ae\u300b\u9673\u7acb\u7487",
+      "published": "2026-07-19T22:02:08Z",
+      "processed_at": "2026-07-26T20:20:32.848751Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g"
+    },
+    "d26f1dc68dccaa99": {
+      "guid": "d26f1dc68dccaa99",
+      "show_title": "Chasing Life",
+      "episode_title": "When Snoring Becomes a Danger to Your Health",
+      "published": "2026-07-24T08:00:00Z",
+      "processed_at": "2026-07-26T20:20:32.848757Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245"
+    },
+    "e453d0bdd826e0c4": {
+      "guid": "e453d0bdd826e0c4",
+      "show_title": "Chasing Life",
+      "episode_title": "Ticks are on the Move, Here\u2019s How to Protect Yourself",
+      "published": "2026-07-21T08:00:00Z",
+      "processed_at": "2026-07-26T20:20:32.848763Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245"
+    },
+    "0a7a67cf37bbaaba": {
+      "guid": "0a7a67cf37bbaaba",
+      "show_title": "The Tim Ferriss Show",
+      "episode_title": "#876: Dr. Andrew Huberman \u2014 Peptides, Performance, and Protocols",
+      "published": "2026-07-22T21:00:00Z",
+      "processed_at": "2026-07-26T20:20:32.848769Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/tim-ferriss-show"
     }
   }
 }
