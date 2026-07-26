@@ -28,6 +28,12 @@ class PodcastSearchResult(EpisodeSearchResult):
     source: str = ""
 
 
+class WebSearchResult(BaseModel):
+    title: str = ""
+    url: str = ""
+    snippet: str = ""
+
+
 class LLMMessage(BaseModel):
     role: str
     content: str
@@ -63,4 +69,4 @@ class BaseWebSearchProvider(ABC):
         self,
         query: str,
         max_results: int = 5,
-    ) -> list[dict]: ...
+    ) -> list[WebSearchResult]: ...
