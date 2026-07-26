@@ -1,18 +1,18 @@
 # 🎙️ Podcast Scout
 
-> **Personal podcast intelligence agent** — daily AI-ranked briefing for retail & eCommerce product leaders.
+> **Personal podcast intelligence agent** — daily AI-ranked briefing for product leaders at the intersection of AI, retail, and eCommerce.
 
-Podcast Scout automatically discovers, scores, and curates podcast episodes from your subscribed feeds and the open web. It runs every weekday via GitHub Actions, publishes an RSS feed to GitHub Pages, and optionally sends a styled HTML email digest — all for roughly **$0–2 per week** in LLM costs.
+Podcast Scout automatically discovers, scores, and curates podcast episodes from your subscribed feeds and the open web. It runs every weekday via GitHub Actions, publishes per-category RSS feeds to GitHub Pages, and sends a styled HTML email digest — all for roughly **$0–2 per week** in LLM costs.
 
 ---
 
 ## ✨ Features
 
-- **Multi-source discovery** — reads your OPML subscriptions, Podcast Index API, iTunes Search, and web search (Brave / Serper)
-- **Two-stage AI ranking** — fast metadata pre-filter (Stage 1) then deep Gemini LLM scoring against your interest rubric (Stage 2)
-- **Per-category queues** — episodes are bucketed (e.g. `ai_retail`, `leadership`) so high-volume categories never crowd out others
+- **Multi-source discovery** — polls RSS feeds directly for followed shows; uses Podcast Index API and web search (Brave / Serper) for outside-feed discovery
+- **Two-stage AI ranking** — fast metadata pre-filter (Stage 1) then deep Gemini LLM scoring against a persona-aware rubric (Stage 2)
+- **Per-category queues** — episodes are bucketed into `ai_retail`, `startup`, and `personal_growth` so high-volume categories never crowd out others
 - **Weekly synthesis** — cross-episode insight report generated on demand
-- **GitHub Pages output** — per-category RSS feeds (`{slug}.xml`), legacy `listen.xml` / `all.xml`, `index.html` briefing, and `data/latest.json`
+- **GitHub Pages output** — per-category RSS feeds (`{slug}.xml`), `listen.xml` / `all.xml`, `index.html` briefing, and `data/latest.json`
 - **Email digest** — HTML email via any SMTP server
 - **State management** — deduplication across runs, history snapshots, automatic pruning
 - **Zero-infra** — runs entirely inside GitHub Actions; no server required
@@ -25,7 +25,7 @@ Podcast Scout automatically discovers, scores, and curates podcast episodes from
 podcast-curation-agent/
 ├── src/podcast_scout/
 │   ├── cli.py              # Click CLI + async pipeline orchestrator
-│   ├── config.py           # Pydantic Settings + YAML loaders
+│   ├── config.py           # Settings + YAML loaders
 │   ├── discovery.py        # Multi-source episode discovery
 │   ├── feeds.py            # RSS feed parsing helpers
 │   ├── normalize.py        # Deduplication & field normalization
@@ -45,9 +45,9 @@ podcast-curation-agent/
 │       ├── transcription.py    # Cascade transcription (Whisper optional)
 │       └── web_search.py       # Brave / Serper / Null providers
 ├── config/
-│   ├── preferences.yaml            # Your interests, show priors, output caps
+│   ├── preferences.yaml            # Persona, show priors, output caps, watchlists
 │   ├── discovery_queries.yaml      # Custom search query seeds
-│   ├── shows.yaml                  # Show-level category & metadata overrides
+│   ├── shows.yaml                  # Per-show category & feed URL overrides
 │   └── subscriptions.opml.example  # Template OPML — copy & rename
 ├── data/                   # Runtime state (committed by CI bot)
 ├── public/                 # Generated outputs deployed to GitHub Pages
@@ -61,15 +61,15 @@ podcast-curation-agent/
 ### Pipeline flow
 
 ```
-OPML + Podcast Index + Web Search
+RSS (followed shows) + Podcast Index + Web Search
            │
      discover_episodes()
            │
      dedup_episodes()        ← seen-GUIDs from state
            │
    ┌───────▼────────┐
-   │ per-category   │  (ai_retail / leadership / …)
-   │  Stage-1 score │  metadata heuristics, O(ms)
+   │ per-category   │  (ai_retail / startup / personal_growth)
+   │  Stage-1 score │  show prior + guest/competitor signals, O(ms)
    │  Stage-2 LLM   │  Gemini rubric, token-budgeted
    │  build_queue() │  RSS + email-only split
    └───────┬────────┘
@@ -105,17 +105,13 @@ uv sync            # or: pip install -e .
 cp .env.example .env
 # Edit .env — at minimum set GEMINI_API_KEY
 
-# 4. Add your podcast subscriptions
-cp config/subscriptions.opml.example config/subscriptions.opml
-# Edit config/subscriptions.opml with your actual feeds
-
-# 5. Validate config
+# 4. Validate config
 uv run podcast-scout validate
 
-# 6. Dry run (no writes, no email)
+# 5. Dry run (no writes, no email)
 uv run podcast-scout run --dry-run
 
-# 7. Full run
+# 6. Full run
 uv run podcast-scout run
 ```
 
@@ -145,11 +141,11 @@ uv run podcast-scout run
 
 ### `config/preferences.yaml`
 
-Defines your interest topics, show priors (boost/block shows by name), listen-time budget, per-category output caps, and the scoring rubric weights used by the LLM.
+Defines your **persona** (role, focus, seniority), **show priors** (per-show relevance weights), listen-time budget, per-category output caps, guest and competitor watchlists, and topic exclusions. There is no `interests` keyword block — relevance scoring is delegated entirely to the Stage 2 LLM rubric.
 
 ### `config/shows.yaml`
 
-Overrides display name and **category** for individual shows. The category slug determines which RSS feed a show's episodes appear in.
+Overrides display name, **category**, and RSS feed URL for individual shows. The category slug determines which RSS feed a show's episodes appear in (`ai_retail`, `startup`, or `personal_growth`).
 
 ### `config/discovery_queries.yaml`
 
@@ -198,11 +194,13 @@ After each run, the following are published to **GitHub Pages** at `https://<use
 | `index.html` | Human-readable weekly briefing |
 | `listen.xml` | RSS feed — listen-queue episodes only |
 | `all.xml` | RSS feed — all surfaced episodes |
-| `{category-slug}.xml` | Per-category RSS feeds |
+| `ai-retail.xml` | AI, retail & product craft episodes |
+| `startup.xml` | Startup & business strategy episodes |
+| `personal-growth.xml` | Personal growth & mindfulness episodes |
 | `data/latest.json` | Machine-readable run output with scores, summaries, key ideas |
 | `latest.md` | Markdown version of the briefing |
 
-Add `listen.xml` (or any `{slug}.xml`) to your podcast app to receive your curated queue.
+Add any `{slug}.xml` feed to your podcast app to receive your curated queue for that category.
 
 ---
 

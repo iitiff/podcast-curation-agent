@@ -1,4 +1,4 @@
-"""Discovery-only ingestion layer — no OPML, no RSS polling.
+"""Discovery-only ingestion layer.
 
 All episodes are found via two complementary paths:
 
@@ -7,9 +7,9 @@ All episodes are found via two complementary paths:
    publish dates and are never lost due to stale search indices.
 
 2. **Search-based discovery** — Podcast Index / iTunes keyword queries
-   derived from the user's interests, guest watchlist, competitor watchlist,
-   and entity seeds.  show_priors are intentionally excluded here because
-   they are already covered by path 1.
+   derived from the persona focus, guest watchlist, and competitor watchlist.
+   show_priors are intentionally excluded here because they are already
+   covered by path 1.
 """
 from __future__ import annotations
 
@@ -69,7 +69,6 @@ async def _fetch_followed_show(
     try:
         text = await fetch_feed_text(feed_url)
         episodes = parse_feed_entries(text, feed_url, show_name, cutoff, max_episodes)
-        # Mark every episode as coming from a directly followed show
         for ep in episodes:
             ep.is_followed_show = True
         log.info(
@@ -89,18 +88,10 @@ async def poll_followed_shows(
     lookback_days: int,
     concurrency: int = 8,
 ) -> list[NormalizedEpisode]:
-    """Resolve each show_prior to a feed URL and poll its RSS feed directly.
-
-    Resolution order for feed URL:
-      1. canonical_feed_url from shows.yaml (exact match on show name)
-      2. iTunes Search API lookup by show name
-
-    Shows that cannot be resolved are skipped with a warning.
-    """
+    """Resolve each show_prior to a feed URL and poll its RSS feed directly."""
     if not prefs.show_priors:
         return []
 
-    # Build a name → canonical_feed_url map from shows.yaml
     canonical: dict[str, str] = {}
     for override in shows_cfg.shows:
         if override.canonical_feed_url and override.enabled:
@@ -111,14 +102,10 @@ async def poll_followed_shows(
 
     async def resolve_and_fetch(show_name: str) -> None:
         async with semaphore:
-            # 1. Check shows.yaml first
             feed_url = canonical.get(show_name.lower())
-
-            # 2. Fall back to iTunes lookup
             if not feed_url:
                 log.debug("No canonical_feed_url for '%s' — trying iTunes lookup", show_name)
                 feed_url = await _resolve_feed_url_itunes(show_name)
-
             if not feed_url:
                 log.warning(
                     "Could not resolve feed URL for followed show '%s'. "
@@ -126,7 +113,6 @@ async def poll_followed_shows(
                     show_name,
                 )
                 return
-
             episodes = await _fetch_followed_show(show_name, feed_url, lookback_days)
             all_episodes.extend(episodes)
 
@@ -139,29 +125,19 @@ async def poll_followed_shows(
 # ---------------------------------------------------------------------------
 
 def _build_queries(prefs: Preferences, cfg: DiscoveryConfig) -> list[str]:
-    """Derive search queries purely from preferences.
+    """Derive search queries from persona focus, guest watchlist, and competitor watchlist.
 
-    Note: show_priors are intentionally excluded — those shows are polled
-    directly via RSS (poll_followed_shows) so keyword search is redundant
-    and unreliable for them.  We also avoid generic queries that pull in
-    off-topic episodes; every query is anchored to a specific topic, guest,
-    or competitor rather than just '{topic} podcast episode'.
+    Interest keyword matching has been removed. Queries are now anchored to
+    the persona focus statement, specific guests, and competitor entities.
+    show_priors are intentionally excluded — those shows are polled directly
+    via RSS (poll_followed_shows).
     """
-    # Build a lowercase set of all followed show names so we can filter
-    # search results that come back from those shows (already covered by
-    # path 1 above).
-    followed_show_names: set[str] = {
-        name.lower() for name in prefs.show_priors
-    }
-
     queries: list[str] = []
 
-    # One query per interest topic — but anchored to the persona's focus
-    # area so the query is specific enough to avoid off-topic results.
-    persona_anchor = prefs.persona.focus.split(",")[0].strip()  # first focus area
-    for topic in prefs.interests:
-        readable = topic.replace("_", " ")
-        queries.append(f"{readable} {persona_anchor}")
+    # Persona focus — split on commas and generate one query per focus area
+    focus_areas = [f.strip() for f in prefs.persona.focus.split(",") if f.strip()]
+    for area in focus_areas[:6]:  # cap at 6 to avoid query bloat
+        queries.append(f"{area} podcast")
 
     # Guest watchlist — direct name search for interviews
     for guest in prefs.guest_watchlist:
@@ -202,7 +178,6 @@ async def _search_one(
         for r in hits:
             if not r.feed_url:
                 continue
-            # Skip episodes from shows already covered by direct RSS polling
             if r.show_title and r.show_title.lower() in followed_show_names:
                 log.debug(
                     "Search discovery: skipping '%s' — already a followed show",
@@ -216,7 +191,7 @@ async def _search_one(
                 show_title=r.show_title,
                 episode_title=r.episode_title or query,
                 description=r.description,
-                published=utcnow(),  # approximate; refined later if transcript available
+                published=utcnow(),
                 duration_seconds=r.duration_seconds,
                 episode_url=r.episode_url,
                 enclosure=Enclosure(url=r.enclosure_url) if r.enclosure_url else None,
@@ -242,16 +217,10 @@ async def discover_episodes(
     concurrency: int = 8,
     shows_cfg: ShowsConfig | None = None,
 ) -> list[NormalizedEpisode]:
-    """Discover all candidate episodes.  Returns a deduplicated list.
-
-    Followed shows (show_priors) are fetched first via direct RSS polling
-    so they always appear at the front of the candidate list with real
-    publish timestamps.  Search-based discovery fills the rest.
-    """
+    """Discover all candidate episodes. Returns a deduplicated list."""
     if shows_cfg is None:
         shows_cfg = ShowsConfig()
 
-    # --- Path 1: directly polled followed shows ---
     followed_episodes = await poll_followed_shows(
         prefs, shows_cfg, lookback_days, concurrency
     )
@@ -261,10 +230,8 @@ async def discover_episodes(
         len(prefs.show_priors),
     )
 
-    # Build a set of followed show names for search-result filtering
     followed_show_names: set[str] = {name.lower() for name in prefs.show_priors}
 
-    # --- Path 2: search-based discovery ---
     queries = _build_queries(prefs, cfg)
     log.info("Running %d search discovery queries", len(queries))
 
@@ -278,8 +245,6 @@ async def discover_episodes(
 
     await asyncio.gather(*[bounded(q) for q in queries])
 
-    # --- Merge: followed shows first, then search candidates ---
-    # Dedupe by guid across both lists; followed-show episodes take priority.
     seen_guids: set[str] = set()
     unique: list[NormalizedEpisode] = []
     max_raw = cfg.max_raw_candidates if cfg else 200

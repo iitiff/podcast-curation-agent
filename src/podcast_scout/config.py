@@ -64,7 +64,6 @@ class Preferences:
     feed: FeedConfig = field(default_factory=FeedConfig)
     categories: dict[str, CategoryFeedConfig] = field(default_factory=dict)
     persona: PersonaConfig = field(default_factory=PersonaConfig)
-    interests: dict[str, float] = field(default_factory=dict)
     geography: dict[str, float] = field(default_factory=dict)
     length: LengthConfig = field(default_factory=LengthConfig)
     classification: ClassificationConfig = field(default_factory=ClassificationConfig)
@@ -168,7 +167,6 @@ def load_preferences(config_dir: Path) -> Preferences:
             seniority=persona.get("seniority", "senior"),
             preferred_depth=persona.get("preferred_depth", "strategic"),
         ),
-        interests=raw.get("interests", {}),
         geography=raw.get("geography", {}),
         length=LengthConfig(
             preferred_min_minutes=length.get("preferred_min_minutes", 20),

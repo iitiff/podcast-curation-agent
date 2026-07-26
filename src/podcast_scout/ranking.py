@@ -100,69 +100,45 @@ def _is_acquired(show_title: str) -> bool:
 
 
 def _parse_llm_json(raw: str) -> dict:
-    """Robustly parse JSON from LLM output.
-
-    Handles two common failure modes:
-    1. The model wraps output in a ```json ... ``` markdown fence.
-    2. The model produces slightly malformed JSON (unterminated strings,
-       trailing commas).  We try stdlib json first; if that fails we
-       attempt a manual fence-strip + second parse before giving up.
-    """
-    # Strip leading/trailing whitespace
+    """Robustly parse JSON from LLM output."""
     text = raw.strip()
-
-    # Remove markdown code fence if present
     fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text, re.IGNORECASE)
     if fence_match:
         text = fence_match.group(1).strip()
-
-    # First attempt: standard json
     try:
         return json.loads(text)
     except json.JSONDecodeError:
         pass
-
-    # Second attempt: truncate at last complete top-level value.
-    # Find the last } that could close the root object and try up to that.
     last_brace = text.rfind("}")
     if last_brace != -1:
         try:
             return json.loads(text[: last_brace + 1])
         except json.JSONDecodeError:
             pass
-
-    # Third attempt: use json-repair if available
     try:
         import json_repair  # type: ignore
         return json_repair.loads(text)  # type: ignore[return-value]
     except Exception:
         pass
-
     raise ValueError(f"Could not parse LLM JSON output (length={len(raw)})")
 
 
 def _parse_llm_json_array(raw: str) -> list:
     """Parse a JSON array from LLM output, handling markdown fences."""
     text = raw.strip()
-
     fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text, re.IGNORECASE)
     if fence_match:
         text = fence_match.group(1).strip()
-
-    # First attempt
     try:
         result = json.loads(text)
         if isinstance(result, list):
             return result
-        # Model may have returned {"results": [...]}
         if isinstance(result, dict):
             for v in result.values():
                 if isinstance(v, list):
                     return v
     except json.JSONDecodeError:
         pass
-
-    # Find first [ ... ] block
     start = text.find("[")
     end = text.rfind("]")
     if start != -1 and end != -1 and end > start:
@@ -172,7 +148,6 @@ def _parse_llm_json_array(raw: str) -> list:
                 return result
         except json.JSONDecodeError:
             pass
-
     try:
         import json_repair  # type: ignore
         result = json_repair.loads(text)  # type: ignore
@@ -184,37 +159,35 @@ def _parse_llm_json_array(raw: str) -> list:
                     return v
     except Exception:
         pass
-
     raise ValueError(f"Could not parse LLM JSON array (length={len(raw)})")
 
 
 def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Result:
-    """Fast metadata-only score. No LLM call."""
+    """Fast metadata-only pre-filter score. No LLM call.
+
+    Scoring is based purely on show priors, guest watchlist, competitor
+    watchlist, duration, and topic exclusions.  Keyword/interest matching
+    has been removed — relevance judgement is delegated entirely to the
+    Stage 2 LLM rubric.
+    """
     score = 0.0
-    reasons = []
+    reasons: list[str] = []
 
-    # Interest keyword matching
     text = f"{ep.show_title} {ep.episode_title} {ep.description}".lower()
-    interest_hits = sum(
-        weight for topic, weight in prefs.interests.items()
-        if topic.replace("_", " ") in text
-    )
-    relevance = min(30.0, interest_hits * 8)
-    score += relevance
 
-    # Show prior boost
+    # Show prior boost (primary signal)
     prior = _show_prior(ep.show_title, prefs)
-    score += prior * 15
+    score += prior * 25  # scaled up slightly since interest term boost is gone
     reasons.append(f"show_prior={prior:.2f}")
 
     # Guest watchlist boost
     for guest in prefs.guest_watchlist:
         if guest.lower() in text:
-            score += 8
+            score += 10
             reasons.append(f"guest:{guest}")
             break
 
-    # Competitor watchlist boost
+    # Competitor / entity watchlist boost
     competitor_hits = sum(1 for c in prefs.competitor_watchlist if c.lower() in text)
     score += min(10.0, competitor_hits * 3)
 
@@ -244,7 +217,6 @@ def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Re
 
 
 def _build_episode_block(idx: int, ep: NormalizedEpisode, transcript: TranscriptResult) -> str:
-    """Build a compact text block for one episode within a batch prompt."""
     source_text = transcript.text[:2000] if transcript.text else (
         f"{ep.episode_title}\n\n{ep.description}"
     )
@@ -265,11 +237,7 @@ async def stage2_batch_rank(
     llm: BaseLLMProvider,
     token_budget: int = 8000,
 ) -> list[RankedEpisode]:
-    """Rank multiple episodes in a SINGLE LLM call to conserve API quota.
-
-    Sends all episodes together and parses a JSON array response.
-    Falls back to metadata scoring for any episode whose entry can't be parsed.
-    """
+    """Rank multiple episodes in a SINGLE LLM call to conserve API quota."""
     if not items:
         return []
 
@@ -406,10 +374,7 @@ async def stage2_deep_rank(
     llm: BaseLLMProvider,
     token_budget: int = 3000,
 ) -> RankedEpisode:
-    """Full LLM-powered ranking with rubric scoring (single episode).
-
-    Prefer stage2_batch_rank when processing multiple episodes to save quota.
-    """
+    """Full LLM-powered ranking with rubric scoring (single episode)."""
     persona_ctx = (
         f"You are ranking podcasts for a {prefs.persona.seniority} {prefs.persona.role} "
         f"whose focus is: {prefs.persona.focus}. "
@@ -426,7 +391,7 @@ async def stage2_deep_rank(
 Score this podcast episode on a 100-point rubric and produce a structured JSON output.
 
 RUBRIC (base points):
-- relevance: 0-30 (how closely does it match the user's interest areas)
+- relevance: 0-30 (how closely does it match the user's focus and role)
 - novelty: 0-15 (new insight, not a rehash)
 - guest_authority: 0-15 (firsthand expertise)
 - actionability: 0-15 (can the user act on this)
@@ -481,7 +446,6 @@ summary_captures_value (string: "yes" | "partial" | "no"), listen_nuance (string
         rubric = RubricScore(**{k: float(v) for k, v in rubric_data.items() if k in RubricScore.model_fields})
         score = rubric.total
 
-        # Coerce potentially-boolean fields to str before Pydantic validation
         def _str(val: Any, fallback: str = "") -> str:
             if val is None:
                 return fallback
@@ -507,7 +471,6 @@ summary_captures_value (string: "yes" | "partial" | "no"), listen_nuance (string
         )
     except Exception as exc:
         log.warning("Stage 2 ranking failed for %s: %s", ep.episode_title, exc)
-        # Fallback: use metadata score
         s1 = stage1_metadata_score(ep, prefs)
         rubric = RubricScore(relevance=min(30, s1.score * 0.4))
         return RankedEpisode(
@@ -538,10 +501,7 @@ def build_daily_queue(
     max_read_summary: int,
     max_outside: int,
 ) -> tuple[list[RankedEpisode], list[RankedEpisode]]:
-    """Split ranked episodes into (queued_for_rss, email_only).
-    Acquired episodes are always queued regardless of time budget.
-    Returns (rss_queue, email_only).
-    """
+    """Split ranked episodes into (queued_for_rss, email_only)."""
     sorted_eps = sorted(ranked, key=lambda r: r.score, reverse=True)
 
     rss_queue: list[RankedEpisode] = []
@@ -553,13 +513,12 @@ def build_daily_queue(
 
     for r in sorted_eps:
         if r.classification == "Skip":
-            continue  # silently dropped
+            continue
 
         is_acquired = _is_acquired(r.episode.show_title)
-        dur = r.episode.duration_minutes or 30  # default 30 min if unknown
+        dur = r.episode.duration_minutes or 30
         is_outside = r.episode.is_outside_feed
 
-        # Check caps
         if r.classification == "Listen Fully" and listen_count >= max_listen_fully:
             email_only.append(r)
             continue
@@ -569,14 +528,12 @@ def build_daily_queue(
         if is_outside and outside_count >= max_outside:
             email_only.append(r)
             continue
-
-        # Time budget (Acquired bypasses)
         if not is_acquired and total_minutes + dur > max_minutes:
             email_only.append(r)
             continue
 
         rss_queue.append(r)
-        total_minutes += dur if not is_acquired else 0  # don't count Acquired against budget
+        total_minutes += dur if not is_acquired else 0
         if r.classification == "Listen Fully":
             listen_count += 1
         elif r.classification == "Read Summary Only":
