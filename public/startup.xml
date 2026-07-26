@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<rss xmlns:ns0="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns1="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
   <channel>
     <title>Podcast Scout — Startup</title>
     <description>Curated startup, founder, and business strategy episodes.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Jul 2026 20:20:32 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2026 20:55:02 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/startup.xml" rel="self" type="application/rss+xml" />
@@ -13,15 +13,56 @@
       <itunes:name>Your Name</itunes:name>
     </itunes:owner>
     <item>
+      <title>🎧 LISTEN #1 — The SaaS Podcast: Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.</title>
+      <link />
+      <guid isPermaLink="false">6eaa776b43d6e57f</guid>
+      <pubDate>Thu, 23 Jul 2026 12:00:00 +0000</pubDate>
+      <itunes:duration>2984</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 86/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode offers concrete strategic insights into scaling a SaaS business, leveraging AI for operational efficiency, and building defensible product moats. The founder&amp;#x27;s journey provides a real-world case study highly relevant to product strategy and AI adoption at a director level.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;George Georgiadis, founder of Happier Leads, shares his journey from being stuck at $50K ARR for five years to reaching $1.5M ARR with zero employees, primarily by leveraging AI agents. He explains how shifting from a narrow point tool to an end-to-end platform created a moat, and how owning his cold email infrastructure (mailboxes and data) made it his cheapest and most profitable channel. A key insight is that a revenue plateau often signifies a &amp;#x27;depth problem&amp;#x27; rather than an &amp;#x27;effort problem.&amp;#x27; Georgiadis also details how self-built AI agents handle support and bug fixing by having all necessary data in one place, replacing multiple SaaS tools. The episode covers his decision to turn down a $1M acquisition offer and his plans for future hiring.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI agents can replace significant operational teams when integrated with a unified data platform, enabling 24/7 support and bug fixing.&lt;/li&gt;&lt;li&gt;Building an end-to-end platform, rather than a narrow point tool, can create a powerful market moat and unlock significant revenue growth.&lt;/li&gt;&lt;li&gt;Owning core infrastructure (e.g., email servers, data) for key channels can drastically reduce costs and improve unit economics, making previously unviable strategies profitable.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;For a Director-level PM, this episode highlights the strategic value of vertical integration, the potential of AI for operational leverage and cost reduction, and the importance of deep channel expertise. It suggests that product leaders should consider how AI can transform internal operations and how owning key parts of the tech stack can create competitive advantages and new business models. It also reinforces the idea that strategic pivots and deep dives into specific channels can unlock growth where broad efforts fail.&lt;/p&gt;</content:encoded>
+      <description>George Georgiadis, founder of Happier Leads, shares his journey from being stuck at $50K ARR for five years to reaching $1.5M ARR with zero employees, primarily by leveraging AI agents. He explains how shifting from a narrow point tool to an end-to-end platform created a moat, and how owning his cold email infrastructure (mailboxes and data) made it his cheapest and most profitable channel. A key insight is that a revenue plateau often signifies a 'depth problem' rather than an 'effort problem.' Georgiadis also details how self-built AI agents handle support and bug fixing by having all necessary data in one place, replacing multiple SaaS tools. The episode covers his decision to turn down a $1M acquisition offer and his plans for future hiring.</description>
+      <enclosure url="https://traffic.megaphone.fm/AHARO9671875320.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/a7e9f7cc-046b-11ed-9c6d-13dc01eb807a/image/56aa351592d4af156f6e323fc03f036d.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+    </item>
+    <item>
       <title>🎧 LISTEN #1 — The Prof G Pod: Inside the Anti-Social Century — with Derek Thompson</title>
       <link />
       <guid isPermaLink="false">eb2983a5ab4588d3</guid>
       <pubDate>Thu, 23 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>4122</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 86/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode offers highly relevant and strategic discussions on societal shifts, AI&amp;#x27;s economic impact, and evolving digital behaviors, all crucial for a Director-level role focused on product strategy, AI, and eCommerce. The guest authority is excellent, and the content promises significant learning.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Scott Galloway and Derek Thompson discuss the &amp;#x27;antisocial century,&amp;#x27; exploring how growing isolation impacts happiness, relationships, and politics. They delve into the optimization of everyday life, the retreat of young men into digital worlds, and the potential economic bubble surrounding AI. The conversation also touches on the rise of democratic socialism and offers insights into modern dating dynamics, providing a broad societal and technological overview.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The societal impact of digital isolation and the &amp;#x27;antisocial century&amp;#x27;.&lt;/li&gt;&lt;li&gt;The economic implications and potential bubble of AI.&lt;/li&gt;&lt;li&gt;Shifting consumer behaviors and digital engagement patterns.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides critical context for product strategy by highlighting macro-societal trends, understanding evolving user needs (e.g., addressing loneliness through product design), anticipating market shifts related to AI, and adapting eCommerce strategies to changing digital consumption patterns. Essential for long-term strategic thinking.&lt;/p&gt;</content:encoded>
+      <ns0:duration>4122</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 86/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode offers highly relevant and strategic discussions on societal shifts, AI&amp;#x27;s economic impact, and evolving digital behaviors, all crucial for a Director-level role focused on product strategy, AI, and eCommerce. The guest authority is excellent, and the content promises significant learning.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Scott Galloway and Derek Thompson discuss the &amp;#x27;antisocial century,&amp;#x27; exploring how growing isolation impacts happiness, relationships, and politics. They delve into the optimization of everyday life, the retreat of young men into digital worlds, and the potential economic bubble surrounding AI. The conversation also touches on the rise of democratic socialism and offers insights into modern dating dynamics, providing a broad societal and technological overview.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The societal impact of digital isolation and the &amp;#x27;antisocial century&amp;#x27;.&lt;/li&gt;&lt;li&gt;The economic implications and potential bubble of AI.&lt;/li&gt;&lt;li&gt;Shifting consumer behaviors and digital engagement patterns.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides critical context for product strategy by highlighting macro-societal trends, understanding evolving user needs (e.g., addressing loneliness through product design), anticipating market shifts related to AI, and adapting eCommerce strategies to changing digital consumption patterns. Essential for long-term strategic thinking.&lt;/p&gt;</ns1:encoded>
       <description>Scott Galloway and Derek Thompson discuss the 'antisocial century,' exploring how growing isolation impacts happiness, relationships, and politics. They delve into the optimization of everyday life, the retreat of young men into digital worlds, and the potential economic bubble surrounding AI. The conversation also touches on the rise of democratic socialism and offers insights into modern dating dynamics, providing a broad societal and technological overview.</description>
       <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP5832591539.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/747b4b0a-d1f6-11f0-8459-7ba092da4d78/image/b69709ec91b6948bbb424aa3a7530195.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+      <ns0:image href="https://megaphone.imgix.net/podcasts/747b4b0a-d1f6-11f0-8459-7ba092da4d78/image/b69709ec91b6948bbb424aa3a7530195.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — Long Strange Trip: The Philosopher CEO | Clay Co-Founder Kareem Amin</title>
+      <link />
+      <guid isPermaLink="false">73f5620850201b77</guid>
+      <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
+      <itunes:duration>4166</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;I had Kareem Amin all wrong. When Clay first crossed my radar, I thought he was too laid-back:&amp;amp;nbsp; no chip on his shoulder, not the hungry founder I expected to win. Clay has since exploded.
+
+
+
+Kareem builds from what he calls &amp;quot;a place of wholeness&amp;quot; rather than lack — nothing to prove, no enemy to&lt;/p&gt;</content:encoded>
+      <description>I had Kareem Amin all wrong. When Clay first crossed my radar, I thought he was too laid-back:&amp;nbsp; no chip on his shoulder, not the hungry founder I expected to win. Clay has since exploded.
+
+
+
+Kareem builds from what he calls "a place of wholeness" rather than lack — nothing to prove, no enemy to</description>
+      <enclosure url="https://pscrb.fm/rss/p/traffic.megaphone.fm/CPUAI4466953098.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/f3a7f1a2-653b-11f1-b671-871766e61a39/image/112e6459e1aded7db1b89784ebbd9254.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — The a16z Show: Ben Horowitz: The Fight Over Open Source AI</title>
+      <link>https://a16z.simplecast.com/episodes/ben-horowitz-the-fight-over-open-source-ai-RnXTUEqk</link>
+      <guid isPermaLink="false">233712672e620be9</guid>
+      <pubDate>Sun, 26 Jul 2026 13:15:04 +0000</pubDate>
+      <itunes:duration>1955</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Ben Horowitz joins Theo Jaffee and Sofia Puccini to discuss one of the biggest debates in AI today: the future of open-source models. They examine the growing push to restrict open models, why Ben believes open source is critical for security, innovation, and competition, and what happens if a handf&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/ben-horowitz-the-fight-over-open-source-ai-RnXTUEqk"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Ben Horowitz joins Theo Jaffee and Sofia Puccini to discuss one of the biggest debates in AI today: the future of open-source models. They examine the growing push to restrict open models, why Ben believes open source is critical for security, innovation, and competition, and what happens if a handf</description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/a06277c7-6617-4cbf-b37d-94f9516c033c/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=a06277c7-6617-4cbf-b37d-94f9516c033c&amp;feed=JGE3yC0V" type="audio/mpeg" length="31286863" />
+      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
   </channel>
 </rss>
