@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import click
+import yaml
 from rich.console import Console
 from rich.table import Table
 
@@ -33,6 +34,13 @@ log = logging.getLogger(__name__)
 
 # Default category if a show has no category set
 _DEFAULT_CATEGORY = "ai_retail"
+
+# Top-level keys recognised in preferences.yaml — anything else triggers a warning.
+_KNOWN_PREFS_KEYS = frozenset({
+    "feed", "categories", "persona", "geography", "length",
+    "classification", "output_caps", "show_priors",
+    "topic_exclusions", "guest_watchlist", "competitor_watchlist",
+})
 
 
 def _setup_logging(verbose: bool) -> None:
@@ -373,7 +381,20 @@ def validate() -> None:
     from .discovery import _build_queries
     queries = _build_queries(prefs, discovery_cfg)
     cats = list(prefs.categories.keys())
-    console.print(f"[green]preferences.yaml OK — {len(prefs.show_priors)} show priors, {len(prefs.interests)} interest topics[/green]")
+
+    # Warn on any unrecognised top-level keys in preferences.yaml
+    prefs_path = settings.config_dir / "preferences.yaml"
+    raw_keys = set(yaml.safe_load(prefs_path.read_text()) or {})
+    unknown_keys = raw_keys - _KNOWN_PREFS_KEYS
+    if unknown_keys:
+        for key in sorted(unknown_keys):
+            console.print(f"[yellow]WARNING: preferences.yaml contains unknown key '{key}' — it will be ignored.[/yellow]")
+
+    console.print(
+        f"[green]preferences.yaml OK — "
+        f"{len(prefs.show_priors)} show priors | "
+        f"persona: {prefs.persona.focus[:60]}[/green]"
+    )
     console.print(f"[green]Categories: {', '.join(cats) or 'none (using legacy caps)'}[/green]")
     console.print(f"[green]discovery.yaml OK — {len(queries)} queries will run[/green]")
     for q in queries:
