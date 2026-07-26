@@ -8,8 +8,51 @@ import httpx
 from .base import BaseLLMProvider, LLMMessage, LLMResponse
 
 
+class GitHubModelsProvider(BaseLLMProvider):
+    """GitHub Models inference API (OpenAI-compatible).
+
+    Uses GITHUB_TOKEN which is automatically available in all GitHub Actions
+    runs — no extra secret required.
+    """
+
+    BASE_URL = "https://models.inference.ai.azure.com"
+
+    def __init__(self, token: str, model: str = "gpt-4.1") -> None:
+        self.token = token
+        self.model = model
+
+    async def complete(
+        self,
+        messages: list[LLMMessage],
+        max_tokens: int = 4096,
+    ) -> LLMResponse:
+        payload: dict[str, Any] = {
+            "model": self.model,
+            "messages": [{"role": m.role, "content": m.content} for m in messages],
+            "max_tokens": max_tokens,
+            "temperature": 0.3,
+        }
+        headers = {
+            "Authorization": f"Bearer {self.token}",
+            "Content-Type": "application/json",
+        }
+        url = f"{self.BASE_URL}/chat/completions"
+        async with httpx.AsyncClient(timeout=120.0) as client:
+            resp = await client.post(url, json=payload, headers=headers)
+            resp.raise_for_status()
+            data = resp.json()
+
+        text = data["choices"][0]["message"]["content"]
+        usage = data.get("usage", {})
+        return LLMResponse(
+            content=text,
+            input_tokens=usage.get("prompt_tokens", 0),
+            output_tokens=usage.get("completion_tokens", 0),
+        )
+
+
 class GeminiProvider(BaseLLMProvider):
-    """Google Gemini API provider."""
+    """Google Gemini API provider (fallback)."""
 
     BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 

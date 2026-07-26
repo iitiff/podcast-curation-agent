@@ -18,7 +18,7 @@ from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
 from .normalize import NormalizedEpisode, dedup_episodes
-from .providers.llm import GeminiProvider
+from .providers.llm import GeminiProvider, GitHubModelsProvider
 from .providers.podcast_search import ITunesSearchProvider, PodcastIndexProvider
 from .providers.transcription import CascadeTranscriptionProvider
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
@@ -66,6 +66,24 @@ def _make_web_search(
             return SerperSearchProvider(settings.web_search_api_key)
         return BraveSearchProvider(settings.web_search_api_key)
     return NullWebSearchProvider()
+
+
+def _make_llm(settings: Settings) -> GitHubModelsProvider | GeminiProvider | None:
+    """Build LLM provider: GitHub Models first, Gemini as fallback."""
+    if settings.github_token:
+        console.print(
+            f"[cyan]LLM: GitHub Models ({settings.github_models_model})[/cyan]"
+        )
+        return GitHubModelsProvider(settings.github_token, settings.github_models_model)
+    if settings.gemini_api_key:
+        console.print(
+            f"[yellow]LLM: Gemini fallback ({settings.gemini_stage2_model})[/yellow]"
+        )
+        return GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
+    console.print(
+        "[red]WARNING: No GITHUB_TOKEN or GEMINI_API_KEY — running metadata-only ranking.[/red]"
+    )
+    return None
 
 
 def _smtp_from_env() -> SMTPConfig | None:
@@ -218,12 +236,8 @@ async def _run_pipeline(
         episode.category = category
         episodes_by_category.setdefault(category, []).append(episode)
 
-    # 4. LLM
-    llm = None
-    if settings.gemini_api_key:
-        llm = GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
-    else:
-        console.print("[yellow]WARNING: No GEMINI_API_KEY — running metadata-only ranking.[/yellow]")
+    # 4. LLM — GitHub Models (primary) → Gemini (fallback) → metadata-only
+    llm = _make_llm(settings)
 
     # 5. Rank new episodes
     transcription = CascadeTranscriptionProvider(
@@ -277,11 +291,17 @@ async def _run_pipeline(
 
     # 7. Merge carryover: scored-but-never-queued episodes from previous runs
     # compete in the same pool as today's new episodes.
+    # Exclude GUIDs scored in THIS run so they don't appear as both fresh + carryover.
+    current_run_guids: set[str] = {
+        r.episode.guid
+        for cat_ranked in newly_ranked.values()
+        for r in cat_ranked
+    }
     carryover = _load_carryover_candidates(
         state=state,
         category_map=category_map,
         lookback_days=settings.lookback_days,
-        already_queued_guids=set(),  # nothing queued yet this run
+        already_queued_guids=current_run_guids,
     )
     if carryover:
         total_carryover = sum(len(v) for v in carryover.values())
