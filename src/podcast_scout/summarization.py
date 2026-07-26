@@ -5,7 +5,7 @@ import logging
 
 from .config import Preferences
 from .normalize import NormalizedEpisode
-from .providers.base import BaseLLMProvider, BaseTranscriptionProvider
+from .providers.base import BaseLLMProvider, BaseTranscriptionProvider, TranscriptResult
 from .ranking import (
     RankedEpisode,
     RubricScore,
@@ -55,7 +55,7 @@ async def process_episodes(
     tokens_used = 0
 
     # Fetch transcripts for all deep candidates first (these are cheap/free)
-    transcript_map = {}
+    transcript_map: dict[str, TranscriptResult] = {}
     for ep in deep_candidates:
         transcript = await transcription.transcribe(
             episode_url=ep.episode_url,

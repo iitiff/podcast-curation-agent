@@ -52,7 +52,7 @@ async def _resolve_feed_url_itunes(show_name: str) -> str | None:
                 return None
             results = resp.json().get("results", [])
             if results and results[0].get("feedUrl"):
-                return results[0]["feedUrl"]
+                return results[0]["feedUrl"]  # type: ignore[no-any-return]
     except Exception as exc:
         log.warning("iTunes lookup failed for '%s': %s", show_name, exc)
     return None
@@ -170,7 +170,7 @@ async def _search_one(
     followed_show_names: set[str],
     max_results: int = 5,
 ) -> list[NormalizedEpisode]:
-    results = []
+    results: list[NormalizedEpisode] = []
     try:
         hits = await podcast_search.search_episodes(query, max_results=max_results)
         for r in hits:

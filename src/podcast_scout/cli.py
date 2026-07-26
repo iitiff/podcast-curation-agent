@@ -7,6 +7,7 @@ import logging
 import os
 import re
 from datetime import UTC, datetime
+from pathlib import Path
 
 import click
 import yaml
@@ -16,7 +17,7 @@ from rich.table import Table
 from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
-from .normalize import dedup_episodes
+from .normalize import NormalizedEpisode, dedup_episodes
 from .providers.llm import GeminiProvider
 from .providers.podcast_search import ITunesSearchProvider, PodcastIndexProvider
 from .providers.transcription import CascadeTranscriptionProvider
@@ -82,8 +83,8 @@ def _smtp_from_env() -> SMTPConfig | None:
     )
 
 
-def _build_category_map(config_dir: object) -> dict[str, str]:
-    shows = load_show_config(config_dir)  # type: ignore[arg-type]
+def _build_category_map(config_dir: Path) -> dict[str, str]:
+    shows = load_show_config(config_dir)
     mapping: dict[str, str] = {}
     for show in shows.shows:
         name = show.display_name or show.match
@@ -109,7 +110,7 @@ def _tag_episodes_with_category(
 ) -> None:
     for r in episodes:
         cat = _resolve_category(r.episode.show_title, category_map)
-        r.episode.category = cat  # type: ignore[attr-defined]
+        r.episode.category = cat
 
 
 def _safe_subject(text: str) -> str:
@@ -157,7 +158,7 @@ async def _run_pipeline(
 
     # 3. Categorise
     active_categories = list(prefs.categories.keys()) if prefs.categories else [_DEFAULT_CATEGORY]
-    episodes_by_category: dict[str, list[object]] = {category: [] for category in active_categories}
+    episodes_by_category: dict[str, list[NormalizedEpisode]] = {category: [] for category in active_categories}
     for episode in new_episodes:
         category = _resolve_category(episode.show_title, category_map)
         episode.category = category
@@ -189,7 +190,7 @@ async def _run_pipeline(
             continue
         if llm:
             category_ranked = await process_episodes(
-                candidates,  # type: ignore[arg-type]
+                candidates,
                 prefs=prefs, llm=llm, transcription=transcription,
                 max_deep_process=15, total_token_budget=token_budget_per_category,
             )
@@ -199,8 +200,8 @@ async def _run_pipeline(
                     classification=_classify(s1.score, prefs),
                     classification_reason="metadata only (no LLM key)",
                     evidence_confidence="low", summary=episode.description[:300] or "No summary.")
-                for episode in candidates  # type: ignore[union-attr]
-                for s1 in [stage1_metadata_score(episode, prefs)]  # type: ignore[arg-type]
+                for episode in candidates
+                for s1 in [stage1_metadata_score(episode, prefs)]
             ]
             category_ranked.sort(key=lambda item: item.score, reverse=True)
 
