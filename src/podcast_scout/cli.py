@@ -113,11 +113,6 @@ def _tag_episodes_with_category(
         r.episode.category = cat
 
 
-def _safe_subject(text: str) -> str:
-    """Remove non-ASCII characters that break SMTP header encoding."""
-    return re.sub(r'[^\x00-\x7F]+', ' ', text).strip()
-
-
 async def _run_pipeline(
     settings: Settings,
     run_synthesis: bool = False,
@@ -302,12 +297,12 @@ async def _run_pipeline(
     state.save()
 
     # 9. Email digest
+    # Subject is encoded as RFC 2047 UTF-8 inside send_digest — no ASCII stripping needed
     smtp = _smtp_from_env()
     if smtp:
         feed_url = f"{base_url}/listen.xml" if base_url else ""
         html_body = build_email_html(rss_queue, email_only, run_date, feed_url)
-        raw_subject = f"Your Podcast Scout — {run_date} ({len(rss_queue)} queued)"
-        subject = _safe_subject(raw_subject)
+        subject = f"Your Podcast Scout — {run_date} ({len(rss_queue)} queued)"
         try:
             send_digest(smtp, subject, html_body)
         except Exception as exc:
