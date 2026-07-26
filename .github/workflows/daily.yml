@@ -30,6 +30,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Always check out the latest main so we run the newest code,
+          # not the SHA of the commit that triggered the scheduled run.
+          ref: main
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -64,26 +69,28 @@ jobs:
           fi
           uv run podcast-scout run $ARGS
 
-      - name: Commit updated state
-        if: "!inputs.dry_run"
+      - name: Commit updated state and feeds
+        if: ${{ inputs.dry_run != true }}
         run: |
           git config user.name "podcast-scout[bot]"
           git config user.email "podcast-scout[bot]@users.noreply.github.com"
           git add data/ public/ || true
           git diff --cached --quiet || git commit -m "chore: update state and public feed [skip ci]"
-          git push
+          # Pull with rebase first to avoid push conflicts on concurrent runs
+          git pull --rebase origin main
+          git push origin main
 
       - name: Setup Pages
-        if: "!inputs.dry_run"
+        if: ${{ inputs.dry_run != true }}
         uses: actions/configure-pages@v4
 
       - name: Upload Pages artifact
-        if: "!inputs.dry_run"
+        if: ${{ inputs.dry_run != true }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: public/
 
       - id: deploy
         name: Deploy to GitHub Pages
-        if: "!inputs.dry_run"
+        if: ${{ inputs.dry_run != true }}
         uses: actions/deploy-pages@v4

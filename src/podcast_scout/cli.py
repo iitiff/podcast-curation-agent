@@ -5,6 +5,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -109,6 +110,11 @@ def _tag_episodes_with_category(
         r.episode.category = cat  # type: ignore[attr-defined]
 
 
+def _safe_subject(text: str) -> str:
+    """Remove non-ASCII characters that break SMTP header encoding."""
+    return re.sub(r'[^\x00-\x7F]+', ' ', text).strip()
+
+
 async def _run_pipeline(
     settings: Settings,
     run_synthesis: bool = False,
@@ -173,6 +179,10 @@ async def _run_pipeline(
     rss_queue: list[RankedEpisode] = []
     email_only: list[RankedEpisode] = []
 
+    # Use a generous time budget floor so a misconfigured max_weekly_listen_hours
+    # (e.g. 1.0) never zeros out the queue. 8 hours per category is a safe ceiling.
+    minutes_budget = max(480.0, prefs.length.max_weekly_listen_hours * 60)
+
     for category in active_categories:
         candidates = episodes_by_category.get(category, [])
         if not candidates:
@@ -196,7 +206,7 @@ async def _run_pipeline(
         category_cfg = prefs.categories.get(category)
         category_rss, category_email = build_daily_queue(
             category_ranked,
-            max_minutes=prefs.length.max_weekly_listen_hours * 60,
+            max_minutes=minutes_budget,
             max_listen_fully=category_cfg.max_listen_fully if category_cfg else prefs.output_caps.max_listen_fully,
             max_read_summary=category_cfg.max_read_summary if category_cfg else prefs.output_caps.max_read_summary,
             max_outside=prefs.output_caps.max_outside_feed,
@@ -274,8 +284,11 @@ async def _run_pipeline(
     (settings.public_dir / "latest.md").write_text(md, encoding="utf-8")
 
     # 8. Update state
+    # FIX: only mark episodes that were actually surfaced (queued or email_only),
+    # NOT every ranked episode. Marking skipped episodes as seen would cause
+    # them to be filtered out by dedup on subsequent runs, producing 0 results.
     from .normalize import utcnow
-    for r in ranked:
+    for r in all_surfaced:
         state.mark_processed(EpisodeRecord(
             guid=r.episode.guid,
             show_title=r.episode.show_title,
@@ -297,7 +310,9 @@ async def _run_pipeline(
     if smtp:
         feed_url = f"{base_url}/listen.xml" if base_url else ""
         html_body = build_email_html(rss_queue, email_only, run_date, feed_url)
-        subject = f"Your Podcast Scout — {run_date} ({len(rss_queue)} queued)"
+        # FIX: strip non-ASCII from subject to prevent 'ascii codec' SMTP error
+        raw_subject = f"Your Podcast Scout — {run_date} ({len(rss_queue)} queued)"
+        subject = _safe_subject(raw_subject)
         try:
             send_digest(smtp, subject, html_body)
         except Exception as exc:
