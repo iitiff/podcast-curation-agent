@@ -31,6 +31,7 @@ shows:
   - match: "How I AI"
     display_name: "How I AI with Claire Vo"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/l2_NS8PH"
     max_episodes_per_run: 2
     language: en
 
@@ -39,82 +40,97 @@ shows:
     category: ai_retail
     transcript_source: publisher
     max_episodes_per_run: 3
-    notes: "Ben Thompson posts full transcripts on stratechery.com for members."
+    notes: "Paid subscription — no public RSS feed. iTunes fallback intentional. Full transcripts on stratechery.com for members."
 
   - match: "Sharp Tech"
     display_name: "Sharp Tech with Ben Thompson"
     category: ai_retail
+    canonical_feed_url: "https://feeds.megaphone.fm/sharptech"
     max_episodes_per_run: 2
 
   - match: "No Priors"
     display_name: "No Priors"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/hcf8_gOH"
     max_episodes_per_run: 2
 
   - match: "Hard Fork"
     display_name: "Hard Fork"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/6HKOhNgS"
     max_episodes_per_run: 2
 
   - match: "Retailgentic"
     display_name: "Retailgentic"
     category: ai_retail
+    canonical_feed_url: "https://feeds.transistor.fm/retailgentic"
     max_episodes_per_run: 3
 
   - match: "Future Commerce"
     display_name: "Future Commerce"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/5sBMCBoJ"
     max_episodes_per_run: 2
 
   - match: "Modern Retail"
     display_name: "Modern Retail Podcast"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/JGE3yC0V"
     max_episodes_per_run: 2
 
   - match: "Behind the Numbers"
     display_name: "Behind the Numbers: Reimagining Retail"
     category: ai_retail
+    canonical_feed_url: "https://behindthenumbers.podbean.com/feed.xml"
     max_episodes_per_run: 3
 
   - match: "Acquired"
     display_name: "Acquired"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/tfjQJ64e"
     max_episodes_per_run: 1
     notes: "Long-form; cap at 1 per run. Only surfaces when topic is highly relevant."
 
   - match: "AI + a16z"
     display_name: "AI + a16z"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/8s9hFoze"
     max_episodes_per_run: 2
 
   - match: "a16z Show"
     display_name: "The a16z Show"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/8s9hFoze"
     max_episodes_per_run: 2
 
   - match: "Decoder"
-    display_name: "Decoder"
+    display_name: "Decoder with Nilay Patel"
     category: ai_retail
+    canonical_feed_url: "https://feeds.megaphone.fm/recodedecode"
     max_episodes_per_run: 2
 
   - match: "Jason & Scot"
     display_name: "Jason & Scot Show"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/yNjgq5rO"
     max_episodes_per_run: 2
 
   - match: "McKinsey on Consumer"
     display_name: "McKinsey on Consumer and Retail"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/J23uDRB1"
     max_episodes_per_run: 2
 
   - match: "Modern Customer"
     display_name: "The Modern Customer Podcast"
     category: ai_retail
+    canonical_feed_url: "https://feeds.soundcloud.com/stream/users-912917931/sounds.rss"
     max_episodes_per_run: 2
 
   - match: "Product Thinking"
     display_name: "Product Thinking"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/GvV_lBCr"
     max_episodes_per_run: 2
 
   - match: "Growth Podcast"
@@ -126,50 +142,71 @@ shows:
   - match: "SaaS Podcast"
     display_name: "The SaaS Podcast"
     category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/54qCiI30"
     max_episodes_per_run: 1
 
   - match: "Prof G"
     display_name: "The Prof G Pod"
     category: ai_retail
-    max_episodes_per_run: 1
+    canonical_feed_url: "https://feeds.simplecast.com/JdXs7t1Q"
+    max_episodes_per_run: 2
 
   - match: "Tim Ferriss"
     display_name: "The Tim Ferriss Show"
     category: ai_retail
+    canonical_feed_url: "https://rss.art19.com/tim-ferriss-show"
     max_episodes_per_run: 1
     notes: "Only surfaces when guest is directly relevant to AI/retail/product."
+
+  - match: "Masters of Scale"
+    display_name: "Masters of Scale"
+    category: ai_retail
+    canonical_feed_url: "https://feeds.simplecast.com/4MM_a9K8"
+    max_episodes_per_run: 2
+
+  - match: "All-In"
+    display_name: "All-In with Chamath, Jason, Sacks & Friedberg"
+    category: ai_retail
+    canonical_feed_url: "https://feeds.megaphone.fm/allinpodcast"
+    max_episodes_per_run: 2
 
   # ── Startup ────────────────────────────────────────────────────────
 
   - match: "Y Combinator"
     display_name: "Y Combinator Startup Podcast"
     category: startup
+    canonical_feed_url: "https://feeds.simplecast.com/dHoohVNH"
     max_episodes_per_run: 2
 
   - match: "My First Million"
     display_name: "My First Million"
     category: startup
+    canonical_feed_url: "https://feeds.megaphone.fm/mfmpod"
     max_episodes_per_run: 2
 
   - match: "Invest Like the Best"
     display_name: "Invest Like the Best"
     category: startup
+    canonical_feed_url: "https://feeds.megaphone.fm/investlikethebest"
     max_episodes_per_run: 1
 
   - match: "20VC"
     display_name: "20VC with Harry Stebbings"
     category: startup
+    canonical_feed_url: "https://feeds.megaphone.fm/20VC"
     max_episodes_per_run: 2
 
   - match: "Founders"
     display_name: "Founders Podcast"
     category: startup
+    canonical_feed_url: "https://feeds.simplecast.com/ksRUjOHr"
     max_episodes_per_run: 1
     notes: "David Senra deep dives on founders. Long-form, cap at 1."
 
   - match: "The Indie Hackers"
     display_name: "Indie Hackers"
     category: startup
+    canonical_feed_url: "https://feeds.simplecast.com/q6_07tdh"
     max_episodes_per_run: 1
 
   # ── Chinese ────────────────────────────────────────────────────────
