@@ -219,9 +219,11 @@ def build_category_feed(
     max_summary = cat_cfg.max_read_summary if cat_cfg else prefs.output_caps.max_read_summary
 
     cat_episodes = [r for r in episodes if getattr(r.episode, "category", None) == category]
-    new_listen = [r for r in cat_episodes if r.classification == "Listen Fully" and r.episode.enclosure]
+    # Include all Listen Fully episodes regardless of enclosure presence —
+    # enclosure-less episodes (web articles, etc.) are still valid feed items.
+    new_listen = [r for r in cat_episodes if r.classification == "Listen Fully"]
     new_summary = [r for r in cat_episodes if r.classification == "Read Summary Only"]
-    new_items_today: list[RankedEpisode] = (new_listen + new_summary)
+    new_items_today: list[RankedEpisode] = new_listen + new_summary
     new_guids = {r.episode.guid for r in new_items_today}
 
     retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
