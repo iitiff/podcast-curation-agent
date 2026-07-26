@@ -77,12 +77,12 @@ def _build_category_map(config_dir) -> dict[str, str]:
     """Build a mapping of show display_name -> category from shows.yaml."""
     shows = load_show_config(config_dir)
     mapping: dict[str, str] = {}
-    for show in shows:
-        name = show.get("display_name") or show.get("match", "")
-        cat = show.get("category", _DEFAULT_CATEGORY)
+    for show in shows.shows:
+        name = show.display_name or show.match
+        cat = show.category or _DEFAULT_CATEGORY
         mapping[name.lower()] = cat
         # Also store by match string for fuzzy lookup
-        mapping[show.get("match", "").lower()] = cat
+        mapping[show.match.lower()] = cat
     return mapping
 
 

@@ -86,6 +86,25 @@ class DiscoveryConfig:
     entity_seeds: dict[str, list[str]] = field(default_factory=dict)
 
 
+@dataclass
+class ShowConfig:
+    match: str
+    canonical_feed_url: str | None = None
+    display_name: str | None = None
+    priority: float | None = None
+    enabled: bool = True
+    language: str | None = None
+    transcript_source: str | None = None
+    max_episodes_per_run: int | None = None
+    category: str | None = None
+    notes: str | None = None
+
+
+@dataclass
+class ShowsConfig:
+    shows: list[ShowConfig] = field(default_factory=list)
+
+
 class Settings:
     def __init__(self) -> None:
         self.config_dir = Path(os.getenv("CONFIG_DIR", "config"))
@@ -190,7 +209,9 @@ def load_discovery(config_dir: Path) -> DiscoveryConfig:
     )
 
 
-def load_show_config(config_dir: Path) -> list[dict]:
+def load_show_config(config_dir: Path) -> ShowsConfig:
     path = config_dir / "shows.yaml"
+    if not path.exists():
+        return ShowsConfig()
     raw = yaml.safe_load(path.read_text()) or {}
-    return raw.get("shows", [])
+    return ShowsConfig(shows=[ShowConfig(**show) for show in raw.get("shows", [])])
