@@ -1,5 +1,5 @@
 {
-  "last_run": "2026-07-26T15:28:33.444888Z",
+  "last_run": "2026-07-26T15:34:38.618500Z",
   "processed_episodes": {
     "ccfa58dabbcfa5108d7a9d1dab32f762f1cc4a38": {
       "guid": "ccfa58dabbcfa5108d7a9d1dab32f762f1cc4a38",
@@ -99,6 +99,61 @@
       "classification": "Skip",
       "is_outside_feed": false,
       "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+    },
+    "467b316f09e1ceda0a1f33f54063aac8a5197b43": {
+      "guid": "467b316f09e1ceda0a1f33f54063aac8a5197b43",
+      "show_title": "The Ecomcrew Ecommerce Podcast",
+      "episode_title": "and eCommerce podcast",
+      "published": "2026-07-26T15:34:38.406233Z",
+      "processed_at": "2026-07-26T15:34:38.618416Z",
+      "score": 26.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://ecomcrew.libsyn.com/rss"
+    },
+    "571cb9585141cb7f00dfa74e7b4207df9374fb59": {
+      "guid": "571cb9585141cb7f00dfa74e7b4207df9374fb59",
+      "show_title": "The Ecommerce Alley Podcast: Meta Ads, AI Frameworks, and Business Strategy",
+      "episode_title": "and eCommerce podcast",
+      "published": "2026-07-26T15:34:38.406290Z",
+      "processed_at": "2026-07-26T15:34:38.618440Z",
+      "score": 23.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.buzzsprout.com/1826697.rss"
+    },
+    "3c0fcc551fdac351ab7e5d0cfad1afdad4beb5e3": {
+      "guid": "3c0fcc551fdac351ab7e5d0cfad1afdad4beb5e3",
+      "show_title": "Inside Commerce: Ecommerce Strategy, CX and Technology Podcast",
+      "episode_title": "and eCommerce podcast",
+      "published": "2026-07-26T15:34:38.406273Z",
+      "processed_at": "2026-07-26T15:34:38.618445Z",
+      "score": 20.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://anchor.fm/s/108fd030/podcast/rss"
+    },
+    "35937c0ab8391c178cc597adbb276751049c9d85": {
+      "guid": "35937c0ab8391c178cc597adbb276751049c9d85",
+      "show_title": "RetailCraft - digital retail, ecommerce and brands - Retail Podcast",
+      "episode_title": "and eCommerce podcast",
+      "published": "2026-07-26T15:34:38.406305Z",
+      "processed_at": "2026-07-26T15:34:38.618448Z",
+      "score": 20.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.transistor.fm/retailcraft-digital-retail-ecommerce-and-brands-retail-podcast-65985af8-be17-43cf-99f5-66ede80210ca"
+    },
+    "caf566b1c31bc72d4534667729bb1f9505b23525": {
+      "guid": "caf566b1c31bc72d4534667729bb1f9505b23525",
+      "show_title": "The My Wife Quit Her Job Podcast: Start A Business Online, Quit Your Job, And Spend More Time With Your Loved Ones - My Wife Quit Her Job",
+      "episode_title": "and eCommerce podcast",
+      "published": "2026-07-26T15:34:38.406317Z",
+      "processed_at": "2026-07-26T15:34:38.618451Z",
+      "score": 20.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://mywifequitherjob.libsyn.com/rss"
     }
   },
   "published_guids": []
