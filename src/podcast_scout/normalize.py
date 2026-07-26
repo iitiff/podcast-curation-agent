@@ -24,6 +24,7 @@ class NormalizedEpisode(BaseModel):
 
     # Metadata
     show_title: str
+    category: str = "ai_retail"
     episode_title: str
     description: str = ""
     published: datetime
