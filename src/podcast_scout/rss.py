@@ -4,6 +4,10 @@ Feeds are *persistent*: each run merges today's newly ranked episodes with
 items already in the published feed, re-sorts by score, and drops anything
 older than FEED_RETENTION_DAYS (21 days).  This means episodes curated into
 a podcast-app playlist will not disappear on the next daily update.
+
+Only "Listen Fully" episodes are written to the RSS XML.  "Read Summary Only"
+episodes are routed exclusively to the email digest — they must never appear
+in the Pocket Casts feed.
 """
 from __future__ import annotations
 
@@ -118,7 +122,12 @@ def _load_prior_items(
 
         rec = state.get_record(guid)
         score = rec.score if rec else 0.0
-        classification = rec.classification if rec else "Read Summary Only"
+        classification = rec.classification if rec else "Listen Fully"
+
+        # Only carry forward Listen Fully items — Summary items should never
+        # have been in the RSS feed in the first place; drop them on reload.
+        if classification != "Listen Fully":
+            continue
 
         if score == 0.0:
             notes_el = item_el.find("{http://purl.org/rss/1.0/modules/content/}encoded")
@@ -216,43 +225,36 @@ def build_category_feed(
     feed_url = f"{base_url.rstrip('/')}/{slug}.xml" if base_url else ""
 
     max_listen = cat_cfg.max_listen_fully if cat_cfg else prefs.output_caps.max_listen_fully
-    max_summary = cat_cfg.max_read_summary if cat_cfg else prefs.output_caps.max_read_summary
 
     cat_episodes = [r for r in episodes if getattr(r.episode, "category", None) == category]
-    # Include all Listen Fully episodes regardless of enclosure presence —
-    # enclosure-less episodes (web articles, etc.) are still valid feed items.
+    # RSS feed contains ONLY Listen Fully episodes.
+    # Read Summary Only episodes go exclusively to the email digest.
     new_listen = [r for r in cat_episodes if r.classification == "Listen Fully"]
-    new_summary = [r for r in cat_episodes if r.classification == "Read Summary Only"]
-    new_items_today: list[RankedEpisode] = new_listen + new_summary
-    new_guids = {r.episode.guid for r in new_items_today}
+    new_guids = {r.episode.guid for r in new_listen}
 
     retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
     prior_items: list[_PriorItem] = []
     if public_dir is not None:
         feed_path = public_dir / f"{slug}.xml"
+        # _load_prior_items already filters out non-Listen-Fully prior items
         for p in _load_prior_items(feed_path, state, retention_cutoff):
             if p.guid not in new_guids:
                 prior_items.append(p)
 
     merged: list[tuple[float, str, str, RankedEpisode | _PriorItem]] = [
-        (r.score, r.classification, "new", r) for r in new_items_today
+        (r.score, r.classification, "new", r) for r in new_listen
     ] + [
         (p.score, p.classification, "prior", p) for p in prior_items
     ]
     merged.sort(key=lambda t: t[0], reverse=True)
 
     listen_count = 0
-    summary_count = 0
     final_order: list[tuple[str, RankedEpisode | _PriorItem]] = []
     for _score, classification, kind, obj in merged:
         if classification == "Listen Fully":
             if listen_count >= max_listen:
                 continue
             listen_count += 1
-        else:
-            if summary_count >= max_summary:
-                continue
-            summary_count += 1
         final_order.append((kind, obj))
 
     rss = Element("rss", attrib=_RSS_NS)
@@ -306,8 +308,10 @@ def build_feed(
     retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
 
     if feed_type == "listen":
+        # listen feed: Listen Fully only, enclosure required for actual audio playback
         new_items = [r for r in episodes if r.classification == "Listen Fully" and r.episode.enclosure]
     else:
+        # all feed: Listen Fully + Read Summary Only (for reference)
         new_items = [r for r in episodes if r.classification in ("Listen Fully", "Read Summary Only")]
 
     new_guids = {r.episode.guid for r in new_items}
