@@ -1,5 +1,6 @@
 {
-  "last_run": "2026-07-26T00:00:00.000000Z",
-  "processed_episodes": {},
-  "published_guids": []
+  "seen_guids": [],
+  "published_guids": [],
+  "episode_records": {},
+  "last_run": null
 }
