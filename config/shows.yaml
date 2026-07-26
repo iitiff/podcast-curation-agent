@@ -212,11 +212,12 @@ shows:
     language: zh
     max_episodes_per_run: 2
 
-  - match: "The Real Story"
+  - match: "報導者"
     display_name: "The Real Story by 報導者"
     category: personal_growth
     language: zh
     max_episodes_per_run: 2
+    notes: "Changed match from 'The Real Story' to avoid collision with US talk radio shows."
 
   - match: "Chasing Life"
     display_name: "Chasing Life with Dr. Sanjay Gupta"

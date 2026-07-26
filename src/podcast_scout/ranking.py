@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import unicodedata
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -88,16 +89,24 @@ class _Stage2LLMOutput(BaseModel):
     listen_nuance: str
 
 
+def _normalize_apostrophes(s: str) -> str:
+    """Normalize curly/fancy apostrophes to straight ASCII so prior lookups
+    match regardless of whether the RSS feed uses \u2019 vs '.
+    """
+    return unicodedata.normalize("NFKD", s).replace("\u2019", "'").replace("\u2018", "'")
+
+
 def _show_prior(show_title: str, prefs: Preferences) -> float:
+    title = _normalize_apostrophes(show_title).lower()
     for name, prior in prefs.show_priors.items():
-        if name.lower() in show_title.lower():
+        if _normalize_apostrophes(name).lower() in title:
             return prior
     return 0.5
 
 
 def _is_followed(show_title: str, prefs: Preferences) -> bool:
-    title_lower = show_title.lower()
-    return any(name.lower() in title_lower for name in prefs.show_priors)
+    title = _normalize_apostrophes(show_title).lower()
+    return any(_normalize_apostrophes(name).lower() in title for name in prefs.show_priors)
 
 
 def _is_acquired(show_title: str) -> bool:
@@ -222,7 +231,14 @@ def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Re
         score = 50.0
         reasons.append("followed_show_floor")
 
-    should_deep = score >= 35 or any(g.lower() in text for g in prefs.guest_watchlist)
+    # Lower threshold: send any followed show or score >= 20 to Stage 2
+    # so that shows whose RSS title doesn't perfectly match the prior key
+    # still get LLM evaluation rather than being silently dropped.
+    should_deep = (
+        score >= 20
+        or _is_followed(ep.show_title, prefs)
+        or any(g.lower() in text for g in prefs.guest_watchlist)
+    )
 
     return Stage1Result(
         guid=ep.guid,
@@ -251,15 +267,17 @@ def build_daily_queue(
     """Split ranked episodes into RSS queue and email-only overflow.
 
     Returns (rss_queue, email_only).
-    rss_queue honours max_listen_fully, max_read_summary, max_outside caps
-    and the total listen-time budget (max_minutes).  Remaining surfaced
-    episodes go into email_only.
+    Only "Listen Fully" episodes go into the RSS/Pocket Casts feed.
+    "Read Summary Only" episodes are always routed to email_only so the
+    listener's podcast app queue stays clean and playable.
+    rss_queue honours max_listen_fully, max_outside caps, and the total
+    listen-time budget (max_minutes). All remaining surfaced episodes go
+    into email_only.
     """
     rss: list[RankedEpisode] = []
     email_only: list[RankedEpisode] = []
 
     listen_count = 0
-    summary_count = 0
     outside_count = 0
     minutes_used = 0.0
 
@@ -267,29 +285,29 @@ def build_daily_queue(
         if r.classification == "Skip":
             continue
 
+        # Read Summary Only → always email, never RSS
+        if r.classification == "Read Summary Only":
+            email_only.append(r)
+            continue
+
+        # Listen Fully below
         is_outside = getattr(r.episode, "is_outside_feed", False)
 
-        if r.classification == "Listen Fully":
-            if listen_count >= max_listen_fully:
-                email_only.append(r)
-                continue
-            if is_outside and outside_count >= max_outside:
-                email_only.append(r)
-                continue
-            if minutes_used + r.episode.duration_minutes > max_minutes and rss:
-                email_only.append(r)
-                continue
-            rss.append(r)
-            listen_count += 1
-            minutes_used += r.episode.duration_minutes
-            if is_outside:
-                outside_count += 1
-        else:
-            if summary_count >= max_read_summary:
-                email_only.append(r)
-                continue
-            rss.append(r)
-            summary_count += 1
+        if listen_count >= max_listen_fully:
+            email_only.append(r)
+            continue
+        if is_outside and outside_count >= max_outside:
+            email_only.append(r)
+            continue
+        if minutes_used + r.episode.duration_minutes > max_minutes and rss:
+            email_only.append(r)
+            continue
+
+        rss.append(r)
+        listen_count += 1
+        minutes_used += r.episode.duration_minutes
+        if is_outside:
+            outside_count += 1
 
     return rss, email_only
 
@@ -334,26 +352,36 @@ async def stage2_batch_rank(
 You will receive {len(items)} podcast episode(s). Score EACH on a 100-point rubric and return a
 JSON ARRAY (one object per episode, in the same order). Do NOT wrap in markdown fences.
 
+SCORING PHILOSOPHY for this persona:
+- Prioritise episodes with concrete strategic insight, real business cases, or named expert guests.
+- Penalise heavily: generic communication/soft-skills content (e.g. "how to give feedback",
+  "speak with confidence"), motivational fluff, and episodes that could apply to anyone at any
+  level rather than a senior executive making product and business decisions.
+- Reward: AI product strategy, eCommerce and retail industry dynamics, founder/operator
+  stories with transferable lessons, product craft at scale, market structure analysis.
+- A 17-minute episode scored 79 is almost certainly wrong — short soft-skills episodes should
+  score below 60 for this persona unless the guest is a top-tier authority.
+
 RUBRIC (base points):
-- relevance: 0-30
-- novelty: 0-15
-- guest_authority: 0-15
-- actionability: 0-15
-- evidence: 0-10
-- strategic_importance: 0-10
-- learning_per_minute: 0-5
+- relevance: 0-30  (is the topic directly useful to this persona's strategic focus?)
+- novelty: 0-15  (does it surface new frameworks, data, or perspectives?)
+- guest_authority: 0-15  (is the guest a genuine expert or operator, not just a coach?)
+- actionability: 0-15  (does it produce decisions or strategies the listener can act on?)
+- evidence: 0-10  (are claims backed by data, case studies, or first-hand experience?)
+- strategic_importance: 0-10  (does it cover trends or dynamics that matter at the director+ level?)
+- learning_per_minute: 0-5  (signal density relative to episode length)
 
 PENALTIES (negative):
-- repetition_penalty: 0 to -15
-- generic_penalty: 0 to -15
-- weak_evidence_penalty: 0 to -10
-- confidence_penalty: 0 to -15
-- motivational_penalty: 0 to -10
-- relevance_penalty: 0 to -20
+- repetition_penalty: 0 to -15  (topic covered in recent episodes of same show)
+- generic_penalty: 0 to -15  (content applies to anyone, not specifically to this persona)
+- weak_evidence_penalty: 0 to -10  (opinion without data or real examples)
+- confidence_penalty: 0 to -15  (scoring based on description only with no transcript)
+- motivational_penalty: 0 to -10  (inspirational/feel-good without strategic substance)
+- relevance_penalty: 0 to -20  (off-topic relative to AI, retail, eCommerce, product strategy)
 
 CLASSIFICATION:
-- "Listen Fully" if total >= 75
-- "Read Summary Only" if total >= 50
+- "Listen Fully" if total >= 75  (goes into Pocket Casts RSS queue)
+- "Read Summary Only" if total >= 50  (email digest only, NOT in RSS feed)
 - "Skip" otherwise
 
 For EACH episode return an object with keys:
