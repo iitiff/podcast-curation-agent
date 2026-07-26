@@ -23,6 +23,11 @@ class EpisodeSearchResult(BaseModel):
     image_url: str = ""
 
 
+class PodcastSearchResult(EpisodeSearchResult):
+    """EpisodeSearchResult with an extra source tag (podcast_index | itunes)."""
+    source: str = ""
+
+
 class LLMMessage(BaseModel):
     role: str
     content: str
