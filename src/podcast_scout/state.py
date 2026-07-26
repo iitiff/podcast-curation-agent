@@ -1,91 +1,78 @@
-"""Persistent run state — tracks processed episodes and prevents duplicates."""
+"""Persistent episode state manager."""
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from pydantic import BaseModel, Field
-
-from .normalize import utcnow
+from pydantic import BaseModel
 
 
 class EpisodeRecord(BaseModel):
     guid: str
-    show_title: str
-    episode_title: str
-    published: datetime
-    processed_at: datetime
+    show_title: str = ""
+    episode_title: str = ""
+    published: datetime | None = None
+    processed_at: datetime | None = None
     score: float = 0.0
-    classification: str = "Skip"  # Listen Fully | Read Summary Only | Skip
+    classification: str = ""
     is_outside_feed: bool = False
     source_feed_url: str = ""
 
 
-class RunState(BaseModel):
-    last_run: datetime | None = None
-    processed_episodes: dict[str, EpisodeRecord] = Field(default_factory=dict)
-    # GUIDs that have been published to RSS (used for retention logic)
-    published_guids: list[str] = Field(default_factory=list)
-
-
 class StateManager:
-    def __init__(self, data_dir: Path, retention_days: int = 90) -> None:
-        self._path = data_dir / "state.json"
-        self._history_dir = data_dir / "history"
-        self._retention_days = retention_days
-        self._state = self._load()
+    """Manages a persistent JSON store of processed episode GUIDs and state."""
 
-    def _load(self) -> RunState:
+    def __init__(self, data_dir: Path) -> None:
+        self.data_dir = data_dir
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        self._path = data_dir / "state.json"
+        self._state: dict[str, Any] = self._load()
+
+    def _load(self) -> dict[str, Any]:
         if self._path.exists():
             try:
-                raw = json.loads(self._path.read_text())
-                return RunState.model_validate(raw)
+                return json.loads(self._path.read_text(encoding="utf-8"))
             except Exception:
-                return RunState()
-        return RunState()
+                pass
+        return {"processed": {}, "published": [], "last_run": None}
 
     def save(self) -> None:
-        self._path.parent.mkdir(parents=True, exist_ok=True)
-        self._path.write_text(
-            self._state.model_dump_json(indent=2, exclude_none=False)
-        )
+        self._path.write_text(json.dumps(self._state, indent=2, default=str), encoding="utf-8")
 
     def seen_guids(self) -> set[str]:
-        return set(self._state.processed_episodes.keys())
+        return set(self._state.get("processed", {}).keys())
 
     def mark_processed(self, record: EpisodeRecord) -> None:
-        self._state.processed_episodes[record.guid] = record
+        self._state.setdefault("processed", {})[record.guid] = record.model_dump(mode="json")
 
     def get_record(self, guid: str) -> EpisodeRecord | None:
-        """Return the stored EpisodeRecord for a guid, or None."""
-        return self._state.processed_episodes.get(guid)
-
-    def is_published(self, guid: str) -> bool:
-        return guid in self._state.published_guids
+        data = self._state.get("processed", {}).get(guid)
+        if data:
+            try:
+                return EpisodeRecord(**data)
+            except Exception:
+                pass
+        return None
 
     def add_published(self, guid: str) -> None:
-        if guid not in self._state.published_guids:
-            self._state.published_guids.append(guid)
-
-    def prune_old(self) -> None:
-        cutoff = utcnow() - timedelta(days=self._retention_days)
-        self._state.processed_episodes = {
-            g: r
-            for g, r in self._state.processed_episodes.items()
-            if r.processed_at >= cutoff
-        }
-        # Rebuild published list from still-retained records
-        retained = set(self._state.processed_episodes.keys())
-        self._state.published_guids = [
-            g for g in self._state.published_guids if g in retained
-        ]
-
-    def snapshot_history(self, run_date: str, payload: Any) -> None:
-        self._history_dir.mkdir(parents=True, exist_ok=True)
-        path = self._history_dir / f"{run_date}.json"
-        path.write_text(json.dumps(payload, indent=2, default=str))
+        if guid not in self._state.get("published", []):
+            self._state.setdefault("published", []).append(guid)
 
     def update_last_run(self) -> None:
-        self._state.last_run = utcnow()
+        self._state["last_run"] = datetime.utcnow().isoformat()
+
+    def prune_old(self, max_age_days: int = 30) -> None:
+        cutoff = (datetime.utcnow() - timedelta(days=max_age_days)).isoformat()
+        processed = self._state.get("processed", {})
+        self._state["processed"] = {
+            guid: rec for guid, rec in processed.items()
+            if rec.get("processed_at", "") > cutoff
+        }
+
+    def snapshot_history(self, run_date: str, data: dict) -> None:
+        history_dir = self.data_dir / "history"
+        history_dir.mkdir(exist_ok=True)
+        path = history_dir / f"{run_date}.json"
+        path.write_text(json.dumps(data, indent=2, default=str), encoding="utf-8")

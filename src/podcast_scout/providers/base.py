@@ -1,14 +1,30 @@
-"""Base interfaces for all external service providers."""
+"""Abstract base classes for all provider types."""
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any
 
 from pydantic import BaseModel
 
 
+class TranscriptResult(BaseModel):
+    text: str = ""
+    confidence: str = "none"  # high | medium | low | none
+    source: str = "none"      # whisper | description | none
+
+
+class EpisodeSearchResult(BaseModel):
+    feed_url: str
+    show_title: str = ""
+    episode_title: str = ""
+    description: str = ""
+    duration_seconds: int = 0
+    episode_url: str = ""
+    enclosure_url: str = ""
+    image_url: str = ""
+
+
 class LLMMessage(BaseModel):
-    role: str  # system | user | assistant
+    role: str
     content: str
 
 
@@ -16,7 +32,6 @@ class LLMResponse(BaseModel):
     content: str
     input_tokens: int = 0
     output_tokens: int = 0
-    model: str = ""
 
 
 class BaseLLMProvider(ABC):
@@ -24,58 +39,23 @@ class BaseLLMProvider(ABC):
     async def complete(
         self,
         messages: list[LLMMessage],
-        response_format: type[BaseModel] | None = None,
-        temperature: float = 0.2,
-        max_tokens: int = 2048,
+        max_tokens: int = 4096,
     ) -> LLMResponse: ...
-
-    @abstractmethod
-    def estimate_tokens(self, text: str) -> int: ...
-
-
-class PodcastSearchResult(BaseModel):
-    feed_url: str
-    show_title: str
-    episode_title: str
-    description: str = ""
-    published_raw: str = ""
-    duration_seconds: int = 0
-    episode_url: str = ""
-    enclosure_url: str = ""
-    image_url: str = ""
-    source: str = ""  # podcast_index | itunes | web
 
 
 class BasePodcastSearchProvider(ABC):
     @abstractmethod
     async def search_episodes(
-        self, query: str, max_results: int = 10
-    ) -> list[PodcastSearchResult]: ...
-
-
-class WebSearchResult(BaseModel):
-    title: str
-    url: str
-    snippet: str = ""
+        self,
+        query: str,
+        max_results: int = 10,
+    ) -> list[EpisodeSearchResult]: ...
 
 
 class BaseWebSearchProvider(ABC):
     @abstractmethod
-    async def search(self, query: str, max_results: int = 5) -> list[WebSearchResult]: ...
-
-
-class TranscriptResult(BaseModel):
-    text: str
-    source: str  # p20 | publisher | youtube | whisper | none
-    confidence: str  # high | medium | low
-    word_count: int = 0
-
-
-class BaseTranscriptionProvider(ABC):
-    @abstractmethod
-    async def get_transcript(
+    async def search(
         self,
-        episode_url: str,
-        audio_url: str = "",
-        max_audio_bytes: int = 0,
-    ) -> TranscriptResult: ...
+        query: str,
+        max_results: int = 5,
+    ) -> list[dict]: ...

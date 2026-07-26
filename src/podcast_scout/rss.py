@@ -9,9 +9,9 @@ from __future__ import annotations
 
 import html
 import re
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta, timezone
 from pathlib import Path
-from xml.etree.ElementTree import Element, SubElement, tostring, indent, fromstring
+from xml.etree.ElementTree import Element, SubElement, fromstring, indent, tostring
 
 from .config import CategoryFeedConfig, FeedConfig, Preferences
 from .normalize import utcnow
@@ -25,7 +25,6 @@ _RSS_NS = {
     "version": "2.0",
 }
 
-# Items older than this are dropped from the persistent feed.
 FEED_RETENTION_DAYS = 21
 
 
@@ -60,28 +59,20 @@ def _show_notes_html(r: RankedEpisode) -> str:
     return "".join(lines)
 
 
-# ---------------------------------------------------------------------------
-# Prior-item loading
-# ---------------------------------------------------------------------------
-
 _RFC822 = "%a, %d %b %Y %H:%M:%S %z"
 
 
 def _parse_rfc822(s: str) -> datetime | None:
-    """Parse an RFC-822 pubDate string; return None on failure."""
     for fmt in ("%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S +0000"):
         try:
-            return datetime.strptime(s.strip(), fmt).replace(tzinfo=timezone.utc)
+            return datetime.strptime(s.strip(), fmt).replace(tzinfo=UTC)
         except ValueError:
             continue
     return None
 
 
 class _PriorItem:
-    """A lightweight representation of an item already in the published feed."""
-    __slots__ = (
-        "guid", "pub_date", "score", "classification", "xml_element"
-    )
+    __slots__ = ("guid", "pub_date", "score", "classification", "xml_element")
 
     def __init__(
         self,
@@ -103,16 +94,12 @@ def _load_prior_items(
     state: StateManager,
     retention_cutoff: datetime,
 ) -> list[_PriorItem]:
-    """Parse an existing RSS file and return non-expired prior items."""
     if not feed_path.exists():
         return []
     try:
         tree = fromstring(feed_path.read_text(encoding="utf-8"))
     except Exception:
         return []
-
-    # Strip namespace prefixes for easier lookup
-    ns_strip = re.compile(r"\{[^}]*\}")
 
     items: list[_PriorItem] = []
     channel = tree.find("channel")
@@ -127,14 +114,12 @@ def _load_prior_items(
         guid = guid_el.text.strip()
         pub_date = _parse_rfc822(pub_el.text) if pub_el is not None and pub_el.text else None
         if pub_date is None or pub_date < retention_cutoff:
-            continue  # expired — drop it
+            continue
 
-        # Try to recover score from state (most reliable)
         rec = state.get_record(guid)
         score = rec.score if rec else 0.0
         classification = rec.classification if rec else "Read Summary Only"
 
-        # Fallback: parse score from show-notes HTML "Score: XX/100"
         if score == 0.0:
             notes_el = item_el.find("{http://purl.org/rss/1.0/modules/content/}encoded")
             if notes_el is not None and notes_el.text:
@@ -152,10 +137,6 @@ def _load_prior_items(
 
     return items
 
-
-# ---------------------------------------------------------------------------
-# Channel builder
-# ---------------------------------------------------------------------------
 
 def _build_channel(
     rss: Element,
@@ -186,17 +167,12 @@ def _build_channel(
     return channel
 
 
-# ---------------------------------------------------------------------------
-# Item writers
-# ---------------------------------------------------------------------------
-
 def _add_new_items(
     channel: Element,
     episodes: list[RankedEpisode],
     state: StateManager,
     listen_rank_start: int = 1,
 ) -> int:
-    """Append freshly ranked RankedEpisode items; return updated listen_rank."""
     listen_rank = listen_rank_start
     for r in episodes:
         item = SubElement(channel, "item")
@@ -224,13 +200,8 @@ def _add_new_items(
 
 
 def _add_prior_item(channel: Element, prior: _PriorItem) -> None:
-    """Re-append a prior XML item element into channel as-is."""
     channel.append(prior.xml_element)
 
-
-# ---------------------------------------------------------------------------
-# Public feed builders
-# ---------------------------------------------------------------------------
 
 def build_category_feed(
     episodes: list[RankedEpisode],
@@ -240,13 +211,6 @@ def build_category_feed(
     state: StateManager,
     public_dir: Path | None = None,
 ) -> str:
-    """
-    Build a persistent RSS feed for a single category.
-
-    Today's newly ranked episodes are merged with items already in the
-    published feed on disk.  The combined list is re-sorted by score
-    (highest first) and items older than FEED_RETENTION_DAYS are dropped.
-    """
     cat_cfg = prefs.categories.get(category)
     slug = cat_cfg.slug if cat_cfg else category.replace("_", "-")
     feed_url = f"{base_url.rstrip('/')}/{slug}.xml" if base_url else ""
@@ -260,18 +224,14 @@ def build_category_feed(
     new_items_today: list[RankedEpisode] = (new_listen + new_summary)
     new_guids = {r.episode.guid for r in new_items_today}
 
-    # Load surviving prior items (not expired, not superseded by today)
     retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
     prior_items: list[_PriorItem] = []
     if public_dir is not None:
         feed_path = public_dir / f"{slug}.xml"
         for p in _load_prior_items(feed_path, state, retention_cutoff):
-            if p.guid not in new_guids:  # today's version supersedes old
+            if p.guid not in new_guids:
                 prior_items.append(p)
 
-    # --- Merge and re-sort by score descending ----------------------------
-    # Represent today's items as (score, classification, kind='new', obj)
-    # and prior items as (score, classification, kind='prior', obj)
     merged: list[tuple[float, str, str, object]] = [
         (r.score, r.classification, "new", r) for r in new_items_today
     ] + [
@@ -279,14 +239,10 @@ def build_category_feed(
     ]
     merged.sort(key=lambda t: t[0], reverse=True)
 
-    # Apply per-category caps across the merged list
     listen_count = 0
     summary_count = 0
-    ordered_new: list[RankedEpisode] = []
-    ordered_prior: list[_PriorItem] = []
-    # We need them in final sorted order for the XML, with rank numbers
-    final_order: list[tuple[str, object]] = []  # ('new'|'prior', obj)
-    for score, classification, kind, obj in merged:
+    final_order: list[tuple[str, object]] = []
+    for _score, classification, kind, obj in merged:
         if classification == "Listen Fully":
             if listen_count >= max_listen:
                 continue
@@ -297,7 +253,6 @@ def build_category_feed(
             summary_count += 1
         final_order.append((kind, obj))
 
-    # Build XML
     rss = Element("rss", attrib=_RSS_NS)
     channel = _build_channel(rss, prefs.feed, cat_cfg, feed_url, base_url)
     listen_rank = 1
@@ -340,10 +295,6 @@ def build_feed(
     state: StateManager,
     public_dir: Path | None = None,
 ) -> str:
-    """
-    Legacy combined feed builder (listen.xml / all.xml) with persistence.
-    feed_type: 'listen' | 'all'
-    """
     slug = "listen.xml" if feed_type == "listen" else "all.xml"
     feed_url = f"{base_url.rstrip('/')}/{slug}" if base_url else ""
     retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
@@ -371,7 +322,7 @@ def build_feed(
     rss = Element("rss", attrib=_RSS_NS)
     channel = _build_channel(rss, prefs.feed, None, feed_url, base_url)
     listen_rank = 1
-    for score, kind, obj in merged:
+    for _score, kind, obj in merged:
         if kind == "new":
             r = obj  # type: ignore[assignment]
             item = SubElement(channel, "item")

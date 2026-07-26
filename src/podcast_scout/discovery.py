@@ -23,7 +23,6 @@ import httpx
 from .config import DiscoveryConfig, Preferences, ShowsConfig
 from .feeds import fetch_feed_text, parse_feed_entries
 from .normalize import Enclosure, NormalizedEpisode, make_guid, utcnow
-from .opml import OPMLFeed
 from .providers.base import (
     BasePodcastSearchProvider,
     BaseWebSearchProvider,
@@ -125,50 +124,35 @@ async def poll_followed_shows(
 # Path 2 — Search-based discovery
 # ---------------------------------------------------------------------------
 
-# Split on comma, em-dash, en-dash, or " — " so persona focus clauses
-# like "AI and emerging technology, and eCommerce — for a principal PM..."
-# don't bleed into each other as search queries.
 _FOCUS_SPLIT_RE = re.compile(r"[,\u2014\u2013]")
 
 
 def _build_queries(prefs: Preferences, cfg: DiscoveryConfig) -> list[str]:
-    """Derive search queries from persona focus, guest watchlist, and competitor watchlist.
-
-    Interest keyword matching has been removed. Queries are now anchored to
-    the persona focus statement, specific guests, and competitor entities.
-    show_priors are intentionally excluded — those shows are polled directly
-    via RSS (poll_followed_shows).
-    """
+    """Derive search queries from persona focus, guest watchlist, and competitor watchlist."""
     queries: list[str] = []
 
-    # Persona focus — split on commas and dashes, keep only substantive clauses
     raw_focus_parts = _FOCUS_SPLIT_RE.split(prefs.persona.focus)
     focus_areas: list[str] = []
     for part in raw_focus_parts:
         part = part.strip()
-        # Drop clauses that are clearly a role qualifier ("for a ...", "growing into")
         if part and not re.match(r"(?i)^(for a|for an|growing|as a)", part):
             focus_areas.append(part)
 
-    for area in focus_areas[:6]:  # cap at 6 to avoid query bloat
+    for area in focus_areas[:6]:
         queries.append(f"{area} podcast")
 
-    # Guest watchlist — direct name search for interviews
     for guest in prefs.guest_watchlist:
         queries.append(f"{guest} podcast interview")
 
-    # Competitor / entity watchlist — strategy angle
     for entity in prefs.competitor_watchlist:
         queries.append(f"{entity} strategy podcast")
 
-    # Entity seeds from discovery config (optional extras)
     for entity in (
         cfg.entity_seeds.get("competitors", [])
         + cfg.entity_seeds.get("ai_companies", [])
     )[:8]:
         queries.append(f"{entity} podcast")
 
-    # Dedupe, preserve order, cap at max_queries
     seen: set[str] = set()
     unique: list[str] = []
     for q in queries:
@@ -217,10 +201,6 @@ async def _search_one(
         log.warning("Podcast search failed for '%s': %s", query, exc)
     return results
 
-
-# ---------------------------------------------------------------------------
-# Main entry point
-# ---------------------------------------------------------------------------
 
 async def discover_episodes(
     prefs: Preferences,

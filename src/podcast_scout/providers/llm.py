@@ -1,77 +1,56 @@
-"""Google Gemini LLM provider."""
+"""LLM provider implementations."""
 from __future__ import annotations
 
-import json
 from typing import Any
 
-from google import genai
-from google.genai import types
-from pydantic import BaseModel
-from tenacity import retry, stop_after_attempt, wait_exponential
+import httpx
 
 from .base import BaseLLMProvider, LLMMessage, LLMResponse
 
 
 class GeminiProvider(BaseLLMProvider):
-    def __init__(self, api_key: str, model: str = "gemini-2.5-flash") -> None:
-        self._model = model
-        self._client = genai.Client(api_key=api_key)
+    """Google Gemini API provider."""
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=30))
+    BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
+
+    def __init__(self, api_key: str, model: str = "gemini-2.0-flash") -> None:
+        self.api_key = api_key
+        self.model = model
+
     async def complete(
         self,
         messages: list[LLMMessage],
-        response_format: type[BaseModel] | None = None,
-        temperature: float = 0.2,
-        max_tokens: int = 2048,
+        max_tokens: int = 4096,
     ) -> LLMResponse:
-        # Split system message from conversation turns
-        system_parts: list[str] = []
-        contents: list[types.Content] = []
+        system_parts = [m.content for m in messages if m.role == "system"]
+        user_parts = [m.content for m in messages if m.role != "system"]
 
-        for m in messages:
-            if m.role == "system":
-                system_parts.append(m.content)
-            else:
-                role = "user" if m.role == "user" else "model"
-                contents.append(types.Content(role=role, parts=[types.Part(text=m.content)]))
+        system_instruction: dict[str, Any] | None = None
+        if system_parts:
+            system_instruction = {"parts": [{"text": "\n\n".join(system_parts)}]}
 
-        system_instruction = "\n\n".join(system_parts) if system_parts else None
+        contents = [{"role": "user", "parts": [{"text": "\n\n".join(user_parts)}]}]
 
-        config_kwargs: dict[str, Any] = {
-            "temperature": temperature,
-            "max_output_tokens": max_tokens,
+        payload: dict[str, Any] = {
+            "contents": contents,
+            "generationConfig": {
+                "maxOutputTokens": max_tokens,
+                "temperature": 0.3,
+            },
         }
-        if response_format is not None:
-            config_kwargs["response_mime_type"] = "application/json"
-            config_kwargs["response_schema"] = response_format
-        else:
-            # Ask Gemini to return JSON even without a strict schema
-            config_kwargs["response_mime_type"] = "application/json"
-
         if system_instruction:
-            config_kwargs["system_instruction"] = system_instruction
+            payload["systemInstruction"] = system_instruction
 
-        gen_config = types.GenerateContentConfig(**config_kwargs)
+        url = f"{self.BASE_URL}/{self.model}:generateContent?key={self.api_key}"
+        async with httpx.AsyncClient(timeout=120.0) as client:
+            resp = await client.post(url, json=payload)
+            resp.raise_for_status()
+            data = resp.json()
 
-        resp = await self._client.aio.models.generate_content(
-            model=self._model,
-            contents=contents,
-            config=gen_config,
-        )
-
-        content = resp.text or ""
-        usage = resp.usage_metadata
+        text = data["candidates"][0]["content"]["parts"][0]["text"]
+        usage = data.get("usageMetadata", {})
         return LLMResponse(
-            content=content,
-            input_tokens=getattr(usage, "prompt_token_count", 0) or 0,
-            output_tokens=getattr(usage, "candidates_token_count", 0) or 0,
-            model=self._model,
+            content=text,
+            input_tokens=usage.get("promptTokenCount", 0),
+            output_tokens=usage.get("candidatesTokenCount", 0),
         )
-
-    def estimate_tokens(self, text: str) -> int:
-        # ~4 chars per token is a safe approximation
-        return max(1, len(text) // 4)
-
-    async def aclose(self) -> None:
-        pass  # google-genai client has no explicit close
