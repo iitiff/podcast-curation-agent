@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -33,7 +33,8 @@ class StateManager:
     def _load(self) -> dict[str, Any]:
         if self._path.exists():
             try:
-                return json.loads(self._path.read_text(encoding="utf-8"))
+                loaded: dict[str, Any] = json.loads(self._path.read_text(encoding="utf-8"))
+                return loaded
             except Exception:
                 pass
         return {"processed": {}, "published": [], "last_run": None}
@@ -61,17 +62,17 @@ class StateManager:
             self._state.setdefault("published", []).append(guid)
 
     def update_last_run(self) -> None:
-        self._state["last_run"] = datetime.utcnow().isoformat()
+        self._state["last_run"] = datetime.now(tz=timezone.utc).isoformat()
 
     def prune_old(self, max_age_days: int = 30) -> None:
-        cutoff = (datetime.utcnow() - timedelta(days=max_age_days)).isoformat()
-        processed = self._state.get("processed", {})
+        cutoff = (datetime.now(tz=timezone.utc) - timedelta(days=max_age_days)).isoformat()
+        processed: dict[str, Any] = self._state.get("processed", {})
         self._state["processed"] = {
             guid: rec for guid, rec in processed.items()
             if rec.get("processed_at", "") > cutoff
         }
 
-    def snapshot_history(self, run_date: str, data: dict) -> None:
+    def snapshot_history(self, run_date: str, data: dict[str, Any]) -> None:
         history_dir = self.data_dir / "history"
         history_dir.mkdir(exist_ok=True)
         path = history_dir / f"{run_date}.json"

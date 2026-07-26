@@ -42,11 +42,12 @@ def parse_opml(path: Path) -> list[OPMLFeed]:
         xml_url = outline.get("xmlUrl") or outline.get("url") or ""
         if not xml_url:
             continue
-        title = (
+        raw_title = (
             outline.get("text")
             or outline.get("title")
             or outline.get("xmlUrl", "Unknown")
         )
+        title: str = raw_title if raw_title is not None else "Unknown"
         html_url = outline.get("htmlUrl") or ""
         private = _is_private(xml_url)
         feeds.append(

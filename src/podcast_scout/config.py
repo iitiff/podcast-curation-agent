@@ -81,7 +81,7 @@ class DiscoveryConfig:
     max_deep_analysis_candidates: int = 10
     max_surfaced_outside_episodes: int = 3
     outside_quality_threshold: float = 60.0
-    static_seeds: list[dict] = field(default_factory=list)
+    static_seeds: list[dict[str, Any]] = field(default_factory=list)
     entity_seeds: dict[str, list[str]] = field(default_factory=dict)
 
 
@@ -124,7 +124,7 @@ class Settings:
         self.pages_base_url = os.getenv("PAGES_BASE_URL", "").rstrip("/")
 
 
-def _parse_feed(raw: dict) -> FeedConfig:
+def _parse_feed(raw: dict[str, Any]) -> FeedConfig:
     f = raw.get("feed", {})
     return FeedConfig(
         title=f.get("title", "My Podcast Scout"),
@@ -136,7 +136,7 @@ def _parse_feed(raw: dict) -> FeedConfig:
     )
 
 
-def _parse_categories(raw: dict) -> dict[str, CategoryFeedConfig]:
+def _parse_categories(raw: dict[str, Any]) -> dict[str, CategoryFeedConfig]:
     result: dict[str, CategoryFeedConfig] = {}
     for key, val in raw.get("categories", {}).items():
         result[key] = CategoryFeedConfig(

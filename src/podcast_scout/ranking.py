@@ -104,31 +104,34 @@ def _is_acquired(show_title: str) -> bool:
     return "acquired" in show_title.lower()
 
 
-def _parse_llm_json(raw: str) -> dict:
+def _parse_llm_json(raw: str) -> dict[str, Any]:
     """Robustly parse JSON from LLM output."""
     text = raw.strip()
     fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text, re.IGNORECASE)
     if fence_match:
         text = fence_match.group(1).strip()
     try:
-        return json.loads(text)
+        result: dict[str, Any] = json.loads(text)
+        return result
     except json.JSONDecodeError:
         pass
     last_brace = text.rfind("}")
     if last_brace != -1:
         try:
-            return json.loads(text[: last_brace + 1])
+            result = json.loads(text[: last_brace + 1])
+            return result
         except json.JSONDecodeError:
             pass
     try:
         import json_repair  # type: ignore
-        return json_repair.loads(text)  # type: ignore[return-value]
+        repaired: dict[str, Any] = json_repair.loads(text)
+        return repaired
     except Exception:
         pass
     raise ValueError(f"Could not parse LLM JSON output (length={len(raw)})")
 
 
-def _parse_llm_json_array(raw: str) -> list:
+def _parse_llm_json_array(raw: str) -> list[Any]:
     """Parse a JSON array from LLM output, handling markdown fences."""
     text = raw.strip()
     fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text, re.IGNORECASE)
@@ -137,11 +140,11 @@ def _parse_llm_json_array(raw: str) -> list:
     try:
         result = json.loads(text)
         if isinstance(result, list):
-            return result
+            return result  # type: ignore[return-value]
         if isinstance(result, dict):
             for v in result.values():
                 if isinstance(v, list):
-                    return v
+                    return v  # type: ignore[return-value]
     except json.JSONDecodeError:
         pass
     start = text.find("[")
@@ -150,18 +153,18 @@ def _parse_llm_json_array(raw: str) -> list:
         try:
             result = json.loads(text[start:end + 1])
             if isinstance(result, list):
-                return result
+                return result  # type: ignore[return-value]
         except json.JSONDecodeError:
             pass
     try:
         import json_repair  # type: ignore
-        result = json_repair.loads(text)  # type: ignore
-        if isinstance(result, list):
-            return result
-        if isinstance(result, dict):
-            for v in result.values():
+        repaired = json_repair.loads(text)
+        if isinstance(repaired, list):
+            return repaired  # type: ignore[return-value]
+        if isinstance(repaired, dict):
+            for v in repaired.values():
                 if isinstance(v, list):
-                    return v
+                    return v  # type: ignore[return-value]
     except Exception:
         pass
     raise ValueError(f"Could not parse LLM JSON array (length={len(raw)})")
@@ -317,241 +320,6 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
 
     results: list[RankedEpisode] = []
     for i, (ep, transcript) in enumerate(items):
-        data = entries[i] if i < len(entries) and isinstance(entries[i], dict) else {}
+        data: dict[str, Any] = entries[i] if i < len(entries) and isinstance(entries[i], dict) else {}
         if not data:
-            log.warning("No batch result for episode %d (%s) — using metadata fallback", i, ep.episode_title)
-            s1 = stage1_metadata_score(ep, prefs)
-            results.append(RankedEpisode(
-                episode=ep,
-                score=s1.score,
-                rubric=RubricScore(relevance=min(30, s1.score * 0.4)),
-                classification=_classify(s1.score, prefs),
-                classification_reason="LLM batch entry missing; metadata fallback",
-                evidence_confidence="low",
-                summary=ep.description[:300] or "Summary unavailable.",
-                transcript_source=transcript.source,
-                tokens_used=0,
-            ))
-            continue
-
-        try:
-            rubric_data = data.get("rubric", {})
-            rubric = RubricScore(**{k: float(v) for k, v in rubric_data.items() if k in RubricScore.model_fields})
-            score = rubric.total
-
-            def _str(val: Any, fallback: str = "") -> str:
-                if val is None:
-                    return fallback
-                if isinstance(val, bool):
-                    return "yes" if val else "no"
-                return str(val)
-
-            results.append(RankedEpisode(
-                episode=ep,
-                score=score,
-                rubric=rubric,
-                classification=data.get("classification", _classify(score, prefs)),
-                classification_reason=_str(data.get("classification_reason")),
-                evidence_confidence=transcript.confidence,
-                summary=_str(data.get("summary")),
-                key_ideas=data.get("key_ideas", []),
-                implications=_str(data.get("implications")),
-                who_should_listen=_str(data.get("who_should_listen")),
-                summary_captures_value=_str(data.get("summary_captures_value")),
-                listen_nuance=_str(data.get("listen_nuance")),
-                transcript_source=transcript.source,
-                tokens_used=tokens_used // len(items),
-            ))
-        except Exception as exc:
-            log.warning("Could not parse batch entry %d for %s: %s", i, ep.episode_title, exc)
-            s1 = stage1_metadata_score(ep, prefs)
-            results.append(RankedEpisode(
-                episode=ep,
-                score=s1.score,
-                rubric=RubricScore(relevance=min(30, s1.score * 0.4)),
-                classification=_classify(s1.score, prefs),
-                classification_reason="batch parse error; metadata fallback",
-                evidence_confidence="low",
-                summary=ep.description[:300] or "Summary unavailable.",
-                transcript_source=transcript.source,
-                tokens_used=0,
-            ))
-
-    return results
-
-
-async def stage2_deep_rank(
-    ep: NormalizedEpisode,
-    transcript: TranscriptResult,
-    prefs: Preferences,
-    llm: BaseLLMProvider,
-    token_budget: int = 3000,
-) -> RankedEpisode:
-    """Full LLM-powered ranking with rubric scoring (single episode)."""
-    persona_ctx = (
-        f"You are ranking podcasts for a {prefs.persona.seniority} {prefs.persona.role} "
-        f"whose focus is: {prefs.persona.focus}. "
-        f"Preferred depth: {prefs.persona.preferred_depth}."
-    )
-
-    source_text = transcript.text[:6000] if transcript.text else (
-        f"{ep.episode_title}\n\n{ep.description}"
-    )
-    confidence = transcript.confidence
-
-    system_prompt = f"""{persona_ctx}
-
-Score this podcast episode on a 100-point rubric and produce a structured JSON output.
-
-RUBRIC (base points):
-- relevance: 0-30 (how closely does it match the user's focus and role)
-- novelty: 0-15 (new insight, not a rehash)
-- guest_authority: 0-15 (firsthand expertise)
-- actionability: 0-15 (can the user act on this)
-- evidence: 0-10 (data, case studies, concrete examples)
-- strategic_importance: 0-10 (timeliness, competitive relevance)
-- learning_per_minute: 0-5 (density of value)
-
-PENALTIES (negative):
-- repetition_penalty: 0 to -15
-- generic_penalty: 0 to -15
-- weak_evidence_penalty: 0 to -10
-- confidence_penalty: 0 to -15 (use -{15*(1 if confidence=='low' else 5 if confidence=='medium' else 0)} as baseline)
-- motivational_penalty: 0 to -10
-- relevance_penalty: 0 to -20
-
-CLASSIFICATION (based on total score):
-- "Listen Fully" if score >= 75
-- "Read Summary Only" if score >= 50
-- "Skip" if below 50
-You may adjust boundary by up to 5 points with written justification.
-
-NEVER invent specific claims not present in the source text when confidence is low.
-Source confidence: {confidence}
-
-IMPORTANT: Return ONLY a raw JSON object. Do NOT wrap in markdown code fences.
-All string values must be properly escaped. Do NOT use boolean values for string fields.
-"""
-
-    user_msg = f"""SHOW: {ep.show_title}
-EPISODE: {ep.episode_title}
-GUESTS: {', '.join(ep.guests) or 'unknown'}
-DURATION: {ep.duration_minutes:.0f} min
-SOURCE TEXT ({confidence} confidence):
-{source_text}
-
-Return JSON with keys: rubric (dict of all rubric+penalty fields), classification, classification_reason,
-summary (150-300 words), key_ideas (list of 2-3 strings), implications, who_should_listen,
-summary_captures_value (string: "yes" | "partial" | "no"), listen_nuance (string)."""
-
-    tokens_used = 0
-    try:
-        resp = await llm.complete(
-            messages=[
-                LLMMessage(role="system", content=system_prompt),
-                LLMMessage(role="user", content=user_msg),
-            ],
-            max_tokens=token_budget,
-        )
-        tokens_used = resp.input_tokens + resp.output_tokens
-        data = _parse_llm_json(resp.content)
-        rubric_data = data.get("rubric", {})
-        rubric = RubricScore(**{k: float(v) for k, v in rubric_data.items() if k in RubricScore.model_fields})
-        score = rubric.total
-
-        def _str(val: Any, fallback: str = "") -> str:
-            if val is None:
-                return fallback
-            if isinstance(val, bool):
-                return "yes" if val else "no"
-            return str(val)
-
-        return RankedEpisode(
-            episode=ep,
-            score=score,
-            rubric=rubric,
-            classification=data.get("classification", _classify(score, prefs)),
-            classification_reason=_str(data.get("classification_reason")),
-            evidence_confidence=confidence,
-            summary=_str(data.get("summary")),
-            key_ideas=data.get("key_ideas", []),
-            implications=_str(data.get("implications")),
-            who_should_listen=_str(data.get("who_should_listen")),
-            summary_captures_value=_str(data.get("summary_captures_value")),
-            listen_nuance=_str(data.get("listen_nuance")),
-            transcript_source=transcript.source,
-            tokens_used=tokens_used,
-        )
-    except Exception as exc:
-        log.warning("Stage 2 ranking failed for %s: %s", ep.episode_title, exc)
-        s1 = stage1_metadata_score(ep, prefs)
-        rubric = RubricScore(relevance=min(30, s1.score * 0.4))
-        return RankedEpisode(
-            episode=ep,
-            score=s1.score,
-            rubric=rubric,
-            classification=_classify(s1.score, prefs),
-            classification_reason="LLM unavailable; metadata fallback",
-            evidence_confidence="low",
-            summary=ep.description[:300] if ep.description else "Summary unavailable.",
-            transcript_source="none",
-            tokens_used=tokens_used,
-        )
-
-
-def _classify(score: float, prefs: Preferences) -> str:
-    if score >= prefs.classification.listen_fully_min_score:
-        return "Listen Fully"
-    if score >= prefs.classification.read_summary_min_score:
-        return "Read Summary Only"
-    return "Skip"
-
-
-def build_daily_queue(
-    ranked: list[RankedEpisode],
-    max_minutes: float,
-    max_listen_fully: int,
-    max_read_summary: int,
-    max_outside: int,
-) -> tuple[list[RankedEpisode], list[RankedEpisode]]:
-    """Split ranked episodes into (queued_for_rss, email_only)."""
-    sorted_eps = sorted(ranked, key=lambda r: r.score, reverse=True)
-
-    rss_queue: list[RankedEpisode] = []
-    email_only: list[RankedEpisode] = []
-    total_minutes = 0.0
-    listen_count = 0
-    summary_count = 0
-    outside_count = 0
-
-    for r in sorted_eps:
-        if r.classification == "Skip":
-            continue
-
-        is_acquired = _is_acquired(r.episode.show_title)
-        dur = r.episode.duration_minutes or 30
-        is_outside = r.episode.is_outside_feed
-
-        if r.classification == "Listen Fully" and listen_count >= max_listen_fully:
-            email_only.append(r)
-            continue
-        if r.classification == "Read Summary Only" and summary_count >= max_read_summary:
-            email_only.append(r)
-            continue
-        if is_outside and outside_count >= max_outside:
-            email_only.append(r)
-            continue
-        if not is_acquired and total_minutes + dur > max_minutes:
-            email_only.append(r)
-            continue
-
-        rss_queue.append(r)
-        total_minutes += dur if not is_acquired else 0
-        if r.classification == "Listen Fully":
-            listen_count += 1
-        elif r.classification == "Read Summary Only":
-            summary_count += 1
-        if is_outside:
-            outside_count += 1
-
-    return rss_queue, email_only
+            log.warning("No ba
