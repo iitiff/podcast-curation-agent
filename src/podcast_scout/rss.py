@@ -1,8 +1,17 @@
-"""RSS 2.0 feed generator — one feed per category."""
+"""RSS 2.0 feed generator — one feed per category.
+
+Feeds are *persistent*: each run merges today's newly ranked episodes with
+items already in the published feed, re-sorts by score, and drops anything
+older than FEED_RETENTION_DAYS (21 days).  This means episodes curated into
+a podcast-app playlist will not disappear on the next daily update.
+"""
 from __future__ import annotations
 
 import html
-from xml.etree.ElementTree import Element, SubElement, tostring, indent
+import re
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+from xml.etree.ElementTree import Element, SubElement, tostring, indent, fromstring
 
 from .config import CategoryFeedConfig, FeedConfig, Preferences
 from .normalize import utcnow
@@ -15,6 +24,9 @@ _RSS_NS = {
     "xmlns:content": "http://purl.org/rss/1.0/modules/content/",
     "version": "2.0",
 }
+
+# Items older than this are dropped from the persistent feed.
+FEED_RETENTION_DAYS = 21
 
 
 def _e(text: str) -> str:
@@ -48,6 +60,103 @@ def _show_notes_html(r: RankedEpisode) -> str:
     return "".join(lines)
 
 
+# ---------------------------------------------------------------------------
+# Prior-item loading
+# ---------------------------------------------------------------------------
+
+_RFC822 = "%a, %d %b %Y %H:%M:%S %z"
+
+
+def _parse_rfc822(s: str) -> datetime | None:
+    """Parse an RFC-822 pubDate string; return None on failure."""
+    for fmt in ("%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S +0000"):
+        try:
+            return datetime.strptime(s.strip(), fmt).replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+    return None
+
+
+class _PriorItem:
+    """A lightweight representation of an item already in the published feed."""
+    __slots__ = (
+        "guid", "pub_date", "score", "classification", "xml_element"
+    )
+
+    def __init__(
+        self,
+        guid: str,
+        pub_date: datetime,
+        score: float,
+        classification: str,
+        xml_element: Element,
+    ) -> None:
+        self.guid = guid
+        self.pub_date = pub_date
+        self.score = score
+        self.classification = classification
+        self.xml_element = xml_element
+
+
+def _load_prior_items(
+    feed_path: Path,
+    state: StateManager,
+    retention_cutoff: datetime,
+) -> list[_PriorItem]:
+    """Parse an existing RSS file and return non-expired prior items."""
+    if not feed_path.exists():
+        return []
+    try:
+        tree = fromstring(feed_path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+    # Strip namespace prefixes for easier lookup
+    ns_strip = re.compile(r"\{[^}]*\}")
+
+    items: list[_PriorItem] = []
+    channel = tree.find("channel")
+    if channel is None:
+        return []
+
+    for item_el in channel.findall("item"):
+        guid_el = item_el.find("guid")
+        pub_el = item_el.find("pubDate")
+        if guid_el is None or not guid_el.text:
+            continue
+        guid = guid_el.text.strip()
+        pub_date = _parse_rfc822(pub_el.text) if pub_el is not None and pub_el.text else None
+        if pub_date is None or pub_date < retention_cutoff:
+            continue  # expired — drop it
+
+        # Try to recover score from state (most reliable)
+        rec = state.get_record(guid)
+        score = rec.score if rec else 0.0
+        classification = rec.classification if rec else "Read Summary Only"
+
+        # Fallback: parse score from show-notes HTML "Score: XX/100"
+        if score == 0.0:
+            notes_el = item_el.find("{http://purl.org/rss/1.0/modules/content/}encoded")
+            if notes_el is not None and notes_el.text:
+                m = re.search(r"Score:\s*(\d+(?:\.\d+)?)/100", notes_el.text)
+                if m:
+                    score = float(m.group(1))
+
+        items.append(_PriorItem(
+            guid=guid,
+            pub_date=pub_date,
+            score=score,
+            classification=classification,
+            xml_element=item_el,
+        ))
+
+    return items
+
+
+# ---------------------------------------------------------------------------
+# Channel builder
+# ---------------------------------------------------------------------------
+
 def _build_channel(
     rss: Element,
     feed_cfg: FeedConfig,
@@ -77,12 +186,18 @@ def _build_channel(
     return channel
 
 
-def _add_items(
+# ---------------------------------------------------------------------------
+# Item writers
+# ---------------------------------------------------------------------------
+
+def _add_new_items(
     channel: Element,
     episodes: list[RankedEpisode],
     state: StateManager,
-) -> None:
-    listen_rank = 1
+    listen_rank_start: int = 1,
+) -> int:
+    """Append freshly ranked RankedEpisode items; return updated listen_rank."""
+    listen_rank = listen_rank_start
     for r in episodes:
         item = SubElement(channel, "item")
         rank = listen_rank if r.classification == "Listen Fully" else None
@@ -105,12 +220,17 @@ def _add_items(
             img = SubElement(item, "itunes:image")
             img.set("href", r.episode.image_url)
         state.add_published(r.episode.guid)
+    return listen_rank
 
 
-def _xml_string(rss: Element) -> str:
-    indent(rss, space="  ")
-    return '<?xml version="1.0" encoding="UTF-8"?>\n' + tostring(rss, encoding="unicode")
+def _add_prior_item(channel: Element, prior: _PriorItem) -> None:
+    """Re-append a prior XML item element into channel as-is."""
+    channel.append(prior.xml_element)
 
+
+# ---------------------------------------------------------------------------
+# Public feed builders
+# ---------------------------------------------------------------------------
 
 def build_category_feed(
     episodes: list[RankedEpisode],
@@ -118,11 +238,14 @@ def build_category_feed(
     prefs: Preferences,
     base_url: str,
     state: StateManager,
+    public_dir: Path | None = None,
 ) -> str:
     """
-    Build an RSS feed for a single category (e.g. 'ai_retail', 'startup', 'chinese').
-    Only episodes whose show_category matches `category` are included.
-    Episodes are split into Listen Fully / Read Summary using per-category caps.
+    Build a persistent RSS feed for a single category.
+
+    Today's newly ranked episodes are merged with items already in the
+    published feed on disk.  The combined list is re-sorted by score
+    (highest first) and items older than FEED_RETENTION_DAYS are dropped.
     """
     cat_cfg = prefs.categories.get(category)
     slug = cat_cfg.slug if cat_cfg else category.replace("_", "-")
@@ -132,14 +255,80 @@ def build_category_feed(
     max_summary = cat_cfg.max_read_summary if cat_cfg else prefs.output_caps.max_read_summary
 
     cat_episodes = [r for r in episodes if getattr(r.episode, "category", None) == category]
+    new_listen = [r for r in cat_episodes if r.classification == "Listen Fully" and r.episode.enclosure]
+    new_summary = [r for r in cat_episodes if r.classification == "Read Summary Only"]
+    new_items_today: list[RankedEpisode] = (new_listen + new_summary)
+    new_guids = {r.episode.guid for r in new_items_today}
 
-    listen = [r for r in cat_episodes if r.classification == "Listen Fully" and r.episode.enclosure][:max_listen]
-    summary = [r for r in cat_episodes if r.classification == "Read Summary Only"][:max_summary]
-    items = listen + summary
+    # Load surviving prior items (not expired, not superseded by today)
+    retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
+    prior_items: list[_PriorItem] = []
+    if public_dir is not None:
+        feed_path = public_dir / f"{slug}.xml"
+        for p in _load_prior_items(feed_path, state, retention_cutoff):
+            if p.guid not in new_guids:  # today's version supersedes old
+                prior_items.append(p)
 
+    # --- Merge and re-sort by score descending ----------------------------
+    # Represent today's items as (score, classification, kind='new', obj)
+    # and prior items as (score, classification, kind='prior', obj)
+    merged: list[tuple[float, str, str, object]] = [
+        (r.score, r.classification, "new", r) for r in new_items_today
+    ] + [
+        (p.score, p.classification, "prior", p) for p in prior_items
+    ]
+    merged.sort(key=lambda t: t[0], reverse=True)
+
+    # Apply per-category caps across the merged list
+    listen_count = 0
+    summary_count = 0
+    ordered_new: list[RankedEpisode] = []
+    ordered_prior: list[_PriorItem] = []
+    # We need them in final sorted order for the XML, with rank numbers
+    final_order: list[tuple[str, object]] = []  # ('new'|'prior', obj)
+    for score, classification, kind, obj in merged:
+        if classification == "Listen Fully":
+            if listen_count >= max_listen:
+                continue
+            listen_count += 1
+        else:
+            if summary_count >= max_summary:
+                continue
+            summary_count += 1
+        final_order.append((kind, obj))
+
+    # Build XML
     rss = Element("rss", attrib=_RSS_NS)
     channel = _build_channel(rss, prefs.feed, cat_cfg, feed_url, base_url)
-    _add_items(channel, items, state)
+    listen_rank = 1
+    for kind, obj in final_order:
+        if kind == "new":
+            r = obj  # type: ignore[assignment]
+            item = SubElement(channel, "item")
+            rank = listen_rank if r.classification == "Listen Fully" else None
+            SubElement(item, "title").text = _prefix(r, rank)
+            if r.classification == "Listen Fully":
+                listen_rank += 1
+            SubElement(item, "link").text = r.episode.episode_url or ""
+            SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
+            SubElement(item, "pubDate").text = r.episode.published.strftime("%a, %d %b %Y %H:%M:%S +0000")
+            SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
+            notes = SubElement(item, "content:encoded")
+            notes.text = _show_notes_html(r)
+            SubElement(item, "description").text = r.summary or r.episode.description[:300]
+            if r.episode.enclosure:
+                enc = SubElement(item, "enclosure")
+                enc.set("url", r.episode.enclosure.url)
+                enc.set("type", r.episode.enclosure.mime_type)
+                enc.set("length", str(r.episode.enclosure.length))
+            if r.episode.image_url:
+                img = SubElement(item, "itunes:image")
+                img.set("href", r.episode.image_url)
+            state.add_published(r.episode.guid)
+        else:
+            p = obj  # type: ignore[assignment]
+            channel.append(p.xml_element)
+
     return _xml_string(rss)
 
 
@@ -149,20 +338,70 @@ def build_feed(
     feed_type: str,
     base_url: str,
     state: StateManager,
-    existing_items: list[dict] | None = None,
+    public_dir: Path | None = None,
 ) -> str:
     """
-    Legacy combined feed builder — kept for backward compatibility.
+    Legacy combined feed builder (listen.xml / all.xml) with persistence.
     feed_type: 'listen' | 'all'
     """
-    feed_url = f"{base_url.rstrip('/')}/{'listen.xml' if feed_type == 'listen' else 'all.xml'}" if base_url else ""
-    rss = Element("rss", attrib=_RSS_NS)
-    channel = _build_channel(rss, prefs.feed, None, feed_url, base_url)
+    slug = "listen.xml" if feed_type == "listen" else "all.xml"
+    feed_url = f"{base_url.rstrip('/')}/{slug}" if base_url else ""
+    retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
 
     if feed_type == "listen":
-        items = [r for r in episodes if r.classification == "Listen Fully" and r.episode.enclosure]
+        new_items = [r for r in episodes if r.classification == "Listen Fully" and r.episode.enclosure]
     else:
-        items = [r for r in episodes if r.classification in ("Listen Fully", "Read Summary Only")]
+        new_items = [r for r in episodes if r.classification in ("Listen Fully", "Read Summary Only")]
 
-    _add_items(channel, items, state)
+    new_guids = {r.episode.guid for r in new_items}
+    prior_items: list[_PriorItem] = []
+    if public_dir is not None:
+        feed_path = public_dir / slug
+        for p in _load_prior_items(feed_path, state, retention_cutoff):
+            if p.guid not in new_guids:
+                prior_items.append(p)
+
+    merged: list[tuple[float, str, object]] = [
+        (r.score, "new", r) for r in new_items
+    ] + [
+        (p.score, "prior", p) for p in prior_items
+    ]
+    merged.sort(key=lambda t: t[0], reverse=True)
+
+    rss = Element("rss", attrib=_RSS_NS)
+    channel = _build_channel(rss, prefs.feed, None, feed_url, base_url)
+    listen_rank = 1
+    for score, kind, obj in merged:
+        if kind == "new":
+            r = obj  # type: ignore[assignment]
+            item = SubElement(channel, "item")
+            rank = listen_rank if r.classification == "Listen Fully" else None
+            SubElement(item, "title").text = _prefix(r, rank)
+            if r.classification == "Listen Fully":
+                listen_rank += 1
+            SubElement(item, "link").text = r.episode.episode_url or ""
+            SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
+            SubElement(item, "pubDate").text = r.episode.published.strftime("%a, %d %b %Y %H:%M:%S +0000")
+            SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
+            notes = SubElement(item, "content:encoded")
+            notes.text = _show_notes_html(r)
+            SubElement(item, "description").text = r.summary or r.episode.description[:300]
+            if r.episode.enclosure:
+                enc = SubElement(item, "enclosure")
+                enc.set("url", r.episode.enclosure.url)
+                enc.set("type", r.episode.enclosure.mime_type)
+                enc.set("length", str(r.episode.enclosure.length))
+            if r.episode.image_url:
+                img = SubElement(item, "itunes:image")
+                img.set("href", r.episode.image_url)
+            state.add_published(r.episode.guid)
+        else:
+            p = obj  # type: ignore[assignment]
+            channel.append(p.xml_element)
+
     return _xml_string(rss)
+
+
+def _xml_string(rss: Element) -> str:
+    indent(rss, space="  ")
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + tostring(rss, encoding="unicode")

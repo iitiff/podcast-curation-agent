@@ -32,10 +32,8 @@ from .synthesis import generate_synthesis
 console = Console()
 log = logging.getLogger(__name__)
 
-# Default category if a show has no category set
 _DEFAULT_CATEGORY = "ai_retail"
 
-# Top-level keys recognised in preferences.yaml — anything else triggers a warning.
 _KNOWN_PREFS_KEYS = frozenset({
     "feed", "categories", "persona", "geography", "length",
     "classification", "output_caps", "show_priors",
@@ -82,7 +80,6 @@ def _smtp_from_env() -> SMTPConfig | None:
 
 
 def _build_category_map(config_dir) -> dict[str, str]:
-    """Build a mapping of show display_name -> category from shows.yaml."""
     shows = load_show_config(config_dir)
     mapping: dict[str, str] = {}
     for show in shows.shows:
@@ -94,7 +91,6 @@ def _build_category_map(config_dir) -> dict[str, str]:
 
 
 def _resolve_category(show_title: str, category_map: dict[str, str]) -> str:
-    """Return category for a show title via case-insensitive partial match."""
     title_lower = show_title.lower()
     if title_lower in category_map:
         return category_map[title_lower]
@@ -108,7 +104,6 @@ def _tag_episodes_with_category(
     episodes: list[RankedEpisode],
     category_map: dict[str, str],
 ) -> None:
-    """Stamp each episode.category in-place based on its show title."""
     for r in episodes:
         cat = _resolve_category(r.episode.show_title, category_map)
         r.episode.category = cat  # type: ignore[attr-defined]
@@ -152,7 +147,7 @@ async def _run_pipeline(
         console.print("[yellow]No new episodes found. Exiting.[/yellow]")
         return {"queued": 0, "email_only": 0, "errors": {}}
 
-    # 3. Categorise candidates before ranking so categories never compete.
+    # 3. Categorise
     active_categories = list(prefs.categories.keys()) if prefs.categories else [_DEFAULT_CATEGORY]
     episodes_by_category: dict[str, list] = {category: [] for category in active_categories}
     for episode in new_episodes:
@@ -167,7 +162,7 @@ async def _run_pipeline(
     else:
         console.print("[yellow]WARNING: No GEMINI_API_KEY — running metadata-only ranking.[/yellow]")
 
-    # 5. Rank and select independently within each category.
+    # 5. Rank
     transcription = CascadeTranscriptionProvider(
         openai_api_key=None,
         enable_whisper=settings.enable_audio_transcription,
@@ -231,6 +226,7 @@ async def _run_pipeline(
     settings.public_dir.mkdir(parents=True, exist_ok=True)
     base_url = prefs.feed.base_url or settings.pages_base_url
 
+    # Per-category persistent feeds
     for cat_key in active_categories:
         cat_cfg = prefs.categories.get(cat_key)
         slug = cat_cfg.slug if cat_cfg else cat_key.replace("_", "-")
@@ -240,15 +236,18 @@ async def _run_pipeline(
             prefs=prefs,
             base_url=base_url,
             state=state,
+            public_dir=settings.public_dir,
         )
         (settings.public_dir / f"{slug}.xml").write_text(xml, encoding="utf-8")
         console.print(f"  [green]Wrote public/{slug}.xml[/green]")
 
-    listen_xml = build_feed(rss_queue, prefs, "listen", base_url, state)
-    all_xml = build_feed(all_surfaced, prefs, "all", base_url, state)
+    # Legacy combined feeds
+    listen_xml = build_feed(rss_queue, prefs, "listen", base_url, state, public_dir=settings.public_dir)
+    all_xml = build_feed(all_surfaced, prefs, "all", base_url, state, public_dir=settings.public_dir)
     (settings.public_dir / "listen.xml").write_text(listen_xml, encoding="utf-8")
     (settings.public_dir / "all.xml").write_text(all_xml, encoding="utf-8")
 
+    # data/latest.json
     data_dir = settings.public_dir / "data"
     data_dir.mkdir(exist_ok=True)
     latest_json = {
@@ -378,7 +377,6 @@ def validate() -> None:
     queries = _build_queries(prefs, discovery_cfg)
     cats = list(prefs.categories.keys())
 
-    # Warn on any unrecognised top-level keys in preferences.yaml
     prefs_path = settings.config_dir / "preferences.yaml"
     raw_keys = set(yaml.safe_load(prefs_path.read_text()) or {})
     unknown_keys = raw_keys - _KNOWN_PREFS_KEYS

@@ -58,6 +58,10 @@ class StateManager:
     def mark_processed(self, record: EpisodeRecord) -> None:
         self._state.processed_episodes[record.guid] = record
 
+    def get_record(self, guid: str) -> EpisodeRecord | None:
+        """Return the stored EpisodeRecord for a guid, or None."""
+        return self._state.processed_episodes.get(guid)
+
     def is_published(self, guid: str) -> bool:
         return guid in self._state.published_guids
 
