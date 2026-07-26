@@ -89,7 +89,6 @@ def _build_category_map(config_dir) -> dict[str, str]:
         name = show.display_name or show.match
         cat = show.category or _DEFAULT_CATEGORY
         mapping[name.lower()] = cat
-        # Also store by match string for fuzzy lookup
         mapping[show.match.lower()] = cat
     return mapping
 
@@ -97,10 +96,8 @@ def _build_category_map(config_dir) -> dict[str, str]:
 def _resolve_category(show_title: str, category_map: dict[str, str]) -> str:
     """Return category for a show title via case-insensitive partial match."""
     title_lower = show_title.lower()
-    # Exact match first
     if title_lower in category_map:
         return category_map[title_lower]
-    # Partial match
     for key, cat in category_map.items():
         if key and (key in title_lower or title_lower in key):
             return cat
@@ -124,6 +121,7 @@ async def _run_pipeline(
 ) -> dict:
     prefs = load_preferences(settings.config_dir)
     discovery_cfg = load_discovery(settings.config_dir)
+    shows_cfg = load_show_config(settings.config_dir)
     category_map = _build_category_map(settings.config_dir)
 
     if settings.pages_base_url:
@@ -143,6 +141,7 @@ async def _run_pipeline(
         podcast_search=podcast_search,
         web_search=web_search,
         lookback_days=settings.lookback_days,
+        shows_cfg=shows_cfg,
     )
 
     # 2. Dedup
@@ -218,7 +217,7 @@ async def _run_pipeline(
 
     console.print(f"Queue: {len(rss_queue)} episodes across {len(active_categories)} categories | Email-only: {len(email_only)}")
 
-    # 7. Weekly synthesis
+    # 6. Weekly synthesis
     synthesis = None
     if run_synthesis and llm:
         synthesis = await generate_synthesis(ranked, prefs, llm)
@@ -228,11 +227,10 @@ async def _run_pipeline(
         _print_summary_table(rss_queue, email_only)
         return {"queued": len(rss_queue), "email_only": len(email_only), "errors": {}}
 
-    # 8. Write outputs
+    # 7. Write outputs
     settings.public_dir.mkdir(parents=True, exist_ok=True)
     base_url = prefs.feed.base_url or settings.pages_base_url
 
-    # Per-category feeds
     for cat_key in active_categories:
         cat_cfg = prefs.categories.get(cat_key)
         slug = cat_cfg.slug if cat_cfg else cat_key.replace("_", "-")
@@ -246,13 +244,11 @@ async def _run_pipeline(
         (settings.public_dir / f"{slug}.xml").write_text(xml, encoding="utf-8")
         console.print(f"  [green]Wrote public/{slug}.xml[/green]")
 
-    # Also write legacy combined feeds for backward compatibility
     listen_xml = build_feed(rss_queue, prefs, "listen", base_url, state)
     all_xml = build_feed(all_surfaced, prefs, "all", base_url, state)
     (settings.public_dir / "listen.xml").write_text(listen_xml, encoding="utf-8")
     (settings.public_dir / "all.xml").write_text(all_xml, encoding="utf-8")
 
-    # data/latest.json
     data_dir = settings.public_dir / "data"
     data_dir.mkdir(exist_ok=True)
     latest_json = {
@@ -278,7 +274,7 @@ async def _run_pipeline(
     md = render_markdown(rss_queue, email_only, synthesis, run_date)
     (settings.public_dir / "latest.md").write_text(md, encoding="utf-8")
 
-    # 9. Update state
+    # 8. Update state
     from .normalize import utcnow
     for r in ranked:
         state.mark_processed(EpisodeRecord(
@@ -297,7 +293,7 @@ async def _run_pipeline(
     state.snapshot_history(run_date, latest_json)
     state.save()
 
-    # 10. Email digest
+    # 9. Email digest
     smtp = _smtp_from_env()
     if smtp:
         feed_url = f"{base_url}/listen.xml" if base_url else ""
