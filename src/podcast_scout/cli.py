@@ -6,7 +6,7 @@ import json
 import logging
 import os
 import re
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import click
@@ -113,6 +113,69 @@ def _tag_episodes_with_category(
         r.episode.category = cat
 
 
+def _load_carryover_candidates(
+    state: StateManager,
+    category_map: dict[str, str],
+    lookback_days: int,
+    already_queued_guids: set[str],
+) -> dict[str, list[RankedEpisode]]:
+    """Rebuild RankedEpisode stubs for scored-but-not-yet-queued episodes from state.
+
+    These are episodes that were scored in a previous run but didn't make the
+    daily cap, so they were never written to the RSS feed.  We inject them back
+    into the per-category candidate pools so they compete against today's fresh
+    discoveries.  The best episodes surface regardless of which day they arrived.
+    """
+    from .normalize import utcnow
+    cutoff = utcnow() - timedelta(days=lookback_days)
+    carryover: dict[str, list[RankedEpisode]] = {}
+
+    processed = state._state.get("processed", {})
+    published_guids: set[str] = set(state._state.get("published", []))
+
+    for guid, rec_data in processed.items():
+        # Skip if already in the RSS feed (published) or queued this run
+        if guid in published_guids or guid in already_queued_guids:
+            continue
+        try:
+            rec = EpisodeRecord(**rec_data)
+        except Exception:
+            continue
+        # Only carry forward within the lookback window
+        if rec.processed_at and rec.processed_at < cutoff:
+            continue
+        # Skip if it was already classified as Skip
+        if rec.classification == "Skip" or not rec.classification:
+            continue
+
+        # Reconstruct a minimal NormalizedEpisode so it can be ranked/displayed
+        ep = NormalizedEpisode(
+            guid=rec.guid,
+            show_title=rec.show_title,
+            episode_title=rec.episode_title,
+            description="",
+            published=rec.published or utcnow(),
+            duration_seconds=0,
+            episode_url="",
+            source_feed_url=rec.source_feed_url,
+        )
+        cat = _resolve_category(rec.show_title, category_map)
+        ep.category = cat
+
+        ranked = RankedEpisode(
+            episode=ep,
+            score=rec.score,
+            rubric=RubricScore(),
+            classification=rec.classification,
+            classification_reason="carried over from previous run",
+            evidence_confidence="low",
+            summary="",
+        )
+        carryover.setdefault(cat, []).append(ranked)
+
+    return carryover
+
+
 async def _run_pipeline(
     settings: Settings,
     run_synthesis: bool = False,
@@ -143,15 +206,11 @@ async def _run_pipeline(
         shows_cfg=shows_cfg,
     )
 
-    # 2. Dedup
+    # 2. Dedup — only truly new episodes get LLM scoring
     new_episodes, _ = dedup_episodes(all_candidates, state.seen_guids())
     console.print(f"Found {len(new_episodes)} new candidates (after dedup from {len(all_candidates)} discovered)")
 
-    if not new_episodes:
-        console.print("[yellow]No new episodes found. Exiting.[/yellow]")
-        return {"queued": 0, "email_only": 0, "errors": {}}
-
-    # 3. Categorise
+    # 3. Categorise new episodes
     active_categories = list(prefs.categories.keys()) if prefs.categories else [_DEFAULT_CATEGORY]
     episodes_by_category: dict[str, list[NormalizedEpisode]] = {category: [] for category in active_categories}
     for episode in new_episodes:
@@ -166,22 +225,21 @@ async def _run_pipeline(
     else:
         console.print("[yellow]WARNING: No GEMINI_API_KEY — running metadata-only ranking.[/yellow]")
 
-    # 5. Rank
+    # 5. Rank new episodes
     transcription = CascadeTranscriptionProvider(
         openai_api_key=None,
         enable_whisper=settings.enable_audio_transcription,
     )
     non_empty_categories = [category for category in active_categories if episodes_by_category.get(category)]
     token_budget_per_category = settings.max_llm_tokens_per_run // max(1, len(non_empty_categories))
-    ranked: list[RankedEpisode] = []
-    rss_queue: list[RankedEpisode] = []
-    email_only: list[RankedEpisode] = []
+    newly_ranked: dict[str, list[RankedEpisode]] = {}
 
     minutes_budget = max(480.0, prefs.length.max_weekly_listen_hours * 60)
 
     for category in active_categories:
         candidates = episodes_by_category.get(category, [])
         if not candidates:
+            newly_ranked[category] = []
             continue
         if llm:
             category_ranked = await process_episodes(
@@ -199,16 +257,55 @@ async def _run_pipeline(
                 for s1 in [stage1_metadata_score(episode, prefs)]
             ]
             category_ranked.sort(key=lambda item: item.score, reverse=True)
+        newly_ranked[category] = category_ranked
+
+    # 6. Persist new scores to state BEFORE carry-over so we don't re-LLM them tomorrow
+    from .normalize import utcnow
+    for category, cat_ranked in newly_ranked.items():
+        for r in cat_ranked:
+            state.mark_processed(EpisodeRecord(
+                guid=r.episode.guid,
+                show_title=r.episode.show_title,
+                episode_title=r.episode.episode_title,
+                published=r.episode.published,
+                processed_at=utcnow(),
+                score=r.score,
+                classification=r.classification,
+                is_outside_feed=False,
+                source_feed_url=r.episode.source_feed_url,
+            ))
+
+    # 7. Merge carryover: scored-but-never-queued episodes from previous runs
+    # compete in the same pool as today's new episodes.
+    carryover = _load_carryover_candidates(
+        state=state,
+        category_map=category_map,
+        lookback_days=settings.lookback_days,
+        already_queued_guids=set(),  # nothing queued yet this run
+    )
+    if carryover:
+        total_carryover = sum(len(v) for v in carryover.values())
+        console.print(f"[dim]Carrying over {total_carryover} previously scored but unqueued episode(s)[/dim]")
+
+    ranked: list[RankedEpisode] = []
+    rss_queue: list[RankedEpisode] = []
+    email_only: list[RankedEpisode] = []
+
+    for category in active_categories:
+        fresh = newly_ranked.get(category, [])
+        carried = carryover.get(category, [])
+        # Merge fresh + carryover, sort by score descending
+        combined = sorted(fresh + carried, key=lambda r: r.score, reverse=True)
 
         category_cfg = prefs.categories.get(category)
         category_rss, category_email = build_daily_queue(
-            category_ranked,
+            combined,
             max_minutes=minutes_budget,
             max_listen_fully=category_cfg.max_listen_fully if category_cfg else prefs.output_caps.max_listen_fully,
             max_read_summary=category_cfg.max_read_summary if category_cfg else prefs.output_caps.max_read_summary,
             max_outside=prefs.output_caps.max_outside_feed,
         )
-        ranked.extend(category_ranked)
+        ranked.extend(combined)
         rss_queue.extend(category_rss)
         email_only.extend(category_email)
 
@@ -219,7 +316,7 @@ async def _run_pipeline(
 
     console.print(f"Queue: {len(rss_queue)} episodes across {len(active_categories)} categories | Email-only: {len(email_only)}")
 
-    # 6. Weekly synthesis
+    # 8. Weekly synthesis
     synthesis = None
     if run_synthesis and llm:
         synthesis = await generate_synthesis(ranked, prefs, llm)
@@ -229,7 +326,7 @@ async def _run_pipeline(
         _print_summary_table(rss_queue, email_only)
         return {"queued": len(rss_queue), "email_only": len(email_only), "errors": {}}
 
-    # 7. Write outputs
+    # 9. Write outputs
     settings.public_dir.mkdir(parents=True, exist_ok=True)
     base_url = prefs.feed.base_url or settings.pages_base_url
 
@@ -277,27 +374,16 @@ async def _run_pipeline(
     md = render_markdown(rss_queue, email_only, synthesis, run_date)
     (settings.public_dir / "latest.md").write_text(md, encoding="utf-8")
 
-    # 8. Update state
-    from .normalize import utcnow
-    for r in all_surfaced:
-        state.mark_processed(EpisodeRecord(
-            guid=r.episode.guid,
-            show_title=r.episode.show_title,
-            episode_title=r.episode.episode_title,
-            published=r.episode.published,
-            processed_at=utcnow(),
-            score=r.score,
-            classification=r.classification,
-            is_outside_feed=False,
-            source_feed_url=r.episode.source_feed_url,
-        ))
+    # 10. Mark queued episodes as published in state
+    for r in rss_queue:
+        state.add_published(r.episode.guid)
+
     state.prune_old()
     state.update_last_run()
     state.snapshot_history(run_date, latest_json)
     state.save()
 
-    # 9. Email digest
-    # Subject is encoded as RFC 2047 UTF-8 inside send_digest — no ASCII stripping needed
+    # 11. Email digest
     smtp = _smtp_from_env()
     if smtp:
         feed_url = f"{base_url}/listen.xml" if base_url else ""
