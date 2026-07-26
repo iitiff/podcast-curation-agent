@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timedelta, timezone, UTC
+from datetime import UTC, datetime, timedelta, timezone
 from typing import Any
 
 import feedparser
@@ -113,5 +113,4 @@ def _parse_duration(s: str) -> int:
         return 0
 
 
-# keep timezone in namespace for any callers that import it from here
 __all__ = ["fetch_feed_text", "parse_feed_entries", "timezone", "timedelta"]

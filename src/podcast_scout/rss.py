@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import html
 import re
-from datetime import UTC, datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from xml.etree.ElementTree import Element, SubElement, fromstring, indent, tostring
 

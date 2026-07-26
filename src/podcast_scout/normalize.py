@@ -4,8 +4,7 @@ from __future__ import annotations
 import hashlib
 import logging
 import unicodedata
-from datetime import datetime, timezone, UTC
-from urllib.parse import urlparse
+from datetime import UTC, datetime
 
 from pydantic import BaseModel, Field
 
@@ -83,5 +82,4 @@ def dedup_episodes(
     return new, seen
 
 
-# keep timezone available for any callers that import from normalize
-__all__ = ["Enclosure", "NormalizedEpisode", "make_guid", "utcnow", "dedup_episodes", "timezone"]
+__all__ = ["Enclosure", "NormalizedEpisode", "make_guid", "utcnow", "dedup_episodes"]

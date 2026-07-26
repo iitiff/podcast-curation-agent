@@ -6,8 +6,7 @@ import json
 import logging
 import os
 import re
-import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import click
@@ -129,7 +128,7 @@ async def _run_pipeline(
         prefs.feed.base_url = settings.pages_base_url
 
     state = StateManager(settings.data_dir)
-    run_date = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d")
+    run_date = datetime.now(tz=UTC).strftime("%Y-%m-%d")
 
     # 1. Discover
     podcast_search = _make_podcast_search(settings)
@@ -284,9 +283,6 @@ async def _run_pipeline(
     (settings.public_dir / "latest.md").write_text(md, encoding="utf-8")
 
     # 8. Update state
-    # FIX: only mark episodes that were actually surfaced (queued or email_only),
-    # NOT every ranked episode. Marking skipped episodes as seen would cause
-    # them to be filtered out by dedup on subsequent runs, producing 0 results.
     from .normalize import utcnow
     for r in all_surfaced:
         state.mark_processed(EpisodeRecord(
@@ -310,7 +306,6 @@ async def _run_pipeline(
     if smtp:
         feed_url = f"{base_url}/listen.xml" if base_url else ""
         html_body = build_email_html(rss_queue, email_only, run_date, feed_url)
-        # FIX: strip non-ASCII from subject to prevent 'ascii codec' SMTP error
         raw_subject = f"Your Podcast Scout — {run_date} ({len(rss_queue)} queued)"
         subject = _safe_subject(raw_subject)
         try:
