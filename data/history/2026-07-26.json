@@ -1,37 +1,30 @@
 {
   "run_date": "2026-07-26",
-  "queued": [
-    {
-      "guid": "0aa9cdd123be2909",
-      "show": "No Priors",
-      "title": "Building an Autonomous Delivery Experience with DoorDash Co-Founders Andy Fang and Stanley Tang",
-      "score": 92.0,
-      "classification": "Listen Fully",
-      "duration_min": 49.0,
-      "url": "",
-      "summary": "DoorDash co-founders Andy Fang and Stanley Tang discuss how they built DoorDash as fundamentally a robotics and autonomy company from its inception. They delve into how AI and autonomous technology are transforming consumer habits, commerce, and delivery. The episode highlights the rollout of 'Ask DoorDash,' a natural-language interface for discovery and ordering, and their in-house autonomous delivery robot, 'Dot,' which has been operating for over two years. They share insights on the 'first and last 100 feet problem,' the necessity of multimodal strategies, and the operational and hardware challenges of scaling autonomous tech in the physical world. The founders also surprisingly argue that more Dashers, not fewer, are the future, emphasizing human-AI collaboration.",
-      "key_ideas": [
-        "Integrating robotics and AI from a company's foundational strategy in a complex physical domain.",
-        "Addressing the 'first and last 100 feet problem' and scaling autonomous delivery operations.",
-        "The future of agentic commerce and human-AI collaboration in logistics and service delivery."
-      ],
-      "confidence": "low",
-      "category": "ai_retail"
-    },
+  "queued": [],
+  "email_only": [
     {
       "guid": "88610221f5aa0101",
       "show": "Retailgentic",
       "title": "AI Is a New Customer Category: Wharton Professor & Bodhium Labs Co-Founder Kartik Hosanagar",
-      "score": 89.0,
-      "classification": "Listen Fully",
+      "score": 50.0,
+      "classification": "Read Summary Only",
       "duration_min": 43.0,
       "url": "https://share.transistor.fm/s/4f452d50",
-      "summary": "This episode features Wharton Professor Kartik Hosanagar discussing the profound impact of AI on eCommerce, framing AI as a new customer category. He introduces a 'driverless-car model' for agentic commerce, outlining levels of automation from AI-enabled discovery to fully autonomous purchasing. Key insights include the outsourcing of the top-of-funnel work to AI, transforming customer discovery, and the shift from short search queries to multi-turn conversational AI. The discussion delves into market dynamics like Google's UCP and OpenAI's ACP, and how brands must adapt their strategies for informing and persuading AI agents. Hosanagar also touches on Bodhium Labs' work in building 'digital twins' for counterfactual simulations.",
-      "key_ideas": [
-        "AI as a new customer category requiring distinct persuasion and information strategies.",
-        "Agentic commerce levels (0-5) transforming the customer journey and discovery funnel.",
-        "Strategic implications for brands adapting to AI-driven purchasing and market protocols (UCP, ACP)."
-      ],
+      "summary": "<p>Kartik Hosanagar wears a lot of hats: Wharton professor, serial entrepreneur, angel investor, and now co-founder of an applied AI lab building simulation tools for AI search. Scot and Kartik land in almost exactly the same place on where agentic commerce is heading, but they get there from opposi",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "0aa9cdd123be2909",
+      "show": "No Priors",
+      "title": "Building an Autonomous Delivery Experience with DoorDash Co-Founders Andy Fang and Stanley Tang",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 49.0,
+      "url": "",
+      "summary": "DoorDash is not just a delivery company. From its inception, co-founders Andy Fang and Stanley Tang operated it as a robotics and autonomy company. Andy and Stanley join Sarah Guo to explain how autonomous tech and AI are reshaping consumer habits, commerce, and delivery. Andy and Stanley talk about",
+      "key_ideas": [],
       "confidence": "low",
       "category": "ai_retail"
     },
@@ -39,35 +32,38 @@
       "guid": "c5adbd47553e3d8d",
       "show": "Stratechery",
       "title": "(Preview) An OpenAI Model Escapes Sandboxing, Intelligence Will Be a Commodity Market, The Chinese Model Conundrum",
-      "score": 75.0,
-      "classification": "Listen Fully",
+      "score": 50.0,
+      "classification": "Read Summary Only",
       "duration_min": 11.0,
       "url": "https://sharptech.fm/member/episode/preview-an-open-ai-model-escapes-sandboxing-intelligence-will-be-a-commodity-market-the-chinese-model-conundrum",
-      "summary": "This Stratechery preview discusses key takeaways from an OpenAI sandboxing incident, highlighting the real risks associated with advanced AI. The core of the discussion revolves around the future of open-weights AI models, particularly in the U.S. versus China. Ben Thompson and Andrew Sharp explore why the U.S. open-source market has stagnated, the motivations behind driving competition with OpenAI and Anthropic, and the distinction between the AI training and inference markets, positing that intelligence will become a commodity. The episode also touches on the U.S. government's dilemma regarding Chinese AI models, the security risks of building on Chinese infrastructure, and the potential for a 'curveball' from the CCP.",
-      "key_ideas": [
-        "The emerging commoditization of AI intelligence and its implications for market structure.",
-        "Geopolitical competition in AI, particularly between the U.S. and China, and its impact on open-source development.",
-        "The strategic importance of distinguishing between AI training and inference markets."
-      ],
+      "summary": "On today\u2019s show Ben and Andrew begin with takeaways from OpenAI\u2019s sandboxing snafu, including a reminder that the big bad wolf is real, OpenAI\u2019s failures, and the timing challenge with warnings from AI labs. From there: Talking through Ben\u2019s article on Kimi K3 and the future of open weights AI model",
+      "key_ideas": [],
       "confidence": "low",
       "category": "ai_retail"
-    }
-  ],
-  "email_only": [
+    },
     {
       "guid": "9e5147dc3d9fe0da",
       "show": "Sharp China",
       "title": "(Preview) Kimi Madness; Xi\u2019s AI Vision and US Questions; Trump\u2019s Election Data Claims; The Connected Vehicle Security Act",
-      "score": 75.0,
-      "classification": "Listen Fully",
+      "score": 50.0,
+      "classification": "Read Summary Only",
       "duration_min": 14.0,
       "url": "https://sharpchina.fm/member/episode/preview-kimi-madness-xis-ai-vision-and-us-questions-trumps-election-data-claims-the-connected-vehicle-security-act",
-      "summary": "This Sharp China preview focuses on the rapid emergence of Moonshot's Kimi K3 model and the resulting concerns among investors and policymakers regarding Chinese AI progress. The discussion highlights the perceived incoherent U.S. approach to the open-source AI ecosystem and potential levers the U.S. could use to counter Chinese advancements, alongside the Trump administration's potential reluctance. It also covers Xi Jinping's vision for AI, China's consistent global messaging, and questions about AI infrastructure in the Global South. The episode touches on the 'Connected Vehicle Security Act' and broader concerns about Chinese influence in critical technologies.",
-      "key_ideas": [
-        "The escalating AI competition between the U.S. and China, particularly in open-source models.",
-        "Geopolitical strategies and policy implications for AI development and security.",
-        "The strategic importance of understanding national AI visions and their global impact."
-      ],
+      "summary": "On today\u2019s show Andrew and Bill focus on the arrival of Moonshot\u2019s Kimi K3 model and the \u201cDeepSeek 2.0 concerns\u201d among investors and policymakers. Topics include: The incoherent U.S. approach to the open source AI ecosystem, levers the U.S. side could pull to thwart Chinese progress, and why the Tru",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "17b74684842e3172",
+      "show": "Think Fast Talk Smart",
+      "title": "308. Ask Matt Anything: From Nerves to Know-How in High-Stakes Moments",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 17.0,
+      "url": "https://www.fastersmarter.io/308-ask-matt-anything-from-nerves-to-know-how-in-high-stakes-moments/",
+      "summary": "<p><em>\u201cManaging emotions\u2014yours and your audience's\u2014is hard enough, but it's even harder when you're under pressure to respond.\"</em><br />High-pressure communication doesn't have to derail your message. In this <a href=\"https://www.fastersmarter.io/\"><em>Think Fast, Talk Smart</em></a> Ask Matt Any",
+      "key_ideas": [],
       "confidence": "low",
       "category": "ai_retail"
     },
@@ -106,6 +102,32 @@
       "duration_min": 60.0,
       "url": "",
       "summary": "Dr. Jill Lepore is one of the best writers there is at identifying institutional patterns in history, and Decoder is a show about systems and organization \u2014 so her new book, The Rise and Fall of the Artificial State, is a perfect fit for the show.\n\nYou build systems by measuring things \u2014 gathering i",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "88610221f5aa0101",
+      "show": "Retailgentic",
+      "title": "AI Is a New Customer Category: Wharton Professor & Bodhium Labs Co-Founder Kartik Hosanagar",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "0aa9cdd123be2909",
+      "show": "No Priors",
+      "title": "Building an Autonomous Delivery Experience with DoorDash Co-Founders Andy Fang and Stanley Tang",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
       "key_ideas": [],
       "confidence": "low",
       "category": "ai_retail"
@@ -176,6 +198,19 @@
       "category": "startup"
     },
     {
+      "guid": "b2e78b6190439993",
+      "show": "Invest Like the Best",
+      "title": "Matthew Smith \u2014 Natural Gas: The Next Bottleneck - [Invest Like the Best, EP.483]",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 57.0,
+      "url": "https://colossus.com/episode/americas-next-energy-crisis/",
+      "summary": "My guest today is Matthew Smith. Matthew is the founder and CIO of Chronometer Partners, which invests in energy, industrials, materials, power and utilities, and related infrastructure.\n\nFor the last 18 months he and his team have modeled nearly every natural gas well, pipeline, and processing asse",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
       "guid": "233712672e620be9",
       "show": "The a16z Show",
       "title": "Ben Horowitz: The Fight Over Open Source AI",
@@ -215,17 +250,43 @@
       "category": "startup"
     },
     {
-      "guid": "b2e78b6190439993",
-      "show": "Invest Like the Best",
-      "title": "Matthew Smith \u2014 Natural Gas: The Next Bottleneck - [Invest Like the Best, EP.483]",
+      "guid": "6eaa776b43d6e57f",
+      "show": "The SaaS Podcast",
+      "title": "Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.",
       "score": 50.0,
       "classification": "Read Summary Only",
-      "duration_min": 57.0,
-      "url": "https://colossus.com/episode/americas-next-energy-crisis/",
-      "summary": "My guest today is Matthew Smith. Matthew is the founder and CIO of Chronometer Partners, which invests in energy, industrials, materials, power and utilities, and related infrastructure.\n\nFor the last 18 months he and his team have modeled nearly every natural gas well, pipeline, and processing asse",
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
       "key_ideas": [],
       "confidence": "low",
       "category": "startup"
+    },
+    {
+      "guid": "ccfa58dabbcfa510",
+      "show": "\u6587\u68ee\u8aaa\u66f8",
+      "title": "\u5927\u8166\u4e0d\u6703\u8a18\u4f4f\u4efb\u4f55\u4e00\u4ef6\u4e8b\uff0c\u9664\u975e\u4f60\u601d\u8003\u5b83\uff5c\u300a\u5b78\u751f\u70ba\u4ec0\u9ebc\u4e0d\u559c\u6b61\u4e0a\u5b78\u300b",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 52.0,
+      "url": "",
+      "summary": "\u983b\u9053\u5b98\u65b9\u7db2\u7ad9\uff1ahttps://vincentreading.com/  \u6211\u5011\u8ddf\u601d\u7dad\u69d3\u687f\u5c55\u958b\u4e86\u5361\u724c\u7684\u5408\u4f5c\uff0c\u53ea\u8981\u4f60\u900f\u904e\u6b64\u9023\u7d50\uff1ahttps://lyt.com.tw/?utm_medium=vincentreading&amp;utm_source=kol \u4e26\u5728\u8cfc\u8cb7\u6642\u8f38\u5165\u512a\u60e0\u78bc\uff1avincent85 \u5c31\u53ef\u4ee5\u752885\u6298\u7684\u50f9\u683c\u8cfc\u8cb7\u5230\u601d\u7dad\u69d3\u687f\u51fa\u7684\u6240\u6709\u5361\u724c\uff01 \u66f4\u591a\u6587\u68ee\u8aaa\u66f8\u7684\u5c08\u5c6c\u6298\u6263\u90fd\u6574\u7406\u5728\u9019\uff1ahttps://vincentreading.com/reading-skill-tree/   \u4e0b\u4e00\u5834\u7dda\u4e0b\u8b80\u66f8\u6703\u958b\u59cb\u5831\u540d\u5566\uff01 \u9019\u4e00\u6b21\u8981\u5206\u4eab\u7684\u66f8\u662f\uff1a\u300a\u5783\u573e\u5834\u9577\u5927\u7684\u81ea\u5b78\u4eba\u751f\u300b\uff0c\u9019\u662f\u597d\u5e7e\u5e74\u524d\u6bd4\u723e\u00b7\u84cb\u8332\u7684\u9078\u66f8\uff0c\u4e00\u76f4\u88ab\u6211\u653e\u5728\u66f8\u6ac3\u597d",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "personal_growth"
+    },
+    {
+      "guid": "39fe21975e05a5ad",
+      "show": "\u6587\u68ee\u8aaa\u66f8",
+      "title": "\u523b\u610f\u88dd\u51fa\u597d\u5947\u5fc3\u3001\u52aa\u529b\u5c2c\u804a\uff0c\u592a\u591a\u4ea4\u969b\u5957\u8def\u53ea\u662f\u6703\u8b93\u95dc\u4fc2\u8b8a\u5dee feat. \u601d\u7dad\u69d3\u687f",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 82.0,
+      "url": "",
+      "summary": "YouTube\u5f71\u97f3\u7248\u672c\uff1ahttps://www.youtube.com/watch?v=uekGkrzBMyg \u601d\u7dad\u69d3\u687f\u7684\u65b0\u66f8\u300a\u4eba\u969b\u95dc\u4fc2\u7684\u601d\u7dad\u69d3\u687f\u300b\uff1ahttps://www.books.com.tw/products/0011043329 \u5167\u5bb9\u4e2d\u8ac7\u5230\u7684\u5361\u724c\uff0c\u56e0\u70ba\u771f\u7684\u8b93\u6211\u89ba\u5f97\u592a\u6709\u610f\u601d\u4e86\uff0c\u56e0\u6b64\u6211\u5011\u8ddf\u601d\u7dad\u69d3\u687f\u5c55\u958b\u4e86\u5361\u724c\u7684\u5408\u4f5c\uff0c\u53ea\u8981\u4f60\u900f\u904e\u6b64\u9023\u7d50\uff1ahttps://lyt.com.tw/?utm_medium=vincentreading&amp;utm_source=kol \u4e26\u5728\u8cfc\u8cb7\u6642\u8f38\u5165\u512a\u60e0\u78bc\uff1avincent85 \u5c31\u53ef\u4ee5\u752885\u6298\u7684\u50f9\u683c\u8cfc\u8cb7\u5230\u601d\u7dad\u69d3\u687f\u51fa\u7684\u6240\u6709\u5361\u724c\uff01 \u66f4\u591a\u6587\u68ee\u8aaa\u66f8\u7684\u5c08\u5c6c\u6298\u6263\u90fd\u6574\u7406\u5728\u9019\uff1aht",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "personal_growth"
     },
     {
       "guid": "a4e86adeaa238581",
@@ -280,14 +341,14 @@
       "category": "personal_growth"
     },
     {
-      "guid": "ccfa58dabbcfa510",
-      "show": "\u6587\u68ee\u8aaa\u66f8",
-      "title": "\u5927\u8166\u4e0d\u6703\u8a18\u4f4f\u4efb\u4f55\u4e00\u4ef6\u4e8b\uff0c\u9664\u975e\u4f60\u601d\u8003\u5b83\uff5c\u300a\u5b78\u751f\u70ba\u4ec0\u9ebc\u4e0d\u559c\u6b61\u4e0a\u5b78\u300b",
+      "guid": "d26f1dc68dccaa99",
+      "show": "Chasing Life",
+      "title": "When Snoring Becomes a Danger to Your Health",
       "score": 50.0,
       "classification": "Read Summary Only",
-      "duration_min": 52.0,
+      "duration_min": 27.0,
       "url": "",
-      "summary": "\u983b\u9053\u5b98\u65b9\u7db2\u7ad9\uff1ahttps://vincentreading.com/  \u6211\u5011\u8ddf\u601d\u7dad\u69d3\u687f\u5c55\u958b\u4e86\u5361\u724c\u7684\u5408\u4f5c\uff0c\u53ea\u8981\u4f60\u900f\u904e\u6b64\u9023\u7d50\uff1ahttps://lyt.com.tw/?utm_medium=vincentreading&amp;utm_source=kol \u4e26\u5728\u8cfc\u8cb7\u6642\u8f38\u5165\u512a\u60e0\u78bc\uff1avincent85 \u5c31\u53ef\u4ee5\u752885\u6298\u7684\u50f9\u683c\u8cfc\u8cb7\u5230\u601d\u7dad\u69d3\u687f\u51fa\u7684\u6240\u6709\u5361\u724c\uff01 \u66f4\u591a\u6587\u68ee\u8aaa\u66f8\u7684\u5c08\u5c6c\u6298\u6263\u90fd\u6574\u7406\u5728\u9019\uff1ahttps://vincentreading.com/reading-skill-tree/   \u4e0b\u4e00\u5834\u7dda\u4e0b\u8b80\u66f8\u6703\u958b\u59cb\u5831\u540d\u5566\uff01 \u9019\u4e00\u6b21\u8981\u5206\u4eab\u7684\u66f8\u662f\uff1a\u300a\u5783\u573e\u5834\u9577\u5927\u7684\u81ea\u5b78\u4eba\u751f\u300b\uff0c\u9019\u662f\u597d\u5e7e\u5e74\u524d\u6bd4\u723e\u00b7\u84cb\u8332\u7684\u9078\u66f8\uff0c\u4e00\u76f4\u88ab\u6211\u653e\u5728\u66f8\u6ac3\u597d",
+      "summary": "Dr. Sanjay Gupta talks with Dr. Paul Hoff, an Ear, Nose and Throat specialist (otolaryngologist) at the University of Michigan, about why sleep apnea is often missed, how it can harm the body and mind, and the latest treatment options.\n\nThis episode was produced by Madeleine Thompson and Andrea Kane",
       "key_ideas": [],
       "confidence": "low",
       "category": "personal_growth"
@@ -306,40 +367,27 @@
       "category": "personal_growth"
     },
     {
-      "guid": "c5c8317a5e00d35c",
-      "show": "\u79d1\u6280\u6d6a",
-      "title": "EP148 - Kimi K3 \u9707\u64bc\u77fd\u8c37\uff01\u771f\u7684\u9019\u9ebc\u5f37\u55ce\uff1f",
+      "guid": "cccfa96fbb7c7e31",
+      "show": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "title": "\u7e3d\u662f\u4e0d\u6562\u62d2\u7d55\u5225\u4eba\uff1fAI \u5c0d\u8a71\u966a\u7df4\uff0c\u8b93\u4f60\u52c7\u6562\u8aaa\u51fa\u5fc3\u88e1\u8a71\uff5cFt. \u74e6\u57fa",
       "score": 50.0,
       "classification": "Read Summary Only",
-      "duration_min": 69.0,
-      "url": "https://open.firstory.me/story/cmrsobin9048k01tj184d5bta",
-      "summary": "<p>\u672c\u96c6\u7b46\u8a18\u8207\u7cbe\u4fee\u9010\u5b57\u7a3f\uff1a<a href=\"https://open.firstory.me/user/techwav/posts/ep148-zkch93tachuh\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://open.firstory.me/user/techwav/posts/ep148-zkch93tachuh</a></p><p><a href=\"mailto:\u8a02\u95b2\u6709\u554f\u984c\u8acb\u4f86\u4fe1\uff1asupport@firstory.me\" rel=\"noopener noreferrer nofollow\" target=\"",
+      "duration_min": 40.0,
+      "url": "https://open.firstory.me/story/cmrvnvc390b3x01tg2q230kwc",
+      "summary": "<p>\u275d <strong>\u7576\u5de5\u4f5c\u3001\u95dc\u4fc2\u8207\u60c5\u7dd2\u5361\u95dc\u90fd\u6025\u8457\u5411 AI \u7d22\u53d6\u89e3\u7b54\uff0c\u9019\u4efd\u5c0d\u6a19\u6e96\u7b54\u6848\u7684\u6e34\u671b\uff0c\u5176\u5be6\u53cd\u6620\u4e86\u5167\u5fc3\u6df1\u8655\u5c0d\u751f\u6d3b\u5931\u63a7\u7684\u96b1\u5f62\u7126\u616e\u3002</strong> \u275e \u2014 \u77e5\u8b58\u885b\u661f\u88fd\u4f5c</p><p>\u2800</p><p>\u5728\u9019\u500b\u8cc7\u8a0a\u7206\u70b8\u7684\u6642\u4ee3\uff0c\u4eba\u5011\u4f7f\u7528 AI \u7684\u7bc4\u570d\u65e9\u5df2\u4e0d\u518d\u5c40\u9650\u65bc\u5de5\u4f5c\uff0c\u5f9e\u65e5\u5e38\u7684\u4eba\u969b\u95dc\u4fc2\u3001\u5fc3\u4e2d\u5361\u4f4f\u7684\u60c5\u611f\u3001\u751a\u81f3\u9762\u81e8\u4eba\u751f\u91cd\u5927\u6289\u64c7\u6642\uff0c\u90fd\u7fd2\u6163\u5c07\u554f\u984c\u62cb\u7d66\u79d1\u6280\u3002\u7136\u800c\uff0c\u8a31\u591a\u4eba\u5728\u983b\u7e41\u5c0b\u6c42\u89e3\u7b54\u7684\u904e\u7a0b\u4e2d\uff0c\u537b\u767c\u73fe\u81ea\u5df1\u7684\u601d\u7dd2\u975e\u4f46\u6c92\u6709\u8b8a\u5f97\u6e05\u6670\uff0c\u5167\u5fc3\u53cd\u800c\u7d2f\u7a4d\u4e86\u66f4\u591a\u7684\u614c\u4e82\u8207\u7126\u616e\u3002</p><p>\u2800</p><p>\u5f9e\u5fc3\u7406\u5b78\u7684\u89d2\u5ea6\u4f86\u770b\uff0c\u9019\u7a2e\u300c\u8d8a\u554f\u8d8a\u6df7\u4e82\u300d\u7684\u73fe\u8c61\uff0c\u95dc\u9375\u5728\u65bc\u4eba\u8207\u79d1\u6280\u4e92\u52d5\u6642\u7684\u300c\u59ff\u614b\u300d\u3002\u7576\u500b\u9ad4\u51fa\u65bc\u5c0d\u672a\u4f86\u7684\u6050\u61fc\u3001\u5bb3\u6015\u505a\u932f\u6c7a\u5b9a\uff0c",
       "key_ideas": [],
       "confidence": "low",
       "category": "personal_growth"
     },
     {
-      "guid": "d983f5cd1fad0158",
-      "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
-      "title": "EP.628 \u300a\u99ac\u65af\u514b\u5bf6\u5178\u300b\u8b80\u5f8c\u5fc3\u5f97\uff1a\u542b\u91d1\u91cf\u6975\u9ad8\u7684\u597d\u66f8\u3001\u516d\u500b\u91cd\u9ede\u6574\u7406",
+      "guid": "811810d0bee68661",
+      "show": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "title": "\u3010\u5f71\u5287\u5206\u6790\u3011\u300c\u662f\u4e0d\u662f\u6211\u5bb3\u4e86\u4f60\uff1f\u300d\u904e\u5ea6\u52aa\u529b\u7684\u4eba\uff0c\u6700\u6df1\u7684\u7f6a\u60e1\u611f\uff5c\u5fc3\u7406\u5b78\u89e3\u6790\u300a\u6b20\u59b3\u7684\u90a3\u5834\u5a5a\u79ae\u300b\u9673\u7acb\u7487",
       "score": 50.0,
       "classification": "Read Summary Only",
-      "duration_min": 20.0,
-      "url": "https://open.firstory.me/story/cmrycm98f11ty01wma59uca79",
-      "summary": "<p><strong>\u3010\u672c\u96c6\u7bc0\u76ee\u7531 \u74e6\u57fa \u8d0a\u52a9\u64ad\u51fa\u3011</strong></p><p><strong>\u300aAI \u74e6\u57fa\u7b2c\u4e8c\u5927\u8166\u300b</strong></p><p>\u9678\u9678\u7e8c\u7e8c\uff0c\u6211\u6536\u5230\u4e0d\u5c11\u5b78\u54e1\u7684\u8a0a\u606f\uff0c\u5206\u4eab\u7528\u5b8c\u8ab2\u7a0b\u88e1 AI \u5c08\u6848\u5305\u4e4b\u5f8c\u7684\u5fc3\u5f97\u3002\u6bd4\u8d77\u6211\u81ea\u5df1\u8b1b\u9019\u5802\u8ab2\u591a\u597d\uff0c\u6211\u66f4\u60f3\u8b93\u5b78\u54e1\u81ea\u5df1\u8aaa\u3002</p><p>\u300c\u6574\u500b\u5c0d\u8a71\u904e\u7a0b\u6eff\u300e\u71d2\u8166\u300f\u7684\uff0c\u4f46\u6210\u679c\u6211\u5f88\u6eff\u610f\u3002\u300d\u2500\u2500 David</p><p>\u300cAI \u5beb\u5f97\u5f88\u9806\uff0c\u4f46\u6700\u5f8c\u628a\u95dc\u7684\u662f\u6211\u3002\u9019\u4e00\u7bc7\uff0c\u662f\u6211\u5011\u4e00\u8d77\u5b8c\u6210\u7684\u3002\u300d\u2500\u2500 Emily</p><p>\u300c\u5b83\u6700\u5927\u7684\u50f9\u503c\uff0c\u662f\u80fd\u554f\u51fa\u4e00\u4e9b\u4f60\u81ea\u5df1\u6c92\u60f3\u904e\u7684\u554f\u984c\u3002\u300d\u2500\u2500 Olivia</p><p>\u5c08\u6848\u5305\u7684\u8a2d\u8a08\u521d\u8877\uff0c\u5f9e\u4f86\u5c31\u4e0d\u662f\u8b93\u4f60\u653e\u624b\u7d66 AI \u4e82\u5beb\uff0c\u5b83\u662f\u8981\u5f15\u767c\u4f60",
-      "key_ideas": [],
-      "confidence": "low",
-      "category": "personal_growth"
-    },
-    {
-      "guid": "cb8d6880a78a7b88",
-      "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
-      "title": "EP.627 \u6211\u5dee\u9ede\u932f\u904e\u7684\u597d\u66f8\uff01\u524d\u5929\u4e0b\u96dc\u8a8c\u51fa\u7248\u7e3d\u7de8\u8f2f\u7684 10 \u672c\u597d\u66f8\u63a8\u85a6",
-      "score": 50.0,
-      "classification": "Read Summary Only",
-      "duration_min": 52.0,
-      "url": "https://open.firstory.me/story/cmrswe4i81k2f01xb43lraqo9",
-      "summary": "<p><strong>\u3010\u672c\u96c6\u7bc0\u76ee\u7531 \u74e6\u57fa \u8d0a\u52a9\u64ad\u51fa\u3011</strong></p><p><strong>\u300aAI \u74e6\u57fa\u7b2c\u4e8c\u5927\u8166\u300b</strong></p><p>\u5927\u90e8\u5206\u4eba\u7528 AI\uff0c\u50cf\u6bcf\u5929\u53eb\u5916\u9001\uff1a\u6bcf\u6b21\u90fd\u8981\u91cd\u8b1b\u4e00\u904d\u9700\u6c42\uff0c\u9001\u4f86\u7684\u9084\u4e0d\u4e00\u5b9a\u5408\u80c3\u53e3\u3002</p><p>\u6211\u505a\u300aAI \u74e6\u57fa\u7b2c\u4e8c\u5927\u8166\u300b\u9019\u5802\u8ab2\uff0c\u662f\u5e36\u4f60\u66ff\u81ea\u5df1\u8acb\u4e00\u4f4d\u300c\u79c1\u4eba\u5eda\u5e2b\u300d\uff1a</p><p>\u628a\u65e5\u5e38\u6d41\u7a0b\u505a\u6210\u73fe\u6210\u7684\u300cAI \u5c08\u6848\u5305\u300d\uff0c\u7167\u8457\u505a\u5c31\u6709\u7a69\u5b9a\u597d\u7d50\u679c\u3002</p><p>\u65e9\u9ce5\u5b78\u54e1\u8aaa\u6574\u500b\u904e\u7a0b\u5f88\u300c\u71d2\u8166\u300d\uff0c\u6211\u807d\u4e86\u53cd\u800c\u6b23\u6170\u3002</p><p>\u56e0\u70ba\u5c08\u6848\u5305\u628a\u6d41\u7a0b\u3001\u63d0\u554f\u9019\u4e9b\u7c97\u6d3b\u625b\u8d77\u4f86\uff0c\u628a\u6700\u95dc\u9375\u7684\u601d\u8003\u548c\u628a\u95dc\u7559\u7d66\u4f60\u3002</p><p>\u9019\u7a2e\u71d2\u8166\u7684\u611f\u89ba\uff0c\u6211\u7a31\u4e4b\u70ba\u300c\u597d\u6469\u64e6\u300d\uff1aAI \u80fd\u66ff\u4f60\u7701\u529b\uff0c\u537b\u6c92\u8fa6\u6cd5",
+      "duration_min": 29.0,
+      "url": "https://open.firstory.me/story/cmrk5m7ai01w001u82jedc5vz",
+      "summary": "<p><strong>\u275d \u90a3\u4e9b\u5728\u95dc\u4fc2\u88e1\u6c38\u9060\u8ca0\u8cac\u3001\u9ed8\u9ed8\u300c\u88dc\u4f4d\u300d\u7684\u4eba\uff0c\u6700\u6015\u7684\u4e0d\u662f\u7d2f\uff0c\u800c\u662f\u767c\u73fe\u81ea\u5df1\u4e0d\u8ad6\u591a\u52aa\u529b\uff0c\u4f9d\u7136\u662f\u4e00\u5ea7\u4e0d\u88ab\u770b\u898b\u7684\u5b64\u5cf6\u3002 \u275e \u2014 \u77e5\u8b58\u885b\u661f\u88fd\u4f5c</strong></p><p>\u2800</p><p>\u5728\u5f71\u96c6\u300a\u6b20\u59b3\u7684\u90a3\u5834\u5a5a\u79ae\u300b\u4e2d\uff0c\u7531\u8607\u6167\u502b\u98fe\u6f14\u7684\u5973\u4e3b\u89d2\u9673\u7acb\u7487\uff0c\u5728\u773e\u4eba\u773c\u4e2d\u662f\u4e00\u500b\u5e7e\u8fd1\u5b8c\u7f8e\u7684\u300c\u9ad8\u529f\u80fd\u6027\u5016\u5b58\u8005\u300d\u3002\u8eab\u70ba\u5bb6\u4e2d\u7684\u7368\u751f\u5973\uff0c\u5979\u7fd2\u6163\u4e86\u5728\u6311\u5254\u3001\u88ab\u52d5\u653b\u64ca\u7684\u6bcd\u89aa\uff0c\u8207\u770b\u4f3c\u6eab\u548c\u537b\u5728\u5bb6\u4e2d\u7f3a\u5e2d\u7684\u7236\u89aa\u4e4b\u9593\u626e\u6f14\u300c\u6f64\u6ed1\u5291\u300d\u8207\u300c\u88dc\u4f4d\u8005\u300d\u3002\u70ba\u4e86\u4e0d\u8b93\u885d\u7a81\u64f4\u5927\u3001\u70ba\u4e86\u7dad\u6301\u5bb6\u5ead\u7684\u8868\u76f8\u5b8c\u6574\uff0c\u5979\u5f9e\u5c0f\u5c31\u5b78\u6703\u4e86\u58d3\u6291\u771f\u5be6\u7684\u60c5\u7dd2\uff0c\u628a\u300c\u505a\u597d\u3001\u505a\u6eff\u300d\u7576\u6210\u751f\u5b58\u7684\u552f\u4e00\u624b\u6bb5\u3002</p><p>\u2800</p><p>\u7576\u5979\u70ba\u4e86\u61f7\u5b55\u800c\u75db\u5fc3\u653e\u68c4\u524d\u5f80\u7d10\u7d04\u6df1\u9020\u7684\u5922\u60f3\uff0c\u8207\u624d\u83ef\u6d0b",
       "key_ideas": [],
       "confidence": "low",
       "category": "personal_growth"
