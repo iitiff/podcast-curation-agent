@@ -138,9 +138,9 @@ def _parse_llm_json_array(raw: str) -> list[Any]:
     if fence_match:
         text = fence_match.group(1).strip()
     try:
-        result = json.loads(text)
+        result: list[Any] = json.loads(text)
         if isinstance(result, list):
-            return result  # type: ignore[return-value]
+            return result
         if isinstance(result, dict):
             for v in result.values():
                 if isinstance(v, list):
@@ -153,14 +153,14 @@ def _parse_llm_json_array(raw: str) -> list[Any]:
         try:
             result = json.loads(text[start:end + 1])
             if isinstance(result, list):
-                return result  # type: ignore[return-value]
+                return result
         except json.JSONDecodeError:
             pass
     try:
         import json_repair  # type: ignore
-        repaired = json_repair.loads(text)
+        repaired: list[Any] = json_repair.loads(text)
         if isinstance(repaired, list):
-            return repaired  # type: ignore[return-value]
+            return repaired
         if isinstance(repaired, dict):
             for v in repaired.values():
                 if isinstance(v, list):
@@ -239,6 +239,59 @@ def _classify(score: float, prefs: Preferences) -> str:
     if score >= prefs.classification.read_summary_min_score:
         return "Read Summary Only"
     return "Skip"
+
+
+def build_daily_queue(
+    ranked: list[RankedEpisode],
+    max_minutes: float = 480.0,
+    max_listen_fully: int = 3,
+    max_read_summary: int = 5,
+    max_outside: int = 3,
+) -> tuple[list[RankedEpisode], list[RankedEpisode]]:
+    """Split ranked episodes into RSS queue and email-only overflow.
+
+    Returns (rss_queue, email_only).
+    rss_queue honours max_listen_fully, max_read_summary, max_outside caps
+    and the total listen-time budget (max_minutes).  Remaining surfaced
+    episodes go into email_only.
+    """
+    rss: list[RankedEpisode] = []
+    email_only: list[RankedEpisode] = []
+
+    listen_count = 0
+    summary_count = 0
+    outside_count = 0
+    minutes_used = 0.0
+
+    for r in ranked:
+        if r.classification == "Skip":
+            continue
+
+        is_outside = getattr(r.episode, "is_outside_feed", False)
+
+        if r.classification == "Listen Fully":
+            if listen_count >= max_listen_fully:
+                email_only.append(r)
+                continue
+            if is_outside and outside_count >= max_outside:
+                email_only.append(r)
+                continue
+            if minutes_used + r.episode.duration_minutes > max_minutes and rss:
+                email_only.append(r)
+                continue
+            rss.append(r)
+            listen_count += 1
+            minutes_used += r.episode.duration_minutes
+            if is_outside:
+                outside_count += 1
+        else:
+            if summary_count >= max_read_summary:
+                email_only.append(r)
+                continue
+            rss.append(r)
+            summary_count += 1
+
+    return rss, email_only
 
 
 def _build_episode_block(idx: int, ep: NormalizedEpisode, transcript: TranscriptResult) -> str:

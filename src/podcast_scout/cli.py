@@ -49,13 +49,17 @@ def _setup_logging(verbose: bool) -> None:
     )
 
 
-def _make_podcast_search(settings: Settings):
+def _make_podcast_search(
+    settings: Settings,
+) -> PodcastIndexProvider | ITunesSearchProvider:
     if settings.podcast_index_key and settings.podcast_index_secret:
         return PodcastIndexProvider(settings.podcast_index_key, settings.podcast_index_secret)
     return ITunesSearchProvider()
 
 
-def _make_web_search(settings: Settings):
+def _make_web_search(
+    settings: Settings,
+) -> BraveSearchProvider | SerperSearchProvider | NullWebSearchProvider:
     if settings.web_search_api_key:
         if settings.web_search_provider == "serper":
             return SerperSearchProvider(settings.web_search_api_key)
@@ -78,8 +82,8 @@ def _smtp_from_env() -> SMTPConfig | None:
     )
 
 
-def _build_category_map(config_dir) -> dict[str, str]:
-    shows = load_show_config(config_dir)
+def _build_category_map(config_dir: object) -> dict[str, str]:
+    shows = load_show_config(config_dir)  # type: ignore[arg-type]
     mapping: dict[str, str] = {}
     for show in shows.shows:
         name = show.display_name or show.match
@@ -117,7 +121,7 @@ async def _run_pipeline(
     settings: Settings,
     run_synthesis: bool = False,
     dry_run: bool = False,
-) -> dict:
+) -> dict[str, object]:
     prefs = load_preferences(settings.config_dir)
     discovery_cfg = load_discovery(settings.config_dir)
     shows_cfg = load_show_config(settings.config_dir)
@@ -153,7 +157,7 @@ async def _run_pipeline(
 
     # 3. Categorise
     active_categories = list(prefs.categories.keys()) if prefs.categories else [_DEFAULT_CATEGORY]
-    episodes_by_category: dict[str, list] = {category: [] for category in active_categories}
+    episodes_by_category: dict[str, list[object]] = {category: [] for category in active_categories}
     for episode in new_episodes:
         category = _resolve_category(episode.show_title, category_map)
         episode.category = category
@@ -185,7 +189,8 @@ async def _run_pipeline(
             continue
         if llm:
             category_ranked = await process_episodes(
-                candidates, prefs=prefs, llm=llm, transcription=transcription,
+                candidates,  # type: ignore[arg-type]
+                prefs=prefs, llm=llm, transcription=transcription,
                 max_deep_process=15, total_token_budget=token_budget_per_category,
             )
         else:
@@ -194,8 +199,8 @@ async def _run_pipeline(
                     classification=_classify(s1.score, prefs),
                     classification_reason="metadata only (no LLM key)",
                     evidence_confidence="low", summary=episode.description[:300] or "No summary.")
-                for episode in candidates
-                for s1 in [stage1_metadata_score(episode, prefs)]
+                for episode in candidates  # type: ignore[union-attr]
+                for s1 in [stage1_metadata_score(episode, prefs)]  # type: ignore[arg-type]
             ]
             category_ranked.sort(key=lambda item: item.score, reverse=True)
 
@@ -253,7 +258,7 @@ async def _run_pipeline(
 
     data_dir = settings.public_dir / "data"
     data_dir.mkdir(exist_ok=True)
-    latest_json = {
+    latest_json: dict[str, object] = {
         "run_date": run_date,
         "queued": [_ep_to_dict(r) for r in rss_queue],
         "email_only": [_ep_to_dict(r) for r in email_only],
@@ -313,7 +318,7 @@ async def _run_pipeline(
     return latest_json
 
 
-def _ep_to_dict(r: RankedEpisode) -> dict:
+def _ep_to_dict(r: RankedEpisode) -> dict[str, object]:
     ep = r.episode
     return {
         "guid": ep.guid,
@@ -396,4 +401,4 @@ def validate() -> None:
     console.print(f"[green]Categories: {', '.join(cats) or 'none (using legacy caps)'}[/green]")
     console.print(f"[green]discovery.yaml OK — {len(queries)} queries will run[/green]")
     for q in queries:
-        console.print(f"  [dim]· {q}[/dim]")
+        console.print(f"  [dim]\u00b7 {q}[/dim]")

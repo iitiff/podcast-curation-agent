@@ -54,13 +54,24 @@ class BaseLLMProvider(ABC):
     ) -> LLMResponse: ...
 
 
+class BaseTranscriptionProvider(ABC):
+    """Abstract base for all transcription providers."""
+
+    @abstractmethod
+    async def transcribe(
+        self,
+        episode_url: str,
+        description: str = "",
+    ) -> TranscriptResult: ...
+
+
 class BasePodcastSearchProvider(ABC):
     @abstractmethod
     async def search_episodes(
         self,
         query: str,
         max_results: int = 10,
-    ) -> list[EpisodeSearchResult]: ...
+    ) -> list[PodcastSearchResult]: ...
 
 
 class BaseWebSearchProvider(ABC):

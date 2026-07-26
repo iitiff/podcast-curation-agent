@@ -33,11 +33,11 @@ def _e(text: str) -> str:
 
 
 def _prefix(r: RankedEpisode, rank: int | None = None) -> str:
-    outside = "🌐 OUTSIDE — " if r.episode.is_outside_feed else ""
+    outside = "\U0001f310 OUTSIDE \u2014 " if r.episode.is_outside_feed else ""
     if r.classification == "Listen Fully":
         num = f" #{rank}" if rank else ""
-        return f"{outside}🎧 LISTEN{num} — {r.episode.show_title}: {r.episode.episode_title}"
-    return f"{outside}📖 SUMMARY — {r.episode.show_title}: {r.episode.episode_title}"
+        return f"{outside}\U0001f3a7 LISTEN{num} \u2014 {r.episode.show_title}: {r.episode.episode_title}"
+    return f"{outside}\U0001f4d6 SUMMARY \u2014 {r.episode.show_title}: {r.episode.episode_title}"
 
 
 def _show_notes_html(r: RankedEpisode) -> str:
@@ -232,7 +232,7 @@ def build_category_feed(
             if p.guid not in new_guids:
                 prior_items.append(p)
 
-    merged: list[tuple[float, str, str, object]] = [
+    merged: list[tuple[float, str, str, RankedEpisode | _PriorItem]] = [
         (r.score, r.classification, "new", r) for r in new_items_today
     ] + [
         (p.score, p.classification, "prior", p) for p in prior_items
@@ -241,7 +241,7 @@ def build_category_feed(
 
     listen_count = 0
     summary_count = 0
-    final_order: list[tuple[str, object]] = []
+    final_order: list[tuple[str, RankedEpisode | _PriorItem]] = []
     for _score, classification, kind, obj in merged:
         if classification == "Listen Fully":
             if listen_count >= max_listen:
@@ -258,7 +258,9 @@ def build_category_feed(
     listen_rank = 1
     for kind, obj in final_order:
         if kind == "new":
-            r = obj  # type: ignore[assignment]
+            if not isinstance(obj, RankedEpisode):
+                continue
+            r = obj
             item = SubElement(channel, "item")
             rank = listen_rank if r.classification == "Listen Fully" else None
             SubElement(item, "title").text = _prefix(r, rank)
@@ -281,7 +283,9 @@ def build_category_feed(
                 img.set("href", r.episode.image_url)
             state.add_published(r.episode.guid)
         else:
-            p = obj  # type: ignore[assignment]
+            if not isinstance(obj, _PriorItem):
+                continue
+            p = obj
             channel.append(p.xml_element)
 
     return _xml_string(rss)
@@ -312,7 +316,7 @@ def build_feed(
             if p.guid not in new_guids:
                 prior_items.append(p)
 
-    merged: list[tuple[float, str, object]] = [
+    merged: list[tuple[float, str, RankedEpisode | _PriorItem]] = [
         (r.score, "new", r) for r in new_items
     ] + [
         (p.score, "prior", p) for p in prior_items
@@ -324,7 +328,9 @@ def build_feed(
     listen_rank = 1
     for _score, kind, obj in merged:
         if kind == "new":
-            r = obj  # type: ignore[assignment]
+            if not isinstance(obj, RankedEpisode):
+                continue
+            r = obj
             item = SubElement(channel, "item")
             rank = listen_rank if r.classification == "Listen Fully" else None
             SubElement(item, "title").text = _prefix(r, rank)
@@ -347,7 +353,9 @@ def build_feed(
                 img.set("href", r.episode.image_url)
             state.add_published(r.episode.guid)
         else:
-            p = obj  # type: ignore[assignment]
+            if not isinstance(obj, _PriorItem):
+                continue
+            p = obj
             channel.append(p.xml_element)
 
     return _xml_string(rss)

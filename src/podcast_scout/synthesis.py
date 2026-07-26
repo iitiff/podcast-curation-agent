@@ -4,7 +4,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from .providers.base import BaseLLMProvider, LLMMessage
 from .ranking import RankedEpisode
@@ -20,6 +20,8 @@ class WeeklySynthesis(BaseModel):
     overhyped_belief: str = ""
     recommended_action: str = ""
     confidence: str = "low"
+    retailer_implications: str = ""
+    product_ideas: list[str] = Field(default_factory=list)
 
 
 def _build_synthesis_prompt(episodes: list[RankedEpisode]) -> str:
@@ -42,6 +44,8 @@ Return a JSON object with these keys:
 - overhyped_belief: string
 - recommended_action: string (one concrete action based on this week's insights)
 - confidence: "high" | "medium" | "low"
+- retailer_implications: string (key implications for retailers/eCommerce operators)
+- product_ideas: list of up to 3 strings (product or feature ideas inspired by this week's content)
 
 Return ONLY raw JSON, no markdown."""
 
@@ -55,7 +59,7 @@ async def generate_synthesis(
     try:
         resp = await llm.complete(
             messages=[LLMMessage(role="user", content=prompt)],
-            max_tokens=800,
+            max_tokens=1000,
         )
         import json
         import re

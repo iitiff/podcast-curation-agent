@@ -5,26 +5,26 @@ import logging
 
 import httpx
 
-from .base import BaseLLMProvider, TranscriptResult
+from .base import BaseLLMProvider, BaseTranscriptionProvider, TranscriptResult
 
 log = logging.getLogger(__name__)
 
 
-class NullTranscriptionProvider:
+class NullTranscriptionProvider(BaseTranscriptionProvider):
     """Returns empty transcript — used when no transcription API is configured."""
 
-    async def transcribe(self, episode_url: str) -> TranscriptResult:
+    async def transcribe(self, episode_url: str, description: str = "") -> TranscriptResult:
         return TranscriptResult(text="", confidence="none", source="none")
 
 
-class WhisperTranscriptionProvider:
+class WhisperTranscriptionProvider(BaseTranscriptionProvider):
     """OpenAI Whisper transcription provider."""
 
     def __init__(self, api_key: str, max_audio_mb: float = 25.0) -> None:
         self.api_key = api_key
         self.max_audio_bytes = int(max_audio_mb * 1024 * 1024)
 
-    async def transcribe(self, episode_url: str) -> TranscriptResult:
+    async def transcribe(self, episode_url: str, description: str = "") -> TranscriptResult:
         try:
             async with httpx.AsyncClient(timeout=60.0) as client:
                 head = await client.head(episode_url)
@@ -56,10 +56,10 @@ class WhisperTranscriptionProvider:
             return TranscriptResult(text="", confidence="none", source="none")
 
 
-class DescriptionFallbackProvider:
+class DescriptionFallbackProvider(BaseTranscriptionProvider):
     """Uses episode description as a transcript substitute."""
 
-    async def transcribe_with_description(self, description: str) -> TranscriptResult:
+    async def transcribe(self, episode_url: str, description: str = "") -> TranscriptResult:
         if not description:
             return TranscriptResult(text="", confidence="none", source="none")
         return TranscriptResult(
@@ -98,7 +98,7 @@ class LLMDescriptionEnhancer:
             return TranscriptResult(text=description[:1000], confidence="low", source="description")
 
 
-class CascadeTranscriptionProvider:
+class CascadeTranscriptionProvider(BaseTranscriptionProvider):
     """Tries Whisper → description fallback → empty."""
 
     def __init__(
@@ -118,4 +118,4 @@ class CascadeTranscriptionProvider:
                 return result
         if self._llm_enhancer and description:
             return await self._llm_enhancer.enhance("", "", description)
-        return await self._description.transcribe_with_description(description)
+        return await self._description.transcribe(episode_url, description)

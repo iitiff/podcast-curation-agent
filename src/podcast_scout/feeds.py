@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import logging
-from datetime import UTC, datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import feedparser
@@ -24,7 +24,7 @@ def _safe_str(val: Any, default: str = "") -> str:
 def _parse_struct_time(val: Any) -> datetime | None:
     if val:
         try:
-            return datetime(*val[:6], tzinfo=UTC)
+            return datetime(*val[:6]).replace(tzinfo=UTC)
         except Exception:
             pass
     return None
@@ -113,4 +113,4 @@ def _parse_duration(s: str) -> int:
         return 0
 
 
-__all__ = ["fetch_feed_text", "parse_feed_entries", "timezone", "timedelta"]
+__all__ = ["fetch_feed_text", "parse_feed_entries", "timedelta"]

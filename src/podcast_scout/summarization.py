@@ -57,9 +57,9 @@ async def process_episodes(
     # Fetch transcripts for all deep candidates first (these are cheap/free)
     transcript_map = {}
     for ep in deep_candidates:
-        transcript = await transcription.get_transcript(
+        transcript = await transcription.transcribe(
             episode_url=ep.episode_url,
-            audio_url=ep.enclosure.url if ep.enclosure else "",
+            description=ep.description,
         )
         transcript_map[ep.guid] = transcript
 
