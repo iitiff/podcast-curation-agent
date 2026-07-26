@@ -144,7 +144,7 @@ def _parse_llm_json_array(raw: str) -> list[Any]:
         if isinstance(result, dict):
             for v in result.values():
                 if isinstance(v, list):
-                    return v  # type: ignore[return-value]
+                    return v
     except json.JSONDecodeError:
         pass
     start = text.find("[")
@@ -164,7 +164,7 @@ def _parse_llm_json_array(raw: str) -> list[Any]:
         if isinstance(repaired, dict):
             for v in repaired.values():
                 if isinstance(v, list):
-                    return v  # type: ignore[return-value]
+                    return v
     except Exception:
         pass
     raise ValueError(f"Could not parse LLM JSON array (length={len(raw)})")
