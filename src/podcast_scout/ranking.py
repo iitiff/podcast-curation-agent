@@ -263,6 +263,7 @@ def build_daily_queue(
     max_listen_fully: int = 3,
     max_read_summary: int = 5,
     max_outside: int = 3,
+    max_email_only: int = 10,
 ) -> tuple[list[RankedEpisode], list[RankedEpisode]]:
     """Split ranked episodes into RSS queue and email-only overflow.
 
@@ -272,7 +273,7 @@ def build_daily_queue(
     listener's podcast app queue stays clean and playable.
     rss_queue honours max_listen_fully, max_outside caps, and the total
     listen-time budget (max_minutes). All remaining surfaced episodes go
-    into email_only.
+    into email_only, capped at max_email_only total entries.
     """
     rss: list[RankedEpisode] = []
     email_only: list[RankedEpisode] = []
@@ -287,20 +288,24 @@ def build_daily_queue(
 
         # Read Summary Only → always email, never RSS
         if r.classification == "Read Summary Only":
-            email_only.append(r)
+            if len(email_only) < max_email_only:
+                email_only.append(r)
             continue
 
         # Listen Fully below
         is_outside = getattr(r.episode, "is_outside_feed", False)
 
         if listen_count >= max_listen_fully:
-            email_only.append(r)
+            if len(email_only) < max_email_only:
+                email_only.append(r)
             continue
         if is_outside and outside_count >= max_outside:
-            email_only.append(r)
+            if len(email_only) < max_email_only:
+                email_only.append(r)
             continue
         if minutes_used + r.episode.duration_minutes > max_minutes and rss:
-            email_only.append(r)
+            if len(email_only) < max_email_only:
+                email_only.append(r)
             continue
 
         rss.append(r)

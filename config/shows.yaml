@@ -26,10 +26,10 @@ shows:
     max_episodes_per_run: 1
     notes: "Long-form; cap at 1 per run."
 
-  - match: "Lenny's Podcast"
+  - match: "Lenny"
     display_name: "Lenny's Podcast"
     category: ai_retail
-    canonical_feed_url: "https://feeds.transistor.fm/lennys-podcast"
+    canonical_feed_url: "https://www.lennyspodcast.com/feed/"
     max_episodes_per_run: 2
     language: en
 
@@ -41,8 +41,8 @@ shows:
 
   - match: "Future Commerce"
     display_name: "Future Commerce"
+    canonical_feed_url: "https://feeds.simplecast.com/SoKPJoQk"
     category: ai_retail
-    canonical_feed_url: "https://feeds.megaphone.fm/futurecommerce"
     max_episodes_per_run: 2
 
   - match: "Jason & Scot"
@@ -217,7 +217,7 @@ shows:
     category: personal_growth
     language: zh
     max_episodes_per_run: 2
-    notes: "Changed match from 'The Real Story' to avoid collision with US talk radio shows."
+    notes: "Match on Chinese characters to avoid collision with US talk radio shows."
 
   - match: "Chasing Life"
     display_name: "Chasing Life with Dr. Sanjay Gupta"
