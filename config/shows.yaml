@@ -22,27 +22,27 @@ shows:
   - match: "Acquired"
     display_name: "Acquired"
     category: ai_retail
-    canonical_feed_url: "https://feeds.simplecast.com/tfjQJ64e"
+    canonical_feed_url: "https://feeds.transistor.fm/acquired"
     max_episodes_per_run: 1
     notes: "Long-form; cap at 1 per run."
 
   - match: "Lenny's Podcast"
     display_name: "Lenny's Podcast"
     category: ai_retail
-    canonical_feed_url: "https://www.lennysnewsletter.com/feed/podcast"
+    canonical_feed_url: "https://feeds.transistor.fm/lennys-podcast"
     max_episodes_per_run: 2
     language: en
 
   - match: "No Priors"
     display_name: "No Priors"
     category: ai_retail
-    canonical_feed_url: "https://feeds.simplecast.com/hcf8_gOH"
+    canonical_feed_url: "https://feeds.megaphone.fm/nopriors"
     max_episodes_per_run: 2
 
   - match: "Future Commerce"
     display_name: "Future Commerce"
     category: ai_retail
-    canonical_feed_url: "https://feeds.simplecast.com/5sBMCBoJ"
+    canonical_feed_url: "https://feeds.megaphone.fm/futurecommerce"
     max_episodes_per_run: 2
 
   - match: "Jason & Scot"
@@ -65,7 +65,7 @@ shows:
   - match: "Product Thinking"
     display_name: "Product Thinking with Melissa Perri"
     category: ai_retail
-    canonical_feed_url: "https://feeds.simplecast.com/GvV_lBCr"
+    canonical_feed_url: "https://feeds.megaphone.fm/productthinking"
     max_episodes_per_run: 2
 
   - match: "Google DeepMind"
@@ -112,20 +112,20 @@ shows:
   - match: "Founders"
     display_name: "Founders (David Senra)"
     category: startup
-    canonical_feed_url: "https://feeds.simplecast.com/ksRUjOHr"
+    canonical_feed_url: "https://feeds.megaphone.fm/founders"
     max_episodes_per_run: 1
     notes: "Long-form deep dives on founders. Cap at 1."
 
   - match: "AI + a16z"
     display_name: "AI + a16z"
     category: startup
-    canonical_feed_url: "https://feeds.simplecast.com/8s9hFoze"
+    canonical_feed_url: "https://feeds.simplecast.com/aia16z"
     max_episodes_per_run: 2
 
   - match: "Masters of Scale"
     display_name: "Masters of Scale"
     category: startup
-    canonical_feed_url: "https://feeds.simplecast.com/4MM_a9K8"
+    canonical_feed_url: "https://feeds.megaphone.fm/mastersofscale"
     max_episodes_per_run: 2
 
   - match: "Long Strange Trip"
@@ -152,7 +152,7 @@ shows:
   - match: "All-In"
     display_name: "All-In with Chamath, Jason, Sacks & Friedberg"
     category: startup
-    canonical_feed_url: "https://feeds.megaphone.fm/allinpodcast"
+    canonical_feed_url: "https://feeds.libsyn.com/245987/rss"
     max_episodes_per_run: 2
 
   - match: "Prof G"

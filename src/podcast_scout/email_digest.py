@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 import smtplib
+from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import NamedTuple
@@ -119,7 +120,8 @@ def send_digest(
 ) -> None:
     from_addr = smtp.from_addr or smtp.user
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = subject
+    # Encode subject as RFC 2047 UTF-8 so emoji don't crash the ASCII codec
+    msg["Subject"] = Header(subject, "utf-8").encode()
     msg["From"] = from_addr
     msg["To"] = smtp.to
 
@@ -133,7 +135,6 @@ def send_digest(
                 server.ehlo()
                 server.starttls()
                 server.login(smtp.user, smtp.password)
-                # Use as_bytes() to preserve UTF-8 and avoid ASCII codec errors
                 server.sendmail(from_addr, smtp.to, msg.as_bytes())
         else:
             with smtplib.SMTP_SSL(smtp.host, smtp.port) as server:
