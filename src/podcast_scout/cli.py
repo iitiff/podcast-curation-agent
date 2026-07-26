@@ -145,62 +145,68 @@ async def _run_pipeline(
         console.print("[yellow]No new episodes found. Exiting.[/yellow]")
         return {"queued": 0, "email_only": 0, "errors": {}}
 
-    # 3. LLM
+    # 3. Categorise candidates before ranking so categories never compete.
+    active_categories = list(prefs.categories.keys()) if prefs.categories else [_DEFAULT_CATEGORY]
+    episodes_by_category: dict[str, list] = {category: [] for category in active_categories}
+    for episode in new_episodes:
+        category = _resolve_category(episode.show_title, category_map)
+        episode.category = category
+        episodes_by_category.setdefault(category, []).append(episode)
+
+    # 4. LLM
     llm = None
     if settings.gemini_api_key:
         llm = GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
     else:
         console.print("[yellow]WARNING: No GEMINI_API_KEY — running metadata-only ranking.[/yellow]")
 
-    # 4. Summarise + rank
+    # 5. Rank and select independently within each category.
     transcription = CascadeTranscriptionProvider(
         openai_api_key=None,
         enable_whisper=settings.enable_audio_transcription,
     )
+    non_empty_categories = [category for category in active_categories if episodes_by_category.get(category)]
+    token_budget_per_category = settings.max_llm_tokens_per_run // max(1, len(non_empty_categories))
+    ranked: list[RankedEpisode] = []
+    rss_queue: list[RankedEpisode] = []
+    email_only: list[RankedEpisode] = []
 
-    if llm:
-        ranked = await process_episodes(
-            new_episodes,
-            prefs=prefs,
-            llm=llm,
-            transcription=transcription,
-            max_deep_process=15,
-            total_token_budget=settings.max_llm_tokens_per_run,
-        )
-    else:
-        ranked = [
-            RankedEpisode(
-                episode=ep,
-                score=s1.score,
-                rubric=RubricScore(),
-                classification=_classify(s1.score, prefs),
-                classification_reason="metadata only (no LLM key)",
-                evidence_confidence="low",
-                summary=ep.description[:300] or "No summary.",
+    for category in active_categories:
+        candidates = episodes_by_category.get(category, [])
+        if not candidates:
+            continue
+        if llm:
+            category_ranked = await process_episodes(
+                candidates, prefs=prefs, llm=llm, transcription=transcription,
+                max_deep_process=15, total_token_budget=token_budget_per_category,
             )
-            for ep in new_episodes
-            for s1 in [stage1_metadata_score(ep, prefs)]
-        ]
-        ranked.sort(key=lambda r: r.score, reverse=True)
+        else:
+            category_ranked = [
+                RankedEpisode(episode=episode, score=s1.score, rubric=RubricScore(),
+                    classification=_classify(s1.score, prefs),
+                    classification_reason="metadata only (no LLM key)",
+                    evidence_confidence="low", summary=episode.description[:300] or "No summary.")
+                for episode in candidates
+                for s1 in [stage1_metadata_score(episode, prefs)]
+            ]
+            category_ranked.sort(key=lambda item: item.score, reverse=True)
 
-    # 5. Tag each episode with its category
-    _tag_episodes_with_category(ranked, category_map)
+        category_cfg = prefs.categories.get(category)
+        category_rss, category_email = build_daily_queue(
+            category_ranked,
+            max_minutes=prefs.length.max_weekly_listen_hours * 60,
+            max_listen_fully=category_cfg.max_listen_fully if category_cfg else prefs.output_caps.max_listen_fully,
+            max_read_summary=category_cfg.max_read_summary if category_cfg else prefs.output_caps.max_read_summary,
+            max_outside=prefs.output_caps.max_outside_feed,
+        )
+        ranked.extend(category_ranked)
+        rss_queue.extend(category_rss)
+        email_only.extend(category_email)
 
-    # 6. Build per-category queues
-    # Use global build_daily_queue for the full set (state / email purposes),
-    # then split per category for feed writing.
-    rss_queue, email_only = build_daily_queue(
-        ranked,
-        max_minutes=prefs.length.max_weekly_listen_hours * 60,
-        max_listen_fully=prefs.output_caps.max_listen_fully,
-        max_read_summary=prefs.output_caps.max_read_summary,
-        max_outside=prefs.output_caps.max_outside_feed,
-    )
-
+    ranked.sort(key=lambda item: item.score, reverse=True)
+    rss_queue.sort(key=lambda item: item.score, reverse=True)
+    email_only.sort(key=lambda item: item.score, reverse=True)
     all_surfaced = rss_queue + email_only
-
-    # Determine active categories
-    active_categories = list(prefs.categories.keys()) if prefs.categories else [_DEFAULT_CATEGORY]
 
     console.print(f"Queue: {len(rss_queue)} episodes across {len(active_categories)} categories | Email-only: {len(email_only)}")
 
