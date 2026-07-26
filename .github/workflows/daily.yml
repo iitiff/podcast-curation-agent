@@ -72,8 +72,8 @@ jobs:
         run: |
           git config user.name "podcast-scout[bot]"
           git config user.email "podcast-scout[bot]@users.noreply.github.com"
-          git add data/ || true
-          git diff --cached --quiet || git commit -m "chore: update state [skip ci]"
+          git add data/ public/ || true
+          git diff --cached --quiet || git commit -m "chore: update state and feeds [skip ci]"
           git pull --rebase origin main
           git push origin main
 
