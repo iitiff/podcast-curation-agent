@@ -234,9 +234,9 @@ def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Re
 
 def _classify(score: float, prefs: Preferences) -> str:
     """Assign an episode action from its score and configured thresholds."""
-    if score >= prefs.classification.listen_fully_threshold:
+    if score >= prefs.classification.listen_fully_min_score:
         return "Listen Fully"
-    if score >= prefs.classification.read_summary_threshold:
+    if score >= prefs.classification.read_summary_min_score:
         return "Read Summary Only"
     return "Skip"
 
