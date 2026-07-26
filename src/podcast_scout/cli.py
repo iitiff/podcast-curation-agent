@@ -7,7 +7,6 @@ import logging
 import os
 import re
 from datetime import UTC, datetime
-from pathlib import Path
 
 import click
 import yaml
@@ -178,8 +177,6 @@ async def _run_pipeline(
     rss_queue: list[RankedEpisode] = []
     email_only: list[RankedEpisode] = []
 
-    # Use a generous time budget floor so a misconfigured max_weekly_listen_hours
-    # (e.g. 1.0) never zeros out the queue. 8 hours per category is a safe ceiling.
     minutes_budget = max(480.0, prefs.length.max_weekly_listen_hours * 60)
 
     for category in active_categories:
@@ -235,7 +232,6 @@ async def _run_pipeline(
     settings.public_dir.mkdir(parents=True, exist_ok=True)
     base_url = prefs.feed.base_url or settings.pages_base_url
 
-    # Per-category persistent feeds
     for cat_key in active_categories:
         cat_cfg = prefs.categories.get(cat_key)
         slug = cat_cfg.slug if cat_cfg else cat_key.replace("_", "-")
@@ -250,13 +246,11 @@ async def _run_pipeline(
         (settings.public_dir / f"{slug}.xml").write_text(xml, encoding="utf-8")
         console.print(f"  [green]Wrote public/{slug}.xml[/green]")
 
-    # Legacy combined feeds
     listen_xml = build_feed(rss_queue, prefs, "listen", base_url, state, public_dir=settings.public_dir)
     all_xml = build_feed(all_surfaced, prefs, "all", base_url, state, public_dir=settings.public_dir)
     (settings.public_dir / "listen.xml").write_text(listen_xml, encoding="utf-8")
     (settings.public_dir / "all.xml").write_text(all_xml, encoding="utf-8")
 
-    # data/latest.json
     data_dir = settings.public_dir / "data"
     data_dir.mkdir(exist_ok=True)
     latest_json = {
