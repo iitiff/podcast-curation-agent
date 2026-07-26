@@ -95,6 +95,11 @@ def _show_prior(show_title: str, prefs: Preferences) -> float:
     return 0.5
 
 
+def _is_followed(show_title: str, prefs: Preferences) -> bool:
+    title_lower = show_title.lower()
+    return any(name.lower() in title_lower for name in prefs.show_priors)
+
+
 def _is_acquired(show_title: str) -> bool:
     return "acquired" in show_title.lower()
 
@@ -165,25 +170,26 @@ def _parse_llm_json_array(raw: str) -> list:
 def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Result:
     """Fast metadata-only pre-filter score. No LLM call.
 
-    Scoring is based purely on show priors, guest watchlist, competitor
-    watchlist, duration, and topic exclusions.  Keyword/interest matching
-    has been removed — relevance judgement is delegated entirely to the
-    Stage 2 LLM rubric.
+    When running without a Gemini key, this score is the final score.
+    Followed shows are guaranteed a minimum score of 50 (Read Summary)
+    so they always surface rather than being silently dropped.
+    Scoring is otherwise based on show priors, guest watchlist,
+    competitor watchlist, duration, and topic exclusions.
     """
     score = 0.0
     reasons: list[str] = []
 
     text = f"{ep.show_title} {ep.episode_title} {ep.description}".lower()
 
-    # Show prior boost (primary signal)
+    # Show prior boost — primary signal
     prior = _show_prior(ep.show_title, prefs)
-    score += prior * 25  # scaled up slightly since interest term boost is gone
+    score += prior * 40  # scaled to give 0.95-prior shows a score of 38
     reasons.append(f"show_prior={prior:.2f}")
 
     # Guest watchlist boost
     for guest in prefs.guest_watchlist:
         if guest.lower() in text:
-            score += 10
+            score += 15
             reasons.append(f"guest:{guest}")
             break
 
@@ -206,6 +212,13 @@ def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Re
             reasons.append(f"excluded_topic:{excl}")
 
     score = max(0.0, min(100.0, score))
+
+    # Floor: any followed show always surfaces as at least Read Summary
+    # so the daily queue is never empty just because no LLM key is set.
+    if _is_followed(ep.show_title, prefs) and score < 50:
+        score = 50.0
+        reasons.append("followed_show_floor")
+
     should_deep = score >= 35 or any(g.lower() in text for g in prefs.guest_watchlist)
 
     return Stage1Result(

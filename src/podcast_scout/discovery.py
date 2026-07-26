@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import re
 from datetime import timedelta
 
 import httpx
@@ -124,6 +125,12 @@ async def poll_followed_shows(
 # Path 2 — Search-based discovery
 # ---------------------------------------------------------------------------
 
+# Split on comma, em-dash, en-dash, or " — " so persona focus clauses
+# like "AI and emerging technology, and eCommerce — for a principal PM..."
+# don't bleed into each other as search queries.
+_FOCUS_SPLIT_RE = re.compile(r"[,\u2014\u2013]")
+
+
 def _build_queries(prefs: Preferences, cfg: DiscoveryConfig) -> list[str]:
     """Derive search queries from persona focus, guest watchlist, and competitor watchlist.
 
@@ -134,8 +141,15 @@ def _build_queries(prefs: Preferences, cfg: DiscoveryConfig) -> list[str]:
     """
     queries: list[str] = []
 
-    # Persona focus — split on commas and generate one query per focus area
-    focus_areas = [f.strip() for f in prefs.persona.focus.split(",") if f.strip()]
+    # Persona focus — split on commas and dashes, keep only substantive clauses
+    raw_focus_parts = _FOCUS_SPLIT_RE.split(prefs.persona.focus)
+    focus_areas: list[str] = []
+    for part in raw_focus_parts:
+        part = part.strip()
+        # Drop clauses that are clearly a role qualifier ("for a ...", "growing into")
+        if part and not re.match(r"(?i)^(for a|for an|growing|as a)", part):
+            focus_areas.append(part)
+
     for area in focus_areas[:6]:  # cap at 6 to avoid query bloat
         queries.append(f"{area} podcast")
 
