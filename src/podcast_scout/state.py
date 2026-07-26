@@ -62,10 +62,10 @@ class StateManager:
             self._state.setdefault("published", []).append(guid)
 
     def update_last_run(self) -> None:
-        self._state["last_run"] = datetime.now(tz=timezone.utc).isoformat()
+        self._state["last_run"] = datetime.now(tz=UTC).isoformat()
 
     def prune_old(self, max_age_days: int = 30) -> None:
-        cutoff = (datetime.now(tz=timezone.utc) - timedelta(days=max_age_days)).isoformat()
+        cutoff = (datetime.now(tz=UTC) - timedelta(days=max_age_days)).isoformat()
         processed: dict[str, Any] = self._state.get("processed", {})
         self._state["processed"] = {
             guid: rec for guid, rec in processed.items()

@@ -232,6 +232,15 @@ def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Re
     )
 
 
+def _classify(score: float, prefs: Preferences) -> str:
+    """Assign an episode action from its score and configured thresholds."""
+    if score >= prefs.classification.listen_fully_threshold:
+        return "Listen Fully"
+    if score >= prefs.classification.read_summary_threshold:
+        return "Read Summary Only"
+    return "Skip"
+
+
 def _build_episode_block(idx: int, ep: NormalizedEpisode, transcript: TranscriptResult) -> str:
     source_text = transcript.text[:2000] if transcript.text else (
         f"{ep.episode_title}\n\n{ep.description}"
@@ -320,6 +329,96 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
 
     results: list[RankedEpisode] = []
     for i, (ep, transcript) in enumerate(items):
-        data: dict[str, Any] = entries[i] if i < len(entries) and isinstance(entries[i], dict) else {}
+        data = entries[i] if i < len(entries) and isinstance(entries[i], dict) else {}
         if not data:
-            log.warning("No ba
+            log.warning(
+                "No batch result for episode %d (%s) — using metadata fallback",
+                i,
+                ep.episode_title,
+            )
+            s1 = stage1_metadata_score(ep, prefs)
+            results.append(
+                RankedEpisode(
+                    episode=ep,
+                    score=s1.score,
+                    rubric=RubricScore(relevance=min(30, s1.score * 0.4)),
+                    classification=_classify(s1.score, prefs),
+                    classification_reason="LLM batch entry missing; metadata fallback",
+                    evidence_confidence="low",
+                    summary=ep.description[:300] or "Summary unavailable.",
+                    transcript_source=transcript.source,
+                    tokens_used=0,
+                )
+            )
+            continue
+
+        try:
+            rubric_data = data.get("rubric", {})
+            rubric = RubricScore(
+                **{
+                    key: float(value)
+                    for key, value in rubric_data.items()
+                    if key in RubricScore.model_fields
+                }
+            )
+            score = rubric.total
+
+            def _str(value: Any, fallback: str = "") -> str:
+                if value is None:
+                    return fallback
+                if isinstance(value, bool):
+                    return "yes" if value else "no"
+                return str(value)
+
+            key_ideas = data.get("key_ideas", [])
+            if not isinstance(key_ideas, list):
+                key_ideas = []
+
+            results.append(
+                RankedEpisode(
+                    episode=ep,
+                    score=score,
+                    rubric=rubric,
+                    classification=_str(
+                        data.get("classification"),
+                        _classify(score, prefs),
+                    ),
+                    classification_reason=_str(
+                        data.get("classification_reason")
+                    ),
+                    evidence_confidence=transcript.confidence,
+                    summary=_str(data.get("summary")),
+                    key_ideas=[_str(idea) for idea in key_ideas],
+                    implications=_str(data.get("implications")),
+                    who_should_listen=_str(data.get("who_should_listen")),
+                    summary_captures_value=_str(
+                        data.get("summary_captures_value")
+                    ),
+                    listen_nuance=_str(data.get("listen_nuance")),
+                    transcript_source=transcript.source,
+                    tokens_used=tokens_used // len(items),
+                )
+            )
+        except Exception as exc:
+            log.warning(
+                "Could not parse batch entry %d for %s: %s",
+                i,
+                ep.episode_title,
+                exc,
+            )
+            s1 = stage1_metadata_score(ep, prefs)
+            results.append(
+                RankedEpisode(
+                    episode=ep,
+                    score=s1.score,
+                    rubric=RubricScore(relevance=min(30, s1.score * 0.4)),
+                    classification=_classify(s1.score, prefs),
+                    classification_reason="batch parse error; metadata fallback",
+                    evidence_confidence="low",
+                    summary=ep.description[:300] or "Summary unavailable.",
+                    transcript_source=transcript.source,
+                    tokens_used=0,
+                )
+            )
+
+    return results
