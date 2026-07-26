@@ -186,7 +186,7 @@ def _build_queries(prefs: Preferences, cfg: DiscoveryConfig) -> list[str]:
             seen.add(q)
             unique.append(q)
 
-    limit = cfg.discovery.max_queries if cfg else 40
+    limit = cfg.max_queries if cfg else 40
     return unique[:limit]
 
 
@@ -282,7 +282,7 @@ async def discover_episodes(
     # Dedupe by guid across both lists; followed-show episodes take priority.
     seen_guids: set[str] = set()
     unique: list[NormalizedEpisode] = []
-    max_raw = cfg.discovery.max_raw_candidates if cfg else 200
+    max_raw = cfg.max_raw_candidates if cfg else 200
 
     for ep in followed_episodes + search_candidates:
         if ep.guid not in seen_guids and len(unique) < max_raw:
