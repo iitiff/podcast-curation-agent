@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<rss xmlns:ns0="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns1="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
   <channel>
     <title>Podcast Scout — Personal Growth</title>
     <description>Curated personal growth, mindfulness, and life philosophy episodes.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Jul 2026 20:55:02 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2026 21:08:47 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/personal-growth.xml" rel="self" type="application/rss+xml" />
@@ -17,33 +17,22 @@
       <link />
       <guid isPermaLink="false">ccfa58dabbcfa510</guid>
       <pubDate>Fri, 24 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>3106</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;頻道官方網站：https://vincentreading.com/  我們跟思維槓桿展開了卡牌的合作，只要你透過此連結：https://lyt.com.tw/?utm_medium=vincentreading&amp;amp;amp;utm_source=kol 並在購買時輸入優惠碼：vincent85 就可以用85折的價格購買到思維槓桿出的所有卡牌！ 更多文森說書的專屬折扣都整理在這：https://vincentreading.com/reading-skill-tree/   下一場線下讀書會開始報名啦！ 這一次要分享的書是：《垃圾場長大的自學人生》，這是好幾年前比爾·蓋茲的選書，一直被我放在書櫃好&lt;/p&gt;</content:encoded>
+      <ns0:duration>3106</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;頻道官方網站：https://vincentreading.com/  我們跟思維槓桿展開了卡牌的合作，只要你透過此連結：https://lyt.com.tw/?utm_medium=vincentreading&amp;amp;amp;utm_source=kol 並在購買時輸入優惠碼：vincent85 就可以用85折的價格購買到思維槓桿出的所有卡牌！ 更多文森說書的專屬折扣都整理在這：https://vincentreading.com/reading-skill-tree/   下一場線下讀書會開始報名啦！ 這一次要分享的書是：《垃圾場長大的自學人生》，這是好幾年前比爾·蓋茲的選書，一直被我放在書櫃好&lt;/p&gt;</ns1:encoded>
       <description>頻道官方網站：https://vincentreading.com/  我們跟思維槓桿展開了卡牌的合作，只要你透過此連結：https://lyt.com.tw/?utm_medium=vincentreading&amp;amp;utm_source=kol 並在購買時輸入優惠碼：vincent85 就可以用85折的價格購買到思維槓桿出的所有卡牌！ 更多文森說書的專屬折扣都整理在這：https://vincentreading.com/reading-skill-tree/   下一場線下讀書會開始報名啦！ 這一次要分享的書是：《垃圾場長大的自學人生》，這是好幾年前比爾·蓋茲的選書，一直被我放在書櫃好</description>
       <enclosure url="https://www.buzzsprout.com/1096139/episodes/19542482-.mp3" type="audio/mpeg" length="37402538" />
-      <itunes:image href="https://storage.buzzsprout.com/rhbwih1we4exf2pzcxb1aif52r02?.jpg" />
+      <ns0:image href="https://storage.buzzsprout.com/rhbwih1we4exf2pzcxb1aif52r02?.jpg" />
     </item>
     <item>
       <title>📖 SUMMARY — 文森說書: 刻意裝出好奇心、努力尬聊，太多交際套路只是會讓關係變差 feat. 思維槓桿</title>
       <link />
       <guid isPermaLink="false">39fe21975e05a5ad</guid>
       <pubDate>Mon, 20 Jul 2026 05:00:00 +0000</pubDate>
-      <itunes:duration>4917</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;YouTube影音版本：https://www.youtube.com/watch?v=uekGkrzBMyg 思維槓桿的新書《人際關係的思維槓桿》：https://www.books.com.tw/products/0011043329 內容中談到的卡牌，因為真的讓我覺得太有意思了，因此我們跟思維槓桿展開了卡牌的合作，只要你透過此連結：https://lyt.com.tw/?utm_medium=vincentreading&amp;amp;amp;utm_source=kol 並在購買時輸入優惠碼：vincent85 就可以用85折的價格購買到思維槓桿出的所有卡牌！ 更多文森說書的專屬折扣都整理在這：ht&lt;/p&gt;</content:encoded>
+      <ns0:duration>4917</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;YouTube影音版本：https://www.youtube.com/watch?v=uekGkrzBMyg 思維槓桿的新書《人際關係的思維槓桿》：https://www.books.com.tw/products/0011043329 內容中談到的卡牌，因為真的讓我覺得太有意思了，因此我們跟思維槓桿展開了卡牌的合作，只要你透過此連結：https://lyt.com.tw/?utm_medium=vincentreading&amp;amp;amp;utm_source=kol 並在購買時輸入優惠碼：vincent85 就可以用85折的價格購買到思維槓桿出的所有卡牌！ 更多文森說書的專屬折扣都整理在這：ht&lt;/p&gt;</ns1:encoded>
       <description>YouTube影音版本：https://www.youtube.com/watch?v=uekGkrzBMyg 思維槓桿的新書《人際關係的思維槓桿》：https://www.books.com.tw/products/0011043329 內容中談到的卡牌，因為真的讓我覺得太有意思了，因此我們跟思維槓桿展開了卡牌的合作，只要你透過此連結：https://lyt.com.tw/?utm_medium=vincentreading&amp;amp;utm_source=kol 並在購買時輸入優惠碼：vincent85 就可以用85折的價格購買到思維槓桿出的所有卡牌！ 更多文森說書的專屬折扣都整理在這：ht</description>
       <enclosure url="https://www.buzzsprout.com/1096139/episodes/19513941-feat.mp3" type="audio/mpeg" length="59120557" />
-      <itunes:image href="https://storage.buzzsprout.com/jxvuk5qzbu8pdx078oirye68wvmo?.jpg" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — 真如老師-廣海明月: 0560　思惟法殊勝，對教授心生敬重</title>
-      <link>https://www.amrtf.org/zh-hant/clear-moonlight-great-ocean-0560</link>
-      <guid isPermaLink="false">a4e86adeaa238581</guid>
-      <pubDate>Wed, 22 Jul 2026 16:01:06 +0000</pubDate>
-      <itunes:duration>582</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;全文連結：https://www.amrtf.org/zh-hant/clear-moonlight-great-ocean-0560&lt;/p&gt;&lt;p&gt;&lt;a href="https://www.amrtf.org/zh-hant/clear-moonlight-great-ocean-0560"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>全文連結：https://www.amrtf.org/zh-hant/clear-moonlight-great-ocean-0560</description>
-      <enclosure url="https://cdn.amec.amrtf.org/volumeMedia/B000035/560/6ccb2f6a-56ca-4c69-a075-45372c782662.mp3" type="audio/mpeg" length="4656526" />
-      <itunes:image href="https://www.amrtf.org/podcast/image/B000035.jpg" />
+      <ns0:image href="https://storage.buzzsprout.com/jxvuk5qzbu8pdx078oirye68wvmo?.jpg" />
     </item>
   </channel>
 </rss>
