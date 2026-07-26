@@ -1,6 +1,75 @@
 {
   "run_date": "2026-07-26",
-  "queued": [],
+  "queued": [
+    {
+      "guid": "02fce9f57fb0ca25",
+      "show": "The a16z Show",
+      "title": "Sriram Krishnan on Open Source AI's Biggest Week Yet",
+      "score": 97.0,
+      "classification": "Listen Fully",
+      "duration_min": 23.0,
+      "url": "https://a16z.simplecast.com/episodes/sriram-krishnan-on-open-source-ais-biggest-week-yet-1yfA3ln5",
+      "summary": "Sriram Krishnan, fresh from his role as Senior White House Policy Advisor on AI, discusses the recent surge in open-source AI models, including Kimi K3 and Qwen. He analyzes how these releases are intensifying pressure on frontier AI labs, impacting pricing, competition, and the future architecture of AI infrastructure. The conversation delves into crucial topics such as AI policy, cybersecurity, the significance of open-weight models, the strategic response of the U.S. to China's AI advancements, and how governments and leading AI labs should collaboratively navigate the next phase of AI development.",
+      "key_ideas": [
+        "Rapid advancements and impact of open-source AI models on the market.",
+        "Policy implications and government's role in AI development.",
+        "Geopolitical competition in AI, particularly between the U.S. and China."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "233712672e620be9",
+      "show": "The a16z Show",
+      "title": "Ben Horowitz: The Fight Over Open Source AI",
+      "score": 96.0,
+      "classification": "Listen Fully",
+      "duration_min": 33.0,
+      "url": "https://a16z.simplecast.com/episodes/ben-horowitz-the-fight-over-open-source-ai-RnXTUEqk",
+      "summary": "Ben Horowitz, a co-founder of a16z, profoundly discusses the strategic debate surrounding open-source AI models. He argues for their critical role in fostering security, innovation, and competition, countering the push to restrict them. The conversation explores the risks of AI monopolies if frontier labs dominate, the technical concept of distillation, China's involvement in open-source AI, and the economics of advanced models. Horowitz emphasizes that the AI market is still in its nascent stages, also touching on AI's impact on creativity and art.",
+      "key_ideas": [
+        "Open-source AI is crucial for security, innovation, and competition.",
+        "Risks of AI monopolies and the dominance of frontier labs.",
+        "China's role and the economics shaping the AI ecosystem."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "d983f5cd1fad0158",
+      "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
+      "title": "EP.628 \u300a\u99ac\u65af\u514b\u5bf6\u5178\u300b\u8b80\u5f8c\u5fc3\u5f97\uff1a\u542b\u91d1\u91cf\u6975\u9ad8\u7684\u597d\u66f8\u3001\u516d\u500b\u91cd\u9ede\u6574\u7406",
+      "score": 78.0,
+      "classification": "Listen Fully",
+      "duration_min": 20.0,
+      "url": "https://open.firstory.me/story/cmrycm98f11ty01wma59uca79",
+      "summary": "This episode is a review of 'The Book of Elon' (\u300a\u99ac\u65af\u514b\u5bf6\u5178\u300b), described as a highly valuable book that compiles Elon Musk's own words from over two decades of interviews, tweets, and speeches. The host, Waki, shares six key takeaways from the book, which covers Musk's perspectives on mission, work, company building, and the future of humanity. The episode also includes a promotion for Waki's 'AI Second Brain' course, emphasizing its role in stimulating critical thinking rather than simply generating content. The review promises a deep dive into Musk's strategic thinking and operational philosophy.",
+      "key_ideas": [
+        "Elon Musk's principles on mission, work, and company building, as compiled in 'The Book of Elon.'",
+        "Strategic insights into innovation, future-gazing, and execution from a leading tech visionary.",
+        "The 'AI Second Brain' course promotes AI as a tool for critical thinking and refining one's own viewpoints."
+      ],
+      "confidence": "low",
+      "category": "personal_growth"
+    },
+    {
+      "guid": "88b972254ee52526",
+      "show": "The Prof G Pod",
+      "title": "The Week: China Is Undercutting America\u2019s AI Boom",
+      "score": 63.0,
+      "classification": "Read Summary Only",
+      "duration_min": 20.0,
+      "url": "",
+      "summary": "This episode of 'The Week' explores several significant current events. A key focus is the increasing challenge posed by cheaper Chinese AI models to America's dominance in artificial intelligence, highlighting a critical geopolitical and competitive dynamic. It also touches on concerns regarding Oracle's growing debt in the context of the AI boom and discusses Derek Thompson's concept of an 'antisocial century,' examining themes of risk, isolation, and the decline of social connections.",
+      "key_ideas": [
+        "China's competitive threat in AI with cheaper models.",
+        "Geopolitical implications for AI market dominance.",
+        "Broader economic and societal trends impacting tech."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    }
+  ],
   "email_only": [],
   "synthesis": null
 }
