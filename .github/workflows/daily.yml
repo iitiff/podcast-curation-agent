@@ -47,7 +47,7 @@ jobs:
 
       - name: Run scout
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PODCAST_INDEX_KEY: ${{ secrets.PODCAST_INDEX_KEY }}
           PODCAST_INDEX_SECRET: ${{ secrets.PODCAST_INDEX_SECRET }}
