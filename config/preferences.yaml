@@ -12,59 +12,35 @@ feed:
   owner_email: ""   # optional; leave blank to omit from RSS
   language: "en-us"
   # URL where GitHub Pages will publish this repo
-  # e.g. https://USERNAME.github.io/podcast-cpo-scout
   base_url: ""
 
 # —— Per-category feed config —————————————————————————————————————
-# Each key maps to a shows.yaml `category` value.
-# slug      → filename: public/{slug}.xml
-# title     → RSS <title> for that feed
-# max_listen_fully / max_read_summary → output caps for that category
 categories:
   ai_retail:
     slug: ai-retail
     title: "Podcast Scout — AI & Retail"
-    description: "Curated AI, retail, and product episodes."
+    description: "Curated AI, retail, eCommerce, and product craft episodes."
     max_listen_fully: 3
     max_read_summary: 5
   startup:
     slug: startup
     title: "Podcast Scout — Startup"
-    description: "Curated startup and founder episodes."
+    description: "Curated startup, founder, and business strategy episodes."
     max_listen_fully: 2
     max_read_summary: 3
-  chinese:
-    slug: chinese
-    title: "Podcast Scout — 中文播客"
-    description: "精选中文科技与商业播客。"
+  personal_growth:
+    slug: personal-growth
+    title: "Podcast Scout — Personal Growth"
+    description: "Curated personal growth, mindfulness, and life philosophy episodes."
     max_listen_fully: 2
     max_read_summary: 3
 
 # —— Who you are (sent as context to the LLM ranker) ——————————————————
 persona:
-  role: "Senior product leader"
-  focus: "AI, retail, eCommerce, customer experience, and product strategy"
-  seniority: "senior"          # junior | mid | senior | executive
+  role: "Principal PM transitioning to Director"
+  focus: "Product strategy and craft, AI and emerging technology, and eCommerce — for a principal PM growing into a director role"
+  seniority: "executive"       # junior | mid | senior | executive
   preferred_depth: "strategic" # tactical | strategic | both
-
-# —— Interest taxonomy (weight 0.0–1.0) ——————————————————————————
-interests:
-  artificial_intelligence: 1.0
-  ai_agents_and_workflows: 1.0
-  retail_and_ecommerce: 1.0
-  agentic_commerce: 0.95
-  walmart_competitors: 0.9
-  customer_experience: 0.9
-  personalization_and_crm: 0.9
-  product_management_and_strategy: 0.95
-  marketplace_and_seller_platforms: 0.85
-  membership_and_loyalty: 0.85
-  retail_media: 0.85
-  organizational_design: 0.8
-  supply_chain: 0.5
-  fintech: 0.4
-  general_startup: 0.6
-  personal_development: 0.1
 
 # —— Geographic priority (weight 0.0–1.0) ————————————————————————
 geography:
@@ -78,18 +54,15 @@ geography:
 
 # —— Episode length preferences ——————————————————————————————
 length:
-  # Minutes. Episodes shorter than min or longer than max get a mild penalty.
   preferred_min_minutes: 20
   preferred_max_minutes: 90
-  hard_max_minutes: 240     # episodes over this get a stronger penalty
-  # Maximum total listening hours to queue per week (Listen Fully slots)
+  hard_max_minutes: 240
   max_weekly_listen_hours: 4.0
 
 # —— Classification thresholds ———————————————————————————————
 classification:
   listen_fully_min_score: 75
   read_summary_min_score: 50
-  # Allow model to override a boundary by at most this many points
   boundary_override_max: 5
 
 # —— Weekly output caps (fallback if category not found) ——————————
@@ -100,49 +73,50 @@ output_caps:
   max_total_surfaced: 10
 
 # —— Show priors (0.0–1.0, default 0.5) ——————————————————————————
-# A higher prior increases, but does not guarantee, ranking.
-# An excellent episode from any show can outrank a mediocre high-prior episode.
 show_priors:
-  # AI / Retail
-  "Lenny's Podcast": 0.85
-  "How I AI with Claire Vo": 0.9
-  "Stratechery": 0.85
-  "Sharp Tech with Ben Thompson": 0.85
+  # ── ai_retail ──────────────────────────────────────────────────
+  "Stratechery": 0.95
+  "Retailgentic": 0.90
+  "Acquired": 0.90
+  "Lenny's Podcast": 0.90
   "No Priors": 0.85
-  "Hard Fork": 0.8
-  "Retailgentic": 0.9
   "Future Commerce": 0.85
-  "Modern Retail Podcast": 0.85
-  "Behind the Numbers: Reimagining Retail": 0.85
-  "Acquired": 0.85
-  "AI + a16z": 0.85
-  "The a16z Show": 0.8
-  "Decoder": 0.8
   "Jason & Scot Show": 0.85
-  "McKinsey on Consumer and Retail": 0.8
-  "The Modern Customer Podcast": 0.8
-  "Product Thinking": 0.8
-  "The Growth Podcast": 0.7
+  "McKinsey on Consumer and Retail": 0.80
+  "Sharp China": 0.80
+  "Product Thinking": 0.80
+  "Google DeepMind: The Podcast": 0.75
+  "Outperform": 0.75
+  "Think Fast Talk Smart": 0.70
+  "Sharp Tech with Ben Thompson": 0.70
+  "Decoder": 0.65
   "The SaaS Podcast": 0.65
-  "The Prof G Pod": 0.7
-  "The Tim Ferriss Show": 0.6
-  # Startup
-  "Y Combinator Startup Podcast": 0.75
-  "My First Million": 0.7
+  # ── startup ────────────────────────────────────────────────────
+  "Cheeky Pint": 0.80
+  "Founders": 0.80
+  "AI + a16z": 0.80
+  "Masters of Scale": 0.75
+  "Long Strange Trip": 0.75
   "Invest Like the Best": 0.75
-  "20VC with Harry Stebbings": 0.7
-  "Founders Podcast": 0.75
-  "Indie Hackers": 0.65
-  # Chinese
-  "起点学院": 0.8
-  "晚点聊 LateTalk": 0.85
-  "商业就是这样": 0.8
-  "Tech Lead Journal": 0.75
-  "声动早咖啡": 0.75
-  "硅谷101": 0.8
+  "ACQ2": 0.70
+  "The a16z Show": 0.70
+  "All-In": 0.65
+  "The Prof G Pod": 0.65
+  "Y Combinator Startup Podcast": 0.65
+  # ── personal_growth ────────────────────────────────────────────
+  "Naval": 0.85
+  "真如老師-廣海明月": 0.85
+  "周慕姿放心說": 0.80
+  "文森說書": 0.80
+  "禪師不打坐": 0.80
+  "The Tim Ferriss Show": 0.75
+  "下一本讀什麼": 0.75
+  "The Real Story": 0.70
+  "Chasing Life": 0.70
+  "矽谷噠爛客": 0.65
+  "科技浪": 0.65
 
 # —— Topic exclusions ————————————————————————————————————
-# Episodes that match these topics get heavily penalized (not hard-excluded).
 topic_exclusions:
   - "sports betting"
   - "crypto speculation"
@@ -151,7 +125,6 @@ topic_exclusions:
   - "celebrity gossip"
 
 # —— Guest watchlist —————————————————————————————————————
-# Episodes featuring any of these guests receive a relevance boost.
 guest_watchlist:
   # Big Tech / AI CEOs
   - "Sam Altman"
@@ -162,15 +135,13 @@ guest_watchlist:
   - "Sundar Pichai"
   # Retail / eCommerce executives
   - "Doug McMillon"
-  - "John Furner"
   - "Brian Cornell"
-  - "Ron Vachris"          # Costco CEO
+  - "Ron Vachris"
   - "Tobias Lütke"
   - "Fidji Simo"
   - "Leanne Fremar"
   - "Nate Faust"
   # Product / strategy thought leaders
-  - "Claire Vo"
   - "Shreyas Doshi"
   - "Gibson Biddle"
   - "Marty Cagan"
@@ -184,7 +155,6 @@ guest_watchlist:
   - "Sarah Tavel"
 
 # —— Competitor / entity watchlist ——————————————————————————
-# Episodes mentioning these companies receive a relevance boost.
 competitor_watchlist:
   - "Amazon"
   - "Target"
