@@ -42,9 +42,18 @@ class BasePodcastSearchProvider(ABC):
 # Web search
 # ---------------------------------------------------------------------------
 
+@dataclass
+class WebSearchResult:
+    title: str = ""
+    url: str = ""
+    snippet: str = ""
+
+
 class BaseWebSearchProvider(ABC):
     @abstractmethod
-    async def search(self, query: str, max_results: int = 5) -> list[dict]:
+    async def search(
+        self, query: str, max_results: int = 5
+    ) -> list[WebSearchResult]:
         ...
 
 
