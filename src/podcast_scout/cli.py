@@ -135,25 +135,27 @@ def _load_carryover_candidates(
     state: StateManager,
     category_map: dict[str, str],
     lookback_days: int,
-    already_queued_guids: set[str],
+    already_scored_this_run: set[str],
 ) -> dict[str, list[RankedEpisode]]:
-    """Rebuild RankedEpisode stubs for scored-but-not-yet-queued episodes from state.
+    """Rebuild RankedEpisode stubs for scored episodes from previous runs.
 
-    These are episodes that were scored in a previous run but didn't make the
-    daily cap, so they were never written to the RSS feed.  We inject them back
-    into the per-category candidate pools so they compete against today's fresh
-    discoveries.  The best episodes surface regardless of which day they arrived.
+    Includes both:
+    - Episodes scored but never queued (didn't make the daily cap)
+    - Episodes previously published to the RSS feed that are still within
+      the lookback window (so they persist in the feed across runs)
+
+    Skip and unclassified episodes are always excluded.
+    Episodes scored in the current run are excluded to avoid duplicates.
     """
     from .normalize import utcnow
     cutoff = utcnow() - timedelta(days=lookback_days)
     carryover: dict[str, list[RankedEpisode]] = {}
 
     processed = state._state.get("processed", {})
-    published_guids: set[str] = set(state._state.get("published", []))
 
     for guid, rec_data in processed.items():
-        # Skip if already in the RSS feed (published) or queued this run
-        if guid in published_guids or guid in already_queued_guids:
+        # Don't double-count episodes scored in this run
+        if guid in already_scored_this_run:
             continue
         try:
             rec = EpisodeRecord(**rec_data)
@@ -162,11 +164,10 @@ def _load_carryover_candidates(
         # Only carry forward within the lookback window
         if rec.processed_at and rec.processed_at < cutoff:
             continue
-        # Skip if it was already classified as Skip
-        if rec.classification == "Skip" or not rec.classification:
+        # Skip low-value classifications
+        if rec.classification in ("Skip", None, ""):
             continue
 
-        # Reconstruct a minimal NormalizedEpisode so it can be ranked/displayed
         ep = NormalizedEpisode(
             guid=rec.guid,
             show_title=rec.show_title,
@@ -289,9 +290,10 @@ async def _run_pipeline(
                 source_feed_url=r.episode.source_feed_url,
             ))
 
-    # 7. Merge carryover: scored-but-never-queued episodes from previous runs
-    # compete in the same pool as today's new episodes.
-    # Exclude GUIDs scored in THIS run so they don't appear as both fresh + carryover.
+    # 7. Merge carryover: all scored episodes from previous runs (including previously
+    # published ones) compete in the pool alongside today's new episodes.
+    # This ensures high-scoring episodes from yesterday remain in the queue
+    # and RSS feed until they age out of the lookback window.
     current_run_guids: set[str] = {
         r.episode.guid
         for cat_ranked in newly_ranked.values()
@@ -301,11 +303,11 @@ async def _run_pipeline(
         state=state,
         category_map=category_map,
         lookback_days=settings.lookback_days,
-        already_queued_guids=current_run_guids,
+        already_scored_this_run=current_run_guids,
     )
     if carryover:
         total_carryover = sum(len(v) for v in carryover.values())
-        console.print(f"[dim]Carrying over {total_carryover} previously scored but unqueued episode(s)[/dim]")
+        console.print(f"[dim]Carrying over {total_carryover} previously scored episode(s)[/dim]")
 
     ranked: list[RankedEpisode] = []
     rss_queue: list[RankedEpisode] = []
