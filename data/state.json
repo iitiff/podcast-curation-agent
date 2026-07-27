@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-07-26T21:59:00.210120+00:00",
+  "last_run": "2026-07-27T00:04:34.483953+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -399,6 +399,17 @@
       "classification": "Read Summary Only",
       "is_outside_feed": false,
       "source_feed_url": "https://feed.firstory.me/rss/user/cm3o5681s06e801v3fxpjehwb"
+    },
+    "f0b306f451c28a08": {
+      "guid": "f0b306f451c28a08",
+      "show_title": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "episode_title": "\u3010\u5341\u5206\u9418\u5fc3\u7406\u5b78\u3011\u70ba\u4ec0\u9ebc\u52aa\u529b\u4e86\uff0c\u537b\u6c92\u6709\u6bd4\u8f03\u5feb\u6a02\uff1f3\u500b\u63d0\u5347\u5e78\u798f\u611f\u7684\u7df4\u7fd2",
+      "published": "2026-07-26T22:02:12Z",
+      "processed_at": "2026-07-27T00:04:34.428517Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g"
     }
   },
   "published": [
@@ -428,6 +439,10 @@
     "d26f1dc68dccaa99",
     "e453d0bdd826e0c4",
     "0a7a67cf37bbaaba",
-    "d983f5cd1fad0158"
+    "d983f5cd1fad0158",
+    "cb8d6880a78a7b88",
+    "cccfa96fbb7c7e31",
+    "811810d0bee68661",
+    "c5c8317a5e00d35c"
   ]
 }
