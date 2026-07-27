@@ -32,7 +32,7 @@ shows:
     canonical_feed_url: "https://api.substack.com/feed/podcast/10845.rss"
     max_episodes_per_run: 2
     language: en
-    notes: "Substack feed; requires browser User-Agent to avoid 403 on CI IPs (handled in feeds.py)."
+    notes: "Substack feed; CI IPs get 403 — discovery.py falls back to Podcast Index search on 403."
 
   - match: "No Priors"
     display_name: "No Priors"
@@ -113,7 +113,7 @@ shows:
   - match: "Founders"
     display_name: "Founders (David Senra)"
     category: startup
-    canonical_feed_url: "https://feeds.megaphone.fm/founders"
+    canonical_feed_url: "https://feeds.megaphone.fm/DSLLC6297708582"
     max_episodes_per_run: 1
     notes: "Long-form deep dives on founders. Cap at 1."
 

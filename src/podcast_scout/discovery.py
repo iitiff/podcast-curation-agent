@@ -58,13 +58,63 @@ async def _resolve_feed_url_itunes(show_name: str) -> str | None:
     return None
 
 
+async def _fetch_followed_show_via_podcast_index(
+    show_name: str,
+    podcast_search: BasePodcastSearchProvider,
+    lookback_days: int,
+    max_episodes: int = 3,
+) -> list[NormalizedEpisode]:
+    """Fallback: fetch recent episodes via Podcast Index search when RSS is blocked (e.g. 403)."""
+    cutoff = utcnow() - timedelta(days=lookback_days)
+    try:
+        hits = await podcast_search.search_episodes(show_name, max_results=max_episodes * 2)
+        episodes: list[NormalizedEpisode] = []
+        for r in hits:
+            # Only keep results that look like they belong to this show
+            if r.show_title and show_name.lower() not in r.show_title.lower():
+                continue
+            ep = NormalizedEpisode(
+                guid=make_guid(r.feed_url or show_name, r.episode_title or show_name),
+                source_feed_url=r.feed_url or "",
+                original_guid=r.episode_title or show_name,
+                show_title=r.show_title or show_name,
+                episode_title=r.episode_title or "",
+                description=r.description,
+                published=utcnow(),
+                duration_seconds=r.duration_seconds,
+                episode_url=r.episode_url,
+                enclosure=Enclosure(url=r.enclosure_url) if r.enclosure_url else None,
+                image_url=r.image_url,
+                is_followed_show=True,
+                is_outside_feed=False,
+            )
+            if ep.published >= cutoff:
+                episodes.append(ep)
+            if len(episodes) >= max_episodes:
+                break
+        log.info(
+            "Followed show '%s': fetched %d episode(s) via Podcast Index fallback",
+            show_name,
+            len(episodes),
+        )
+        return episodes
+    except Exception as exc:
+        log.warning("Podcast Index fallback failed for followed show '%s': %s", show_name, exc)
+        return []
+
+
 async def _fetch_followed_show(
     show_name: str,
     feed_url: str,
     lookback_days: int,
     max_episodes: int = 3,
+    podcast_search: BasePodcastSearchProvider | None = None,
 ) -> list[NormalizedEpisode]:
-    """Fetch recent episodes from a single followed show's RSS feed."""
+    """Fetch recent episodes from a single followed show's RSS feed.
+
+    On a 403 response (e.g. Substack blocking CI IPs), falls back to
+    Podcast Index episode search if a provider is supplied.
+    """
     cutoff = utcnow() - timedelta(days=lookback_days)
     try:
         text = await fetch_feed_text(feed_url)
@@ -77,6 +127,18 @@ async def _fetch_followed_show(
             len(episodes),
         )
         return episodes
+    except httpx.HTTPStatusError as exc:
+        if exc.response.status_code == 403 and podcast_search is not None:
+            log.warning(
+                "RSS fetch blocked (403) for followed show '%s' (%s) — trying Podcast Index fallback",
+                show_name,
+                feed_url,
+            )
+            return await _fetch_followed_show_via_podcast_index(
+                show_name, podcast_search, lookback_days, max_episodes
+            )
+        log.warning("RSS fetch failed for followed show '%s' (%s): %s", show_name, feed_url, exc)
+        return []
     except Exception as exc:
         log.warning("RSS fetch failed for followed show '%s' (%s): %s", show_name, feed_url, exc)
         return []
@@ -87,6 +149,7 @@ async def poll_followed_shows(
     shows_cfg: ShowsConfig,
     lookback_days: int,
     concurrency: int = 8,
+    podcast_search: BasePodcastSearchProvider | None = None,
 ) -> list[NormalizedEpisode]:
     """Resolve each show_prior to a feed URL and poll its RSS feed directly."""
     if not prefs.show_priors:
@@ -113,7 +176,10 @@ async def poll_followed_shows(
                     show_name,
                 )
                 return
-            episodes = await _fetch_followed_show(show_name, feed_url, lookback_days)
+            episodes = await _fetch_followed_show(
+                show_name, feed_url, lookback_days,
+                podcast_search=podcast_search,
+            )
             all_episodes.extend(episodes)
 
     await asyncio.gather(*[resolve_and_fetch(name) for name in prefs.show_priors])
@@ -216,7 +282,8 @@ async def discover_episodes(
         shows_cfg = ShowsConfig()
 
     followed_episodes = await poll_followed_shows(
-        prefs, shows_cfg, lookback_days, concurrency
+        prefs, shows_cfg, lookback_days, concurrency,
+        podcast_search=podcast_search,
     )
     log.info(
         "Followed-show RSS poll: %d episode(s) from %d show(s)",
