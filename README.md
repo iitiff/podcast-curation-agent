@@ -2,14 +2,31 @@
 
 > **Personal podcast intelligence agent** — daily AI-ranked briefing for product leaders at the intersection of AI, retail, and eCommerce.
 
-Podcast Scout automatically discovers, scores, and curates podcast episodes from your subscribed feeds and the open web. It runs every weekday via GitHub Actions, publishes per-category RSS feeds to GitHub Pages, and sends a styled HTML email digest — all for roughly **$0–2 per week** in LLM costs.
+Podcast Scout automatically discovers, scores, and curates podcast episodes from your subscribed feeds and the open web. It runs every weekday via GitHub Actions, publishes per-category RSS feeds to GitHub Pages, and sends a styled HTML email digest — all for roughly **$0 per week** using the built-in GitHub Models token.
+
+---
+
+## 📡 Live Feeds
+
+Subscribe to these RSS feeds directly in any podcast app (Overcast, Pocket Casts, Castro, etc.) to receive a curated AI-ranked queue — no setup required:
+
+| Category | RSS Feed |
+|---|---|
+| 🤖 AI & Retail | `https://iitiff.github.io/podcast-curation-agent/ai-retail.xml` |
+| 🚀 Startup & Strategy | `https://iitiff.github.io/podcast-curation-agent/startup.xml` |
+| 🌱 Personal Growth | `https://iitiff.github.io/podcast-curation-agent/personal-growth.xml` |
+| 🎧 Listen Queue (all) | `https://iitiff.github.io/podcast-curation-agent/listen.xml` |
+| 📋 All Surfaced | `https://iitiff.github.io/podcast-curation-agent/all.xml` |
+
+📄 **[View the latest briefing →](https://iitiff.github.io/podcast-curation-agent/)**
 
 ---
 
 ## ✨ Features
 
 - **Multi-source discovery** — polls RSS feeds directly for followed shows; uses Podcast Index API and web search (Brave / Serper) for outside-feed discovery
-- **Two-stage AI ranking** — fast metadata pre-filter (Stage 1) then deep Gemini LLM scoring against a persona-aware rubric (Stage 2)
+- **Two-stage AI ranking** — fast metadata pre-filter (Stage 1) then deep LLM scoring against a persona-aware rubric (Stage 2)
+- **Free LLM via GitHub Models** — uses `gpt-4.1` through the built-in `GITHUB_TOKEN` (requires `models: read` permission in the workflow); falls back to Gemini if configured
 - **Per-category queues** — episodes are bucketed into `ai_retail`, `startup`, and `personal_growth` so high-volume categories never crowd out others
 - **Weekly synthesis** — cross-episode insight report generated on demand
 - **GitHub Pages output** — per-category RSS feeds (`{slug}.xml`), `listen.xml` / `all.xml`, `index.html` briefing, and `data/latest.json`
@@ -40,7 +57,7 @@ podcast-curation-agent/
 │   ├── templates/          # Jinja2 HTML templates
 │   └── providers/
 │       ├── base.py             # Abstract provider interfaces
-│       ├── llm.py              # Gemini provider (google-genai)
+│       ├── llm.py              # GitHub Models (primary) + Gemini (fallback)
 │       ├── podcast_search.py   # Podcast Index + iTunes providers
 │       ├── transcription.py    # Cascade transcription (Whisper optional)
 │       └── web_search.py       # Brave / Serper / Null providers
@@ -70,7 +87,7 @@ RSS (followed shows) + Podcast Index + Web Search
    ┌───────▼────────┐
    │ per-category   │  (ai_retail / startup / personal_growth)
    │  Stage-1 score │  show prior + guest/competitor signals, O(ms)
-   │  Stage-2 LLM   │  Gemini rubric, token-budgeted
+   │  Stage-2 LLM   │  GitHub Models gpt-4.1 (free) or Gemini fallback
    │  build_queue() │  RSS + email-only split
    └───────┬────────┘
            │
@@ -89,7 +106,7 @@ RSS (followed shows) + Podcast Index + Web Search
 
 - Python ≥ 3.12
 - [uv](https://github.com/astral-sh/uv) (recommended) or pip
-- A [Google AI Studio](https://aistudio.google.com/apikey) API key (free tier works)
+- A GitHub account (GitHub Models provides free LLM access — no extra API keys needed in CI)
 
 ### Local setup
 
@@ -103,7 +120,8 @@ uv sync            # or: pip install -e .
 
 # 3. Configure environment
 cp .env.example .env
-# Edit .env — at minimum set GEMINI_API_KEY
+# Edit .env — set GITHUB_TOKEN to a PAT with models:read scope for local runs
+# (In GitHub Actions, the built-in GITHUB_TOKEN is used automatically)
 
 # 4. Validate config
 uv run podcast-scout validate
@@ -123,8 +141,9 @@ uv run podcast-scout run
 
 | Variable | Required | Description |
 |---|---|---|
-| `GEMINI_API_KEY` | **Yes** | Google Gemini key for LLM ranking & summarization |
-| `GEMINI_STAGE2_MODEL` | No | Override model (default: `gemini-2.5-flash`) |
+| `GITHUB_TOKEN` | **Yes** | Token for GitHub Models (`gpt-4.1`). In Actions, the built-in token is used automatically — just ensure `models: read` permission is declared in the workflow. For local runs, create a PAT with `models: read` scope. |
+| `GEMINI_API_KEY` | No | Google Gemini fallback key — used if GitHub Models is unavailable |
+| `GEMINI_STAGE2_MODEL` | No | Override Gemini model (default: `gemini-2.5-flash`) |
 | `PODCAST_INDEX_KEY` | No | [Podcast Index](https://api.podcastindex.org) key for broader discovery |
 | `PODCAST_INDEX_SECRET` | No | Podcast Index secret |
 | `WEB_SEARCH_API_KEY` | No | Brave Search or Serper.dev key for outside-feed discovery |
@@ -133,7 +152,7 @@ uv run podcast-scout run
 | `MAX_COST_USD_PER_RUN` | No | Cost circuit-breaker (default: `2.00`) |
 | `MAX_LLM_TOKENS_PER_RUN` | No | Token budget across all categories (default: `500000`) |
 | `SMTP_HOST` | No | SMTP server for email digest |
-| `SMTP_PORT` | No | SMTP port (default: `587`) |
+| `SMTP_PORT` | No | SMTP port — use `465` for SSL or `587` for STARTTLS |
 | `SMTP_USER` | No | SMTP login username |
 | `SMTP_PASSWORD` | No | SMTP password |
 | `SMTP_TO` | No | Digest recipient address |
@@ -141,11 +160,11 @@ uv run podcast-scout run
 
 ### `config/preferences.yaml`
 
-Defines your **persona** (role, focus, seniority), **show priors** (per-show relevance weights), listen-time budget, per-category output caps, guest and competitor watchlists, and topic exclusions. There is no `interests` keyword block — relevance scoring is delegated entirely to the Stage 2 LLM rubric.
+Defines your **persona** (role, focus, seniority), **show priors** (per-show relevance weights), listen-time budget, per-category output caps, guest and competitor watchlists, and topic exclusions. Relevance scoring is delegated entirely to the Stage 2 LLM rubric.
 
 ### `config/shows.yaml`
 
-Overrides display name, **category**, and RSS feed URL for individual shows. The category slug determines which RSS feed a show's episodes appear in (`ai_retail`, `startup`, or `personal_growth`).
+Overrides display name, **category**, and RSS feed URL for individual shows. The category slug determines which RSS feed a show's episodes appear in (`ai_retail`, `startup`, or `personal_growth`). Add a `canonical_feed_url` here to fix shows that can't be resolved via iTunes search.
 
 ### `config/discovery_queries.yaml`
 
@@ -157,17 +176,17 @@ Custom keyword queries injected into the web search and podcast search providers
 
 ### Daily pipeline (Mon–Fri, 05:00 UTC)
 
-Configured in [`.github/workflows/daily.yml`](.github/workflows/daily.yml). Supports `workflow_dispatch` with optional `lookback_days` and `dry_run` inputs.
+Configured in [`.github/workflows/daily.yml`](.github/workflows/daily.yml). The workflow uses the **built-in `GITHUB_TOKEN`** with `models: read` permission for free LLM access via GitHub Models — no PAT or extra API key required. Supports `workflow_dispatch` with optional `lookback_days` and `dry_run` inputs.
 
 **Required repository secrets:**
 
 ```
-GEMINI_API_KEY
+GEMINI_API_KEY          # optional — fallback LLM if GitHub Models is unavailable
 PODCAST_INDEX_KEY       # optional
 PODCAST_INDEX_SECRET    # optional
 WEB_SEARCH_API_KEY      # optional
 SMTP_HOST               # optional
-SMTP_PORT               # optional
+SMTP_PORT               # optional — use 465 (SSL) or 587 (STARTTLS)
 SMTP_USER               # optional
 SMTP_PASSWORD           # optional
 SMTP_TO                 # optional
@@ -179,6 +198,8 @@ PAGES_BASE_URL          # e.g. https://iitiff.github.io/podcast-curation-agent
 2. Add the secrets above under **Settings → Secrets and variables → Actions**
 3. Trigger manually via **Actions → Daily Podcast Scout → Run workflow** for the first run
 
+> **Note:** No `GH_MODELS_TOKEN` secret is needed. The workflow's built-in `GITHUB_TOKEN` handles GitHub Models access automatically via the `models: read` permission declared in the workflow.
+
 ### Weekly synthesis
 
 Configured in [`.github/workflows/weekly_synthesis.yml`](.github/workflows/weekly_synthesis.yml). Generates a cross-episode insight report appended to the briefing.
@@ -187,7 +208,7 @@ Configured in [`.github/workflows/weekly_synthesis.yml`](.github/workflows/weekl
 
 ## 📤 Outputs
 
-After each run, the following are published to **GitHub Pages** at `https://<user>.github.io/<repo>/`:
+After each run, the following are published to **GitHub Pages** at `https://iitiff.github.io/podcast-curation-agent/`:
 
 | Path | Description |
 |---|---|
@@ -200,7 +221,7 @@ After each run, the following are published to **GitHub Pages** at `https://<use
 | `data/latest.json` | Machine-readable run output with scores, summaries, key ideas |
 | `latest.md` | Markdown version of the briefing |
 
-Add any `{slug}.xml` feed to your podcast app to receive your curated queue for that category.
+Add any `{slug}.xml` feed URL to your podcast app to receive your curated queue for that category.
 
 ---
 
@@ -231,7 +252,8 @@ The project uses:
 
 | Package | Purpose |
 |---|---|
-| `google-genai` | Gemini LLM for ranking & summarization |
+| `openai` | GitHub Models client (Azure-hosted OpenAI-compatible API) |
+| `google-genai` | Gemini LLM fallback for ranking & summarization |
 | `feedparser` | RSS/Atom feed parsing |
 | `httpx` | Async HTTP for all external calls |
 | `pydantic` / `pydantic-settings` | Config models & env loading |
@@ -246,9 +268,10 @@ The project uses:
 
 - [ ] Web UI for preference editing
 - [ ] Slack / Telegram digest delivery
-- [ ] Additional LLM providers (OpenAI, Anthropic)
+- [ ] Fix SMTP email delivery
 - [ ] Listener analytics dashboard
 - [ ] OPML export of curated subscriptions
+- [ ] Fix broken RSS feeds (Future Commerce, Founders, Masters of Scale, AI + a16z, Lenny's Podcast)
 
 ---
 
