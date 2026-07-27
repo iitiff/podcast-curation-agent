@@ -14,6 +14,14 @@ log = logging.getLogger(__name__)
 
 FEED_FETCH_TIMEOUT = 20.0
 
+# Realistic browser UA avoids 403s from CDNs (e.g. Substack) that block
+# non-browser user-agents on cloud/CI IP ranges.
+_FEED_USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/125.0.0.0 Safari/537.36"
+)
+
 
 def _safe_str(val: Any, default: str = "") -> str:
     if val is None:
@@ -32,7 +40,7 @@ def _parse_struct_time(val: Any) -> datetime | None:
 
 async def fetch_feed_text(url: str) -> str:
     async with httpx.AsyncClient(timeout=FEED_FETCH_TIMEOUT, follow_redirects=True) as client:
-        resp = await client.get(url, headers={"User-Agent": "podcast-scout/1.0"})
+        resp = await client.get(url, headers={"User-Agent": _FEED_USER_AGENT})
         resp.raise_for_status()
         return resp.text
 
