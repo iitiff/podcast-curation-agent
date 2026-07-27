@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-07-27T02:20:16.071912+00:00",
+  "last_run": "2026-07-27T08:39:19.016461+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -410,6 +410,28 @@
       "classification": "Skip",
       "is_outside_feed": false,
       "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g"
+    },
+    "145d126afbdf39fb": {
+      "guid": "145d126afbdf39fb",
+      "show_title": "The Prof G Pod",
+      "episode_title": "How Much Money Is Enough? Plus, Why AI Won\u2019t Replace Financial Advisors \u2014 with Jack Raines",
+      "published": "2026-07-27T08:00:00Z",
+      "processed_at": "2026-07-27T08:39:18.950918Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+    },
+    "4586a1cba8f6425b": {
+      "guid": "4586a1cba8f6425b",
+      "show_title": "\u79d1\u6280\u6d6a",
+      "episode_title": "EP149 - \u661f\u8266\u98db\u4e86\u80a1\u50f9\u589c\u4e86\u3001AI Agent \u9996\u6b21\u771f\u5be6\u99ed\u5ba2\u4e8b\u4ef6\u3001\u7f8e\u570b\u8981\u7981\u4e2d\u570b AI\uff1f",
+      "published": "2026-07-27T04:02:07Z",
+      "processed_at": "2026-07-27T08:39:18.950984Z",
+      "score": 14.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/cm3o5681s06e801v3fxpjehwb"
     }
   },
   "published": [
@@ -432,6 +454,7 @@
     "73f5620850201b77",
     "caf566b1c31bc72d",
     "cb8d6880a78a7b88",
-    "cccfa96fbb7c7e31"
+    "cccfa96fbb7c7e31",
+    "4586a1cba8f6425b"
   ]
 }
