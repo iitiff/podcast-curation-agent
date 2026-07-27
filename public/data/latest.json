@@ -1,58 +1,126 @@
 {
   "run_date": "2026-07-27",
-  "queued": [],
+  "queued": [
+    {
+      "guid": "233712672e620be9",
+      "show": "The a16z Show",
+      "title": "Ben Horowitz: The Fight Over Open Source AI",
+      "score": 80.0,
+      "classification": "Listen Fully",
+      "duration_min": 33.0,
+      "url": "https://a16z.simplecast.com/episodes/ben-horowitz-the-fight-over-open-source-ai-RnXTUEqk",
+      "summary": "Ben Horowitz joins the a16z Show to dissect the strategic battle over open-source AI. The episode covers why open-source models matter for security, innovation, and competition, and explores the risks of market concentration among a handful of AI labs. The discussion spans distillation, the economics of frontier models, China's influence, and the potential for AI to reshape manufacturing and creativity. Horowitz's perspective provides actionable insight into how leaders should think about AI's evolving ecosystem, the risks of monopolization, and the opportunities for new entrants.",
+      "key_ideas": [
+        "Open-source AI is critical for competition, security, and innovation.",
+        "Market concentration among a few AI labs poses systemic risks.",
+        "The AI market is still nascent, with significant opportunities and threats for product leaders."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "02fce9f57fb0ca25",
+      "show": "The a16z Show",
+      "title": "Sriram Krishnan on Open Source AI's Biggest Week Yet",
+      "score": 74.0,
+      "classification": "Listen Fully",
+      "duration_min": 23.0,
+      "url": "https://a16z.simplecast.com/episodes/sriram-krishnan-on-open-source-ais-biggest-week-yet-1yfA3ln5",
+      "summary": "Sriram Krishnan analyzes a pivotal week for open-source AI, unpacking the rapid release of new models and their impact on competition, pricing, and infrastructure. The episode delves into the strategic tension between open and closed models, the role of policy and cybersecurity, and how U.S. and Chinese AI ecosystems are evolving. Krishnan's policy and operator background provides valuable frameworks for understanding how product leaders can navigate the shifting AI landscape.",
+      "key_ideas": [
+        "Open-source model releases are accelerating competition and reducing costs.",
+        "Policy and regulatory responses will shape the future of AI infrastructure.",
+        "U.S.-China AI competition has direct implications for product and business strategy."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "d983f5cd1fad0158",
+      "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
+      "title": "EP.628 \u300a\u99ac\u65af\u514b\u5bf6\u5178\u300b\u8b80\u5f8c\u5fc3\u5f97\uff1a\u542b\u91d1\u91cf\u6975\u9ad8\u7684\u597d\u66f8\u3001\u516d\u500b\u91cd\u9ede\u6574\u7406",
+      "score": 62.0,
+      "classification": "Listen Fully",
+      "duration_min": 20.0,
+      "url": "https://open.firstory.me/story/cmrycm98f11ty01wma59uca79",
+      "summary": "This episode reviews 'The Book of Elon,' a compilation of Musk's direct insights on mission, work, company building, and the future of humanity. The content is curated from Musk's interviews, tweets, podcasts, and speeches, providing a dense, first-person perspective on strategic thinking, innovation, and leadership. The host distills six key lessons, making the episode highly actionable for product executives seeking to understand how top operators approach scale, technology, and vision.",
+      "key_ideas": [
+        "Elon Musk's frameworks for company building and mission-driven leadership.",
+        "AI as a tool for expanding thinking and challenging assumptions.",
+        "Curated strategic lessons from Musk's 20 years of interviews and public statements."
+      ],
+      "confidence": "low",
+      "category": "personal_growth"
+    }
+  ],
   "email_only": [
     {
-      "guid": "cb8d6880a78a7b88",
-      "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
-      "title": "EP.627 \u6211\u5dee\u9ede\u932f\u904e\u7684\u597d\u66f8\uff01\u524d\u5929\u4e0b\u96dc\u8a8c\u51fa\u7248\u7e3d\u7de8\u8f2f\u7684 10 \u672c\u597d\u66f8\u63a8\u85a6",
-      "score": 50.0,
+      "guid": "3c0fcc551fdac351",
+      "show": "Inside Commerce: Ecommerce Strategy, CX and Technology Podcast",
+      "title": "and eCommerce podcast",
+      "score": 39.0,
       "classification": "Read Summary Only",
       "duration_min": 0.0,
       "url": "",
-      "summary": "",
-      "key_ideas": [],
+      "summary": "Inside Commerce, hosted by consultants James Gurd and Paul Rogers, delivers weekly insights into eCommerce strategy, customer experience, and technology. The show emphasizes unbiased, expert-driven analysis, real-world case studies, and trend updates, positioning itself as a resource for performance improvements and informed decision-making. While the hosts have industry experience, the episode description is generic and lacks details on specific frameworks or guests, making it difficult to assess depth. Still, the focus on strategic planning and market trends may provide value for senior product leaders.",
+      "key_ideas": [
+        "Expert-driven eCommerce strategy and technology insights",
+        "Real-world case studies and performance improvement",
+        "Trend analysis for informed decision-making"
+      ],
       "confidence": "low",
-      "category": "personal_growth"
+      "category": "ai_retail"
     },
     {
-      "guid": "cccfa96fbb7c7e31",
-      "show": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
-      "title": "\u7e3d\u662f\u4e0d\u6562\u62d2\u7d55\u5225\u4eba\uff1fAI \u5c0d\u8a71\u966a\u7df4\uff0c\u8b93\u4f60\u52c7\u6562\u8aaa\u51fa\u5fc3\u88e1\u8a71\uff5cFt. \u74e6\u57fa",
-      "score": 50.0,
+      "guid": "35937c0ab8391c17",
+      "show": "RetailCraft - digital retail, ecommerce and brands - Retail Podcast",
+      "title": "and eCommerce podcast",
+      "score": 30.0,
       "classification": "Read Summary Only",
       "duration_min": 0.0,
       "url": "",
-      "summary": "",
-      "key_ideas": [],
+      "summary": "RetailCraft, hosted by Ian Jindal and InternetRetailing, explores multichannel retail, eCommerce, and digital business through interviews, analysis, and discussion. The show aims to provide industry context and operational insights, with a focus on digital transformation and retail dynamics. While the format suggests potential for strategic discussion, the episode description is generic and does not specify guests or frameworks, reducing confidence in actionable director-level insights.",
+      "key_ideas": [
+        "Multichannel retail and digital business analysis",
+        "Industry interviews and operational insights",
+        "Focus on retail transformation and eCommerce dynamics"
+      ],
       "confidence": "low",
-      "category": "personal_growth"
+      "category": "ai_retail"
     },
     {
-      "guid": "811810d0bee68661",
-      "show": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
-      "title": "\u3010\u5f71\u5287\u5206\u6790\u3011\u300c\u662f\u4e0d\u662f\u6211\u5bb3\u4e86\u4f60\uff1f\u300d\u904e\u5ea6\u52aa\u529b\u7684\u4eba\uff0c\u6700\u6df1\u7684\u7f6a\u60e1\u611f\uff5c\u5fc3\u7406\u5b78\u89e3\u6790\u300a\u6b20\u59b3\u7684\u90a3\u5834\u5a5a\u79ae\u300b\u9673\u7acb\u7487",
-      "score": 50.0,
+      "guid": "caf566b1c31bc72d",
+      "show": "The My Wife Quit Her Job Podcast: Start A Business Online, Quit Your Job, And Spend More Time With Your Loved Ones - My Wife Quit Her Job",
+      "title": "and eCommerce podcast",
+      "score": 19.0,
       "classification": "Read Summary Only",
       "duration_min": 0.0,
       "url": "",
-      "summary": "",
-      "key_ideas": [],
+      "summary": "The My Wife Quit Her Job Podcast, hosted by Steve, features interviews with entrepreneurs who bootstrapped successful online businesses after quitting their jobs. The show emphasizes actionable strategies and personal stories, extracting details on how founders achieved success without high risk or technical expertise. While the content is practical and avoids fluff, it is geared toward individual entrepreneurs and early-stage operators, with limited focus on strategic product leadership or AI/eCommerce market dynamics.",
+      "key_ideas": [
+        "Bootstrapped entrepreneurship and online business growth",
+        "Actionable strategies from founder interviews",
+        "Focus on risk mitigation and work-life balance"
+      ],
       "confidence": "low",
-      "category": "personal_growth"
+      "category": "ai_retail"
     },
     {
-      "guid": "c5c8317a5e00d35c",
-      "show": "\u79d1\u6280\u6d6a",
-      "title": "EP148 - Kimi K3 \u9707\u64bc\u77fd\u8c37\uff01\u771f\u7684\u9019\u9ebc\u5f37\u55ce\uff1f",
-      "score": 50.0,
+      "guid": "88b972254ee52526",
+      "show": "The Prof G Pod",
+      "title": "The Week: China Is Undercutting America\u2019s AI Boom",
+      "score": 17.0,
       "classification": "Read Summary Only",
-      "duration_min": 0.0,
+      "duration_min": 20.0,
       "url": "",
-      "summary": "",
-      "key_ideas": [],
+      "summary": "This episode covers recent news on China's impact on the AI market, including the rise of cheaper Chinese models and the implications for U.S. AI dominance. It also briefly discusses Oracle's financial risks and broader societal trends. While the topics are relevant, the episode lacks deep strategic analysis, expert guests, or actionable frameworks, making it more suitable as a quick update rather than a must-listen for product leaders.",
+      "key_ideas": [
+        "Chinese AI models are increasing competitive pressure on U.S. firms.",
+        "Financial risks in the AI boom (e.g., Oracle's debt).",
+        "Broader societal trends impacting technology adoption."
+      ],
       "confidence": "low",
-      "category": "personal_growth"
+      "category": "startup"
     }
   ],
   "synthesis": null

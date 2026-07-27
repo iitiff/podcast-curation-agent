@@ -5,12 +5,23 @@
     <description>Curated personal growth, mindfulness, and life philosophy episodes.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Jul 2026 00:04:34 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2026 02:09:39 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/personal-growth.xml" rel="self" type="application/rss+xml" />
     <itunes:owner>
       <itunes:name>Your Name</itunes:name>
     </itunes:owner>
+    <item>
+      <title>🎧 LISTEN #1 — 下一本讀什麼: EP.628 《馬斯克寶典》讀後心得：含金量極高的好書、六個重點整理</title>
+      <link>https://open.firstory.me/story/cmrycm98f11ty01wma59uca79</link>
+      <guid isPermaLink="false">d983f5cd1fad0158</guid>
+      <pubDate>Fri, 24 Jul 2026 02:59:28 +0000</pubDate>
+      <itunes:duration>1230</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 62/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Episode offers strategic insights from Elon Musk, curated by Eric Jorgenson, with actionable lessons on product strategy, company building, and AI. High relevance for product leaders transitioning to director roles.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode reviews &amp;#x27;The Book of Elon,&amp;#x27; a compilation of Musk&amp;#x27;s direct insights on mission, work, company building, and the future of humanity. The content is curated from Musk&amp;#x27;s interviews, tweets, podcasts, and speeches, providing a dense, first-person perspective on strategic thinking, innovation, and leadership. The host distills six key lessons, making the episode highly actionable for product executives seeking to understand how top operators approach scale, technology, and vision.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Elon Musk&amp;#x27;s frameworks for company building and mission-driven leadership.&lt;/li&gt;&lt;li&gt;AI as a tool for expanding thinking and challenging assumptions.&lt;/li&gt;&lt;li&gt;Curated strategic lessons from Musk&amp;#x27;s 20 years of interviews and public statements.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders can apply Musk&amp;#x27;s frameworks to strategic decision-making, innovation, and scaling technology-driven organizations. The episode provides actionable insights for those transitioning to director roles.&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cmrycm98f11ty01wma59uca79"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode reviews 'The Book of Elon,' a compilation of Musk's direct insights on mission, work, company building, and the future of humanity. The content is curated from Musk's interviews, tweets, podcasts, and speeches, providing a dense, first-person perspective on strategic thinking, innovation, and leadership. The host distills six key lessons, making the episode highly actionable for product executives seeking to understand how top operators approach scale, technology, and vision.</description>
+      <enclosure url="https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cmrycm98f11ty01wma59uca79/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcmrycm98f11tz01wmeeen8cjl.mp3?v=1784861810403" type="audio/mpeg" length="0" />
+      <itunes:image href="https://image.firstory-cdn.me/Avatar/cl39lz2ky01co01ugaba7gr9y/1746157627292.jpg" />
+    </item>
   </channel>
 </rss>
