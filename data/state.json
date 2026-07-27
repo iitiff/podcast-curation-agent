@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-07-27T08:39:19.016461+00:00",
+  "last_run": "2026-07-27T16:55:22.211212+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -432,6 +432,83 @@
       "classification": "Read Summary Only",
       "is_outside_feed": false,
       "source_feed_url": "https://feed.firstory.me/rss/user/cm3o5681s06e801v3fxpjehwb"
+    },
+    "1419fb4400c20e59": {
+      "guid": "1419fb4400c20e59",
+      "show_title": "Decoder",
+      "episode_title": "Tariffs didn\u2019t bring manufacturing jobs back to the US",
+      "published": "2026-07-27T09:00:00Z",
+      "processed_at": "2026-07-27T16:55:22.141401Z",
+      "score": 74.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/recodedecode"
+    },
+    "e97648c7d63ae319": {
+      "guid": "e97648c7d63ae319",
+      "show_title": "Future Commerce",
+      "episode_title": "VC Partner Predicts the Next Billion-Dollar Brand",
+      "published": "2026-07-22T11:00:00Z",
+      "processed_at": "2026-07-27T16:55:22.141480Z",
+      "score": 63.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/hQ2eLzNW"
+    },
+    "7381c2c67c6943d8": {
+      "guid": "7381c2c67c6943d8",
+      "show_title": "Think Fast Talk Smart",
+      "episode_title": "309. Stretch, Don't Stress: How Great Communication Makes Better Leaders",
+      "published": "2026-07-27T13:00:00Z",
+      "processed_at": "2026-07-27T16:55:22.141494Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques"
+    },
+    "21ef9a7f1fdf511d": {
+      "guid": "21ef9a7f1fdf511d",
+      "show_title": "Masters of Scale",
+      "episode_title": "Possible: Satya Nadella on making human and token capital compound",
+      "published": "2026-07-25T09:00:00Z",
+      "processed_at": "2026-07-27T16:55:22.141502Z",
+      "score": 81.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/masters-of-scale"
+    },
+    "638055d053e280da": {
+      "guid": "638055d053e280da",
+      "show_title": "The a16z Show",
+      "episode_title": "Steven Sinofsky: AI Doesn't Need New Rules Yet",
+      "published": "2026-07-27T10:00:00Z",
+      "processed_at": "2026-07-27T16:55:22.141511Z",
+      "score": 73.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+    },
+    "992047e54d15c565": {
+      "guid": "992047e54d15c565",
+      "show_title": "Masters of Scale",
+      "episode_title": "Delta's Ed Bastian on spiking fuel, summer travel, and a blunt reality check on AI",
+      "published": "2026-07-21T09:00:00Z",
+      "processed_at": "2026-07-27T16:55:22.141518Z",
+      "score": 37.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/masters-of-scale"
+    },
+    "8affb4ef941a1e28": {
+      "guid": "8affb4ef941a1e28",
+      "show_title": "Masters of Scale",
+      "episode_title": "Author Jim Collins on unlocking your potential",
+      "published": "2026-07-23T09:00:00Z",
+      "processed_at": "2026-07-27T16:55:22.141524Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/masters-of-scale"
     }
   },
   "published": [
@@ -455,6 +532,11 @@
     "caf566b1c31bc72d",
     "cb8d6880a78a7b88",
     "cccfa96fbb7c7e31",
-    "4586a1cba8f6425b"
+    "4586a1cba8f6425b",
+    "1419fb4400c20e59",
+    "21ef9a7f1fdf511d",
+    "638055d053e280da",
+    "e97648c7d63ae319",
+    "992047e54d15c565"
   ]
 }
