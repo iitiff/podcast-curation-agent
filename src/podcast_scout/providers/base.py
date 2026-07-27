@@ -2,9 +2,13 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
+
+# ---------------------------------------------------------------------------
+# Podcast search
+# ---------------------------------------------------------------------------
 
 @dataclass
 class PodcastSearchResult:
@@ -33,6 +37,10 @@ class BasePodcastSearchProvider(ABC):
         """Optional: fetch recent episodes by feed URL. Default returns empty list."""
         return []
 
+
+# ---------------------------------------------------------------------------
+# Web search
+# ---------------------------------------------------------------------------
 
 class BaseWebSearchProvider(ABC):
     @abstractmethod
@@ -68,11 +76,19 @@ class BaseLLMProvider(ABC):
 
 
 # ---------------------------------------------------------------------------
-# Transcript result
+# Transcription provider
 # ---------------------------------------------------------------------------
 
 @dataclass
 class TranscriptResult:
     text: str = ""
     source: str = "none"      # "whisper" | "publisher" | "description" | "none"
-    confidence: str = "low"   # "high" | "medium" | "low"
+    confidence: str = "low"   # "high" | "medium" | "low" | "none"
+
+
+class BaseTranscriptionProvider(ABC):
+    @abstractmethod
+    async def transcribe(
+        self, episode_url: str, description: str = ""
+    ) -> TranscriptResult:
+        ...
