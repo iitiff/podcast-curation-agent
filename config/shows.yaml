@@ -29,9 +29,10 @@ shows:
   - match: "Lenny"
     display_name: "Lenny's Podcast"
     category: ai_retail
-    # canonical_feed_url removed — Substack feed returns 403; using iTunes lookup
+    canonical_feed_url: "https://api.substack.com/feed/podcast/10845.rss"
     max_episodes_per_run: 2
     language: en
+    notes: "Substack feed; requires browser User-Agent to avoid 403 on CI IPs (handled in feeds.py)."
 
   - match: "No Priors"
     display_name: "No Priors"
@@ -65,7 +66,7 @@ shows:
   - match: "Product Thinking"
     display_name: "Product Thinking with Melissa Perri"
     category: ai_retail
-    # canonical_feed_url removed — Megaphone domain no longer resolves; using iTunes lookup
+    canonical_feed_url: "https://anchor.fm/s/ff7e9014/podcast/rss"
     max_episodes_per_run: 2
 
   - match: "Google DeepMind"
