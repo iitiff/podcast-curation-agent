@@ -8,15 +8,12 @@ Podcast Scout automatically discovers, scores, and curates podcast episodes from
 
 ## 📡 Live Feeds
 
-Subscribe to these RSS feeds directly in any podcast app (Overcast, Pocket Casts, Castro, etc.) to receive a curated AI-ranked queue — no setup required:
+Subscribe to these RSS feeds in any podcast app (Overcast, Pocket Casts, Castro, etc.) to receive a curated AI-ranked queue — no setup required:
 
 | Category | RSS Feed |
 |---|---|
-| 🤖 AI & Retail | `https://iitiff.github.io/podcast-curation-agent/ai-retail.xml` |
-| 🚀 Startup & Strategy | `https://iitiff.github.io/podcast-curation-agent/startup.xml` |
-| 🌱 Personal Growth | `https://iitiff.github.io/podcast-curation-agent/personal-growth.xml` |
-| 🎧 Listen Queue (all) | `https://iitiff.github.io/podcast-curation-agent/listen.xml` |
-| 📋 All Surfaced | `https://iitiff.github.io/podcast-curation-agent/all.xml` |
+| 🤖 AI & Retail | `https://feeds.feedburner.com/Podcast-scout/ai-retail` |
+| 🚀 Startup & Strategy | `https://feeds.feedburner.com/Podcast-scout/startup` |
 
 📄 **[View the latest briefing →](https://iitiff.github.io/podcast-curation-agent/)**
 
@@ -220,8 +217,6 @@ After each run, the following are published to **GitHub Pages** at `https://iiti
 | `personal-growth.xml` | Personal growth & mindfulness episodes |
 | `data/latest.json` | Machine-readable run output with scores, summaries, key ideas |
 | `latest.md` | Markdown version of the briefing |
-
-Add any `{slug}.xml` feed URL to your podcast app to receive your curated queue for that category.
 
 ---
 
