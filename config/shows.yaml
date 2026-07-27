@@ -29,7 +29,7 @@ shows:
   - match: "Lenny"
     display_name: "Lenny's Podcast"
     category: ai_retail
-    canonical_feed_url: "https://www.lennyspodcast.com/feed"
+    # canonical_feed_url removed — Substack feed returns 403; using iTunes lookup
     max_episodes_per_run: 2
     language: en
 
@@ -41,7 +41,7 @@ shows:
 
   - match: "Future Commerce"
     display_name: "Future Commerce"
-    canonical_feed_url: "https://feeds.simplecast.com/SoKPJoQk"
+    canonical_feed_url: "https://feeds.simplecast.com/hQ2eLzNW"
     category: ai_retail
     max_episodes_per_run: 2
 
@@ -65,7 +65,7 @@ shows:
   - match: "Product Thinking"
     display_name: "Product Thinking with Melissa Perri"
     category: ai_retail
-    canonical_feed_url: "https://feeds.megaphone.fm/productthinking"
+    # canonical_feed_url removed — Megaphone domain no longer resolves; using iTunes lookup
     max_episodes_per_run: 2
 
   - match: "Google DeepMind"
@@ -112,20 +112,20 @@ shows:
   - match: "Founders"
     display_name: "Founders (David Senra)"
     category: startup
-    canonical_feed_url: "https://feeds.megaphone.fm/FOUNDERS7816104433"
+    canonical_feed_url: "https://feeds.megaphone.fm/founders"
     max_episodes_per_run: 1
     notes: "Long-form deep dives on founders. Cap at 1."
 
   - match: "AI + a16z"
     display_name: "AI + a16z"
     category: startup
-    canonical_feed_url: "https://feeds.simplecast.com/A6212567221"
+    canonical_feed_url: "https://feeds.simplecast.com/Hb_IuXOo"
     max_episodes_per_run: 2
 
   - match: "Masters of Scale"
     display_name: "Masters of Scale"
     category: startup
-    canonical_feed_url: "https://feeds.simplecast.com/2O9I7p9_"
+    canonical_feed_url: "https://rss.art19.com/masters-of-scale"
     max_episodes_per_run: 2
 
   - match: "Long Strange Trip"
