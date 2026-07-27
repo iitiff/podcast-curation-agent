@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Jul 2026 16:55:22 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2026 17:19:35 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/all.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,18 @@
       <itunes:name>Your Name</itunes:name>
     </itunes:owner>
     <item>
-      <title>🎧 LISTEN #1 — Retailgentic: AI Is a New Customer Category: Wharton Professor &amp; Bodhium Labs Co-Founder Kartik Hosanagar</title>
+      <title>🎧 LISTEN #1 — Lenny's Podcast: Anthropic’s first technical PM on token maxing, the jagged edge, and living in the future | Dianne Penn</title>
+      <link>https://www.lennysnewsletter.com/p/anthropics-first-technical-pm-on</link>
+      <guid isPermaLink="false">a3f883ca9e1977da</guid>
+      <pubDate>Sun, 26 Jul 2026 12:32:06 +0000</pubDate>
+      <itunes:duration>5630</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features Dianne Penn, Head of Product at Anthropic, sharing first-hand insights on scaling AI product teams, eval-driven development, and strategic inflection points in a leading AI company. The content is highly relevant for senior PMs transitioning to director roles, offering concrete frameworks, business cases, and lessons from a top-tier operator. Despite low transcript confidence, the strategic depth, guest authority, and actionable takeaways warrant a full listen.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Dianne Penn, Anthropic’s Head of Product and first technical PM, discusses the company’s rapid growth, product strategy, and the development of Claude’s AI models. She details the early days of Anthropic, key inflection points, and how the team pioneered eval-driven development loops. The episode covers how Claude became strong at coding, the importance of human judgment in AI, and the challenges of managing product craft in a fast-moving environment. Penn’s experience at Amazon and JP Morgan adds depth, providing strategic lessons for product leaders navigating AI and emerging technology. The conversation is rich with actionable frameworks and real business cases relevant to senior product executives.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Eval-driven development as a strategic framework for AI product iteration&lt;/li&gt;&lt;li&gt;Scaling product teams and processes in a hyper-growth AI startup&lt;/li&gt;&lt;li&gt;Balancing human judgment and automation in advanced AI products&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs and directors can adapt eval-driven loops for their own AI initiatives, learn from Anthropic’s scaling strategies, and understand the nuances of integrating human oversight in AI-driven products. The episode provides transferable lessons for leading product teams through rapid technological change and market inflection points.&lt;/p&gt;&lt;p&gt;&lt;a href="https://www.lennysnewsletter.com/p/anthropics-first-technical-pm-on"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Dianne Penn, Anthropic’s Head of Product and first technical PM, discusses the company’s rapid growth, product strategy, and the development of Claude’s AI models. She details the early days of Anthropic, key inflection points, and how the team pioneered eval-driven development loops. The episode covers how Claude became strong at coding, the importance of human judgment in AI, and the challenges of managing product craft in a fast-moving environment. Penn’s experience at Amazon and JP Morgan adds depth, providing strategic lessons for product leaders navigating AI and emerging technology. The conversation is rich with actionable frameworks and real business cases relevant to senior product executives.</description>
+      <enclosure url="https://pscrb.fm/rss/p/api.substack.com/feed/podcast/207214207/aaa7067cd960f0369661f0976cbe3d0a.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://substackcdn.com/feed/podcast/10845/post/207214207/756e556fcbda393739f83e6d27dbbe52.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #2 — Retailgentic: AI Is a New Customer Category: Wharton Professor &amp; Bodhium Labs Co-Founder Kartik Hosanagar</title>
       <link />
       <guid isPermaLink="false">88610221f5aa0101</guid>
       <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
@@ -22,7 +33,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #2 — No Priors: Building an Autonomous Delivery Experience with DoorDash Co-Founders Andy Fang and Stanley Tang</title>
+      <title>🎧 LISTEN #3 — No Priors: Building an Autonomous Delivery Experience with DoorDash Co-Founders Andy Fang and Stanley Tang</title>
       <link />
       <guid isPermaLink="false">0aa9cdd123be2909</guid>
       <pubDate>Thu, 23 Jul 2026 10:00:00 +0000</pubDate>
@@ -31,15 +42,13 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #3 — Masters of Scale: Possible: Satya Nadella on making human and token capital compound</title>
+      <title>🎧 LISTEN #4 — Masters of Scale: Possible: Satya Nadella on making human and token capital compound</title>
       <link />
       <guid isPermaLink="false">21ef9a7f1fdf511d</guid>
       <pubDate>Sat, 25 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>3616</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 81/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Satya Nadella is a top-tier authority on AI and product strategy, and the episode promises strategic insights on AI&amp;#x27;s impact on business, organizational transformation, and Microsoft&amp;#x27;s enterprise AI vision. The discussion is highly relevant for a PM-to-Director transition, with actionable frameworks and concrete business implications.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Microsoft CEO Satya Nadella in conversation with Reid Hoffman, focusing on how AI is fundamentally transforming work, business, and society. Nadella discusses the intertwining of human and &amp;#x27;token&amp;#x27; capital, the imperative for companies to build their own AI capabilities, and how organizations can leverage unique expertise within intelligent systems. The episode covers Microsoft&amp;#x27;s enterprise AI vision, lessons from past tech revolutions, and the importance of delivering tangible AI benefits to earn public trust. Strategic takeaways are grounded in Nadella&amp;#x27;s direct experience leading one of the world&amp;#x27;s largest technology companies.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI is reshaping not just software development but all knowledge work, requiring new organizational capabilities.&lt;/li&gt;&lt;li&gt;Companies must build proprietary AI expertise to remain competitive; it&amp;#x27;s no longer sufficient to rely on external platforms.&lt;/li&gt;&lt;li&gt;Demonstrating real, tangible business value is essential for AI adoption and public trust.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders must prioritize AI capability-building and focus on integrating AI into core business processes. Strategic decisions should be grounded in delivering measurable value, and leaders must prepare for ongoing transformation in work and organizational structure.&lt;/p&gt;</content:encoded>
-      <description>This episode features Microsoft CEO Satya Nadella in conversation with Reid Hoffman, focusing on how AI is fundamentally transforming work, business, and society. Nadella discusses the intertwining of human and 'token' capital, the imperative for companies to build their own AI capabilities, and how organizations can leverage unique expertise within intelligent systems. The episode covers Microsoft's enterprise AI vision, lessons from past tech revolutions, and the importance of delivering tangible AI benefits to earn public trust. Strategic takeaways are grounded in Nadella's direct experience leading one of the world's largest technology companies.</description>
-      <enclosure url="https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/c9873675-e551-4f4b-a6b4-ae2086338972.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="57866449" />
-      <itunes:image href="https://content.production.cdn.art19.com/images/09/8f/ad/8c/098fad8c-017e-4035-89c4-acc82bb6b51e/1a8c6b08b1d313f030249d852f2ee67fb7382277eacf2ca7fbfb5e3f6c3ed2a7b9ed6ac84e8ea21ff849e4c1c73eedc32fea30cce9062a4d1dd7f95079ee38b6.jpeg" />
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 81/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
     </item>
     <item>
       <title>📖 SUMMARY — Stratechery: (Preview) An OpenAI Model Escapes Sandboxing, Intelligence Will Be a Commodity Market, The Chinese Model Conundrum</title>
@@ -51,26 +60,13 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #4 — Decoder: Tariffs didn’t bring manufacturing jobs back to the US</title>
+      <title>🎧 LISTEN #5 — Decoder: Tariffs didn’t bring manufacturing jobs back to the US</title>
       <link />
       <guid isPermaLink="false">1419fb4400c20e59</guid>
       <pubDate>Mon, 27 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>4310</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 74/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode delivers strategic analysis of global trade, tariffs, AI, and manufacturing, featuring a CEO with firsthand experience. It is highly relevant for product leaders navigating international supply chains and emerging tech.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Evan Smith, CEO of Altana, discusses the real-world impact of tariffs on global manufacturing and trade, revealing that protectionist policies have not brought jobs back to the US. The conversation covers the chaos of international relations, agentic AI&amp;#x27;s role in supply chains, and how geopolitical instability affects product and business strategy. Smith provides operator-level insights into navigating complex regulatory environments, adapting to shifting trade policies, and leveraging AI for resilience. The episode is rich in strategic lessons for leaders managing global eCommerce, supply chains, and technology-driven operations.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Tariffs failed to restore US manufacturing jobs; global supply chains remain complex.&lt;/li&gt;&lt;li&gt;Agentic AI as a tool for supply chain adaptation and resilience.&lt;/li&gt;&lt;li&gt;Geopolitical instability (Iran, Southeast Asia) directly impacts business strategy.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior product leaders must understand the limitations of policy-driven supply chain shifts, invest in AI for operational agility, and monitor geopolitical risks. Strategic decisions should be informed by real-world trade dynamics and emerging tech.&lt;/p&gt;</content:encoded>
-      <description>Evan Smith, CEO of Altana, discusses the real-world impact of tariffs on global manufacturing and trade, revealing that protectionist policies have not brought jobs back to the US. The conversation covers the chaos of international relations, agentic AI's role in supply chains, and how geopolitical instability affects product and business strategy. Smith provides operator-level insights into navigating complex regulatory environments, adapting to shifting trade policies, and leveraging AI for resilience. The episode is rich in strategic lessons for leaders managing global eCommerce, supply chains, and technology-driven operations.</description>
-      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP4137105999.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/eceb07ba-cfc6-11f0-83c5-6fd03bb9cbf1/image/785c153fcef13637fb3208e1a83e9082.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #5 — The a16z Show: Steven Sinofsky: AI Doesn't Need New Rules Yet</title>
-      <link>https://a16z.simplecast.com/episodes/steven-sinofsky-ai-doesnt-need-new-rules-yet-BuNOSzIn</link>
-      <guid isPermaLink="false">638055d053e280da</guid>
-      <pubDate>Mon, 27 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>1756</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Steven Sinofsky is a highly credible operator with deep product leadership experience. The episode addresses AI regulation, open-source dynamics, and historical analogies—topics directly relevant to strategic product leadership in AI and emerging tech.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Steven Sinofsky, former Microsoft product leader, discusses the current rush to regulate AI, drawing parallels to past technological revolutions. He argues that premature regulation could stifle innovation and that open-source models have historically accelerated progress. The conversation covers the &amp;#x27;precautionary principle,&amp;#x27; the competitive landscape between the U.S. and China, and the adequacy of existing laws for managing AI risks. Sinofsky&amp;#x27;s insights are grounded in both historical perspective and hands-on leadership experience, offering valuable frameworks for senior product leaders navigating the evolving AI landscape.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Premature AI regulation risks hindering innovation before the technology is fully understood.&lt;/li&gt;&lt;li&gt;Open-source models have been critical to accelerating technological progress.&lt;/li&gt;&lt;li&gt;Historical context can inform better strategic decisions around AI and emerging tech.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders should balance caution with innovation, advocate for thoughtful regulation, and leverage open-source strategies where appropriate. Understanding historical patterns can inform better product and policy decisions.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/steven-sinofsky-ai-doesnt-need-new-rules-yet-BuNOSzIn"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>Steven Sinofsky, former Microsoft product leader, discusses the current rush to regulate AI, drawing parallels to past technological revolutions. He argues that premature regulation could stifle innovation and that open-source models have historically accelerated progress. The conversation covers the 'precautionary principle,' the competitive landscape between the U.S. and China, and the adequacy of existing laws for managing AI risks. Sinofsky's insights are grounded in both historical perspective and hands-on leadership experience, offering valuable frameworks for senior product leaders navigating the evolving AI landscape.</description>
-      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/428f598f-a8c0-4b71-9400-e2c3f387ca94/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=428f598f-a8c0-4b71-9400-e2c3f387ca94&amp;feed=JGE3yC0V" type="audio/mpeg" length="28110794" />
-      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 74/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
     </item>
     <item>
       <title>🎧 LISTEN #6 — The SaaS Podcast: Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.</title>
@@ -82,7 +78,16 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #7 — The a16z Show: Ben Horowitz: The Fight Over Open Source AI</title>
+      <title>🎧 LISTEN #7 — The a16z Show: Steven Sinofsky: AI Doesn't Need New Rules Yet</title>
+      <link />
+      <guid isPermaLink="false">638055d053e280da</guid>
+      <pubDate>Mon, 27 Jul 2026 10:00:00 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
+    </item>
+    <item>
+      <title>🎧 LISTEN #8 — The a16z Show: Ben Horowitz: The Fight Over Open Source AI</title>
       <link />
       <guid isPermaLink="false">233712672e620be9</guid>
       <pubDate>Sun, 26 Jul 2026 13:15:04 +0000</pubDate>
@@ -100,7 +105,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #8 — The a16z Show: Building the Physical AI Stack | Travis Kalanick on TBPN</title>
+      <title>🎧 LISTEN #9 — The a16z Show: Building the Physical AI Stack | Travis Kalanick on TBPN</title>
       <link />
       <guid isPermaLink="false">b6421cbd96cbddc4</guid>
       <pubDate>Thu, 23 Jul 2026 10:00:00 +0000</pubDate>
@@ -109,7 +114,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #9 — The a16z Show: Sriram Krishnan on Open Source AI's Biggest Week Yet</title>
+      <title>🎧 LISTEN #10 — The a16z Show: Sriram Krishnan on Open Source AI's Biggest Week Yet</title>
       <link />
       <guid isPermaLink="false">02fce9f57fb0ca25</guid>
       <pubDate>Fri, 24 Jul 2026 10:00:00 +0000</pubDate>
@@ -118,18 +123,16 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #10 — Future Commerce: VC Partner Predicts the Next Billion-Dollar Brand</title>
-      <link>https://www.futurecommerce.com/podcasts/vc-partner-predicts-the-next-billion-dollar-brand</link>
+      <title>🎧 LISTEN #11 — Future Commerce: VC Partner Predicts the Next Billion-Dollar Brand</title>
+      <link />
       <guid isPermaLink="false">e97648c7d63ae319</guid>
       <pubDate>Wed, 22 Jul 2026 11:00:00 +0000</pubDate>
-      <itunes:duration>3011</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 63/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features a VC partner discussing consumer behavior, AI adoption, and retail trends, offering strategic insight and industry analysis relevant to a senior product leader. While transcript confidence is low, the guest&amp;#x27;s authority and topic depth make it highly valuable.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Natalie Dillon, Maveron partner, challenges the narrative of consumer collapse, highlighting paradoxical trends: consumer sentiment is low, yet spending is high. She explores how skepticism, shallow AI adoption, Gen Z&amp;#x27;s attitudes, and the resurgence of analog living are shaping commerce. The episode offers strategic perspectives on evolving consumer behavior, the limited real-world impact of AI in retail, and the rise of cult-like brands. Dillon&amp;#x27;s VC vantage point provides actionable insights for leaders navigating eCommerce and retail, emphasizing the importance of understanding cultural shifts and their implications for product strategy.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Consumer sentiment vs. spending paradox: skepticism but continued shopping.&lt;/li&gt;&lt;li&gt;AI adoption in commerce remains shallow; analog living as status.&lt;/li&gt;&lt;li&gt;Emergence of cult-like brands and new consumer communities.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders should rethink assumptions about consumer behavior, prioritize nuanced market analysis, and consider how shallow AI adoption and cultural shifts affect strategy. Cult-like brands and analog trends may signal new opportunities for differentiation.&lt;/p&gt;&lt;p&gt;&lt;a href="https://www.futurecommerce.com/podcasts/vc-partner-predicts-the-next-billion-dollar-brand"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>Natalie Dillon, Maveron partner, challenges the narrative of consumer collapse, highlighting paradoxical trends: consumer sentiment is low, yet spending is high. She explores how skepticism, shallow AI adoption, Gen Z's attitudes, and the resurgence of analog living are shaping commerce. The episode offers strategic perspectives on evolving consumer behavior, the limited real-world impact of AI in retail, and the rise of cult-like brands. Dillon's VC vantage point provides actionable insights for leaders navigating eCommerce and retail, emphasizing the importance of understanding cultural shifts and their implications for product strategy.</description>
-      <enclosure url="https://dts.podtrac.com/redirect.mp3/afp-935226-injected.calisto.simplecastaudio.com/fed613f6-db08-4178-9009-bc6bae8658fc/episodes/af8ec1f8-90be-46a6-ac36-a6414e2aa63a/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=fed613f6-db08-4178-9009-bc6bae8658fc&amp;awEpisodeId=af8ec1f8-90be-46a6-ac36-a6414e2aa63a&amp;feed=hQ2eLzNW" type="audio/mpeg" length="48192056" />
-      <itunes:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/77291172-b875-4f0b-b932-ca3d17168543/3000x3000/e472.jpg?aid=rss_feed" />
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 63/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
     </item>
     <item>
-      <title>🎧 LISTEN #11 — Decoder: What Apple’s OpenAI lawsuit is really about</title>
+      <title>🎧 LISTEN #12 — Decoder: What Apple’s OpenAI lawsuit is really about</title>
       <link />
       <guid isPermaLink="false">4c1c246be3e646a8</guid>
       <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
@@ -147,7 +150,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #12 — 科技浪: EP148 - Kimi K3 震撼矽谷！真的這麼強嗎？</title>
+      <title>🎧 LISTEN #13 — 科技浪: EP148 - Kimi K3 震撼矽谷！真的這麼強嗎？</title>
       <link />
       <guid isPermaLink="false">c5c8317a5e00d35c</guid>
       <pubDate>Mon, 20 Jul 2026 04:09:28 +0000</pubDate>
@@ -169,11 +172,9 @@
       <link />
       <guid isPermaLink="false">992047e54d15c565</guid>
       <pubDate>Tue, 21 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>1702</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 37/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Ed Bastian provides operator insights on macro trends, AI skepticism, and business resilience, but the episode is more focused on the airline industry and economic commentary than on actionable product or AI strategy. Some strategic value, but not enough depth for a full listen.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Delta CEO Ed Bastian discusses the airline&amp;#x27;s real-time economic insights, the impact of spiking fuel costs, and the unpredictability of the global environment. He provides a candid perspective on AI, expressing skepticism about its value until it drives top-line results. The episode also covers Delta&amp;#x27;s response to political events and the importance of resilience in leadership. While offering some strategic lessons, the focus is more on operational leadership and industry-specific challenges than on product or AI strategy.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Real-time business data can reveal economic trends not visible in headlines.&lt;/li&gt;&lt;li&gt;AI adoption should be measured by tangible business impact, not hype.&lt;/li&gt;&lt;li&gt;Leadership requires resilience and adaptability in unpredictable environments.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders can learn from Bastian&amp;#x27;s emphasis on measurable outcomes for AI and the importance of adapting to external shocks, but the episode is less relevant for direct product or eCommerce strategy.&lt;/p&gt;</content:encoded>
-      <description>Delta CEO Ed Bastian discusses the airline's real-time economic insights, the impact of spiking fuel costs, and the unpredictability of the global environment. He provides a candid perspective on AI, expressing skepticism about its value until it drives top-line results. The episode also covers Delta's response to political events and the importance of resilience in leadership. While offering some strategic lessons, the focus is more on operational leadership and industry-specific challenges than on product or AI strategy.</description>
-      <enclosure url="https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/f25e7ea4-a2ce-4d96-8827-82c0ae656eeb.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="27246759" />
-      <itunes:image href="https://content.production.cdn.art19.com/images/36/19/f2/89/3619f289-9933-40af-a81e-67af02af8d7d/4794ae492ddffda6c4f88f7427984aeb455df750fe5315fdce0f9024095fa3632404be96ea1db5975453f7d90a4d49e5909b7fe62e80f6303204d4f52f889a9f.jpeg" />
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 37/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
     </item>
     <item>
       <title>📖 SUMMARY — Inside Commerce: Ecommerce Strategy, CX and Technology Podcast: and eCommerce podcast</title>

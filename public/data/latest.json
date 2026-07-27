@@ -2,6 +2,23 @@
   "run_date": "2026-07-27",
   "queued": [
     {
+      "guid": "a3f883ca9e1977da",
+      "show": "Lenny's Podcast",
+      "title": "Anthropic\u2019s first technical PM on token maxing, the jagged edge, and living in the future | Dianne Penn",
+      "score": 100.0,
+      "classification": "Listen Fully",
+      "duration_min": 94.0,
+      "url": "https://www.lennysnewsletter.com/p/anthropics-first-technical-pm-on",
+      "summary": "Dianne Penn, Anthropic\u2019s Head of Product and first technical PM, discusses the company\u2019s rapid growth, product strategy, and the development of Claude\u2019s AI models. She details the early days of Anthropic, key inflection points, and how the team pioneered eval-driven development loops. The episode covers how Claude became strong at coding, the importance of human judgment in AI, and the challenges of managing product craft in a fast-moving environment. Penn\u2019s experience at Amazon and JP Morgan adds depth, providing strategic lessons for product leaders navigating AI and emerging technology. The conversation is rich with actionable frameworks and real business cases relevant to senior product executives.",
+      "key_ideas": [
+        "Eval-driven development as a strategic framework for AI product iteration",
+        "Scaling product teams and processes in a hyper-growth AI startup",
+        "Balancing human judgment and automation in advanced AI products"
+      ],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
       "guid": "88610221f5aa0101",
       "show": "Retailgentic",
       "title": "AI Is a New Customer Category: Wharton Professor & Bodhium Labs Co-Founder Kartik Hosanagar",
@@ -33,48 +50,23 @@
       "title": "Possible: Satya Nadella on making human and token capital compound",
       "score": 81.0,
       "classification": "Listen Fully",
-      "duration_min": 60.0,
+      "duration_min": 0.0,
       "url": "",
-      "summary": "This episode features Microsoft CEO Satya Nadella in conversation with Reid Hoffman, focusing on how AI is fundamentally transforming work, business, and society. Nadella discusses the intertwining of human and 'token' capital, the imperative for companies to build their own AI capabilities, and how organizations can leverage unique expertise within intelligent systems. The episode covers Microsoft's enterprise AI vision, lessons from past tech revolutions, and the importance of delivering tangible AI benefits to earn public trust. Strategic takeaways are grounded in Nadella's direct experience leading one of the world's largest technology companies.",
-      "key_ideas": [
-        "AI is reshaping not just software development but all knowledge work, requiring new organizational capabilities.",
-        "Companies must build proprietary AI expertise to remain competitive; it's no longer sufficient to rely on external platforms.",
-        "Demonstrating real, tangible business value is essential for AI adoption and public trust."
-      ],
+      "summary": "",
+      "key_ideas": [],
       "confidence": "low",
       "category": "startup"
     },
     {
-      "guid": "1419fb4400c20e59",
-      "show": "Decoder",
-      "title": "Tariffs didn\u2019t bring manufacturing jobs back to the US",
-      "score": 74.0,
-      "classification": "Listen Fully",
-      "duration_min": 72.0,
-      "url": "",
-      "summary": "Evan Smith, CEO of Altana, discusses the real-world impact of tariffs on global manufacturing and trade, revealing that protectionist policies have not brought jobs back to the US. The conversation covers the chaos of international relations, agentic AI's role in supply chains, and how geopolitical instability affects product and business strategy. Smith provides operator-level insights into navigating complex regulatory environments, adapting to shifting trade policies, and leveraging AI for resilience. The episode is rich in strategic lessons for leaders managing global eCommerce, supply chains, and technology-driven operations.",
-      "key_ideas": [
-        "Tariffs failed to restore US manufacturing jobs; global supply chains remain complex.",
-        "Agentic AI as a tool for supply chain adaptation and resilience.",
-        "Geopolitical instability (Iran, Southeast Asia) directly impacts business strategy."
-      ],
-      "confidence": "low",
-      "category": "ai_retail"
-    },
-    {
-      "guid": "638055d053e280da",
-      "show": "The a16z Show",
-      "title": "Steven Sinofsky: AI Doesn't Need New Rules Yet",
+      "guid": "6eaa776b43d6e57f",
+      "show": "The SaaS Podcast",
+      "title": "Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.",
       "score": 73.0,
       "classification": "Listen Fully",
-      "duration_min": 29.0,
-      "url": "https://a16z.simplecast.com/episodes/steven-sinofsky-ai-doesnt-need-new-rules-yet-BuNOSzIn",
-      "summary": "Steven Sinofsky, former Microsoft product leader, discusses the current rush to regulate AI, drawing parallels to past technological revolutions. He argues that premature regulation could stifle innovation and that open-source models have historically accelerated progress. The conversation covers the 'precautionary principle,' the competitive landscape between the U.S. and China, and the adequacy of existing laws for managing AI risks. Sinofsky's insights are grounded in both historical perspective and hands-on leadership experience, offering valuable frameworks for senior product leaders navigating the evolving AI landscape.",
-      "key_ideas": [
-        "Premature AI regulation risks hindering innovation before the technology is fully understood.",
-        "Open-source models have been critical to accelerating technological progress.",
-        "Historical context can inform better strategic decisions around AI and emerging tech."
-      ],
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
+      "key_ideas": [],
       "confidence": "low",
       "category": "startup"
     },
@@ -107,9 +99,22 @@
       "category": "ai_retail"
     },
     {
-      "guid": "6eaa776b43d6e57f",
-      "show": "The SaaS Podcast",
-      "title": "Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.",
+      "guid": "1419fb4400c20e59",
+      "show": "Decoder",
+      "title": "Tariffs didn\u2019t bring manufacturing jobs back to the US",
+      "score": 74.0,
+      "classification": "Listen Fully",
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "638055d053e280da",
+      "show": "The a16z Show",
+      "title": "Steven Sinofsky: AI Doesn't Need New Rules Yet",
       "score": 73.0,
       "classification": "Listen Fully",
       "duration_min": 0.0,
@@ -177,14 +182,10 @@
       "title": "VC Partner Predicts the Next Billion-Dollar Brand",
       "score": 63.0,
       "classification": "Listen Fully",
-      "duration_min": 50.0,
-      "url": "https://www.futurecommerce.com/podcasts/vc-partner-predicts-the-next-billion-dollar-brand",
-      "summary": "Natalie Dillon, Maveron partner, challenges the narrative of consumer collapse, highlighting paradoxical trends: consumer sentiment is low, yet spending is high. She explores how skepticism, shallow AI adoption, Gen Z's attitudes, and the resurgence of analog living are shaping commerce. The episode offers strategic perspectives on evolving consumer behavior, the limited real-world impact of AI in retail, and the rise of cult-like brands. Dillon's VC vantage point provides actionable insights for leaders navigating eCommerce and retail, emphasizing the importance of understanding cultural shifts and their implications for product strategy.",
-      "key_ideas": [
-        "Consumer sentiment vs. spending paradox: skepticism but continued shopping.",
-        "AI adoption in commerce remains shallow; analog living as status.",
-        "Emergence of cult-like brands and new consumer communities."
-      ],
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
+      "key_ideas": [],
       "confidence": "low",
       "category": "ai_retail"
     },
@@ -233,14 +234,10 @@
       "title": "Delta's Ed Bastian on spiking fuel, summer travel, and a blunt reality check on AI",
       "score": 37.0,
       "classification": "Read Summary Only",
-      "duration_min": 28.0,
+      "duration_min": 0.0,
       "url": "",
-      "summary": "Delta CEO Ed Bastian discusses the airline's real-time economic insights, the impact of spiking fuel costs, and the unpredictability of the global environment. He provides a candid perspective on AI, expressing skepticism about its value until it drives top-line results. The episode also covers Delta's response to political events and the importance of resilience in leadership. While offering some strategic lessons, the focus is more on operational leadership and industry-specific challenges than on product or AI strategy.",
-      "key_ideas": [
-        "Real-time business data can reveal economic trends not visible in headlines.",
-        "AI adoption should be measured by tangible business impact, not hype.",
-        "Leadership requires resilience and adaptability in unpredictable environments."
-      ],
+      "summary": "",
+      "key_ideas": [],
       "confidence": "low",
       "category": "startup"
     },
