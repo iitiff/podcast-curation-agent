@@ -16,7 +16,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import re
-from datetime import timedelta
+from datetime import datetime, timezone, timedelta
 
 import httpx
 
@@ -60,27 +60,37 @@ async def _resolve_feed_url_itunes(show_name: str) -> str | None:
 
 async def _fetch_followed_show_via_podcast_index(
     show_name: str,
+    feed_url: str,
     podcast_search: BasePodcastSearchProvider,
     lookback_days: int,
     max_episodes: int = 3,
 ) -> list[NormalizedEpisode]:
-    """Fallback: fetch recent episodes via Podcast Index search when RSS is blocked (e.g. 403)."""
+    """Fallback: fetch recent episodes via Podcast Index /episodes/byfeedurl.
+
+    Used when the RSS feed itself returns 403 (e.g. Substack blocking CI IPs).
+    Podcast Index caches feed content independently and is not affected by
+    the same IP-level blocks.
+    """
     cutoff = utcnow() - timedelta(days=lookback_days)
     try:
-        hits = await podcast_search.search_episodes(show_name, max_results=max_episodes * 2)
+        hits = await podcast_search.fetch_recent_episodes(feed_url, max_results=max_episodes * 2)
         episodes: list[NormalizedEpisode] = []
         for r in hits:
-            # Only keep results that look like they belong to this show
-            if r.show_title and show_name.lower() not in r.show_title.lower():
+            # Use the published_timestamp from Podcast Index if available
+            if r.published_timestamp:
+                pub = datetime.fromtimestamp(r.published_timestamp, tz=timezone.utc)
+            else:
+                pub = utcnow()
+            if pub < cutoff:
                 continue
             ep = NormalizedEpisode(
-                guid=make_guid(r.feed_url or show_name, r.episode_title or show_name),
-                source_feed_url=r.feed_url or "",
-                original_guid=r.episode_title or show_name,
+                guid=make_guid(feed_url, r.episode_title or feed_url),
+                source_feed_url=feed_url,
+                original_guid=r.episode_title or feed_url,
                 show_title=r.show_title or show_name,
                 episode_title=r.episode_title or "",
                 description=r.description,
-                published=utcnow(),
+                published=pub,
                 duration_seconds=r.duration_seconds,
                 episode_url=r.episode_url,
                 enclosure=Enclosure(url=r.enclosure_url) if r.enclosure_url else None,
@@ -88,8 +98,7 @@ async def _fetch_followed_show_via_podcast_index(
                 is_followed_show=True,
                 is_outside_feed=False,
             )
-            if ep.published >= cutoff:
-                episodes.append(ep)
+            episodes.append(ep)
             if len(episodes) >= max_episodes:
                 break
         log.info(
@@ -113,7 +122,7 @@ async def _fetch_followed_show(
     """Fetch recent episodes from a single followed show's RSS feed.
 
     On a 403 response (e.g. Substack blocking CI IPs), falls back to
-    Podcast Index episode search if a provider is supplied.
+    Podcast Index /episodes/byfeedurl if a provider is supplied.
     """
     cutoff = utcnow() - timedelta(days=lookback_days)
     try:
@@ -135,7 +144,7 @@ async def _fetch_followed_show(
                 feed_url,
             )
             return await _fetch_followed_show_via_podcast_index(
-                show_name, podcast_search, lookback_days, max_episodes
+                show_name, feed_url, podcast_search, lookback_days, max_episodes
             )
         log.warning("RSS fetch failed for followed show '%s' (%s): %s", show_name, feed_url, exc)
         return []

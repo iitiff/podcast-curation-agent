@@ -1,83 +1,40 @@
-"""Abstract base classes for all provider types."""
+"""Abstract base classes for external service providers."""
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-
-from pydantic import BaseModel
-
-
-class TranscriptResult(BaseModel):
-    text: str = ""
-    confidence: str = "none"  # high | medium | low | none
-    source: str = "none"      # whisper | description | none
+from dataclasses import dataclass, field
+from typing import Optional
 
 
-class EpisodeSearchResult(BaseModel):
+@dataclass
+class PodcastSearchResult:
     feed_url: str
-    show_title: str = ""
-    episode_title: str = ""
+    show_title: str
+    episode_title: str
     description: str = ""
     duration_seconds: int = 0
     episode_url: str = ""
     enclosure_url: str = ""
     image_url: str = ""
-
-
-class PodcastSearchResult(EpisodeSearchResult):
-    """EpisodeSearchResult with an extra source tag (podcast_index | itunes)."""
+    published_timestamp: Optional[int] = None  # Unix timestamp from Podcast Index
     source: str = ""
-
-
-class WebSearchResult(BaseModel):
-    title: str = ""
-    url: str = ""
-    snippet: str = ""
-
-
-class LLMMessage(BaseModel):
-    role: str
-    content: str
-
-
-class LLMResponse(BaseModel):
-    content: str
-    input_tokens: int = 0
-    output_tokens: int = 0
-
-
-class BaseLLMProvider(ABC):
-    @abstractmethod
-    async def complete(
-        self,
-        messages: list[LLMMessage],
-        max_tokens: int = 4096,
-    ) -> LLMResponse: ...
-
-
-class BaseTranscriptionProvider(ABC):
-    """Abstract base for all transcription providers."""
-
-    @abstractmethod
-    async def transcribe(
-        self,
-        episode_url: str,
-        description: str = "",
-    ) -> TranscriptResult: ...
 
 
 class BasePodcastSearchProvider(ABC):
     @abstractmethod
     async def search_episodes(
-        self,
-        query: str,
-        max_results: int = 10,
-    ) -> list[PodcastSearchResult]: ...
+        self, query: str, max_results: int = 10
+    ) -> list[PodcastSearchResult]:
+        ...
+
+    async def fetch_recent_episodes(
+        self, feed_url: str, max_results: int = 5
+    ) -> list[PodcastSearchResult]:
+        """Optional: fetch recent episodes by feed URL. Default returns empty list."""
+        return []
 
 
 class BaseWebSearchProvider(ABC):
     @abstractmethod
-    async def search(
-        self,
-        query: str,
-        max_results: int = 5,
-    ) -> list[WebSearchResult]: ...
+    async def search(self, query: str, max_results: int = 5) -> list[dict]:
+        ...

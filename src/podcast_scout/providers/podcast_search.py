@@ -58,6 +58,43 @@ class PodcastIndexProvider(BasePodcastSearchProvider):
                 )
             return results
 
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=15))
+    async def fetch_recent_episodes(
+        self, feed_url: str, max_results: int = 5
+    ) -> list[PodcastSearchResult]:
+        """Fetch recent episodes for a known feed URL via Podcast Index /episodes/byfeedurl.
+
+        This is used as a fallback when the RSS feed itself is blocked (e.g. Substack
+        returning 403 on GitHub Actions IPs). Podcast Index caches feed content
+        independently and is not subject to the same IP blocks.
+        """
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            resp = await client.get(
+                f"{self._BASE}/episodes/byfeedurl",
+                params={"url": feed_url, "max": max_results, "fulltext": True},
+                headers=self._auth_headers(),
+            )
+            if resp.status_code != 200:
+                return []
+            items = resp.json().get("items", [])
+            results = []
+            for item in items[:max_results]:
+                results.append(
+                    PodcastSearchResult(
+                        feed_url=feed_url,
+                        show_title=item.get("feedTitle", ""),
+                        episode_title=item.get("title", ""),
+                        description=item.get("description", ""),
+                        duration_seconds=item.get("duration") or 0,
+                        episode_url=item.get("link", ""),
+                        enclosure_url=item.get("enclosureUrl", ""),
+                        image_url=item.get("image", "") or item.get("feedImage", ""),
+                        published_timestamp=item.get("datePublished"),
+                        source="podcast_index",
+                    )
+                )
+            return results
+
 
 class ITunesSearchProvider(BasePodcastSearchProvider):
     _BASE = "https://itunes.apple.com/search"
@@ -96,4 +133,7 @@ class ITunesSearchProvider(BasePodcastSearchProvider):
 class NullPodcastSearchProvider(BasePodcastSearchProvider):
     """No-op provider used when no API keys are configured."""
     async def search_episodes(self, query: str, max_results: int = 10) -> list[PodcastSearchResult]:
+        return []
+
+    async def fetch_recent_episodes(self, feed_url: str, max_results: int = 5) -> list[PodcastSearchResult]:
         return []
