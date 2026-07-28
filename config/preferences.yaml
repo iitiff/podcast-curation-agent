@@ -37,8 +37,8 @@ categories:
 
 # —— Who you are (sent as context to the LLM ranker) ——————————————————
 persona:
-  role: "Principal PM transitioning to Director"
-  focus: "Product strategy and craft, AI and emerging technology, and eCommerce — for a principal PM growing into a director role"
+  role: "Senior PM focused on career growth"
+  focus: "Product strategy and craft, AI and emerging technology, and eCommerce — for a senior PM investing in career growth and product craft upskill"
   seniority: "executive"       # junior | mid | senior | executive
   preferred_depth: "strategic" # tactical | strategic | both
 
