@@ -155,16 +155,14 @@ guest_watchlist:
   - "Sarah Tavel"
 
 # —— Competitor / entity watchlist ——————————————————————————
+# Keep retail/eCommerce competitors only — generic tech giants (Google, OpenAI, Meta, etc.)
+# appear in almost every tech podcast and inflate scores for tangentially relevant episodes.
 competitor_watchlist:
   - "Amazon"
   - "Target"
   - "Costco"
   - "Instacart"
   - "Shopify"
-  - "Google"
-  - "OpenAI"
-  - "Anthropic"
-  - "Meta"
   - "Mercado Libre"
   - "Loblaw"
   - "Walmex"
@@ -173,5 +171,3 @@ competitor_watchlist:
   - "TikTok Shop"
   - "Kroger"
   - "Albertsons"
-  - "Perplexity"
-  - "Cursor"
