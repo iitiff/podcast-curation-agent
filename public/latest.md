@@ -1,22 +1,11 @@
-# Podcast Scout — 2026-07-27
+# Podcast Scout — 2026-07-28
 
 ## 🎧 In Your Queue Today
 
-### 1. Lenny's Podcast: Anthropic’s first technical PM on token maxing, the jagged edge, and living in the future | Dianne Penn
+### 1. Retailgentic: AI Is a New Customer Category: Wharton Professor & Bodhium Labs Co-Founder Kartik Hosanagar
 **Score:** 100/100 | **Listen Fully** | low confidence
-**Duration:** 94 min
 
-Dianne Penn, Anthropic’s Head of Product and first technical PM, discusses the company’s rapid growth, product strategy, and the development of Claude’s AI models. She details the early days of Anthropic, key inflection points, and how the team pioneered eval-driven development loops. The episode covers how Claude became strong at coding, the importance of human judgment in AI, and the challenges of managing product craft in a fast-moving environment. Penn’s experience at Amazon and JP Morgan adds depth, providing strategic lessons for product leaders navigating AI and emerging technology. The conversation is rich with actionable frameworks and real business cases relevant to senior product executives.
-
-**Key Ideas:**
-- Eval-driven development as a strategic framework for AI product iteration
-- Scaling product teams and processes in a hyper-growth AI startup
-- Balancing human judgment and automation in advanced AI products
-
-[Listen →](https://www.lennysnewsletter.com/p/anthropics-first-technical-pm-on)
-
-
-### 2. Retailgentic: AI Is a New Customer Category: Wharton Professor & Bodhium Labs Co-Founder Kartik Hosanagar
+### 2. Lenny's Podcast: Anthropic’s first technical PM on token maxing, the jagged edge, and living in the future | Dianne Penn
 **Score:** 100/100 | **Listen Fully** | low confidence
 
 ### 3. No Priors: Building an Autonomous Delivery Experience with DoorDash Co-Founders Andy Fang and Stanley Tang
@@ -43,6 +32,10 @@ Dianne Penn, Anthropic’s Head of Product and first technical PM, discusses the
 - **Future Commerce: VC Partner Predicts the Next Billion-Dollar Brand** (Score 63) — ...
 - **Decoder: What Apple’s OpenAI lawsuit is really about** (Score 61) — ...
 - **Decoder: Dr. Jill Lepore on why the AI backlash is vital for the future** (Score 61) — ...
+- **Y Combinator Startup Podcast: Boris Cherny: Building Claude Code** (Score 59) — Boris Cherny, creator of Claude Code, shares insights on the launch of Opus 5 and discusses the challenges and opportunities of building products atop...
+  [Link](https://podcasters.spotify.com/pod/show/ycombinator/episodes/Boris-Cherny-Building-Claude-Code-e3mkr7g)
+- **Y Combinator Startup Podcast: Jensen Huang: The Mindset That Built NVIDIA** (Score 51) — Garry Tan interviews Jensen Huang, NVIDIA's founder and CEO, about the company's evolution from early mistakes to pioneering breakthroughs in computin...
+  [Link](https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jensen-Huang-The-Mindset-That-Built-NVIDIA-e3mkd1q)
 - **The Prof G Pod: The Week: China Is Undercutting America’s AI Boom** (Score 46) — ...
 - **Masters of Scale: Delta's Ed Bastian on spiking fuel, summer travel, and a blunt reality check on AI** (Score 37) — ...
 - **Inside Commerce: Ecommerce Strategy, CX and Technology Podcast: and eCommerce podcast** (Score 30) — ...

@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Jul 2026 17:19:35 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 07:44:06 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/all.xml" rel="self" type="application/rss+xml" />
@@ -13,21 +13,19 @@
       <itunes:name>Your Name</itunes:name>
     </itunes:owner>
     <item>
-      <title>🎧 LISTEN #1 — Lenny's Podcast: Anthropic’s first technical PM on token maxing, the jagged edge, and living in the future | Dianne Penn</title>
-      <link>https://www.lennysnewsletter.com/p/anthropics-first-technical-pm-on</link>
-      <guid isPermaLink="false">a3f883ca9e1977da</guid>
-      <pubDate>Sun, 26 Jul 2026 12:32:06 +0000</pubDate>
-      <itunes:duration>5630</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features Dianne Penn, Head of Product at Anthropic, sharing first-hand insights on scaling AI product teams, eval-driven development, and strategic inflection points in a leading AI company. The content is highly relevant for senior PMs transitioning to director roles, offering concrete frameworks, business cases, and lessons from a top-tier operator. Despite low transcript confidence, the strategic depth, guest authority, and actionable takeaways warrant a full listen.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Dianne Penn, Anthropic’s Head of Product and first technical PM, discusses the company’s rapid growth, product strategy, and the development of Claude’s AI models. She details the early days of Anthropic, key inflection points, and how the team pioneered eval-driven development loops. The episode covers how Claude became strong at coding, the importance of human judgment in AI, and the challenges of managing product craft in a fast-moving environment. Penn’s experience at Amazon and JP Morgan adds depth, providing strategic lessons for product leaders navigating AI and emerging technology. The conversation is rich with actionable frameworks and real business cases relevant to senior product executives.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Eval-driven development as a strategic framework for AI product iteration&lt;/li&gt;&lt;li&gt;Scaling product teams and processes in a hyper-growth AI startup&lt;/li&gt;&lt;li&gt;Balancing human judgment and automation in advanced AI products&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs and directors can adapt eval-driven loops for their own AI initiatives, learn from Anthropic’s scaling strategies, and understand the nuances of integrating human oversight in AI-driven products. The episode provides transferable lessons for leading product teams through rapid technological change and market inflection points.&lt;/p&gt;&lt;p&gt;&lt;a href="https://www.lennysnewsletter.com/p/anthropics-first-technical-pm-on"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>Dianne Penn, Anthropic’s Head of Product and first technical PM, discusses the company’s rapid growth, product strategy, and the development of Claude’s AI models. She details the early days of Anthropic, key inflection points, and how the team pioneered eval-driven development loops. The episode covers how Claude became strong at coding, the importance of human judgment in AI, and the challenges of managing product craft in a fast-moving environment. Penn’s experience at Amazon and JP Morgan adds depth, providing strategic lessons for product leaders navigating AI and emerging technology. The conversation is rich with actionable frameworks and real business cases relevant to senior product executives.</description>
-      <enclosure url="https://pscrb.fm/rss/p/api.substack.com/feed/podcast/207214207/aaa7067cd960f0369661f0976cbe3d0a.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://substackcdn.com/feed/podcast/10845/post/207214207/756e556fcbda393739f83e6d27dbbe52.jpg" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #2 — Retailgentic: AI Is a New Customer Category: Wharton Professor &amp; Bodhium Labs Co-Founder Kartik Hosanagar</title>
+      <title>🎧 LISTEN #1 — Retailgentic: AI Is a New Customer Category: Wharton Professor &amp; Bodhium Labs Co-Founder Kartik Hosanagar</title>
       <link />
       <guid isPermaLink="false">88610221f5aa0101</guid>
       <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
+    </item>
+    <item>
+      <title>🎧 LISTEN #2 — Lenny's Podcast: Anthropic’s first technical PM on token maxing, the jagged edge, and living in the future | Dianne Penn</title>
+      <link />
+      <guid isPermaLink="false">a3f883ca9e1977da</guid>
+      <pubDate>Sun, 26 Jul 2026 12:32:06 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
@@ -157,6 +155,28 @@
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
+    </item>
+    <item>
+      <title>📖 SUMMARY — Y Combinator Startup Podcast: Boris Cherny: Building Claude Code</title>
+      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Boris-Cherny-Building-Claude-Code-e3mkr7g</link>
+      <guid isPermaLink="false">f15f122ebf0732fa</guid>
+      <pubDate>Tue, 28 Jul 2026 05:17:01 +0000</pubDate>
+      <itunes:duration>2173</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features Boris Cherny discussing the development of Claude Code and the implications of rapidly advancing AI models. While the topic is relevant to product strategy and AI, the lack of transcript and guest authority details, combined with potential generic content, limit its strategic depth for a senior PM. The episode likely offers some actionable insights on building products in a fast-evolving tech landscape, but may not deliver enough signal density or concrete business cases to warrant a full listen.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Boris Cherny, creator of Claude Code, shares insights on the launch of Opus 5 and discusses the challenges and opportunities of building products atop accelerating AI capabilities. The conversation explores how Claude Code was developed, what the latest models enable, and the strategic implications for product teams navigating rapid technological change. While the episode touches on AI product craft and adaptation, the absence of a detailed transcript and guest credentials means the discussion may lean toward general observations rather than deep, actionable frameworks.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Adapting product strategy to rapid advancements in AI models&lt;/li&gt;&lt;li&gt;Lessons from building Claude Code and launching Opus 5&lt;/li&gt;&lt;li&gt;Navigating uncertainty and opportunity in emerging technology&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs will gain perspective on how to approach product development when underlying AI capabilities are in flux, but may need to supplement with more detailed case studies or frameworks for direct application.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Boris-Cherny-Building-Claude-Code-e3mkr7g"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Boris Cherny, creator of Claude Code, shares insights on the launch of Opus 5 and discusses the challenges and opportunities of building products atop accelerating AI capabilities. The conversation explores how Claude Code was developed, what the latest models enable, and the strategic implications for product teams navigating rapid technological change. While the episode touches on AI product craft and adaptation, the absence of a detailed transcript and guest credentials means the discussion may lean toward general observations rather than deep, actionable frameworks.</description>
+      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123415216/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-28%2F428743828-44100-2-eb65dd355d011.mp3" type="audio/mpeg" length="34774203" />
+      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785215800912-50cf564ae7dbf.jpg" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — Y Combinator Startup Podcast: Jensen Huang: The Mindset That Built NVIDIA</title>
+      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jensen-Huang-The-Mindset-That-Built-NVIDIA-e3mkd1q</link>
+      <guid isPermaLink="false">7fb5052ef6cac696</guid>
+      <pubDate>Mon, 27 Jul 2026 21:29:00 +0000</pubDate>
+      <itunes:duration>2939</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 51/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Jensen Huang is a top-tier operator, and the episode promises founder-level insights into NVIDIA&amp;#x27;s journey and mindset. However, the content description emphasizes resilience and learning, which may skew toward motivational themes rather than strategic product or market analysis. Without a transcript, it&amp;#x27;s unclear how much actionable or industry-specific content is delivered, so the episode is best suited for summary consumption.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Garry Tan interviews Jensen Huang, NVIDIA&amp;#x27;s founder and CEO, about the company&amp;#x27;s evolution from early mistakes to pioneering breakthroughs in computing. The discussion covers how NVIDIA adapted its technology strategy, learned from failures, and developed a culture of resilience. While Huang&amp;#x27;s experience offers valuable lessons for senior PMs, the episode appears to focus more on mindset and perseverance than on concrete product strategy or market dynamics, making it less directly actionable for those seeking upskill in product craft or AI/eCommerce strategy.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Learning from failure and adapting technology strategy&lt;/li&gt;&lt;li&gt;Building organizational resilience and confronting reality&lt;/li&gt;&lt;li&gt;Founder-level lessons on navigating new domains&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs may find inspiration in Huang&amp;#x27;s approach to learning and adaptation, but actionable product strategy or market insights are likely limited. Useful for context on leadership and innovation, but not for direct application.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jensen-Huang-The-Mindset-That-Built-NVIDIA-e3mkd1q"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Garry Tan interviews Jensen Huang, NVIDIA's founder and CEO, about the company's evolution from early mistakes to pioneering breakthroughs in computing. The discussion covers how NVIDIA adapted its technology strategy, learned from failures, and developed a culture of resilience. While Huang's experience offers valuable lessons for senior PMs, the episode appears to focus more on mindset and perseverance than on concrete product strategy or market dynamics, making it less directly actionable for those seeking upskill in product craft or AI/eCommerce strategy.</description>
+      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123400698/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-27%2F428723985-44100-2-b1d7f98df8a9c.mp3" type="audio/mpeg" length="47036289" />
+      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785187720414-b2fa4a47062c8.jpg" />
     </item>
     <item>
       <title>📖 SUMMARY — The Prof G Pod: The Week: China Is Undercutting America’s AI Boom</title>

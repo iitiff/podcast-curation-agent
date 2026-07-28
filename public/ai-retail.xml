@@ -5,7 +5,7 @@
     <description>Curated AI, retail, eCommerce, and product craft episodes.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Jul 2026 17:19:35 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 07:44:06 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/ai-retail.xml" rel="self" type="application/rss+xml" />
@@ -13,21 +13,19 @@
       <itunes:name>Your Name</itunes:name>
     </itunes:owner>
     <item>
-      <title>🎧 LISTEN #1 — Lenny's Podcast: Anthropic’s first technical PM on token maxing, the jagged edge, and living in the future | Dianne Penn</title>
-      <link>https://www.lennysnewsletter.com/p/anthropics-first-technical-pm-on</link>
-      <guid isPermaLink="false">a3f883ca9e1977da</guid>
-      <pubDate>Sun, 26 Jul 2026 12:32:06 +0000</pubDate>
-      <itunes:duration>5630</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features Dianne Penn, Head of Product at Anthropic, sharing first-hand insights on scaling AI product teams, eval-driven development, and strategic inflection points in a leading AI company. The content is highly relevant for senior PMs transitioning to director roles, offering concrete frameworks, business cases, and lessons from a top-tier operator. Despite low transcript confidence, the strategic depth, guest authority, and actionable takeaways warrant a full listen.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Dianne Penn, Anthropic’s Head of Product and first technical PM, discusses the company’s rapid growth, product strategy, and the development of Claude’s AI models. She details the early days of Anthropic, key inflection points, and how the team pioneered eval-driven development loops. The episode covers how Claude became strong at coding, the importance of human judgment in AI, and the challenges of managing product craft in a fast-moving environment. Penn’s experience at Amazon and JP Morgan adds depth, providing strategic lessons for product leaders navigating AI and emerging technology. The conversation is rich with actionable frameworks and real business cases relevant to senior product executives.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Eval-driven development as a strategic framework for AI product iteration&lt;/li&gt;&lt;li&gt;Scaling product teams and processes in a hyper-growth AI startup&lt;/li&gt;&lt;li&gt;Balancing human judgment and automation in advanced AI products&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs and directors can adapt eval-driven loops for their own AI initiatives, learn from Anthropic’s scaling strategies, and understand the nuances of integrating human oversight in AI-driven products. The episode provides transferable lessons for leading product teams through rapid technological change and market inflection points.&lt;/p&gt;&lt;p&gt;&lt;a href="https://www.lennysnewsletter.com/p/anthropics-first-technical-pm-on"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>Dianne Penn, Anthropic’s Head of Product and first technical PM, discusses the company’s rapid growth, product strategy, and the development of Claude’s AI models. She details the early days of Anthropic, key inflection points, and how the team pioneered eval-driven development loops. The episode covers how Claude became strong at coding, the importance of human judgment in AI, and the challenges of managing product craft in a fast-moving environment. Penn’s experience at Amazon and JP Morgan adds depth, providing strategic lessons for product leaders navigating AI and emerging technology. The conversation is rich with actionable frameworks and real business cases relevant to senior product executives.</description>
-      <enclosure url="https://pscrb.fm/rss/p/api.substack.com/feed/podcast/207214207/aaa7067cd960f0369661f0976cbe3d0a.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://substackcdn.com/feed/podcast/10845/post/207214207/756e556fcbda393739f83e6d27dbbe52.jpg" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #2 — Retailgentic: AI Is a New Customer Category: Wharton Professor &amp; Bodhium Labs Co-Founder Kartik Hosanagar</title>
+      <title>🎧 LISTEN #1 — Retailgentic: AI Is a New Customer Category: Wharton Professor &amp; Bodhium Labs Co-Founder Kartik Hosanagar</title>
       <link />
       <guid isPermaLink="false">88610221f5aa0101</guid>
       <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
+    </item>
+    <item>
+      <title>🎧 LISTEN #2 — Lenny's Podcast: Anthropic’s first technical PM on token maxing, the jagged edge, and living in the future | Dianne Penn</title>
+      <link />
+      <guid isPermaLink="false">a3f883ca9e1977da</guid>
+      <pubDate>Sun, 26 Jul 2026 12:32:06 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
