@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-07-28T07:44:06.674958+00:00",
+  "last_run": "2026-07-29T07:49:48.494681+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -575,6 +575,83 @@
       "classification": "Skip",
       "is_outside_feed": false,
       "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y"
+    },
+    "d99da0b934e38cc5": {
+      "guid": "d99da0b934e38cc5",
+      "show_title": "The a16z Show",
+      "episode_title": "Fei-Fei Li on Spatial Intelligence and Robotics",
+      "published": "2026-07-28T10:00:00Z",
+      "processed_at": "2026-07-29T07:49:48.425603Z",
+      "score": 73.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+    },
+    "d0fb92fb8a3c821c": {
+      "guid": "d0fb92fb8a3c821c",
+      "show_title": "Invest Like the Best",
+      "episode_title": "Sam Altman - How to Make an Abundant Future - [Invest Like the Best, EP.484]",
+      "published": "2026-07-28T08:00:00Z",
+      "processed_at": "2026-07-29T07:49:48.425680Z",
+      "score": 71.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/investlikethebest"
+    },
+    "07f8d5666d09ef0c": {
+      "guid": "07f8d5666d09ef0c",
+      "show_title": "The Prof G Pod",
+      "episode_title": "China Decode: China's Bid for AI Dominance, and Chinese Food Trends (ft. @BlondieinChina)",
+      "published": "2026-07-28T08:00:00Z",
+      "processed_at": "2026-07-29T07:49:48.425693Z",
+      "score": 55.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+    },
+    "54caa05108edc3e5": {
+      "guid": "54caa05108edc3e5",
+      "show_title": "Y Combinator Startup Podcast",
+      "episode_title": "Sam Altman: \"Never a Better Time to Do a Startup\"",
+      "published": "2026-07-28T16:17:44Z",
+      "processed_at": "2026-07-29T07:49:48.425702Z",
+      "score": 43.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss"
+    },
+    "59a6022a4e2b61a9": {
+      "guid": "59a6022a4e2b61a9",
+      "show_title": "Masters of Scale",
+      "episode_title": "Serena Williams on winning in business",
+      "published": "2026-07-28T09:00:00Z",
+      "processed_at": "2026-07-29T07:49:48.425710Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/masters-of-scale"
+    },
+    "94a191a06811fe15": {
+      "guid": "94a191a06811fe15",
+      "show_title": "Chasing Life",
+      "episode_title": "Why Peptides Are So Popular",
+      "published": "2026-07-28T08:00:00Z",
+      "processed_at": "2026-07-29T07:49:48.425717Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245"
+    },
+    "01a4514e44b6b515": {
+      "guid": "01a4514e44b6b515",
+      "show_title": "The Real Story",
+      "episode_title": "Unions Walk Out of Gotion; Fauci Diary Fallout with Mark Glennon; Jeff Walter Running for IL 11",
+      "published": "2026-07-28T17:09:21Z",
+      "processed_at": "2026-07-29T07:49:48.425725Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
     }
   },
   "published": [
@@ -606,6 +683,9 @@
     "992047e54d15c565",
     "a3f883ca9e1977da",
     "f15f122ebf0732fa",
-    "7fb5052ef6cac696"
+    "7fb5052ef6cac696",
+    "d99da0b934e38cc5",
+    "d0fb92fb8a3c821c",
+    "07f8d5666d09ef0c"
   ]
 }
