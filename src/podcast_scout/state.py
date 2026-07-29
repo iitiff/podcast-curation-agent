@@ -45,6 +45,10 @@ class StateManager:
     def seen_guids(self) -> set[str]:
         return set(self._state.get("processed", {}).keys())
 
+    def published_guids(self) -> set[str]:
+        """Return the set of episode GUIDs that have been published to the RSS feed."""
+        return set(self._state.get("published", []))
+
     def mark_processed(self, record: EpisodeRecord) -> None:
         self._state.setdefault("processed", {})[record.guid] = record.model_dump(mode="json")
 
