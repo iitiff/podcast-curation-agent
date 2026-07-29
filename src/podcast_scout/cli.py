@@ -139,10 +139,14 @@ def _load_carryover_candidates(
 ) -> dict[str, list[RankedEpisode]]:
     """Rebuild RankedEpisode stubs for scored episodes from previous runs.
 
-    Includes both:
+    Includes only:
     - Episodes scored but never queued (didn't make the daily cap)
-    - Episodes previously published to the RSS feed that are still within
-      the lookback window (so they persist in the feed across runs)
+
+    Previously published episodes are intentionally excluded: the RSS feed's
+    own prior-item persistence (_load_prior_items in rss.py) already keeps
+    them in the feed XML across runs.  Including them here would let old
+    high-scoring episodes fill all daily cap slots and block new episodes
+    from ever reaching the curated playlist.
 
     Skip and unclassified episodes are always excluded.
     Episodes scored in the current run are excluded to avoid duplicates.
@@ -152,10 +156,16 @@ def _load_carryover_candidates(
     carryover: dict[str, list[RankedEpisode]] = {}
 
     processed = state._state.get("processed", {})
+    already_published = state.published_guids()
 
     for guid, rec_data in processed.items():
         # Don't double-count episodes scored in this run
         if guid in already_scored_this_run:
+            continue
+        # Skip episodes already published to the RSS feed — rss.py's
+        # _load_prior_items retains them in the feed XML independently.
+        # Adding them here would consume daily cap slots and block new episodes.
+        if guid in already_published:
             continue
         try:
             rec = EpisodeRecord(**rec_data)
@@ -290,10 +300,10 @@ async def _run_pipeline(
                 source_feed_url=r.episode.source_feed_url,
             ))
 
-    # 7. Merge carryover: all scored episodes from previous runs (including previously
-    # published ones) compete in the pool alongside today's new episodes.
-    # This ensures high-scoring episodes from yesterday remain in the queue
-    # and RSS feed until they age out of the lookback window.
+    # 7. Merge carryover: episodes scored in previous runs that were never
+    # published (didn't make the daily cap) compete alongside today's new episodes.
+    # Previously published episodes are excluded — rss.py's _load_prior_items
+    # already retains them in the feed XML across runs without consuming cap slots.
     current_run_guids: set[str] = {
         r.episode.guid
         for cat_ranked in newly_ranked.values()
@@ -505,4 +515,4 @@ def validate() -> None:
     console.print(f"[green]Categories: {', '.join(cats) or 'none (using legacy caps)'}[/green]")
     console.print(f"[green]discovery.yaml OK — {len(queries)} queries will run[/green]")
     for q in queries:
-        console.print(f"  [dim]\u00b7 {q}[/dim]")
+        console.print(f"  [dim]· {q}[/dim]")
