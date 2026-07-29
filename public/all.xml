@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<rss xmlns:ns0="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns1="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
   <channel>
     <title>My Podcast Scout</title>
     <description>A ranked weekly listening queue curated by AI.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Jul 2026 07:49:48 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 20:02:58 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/all.xml" rel="self" type="application/rss+xml" />
@@ -17,8 +17,8 @@
       <link />
       <guid isPermaLink="false">88610221f5aa0101</guid>
       <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -26,8 +26,8 @@
       <link />
       <guid isPermaLink="false">a3f883ca9e1977da</guid>
       <pubDate>Sun, 26 Jul 2026 12:32:06 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -35,8 +35,8 @@
       <link />
       <guid isPermaLink="false">0aa9cdd123be2909</guid>
       <pubDate>Thu, 23 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 97/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 97/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -44,17 +44,8 @@
       <link />
       <guid isPermaLink="false">21ef9a7f1fdf511d</guid>
       <pubDate>Sat, 25 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 81/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Stratechery: (Preview) An OpenAI Model Escapes Sandboxing, Intelligence Will Be a Commodity Market, The Chinese Model Conundrum</title>
-      <link />
-      <guid isPermaLink="false">c5adbd47553e3d8d</guid>
-      <pubDate>Thu, 23 Jul 2026 09:00:24 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 77/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 81/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -62,8 +53,8 @@
       <link />
       <guid isPermaLink="false">1419fb4400c20e59</guid>
       <pubDate>Mon, 27 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 74/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 74/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -71,19 +62,19 @@
       <link>https://a16z.simplecast.com/episodes/fei-fei-li-on-spatial-intelligence-and-robotics-j8HvsWJf</link>
       <guid isPermaLink="false">d99da0b934e38cc5</guid>
       <pubDate>Tue, 28 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>2584</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Fei-Fei Li is a renowned authority in AI and robotics. The episode explores spatial intelligence, simulation, and robotics foundation models, offering actionable frameworks and strategic insight for senior PMs in AI and emerging tech.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Fei-Fei Li and Yunzhu Li discuss the acquisition of SceniX by World Labs and the challenges of developing spatial intelligence in robotics. The conversation covers simulation pipelines, world models, and the differences between training robots and language models. The episode delves into synthetic data, evaluation methods, and the future of robotics foundation models. It provides strategic insight into the next frontier of AI, with implications for product leaders seeking to build intelligent systems that interact with the physical world.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Simulation and synthetic data as enablers for robotics intelligence&lt;/li&gt;&lt;li&gt;Real-to-sim-to-real pipelines for scalable product development&lt;/li&gt;&lt;li&gt;Robotics foundation models as a new paradigm for AI products&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage simulation and spatial intelligence frameworks to inform product strategy in robotics and AI. The episode offers actionable insights for scaling intelligent products.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/fei-fei-li-on-spatial-intelligence-and-robotics-j8HvsWJf"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>2584</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Fei-Fei Li is a renowned authority in AI and robotics. The episode explores spatial intelligence, simulation, and robotics foundation models, offering actionable frameworks and strategic insight for senior PMs in AI and emerging tech.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Fei-Fei Li and Yunzhu Li discuss the acquisition of SceniX by World Labs and the challenges of developing spatial intelligence in robotics. The conversation covers simulation pipelines, world models, and the differences between training robots and language models. The episode delves into synthetic data, evaluation methods, and the future of robotics foundation models. It provides strategic insight into the next frontier of AI, with implications for product leaders seeking to build intelligent systems that interact with the physical world.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Simulation and synthetic data as enablers for robotics intelligence&lt;/li&gt;&lt;li&gt;Real-to-sim-to-real pipelines for scalable product development&lt;/li&gt;&lt;li&gt;Robotics foundation models as a new paradigm for AI products&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage simulation and spatial intelligence frameworks to inform product strategy in robotics and AI. The episode offers actionable insights for scaling intelligent products.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/fei-fei-li-on-spatial-intelligence-and-robotics-j8HvsWJf"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>Fei-Fei Li and Yunzhu Li discuss the acquisition of SceniX by World Labs and the challenges of developing spatial intelligence in robotics. The conversation covers simulation pipelines, world models, and the differences between training robots and language models. The episode delves into synthetic data, evaluation methods, and the future of robotics foundation models. It provides strategic insight into the next frontier of AI, with implications for product leaders seeking to build intelligent systems that interact with the physical world.</description>
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/e2a3c643-334f-47f6-a6e0-d9124f6786a3/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=e2a3c643-334f-47f6-a6e0-d9124f6786a3&amp;feed=JGE3yC0V" type="audio/mpeg" length="41344634" />
-      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+      <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
       <title>🎧 LISTEN #7 — The SaaS Podcast: Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.</title>
       <link />
       <guid isPermaLink="false">6eaa776b43d6e57f</guid>
       <pubDate>Thu, 23 Jul 2026 12:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -91,8 +82,8 @@
       <link />
       <guid isPermaLink="false">638055d053e280da</guid>
       <pubDate>Mon, 27 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -100,8 +91,8 @@
       <link />
       <guid isPermaLink="false">233712672e620be9</guid>
       <pubDate>Sun, 26 Jul 2026 13:15:04 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 72/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 72/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -109,28 +100,19 @@
       <link>https://colossus.com/episode/how-to-make-an-abundant-future/</link>
       <guid isPermaLink="false">d0fb92fb8a3c821c</guid>
       <pubDate>Tue, 28 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>3213</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 71/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Sam Altman is a top-tier authority in AI and product strategy. The episode covers OpenAI&amp;#x27;s business decisions, hardware strategy, and industry dynamics, offering strategic insights relevant to senior PMs focused on AI and emerging tech.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Sam Altman, CEO of OpenAI, discusses the evolution of OpenAI from its early days to its current focus on hardware, compute, and new chip development. The conversation covers strategic decisions such as scaling compute, the implications of the Hugging Face incident, and the future of AI in society. Altman shares insights on building infrastructure for abundant intelligence and the business rationale behind OpenAI&amp;#x27;s aggressive expansion. The episode provides a rare look at the operational and strategic mindset of a leading AI company, making it highly relevant for senior PMs seeking to understand the future of AI product strategy.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategic scaling of compute and hardware to enable AI breakthroughs&lt;/li&gt;&lt;li&gt;Implications of open-source and proprietary AI models for industry pace&lt;/li&gt;&lt;li&gt;Long-term vision for abundant intelligence and societal impact&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can draw lessons on risk-taking, infrastructure investment, and anticipating market shifts in AI. The episode offers frameworks for evaluating compute and hardware investments in product strategy.&lt;/p&gt;&lt;p&gt;&lt;a href="https://colossus.com/episode/how-to-make-an-abundant-future/"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>3213</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 71/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Sam Altman is a top-tier authority in AI and product strategy. The episode covers OpenAI&amp;#x27;s business decisions, hardware strategy, and industry dynamics, offering strategic insights relevant to senior PMs focused on AI and emerging tech.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Sam Altman, CEO of OpenAI, discusses the evolution of OpenAI from its early days to its current focus on hardware, compute, and new chip development. The conversation covers strategic decisions such as scaling compute, the implications of the Hugging Face incident, and the future of AI in society. Altman shares insights on building infrastructure for abundant intelligence and the business rationale behind OpenAI&amp;#x27;s aggressive expansion. The episode provides a rare look at the operational and strategic mindset of a leading AI company, making it highly relevant for senior PMs seeking to understand the future of AI product strategy.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategic scaling of compute and hardware to enable AI breakthroughs&lt;/li&gt;&lt;li&gt;Implications of open-source and proprietary AI models for industry pace&lt;/li&gt;&lt;li&gt;Long-term vision for abundant intelligence and societal impact&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can draw lessons on risk-taking, infrastructure investment, and anticipating market shifts in AI. The episode offers frameworks for evaluating compute and hardware investments in product strategy.&lt;/p&gt;&lt;p&gt;&lt;a href="https://colossus.com/episode/how-to-make-an-abundant-future/"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>Sam Altman, CEO of OpenAI, discusses the evolution of OpenAI from its early days to its current focus on hardware, compute, and new chip development. The conversation covers strategic decisions such as scaling compute, the implications of the Hugging Face incident, and the future of AI in society. Altman shares insights on building infrastructure for abundant intelligence and the business rationale behind OpenAI's aggressive expansion. The episode provides a rare look at the operational and strategic mindset of a leading AI company, making it highly relevant for senior PMs seeking to understand the future of AI product strategy.</description>
       <enclosure url="https://traffic.megaphone.fm/CLS4111343994.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/aa5cce3c-879b-11f1-8b29-8bc127cc1ad0/image/9f938c702e39c92a9999e2b29ad60310.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Sharp China: (Preview) Kimi Madness; Xi’s AI Vision and US Questions; Trump’s Election Data Claims; The Connected Vehicle Security Act</title>
-      <link />
-      <guid isPermaLink="false">9e5147dc3d9fe0da</guid>
-      <pubDate>Tue, 21 Jul 2026 08:59:27 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 70/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
+      <ns0:image href="https://megaphone.imgix.net/podcasts/aa5cce3c-879b-11f1-8b29-8bc127cc1ad0/image/9f938c702e39c92a9999e2b29ad60310.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
       <title>🎧 LISTEN #11 — The a16z Show: Building the Physical AI Stack | Travis Kalanick on TBPN</title>
       <link />
       <guid isPermaLink="false">b6421cbd96cbddc4</guid>
       <pubDate>Thu, 23 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 70/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 70/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -138,17 +120,28 @@
       <link />
       <guid isPermaLink="false">02fce9f57fb0ca25</guid>
       <pubDate>Fri, 24 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 65/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 65/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
+    </item>
+    <item>
+      <title>🎧 LISTEN #1 — The a16z Show: AI Micro Dramas, Generative Media, and the Future of Creativity</title>
+      <link>https://a16z.simplecast.com/episodes/ai-micro-dramas-generative-media-and-the-future-of-creativity-ZbK1xyzO</link>
+      <guid isPermaLink="false">7a8af04ee65d4958</guid>
+      <pubDate>Wed, 29 Jul 2026 10:00:00 +0000</pubDate>
+      <itunes:duration>3062</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 64/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode explores generative AI media, creator tools, and the economics of AI-native studios, all highly relevant to a senior PM focused on AI and product strategy. While guest authority is somewhat limited by transcript confidence, the episode promises strategic insight and actionable frameworks for product leaders.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Justine Moore from Andreessen Horowitz discusses the evolution of generative media, focusing on AI micro-dramas, creator tools, and the economics of AI-native studios. The conversation covers how AI is changing the entertainment landscape, enabling new forms of creativity, and expanding access for creators. Strategic implications for founders and product leaders are explored, including where to build next as consumer AI matures. The episode offers a nuanced look at the intersection of AI, media, and product strategy, with actionable insights for those shaping the future of digital content.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI micro-dramas and generative media are reshaping entertainment and creator economics.&lt;/li&gt;&lt;li&gt;The biggest opportunities lie in expanding creative access, not just replacing traditional studios.&lt;/li&gt;&lt;li&gt;Product leaders should focus on emerging creator tools and AI agents as consumer AI enters a new phase.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage insights on generative media to inform product strategy, especially in AI-driven consumer platforms. Understanding the economics and market dynamics of AI-native studios can guide investment and innovation decisions.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/ai-micro-dramas-generative-media-and-the-future-of-creativity-ZbK1xyzO"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Justine Moore from Andreessen Horowitz discusses the evolution of generative media, focusing on AI micro-dramas, creator tools, and the economics of AI-native studios. The conversation covers how AI is changing the entertainment landscape, enabling new forms of creativity, and expanding access for creators. Strategic implications for founders and product leaders are explored, including where to build next as consumer AI matures. The episode offers a nuanced look at the intersection of AI, media, and product strategy, with actionable insights for those shaping the future of digital content.</description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/7fd0c85e-6602-4a74-a5a4-1ae04e7bdcd8/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=7fd0c85e-6602-4a74-a5a4-1ae04e7bdcd8&amp;feed=JGE3yC0V" type="audio/mpeg" length="48998305" />
+      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
       <title>🎧 LISTEN #13 — Future Commerce: VC Partner Predicts the Next Billion-Dollar Brand</title>
       <link />
       <guid isPermaLink="false">e97648c7d63ae319</guid>
       <pubDate>Wed, 22 Jul 2026 11:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 63/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 63/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -156,17 +149,8 @@
       <link />
       <guid isPermaLink="false">4c1c246be3e646a8</guid>
       <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 61/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Decoder: Dr. Jill Lepore on why the AI backlash is vital for the future</title>
-      <link />
-      <guid isPermaLink="false">4455b6e90ff3ac10</guid>
-      <pubDate>Mon, 20 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 61/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 61/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -174,110 +158,40 @@
       <link />
       <guid isPermaLink="false">c5c8317a5e00d35c</guid>
       <pubDate>Mon, 20 Jul 2026 04:09:28 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Y Combinator Startup Podcast: Boris Cherny: Building Claude Code</title>
+      <title>📖 SUMMARY — Future Commerce: Bedfellows: How Boll &amp; Branch Keeps Humans and AI in the Same Sheets</title>
+      <link>https://www.futurecommerce.com/podcasts/bedfellows-how-boll-branch-keeps-humans-and-ai-in-the-same-sheets</link>
+      <guid isPermaLink="false">eb5173660146cb5d</guid>
+      <pubDate>Wed, 29 Jul 2026 11:00:00 +0000</pubDate>
+      <itunes:duration>2586</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 56/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode covers product strategy and AI in the context of a retail/eCommerce brand, with a focus on store expansion and a viral AI incident. While relevant and moderately actionable for a senior PM, the lack of transcript and unknown guest authority limit the strategic depth and evidence. The episode is not generic or motivational, but signal density and novelty are moderate.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode of Future Commerce features Boll &amp;amp; Branch&amp;#x27;s Chief Commercial Officer, Katia Unlu, discussing the brand&amp;#x27;s approach to product-first strategy and subsequent store expansion. The conversation explores how Boll &amp;amp; Branch prioritized product quality over distribution for over a decade, leading to unique challenges and opportunities in scaling retail presence. The episode also touches on an AI-generated damage claim that went viral, illustrating the intersection of technology and customer experience in retail. The discussion advocates for &amp;#x27;stimulation over substitution&amp;#x27;—leveraging AI to enhance rather than replace human processes. While the episode offers insights into retail strategy and the practical use of AI, the lack of transcript and detailed guest credentials limits its depth for senior PMs seeking advanced frameworks or market analysis.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Prioritizing product quality before scaling distribution can drive long-term brand value.&lt;/li&gt;&lt;li&gt;AI incidents (such as viral damage claims) highlight the need for careful integration of technology in customer experience.&lt;/li&gt;&lt;li&gt;Store expansion strategy in retail requires balancing human touch with technological innovation.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs in eCommerce and retail can learn from Boll &amp;amp; Branch&amp;#x27;s approach to scaling after product perfection, and the episode&amp;#x27;s AI discussion suggests caution and opportunity in integrating automation into customer-facing processes. However, the episode is best used for broad strategic inspiration rather than specific frameworks or actionable tactics.&lt;/p&gt;&lt;p&gt;&lt;a href="https://www.futurecommerce.com/podcasts/bedfellows-how-boll-branch-keeps-humans-and-ai-in-the-same-sheets"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode of Future Commerce features Boll &amp; Branch's Chief Commercial Officer, Katia Unlu, discussing the brand's approach to product-first strategy and subsequent store expansion. The conversation explores how Boll &amp; Branch prioritized product quality over distribution for over a decade, leading to unique challenges and opportunities in scaling retail presence. The episode also touches on an AI-generated damage claim that went viral, illustrating the intersection of technology and customer experience in retail. The discussion advocates for 'stimulation over substitution'—leveraging AI to enhance rather than replace human processes. While the episode offers insights into retail strategy and the practical use of AI, the lack of transcript and detailed guest credentials limits its depth for senior PMs seeking advanced frameworks or market analysis.</description>
+      <enclosure url="https://dts.podtrac.com/redirect.mp3/afp-935226-injected.calisto.simplecastaudio.com/fed613f6-db08-4178-9009-bc6bae8658fc/episodes/f243b9a8-361f-4da9-a98a-0e2c987b94f3/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=fed613f6-db08-4178-9009-bc6bae8658fc&amp;awEpisodeId=f243b9a8-361f-4da9-a98a-0e2c987b94f3&amp;feed=hQ2eLzNW" type="audio/mpeg" length="41391444" />
+      <itunes:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/08683725-e5cd-4c89-8153-6c7b34045ee2/3000x3000/e473.jpg?aid=rss_feed" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — Y Combinator Startup Podcast: Sam Altman: "Never a Better Time to Do a Startup"</title>
       <link />
-      <guid isPermaLink="false">f15f122ebf0732fa</guid>
-      <pubDate>Tue, 28 Jul 2026 05:17:01 +0000</pubDate>
+      <guid isPermaLink="false">54caa05108edc3e5</guid>
+      <pubDate>Tue, 28 Jul 2026 16:17:44 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 43/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The Prof G Pod: China Decode: China's Bid for AI Dominance, and Chinese Food Trends (ft. @BlondieinChina)</title>
+      <title>📖 SUMMARY — The Tim Ferriss Show: #877: Q&amp;A with Tim — The Art of Male Friendship, Mini-Retirements, Higher-Resolution Living, Reinvention in The Age of AI, and More</title>
       <link />
-      <guid isPermaLink="false">07f8d5666d09ef0c</guid>
-      <pubDate>Tue, 28 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>3002</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 55/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode covers China&amp;#x27;s AI strategy and global dynamics, which are strategically relevant, but lacks direct product craft or actionable frameworks for senior PMs. The guest authority is moderate, and the content is more geopolitical than product-focused.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Alice Han and James Kynge analyze China&amp;#x27;s push for AI dominance, including Xi Jinping&amp;#x27;s pitch for open-source AI models targeting developing nations and the launch of the WAICO intergovernmental organization. The discussion explores China&amp;#x27;s parallels with Belt and Road and Digital Silk Road, and the sustainability of its open-source approach. The episode also touches on talent flow in science and the creator economy&amp;#x27;s impact on global perceptions of China. While the geopolitical context is valuable, the episode is less focused on actionable product strategy for senior PMs.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;China&amp;#x27;s open-source AI strategy for global influence&lt;/li&gt;&lt;li&gt;WAICO&amp;#x27;s role in shaping international AI standards&lt;/li&gt;&lt;li&gt;Talent flow and creator economy as soft power levers&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Executives in eCommerce and AI must monitor China&amp;#x27;s evolving AI ecosystem and its potential to reshape global market structures and technology standards.&lt;/p&gt;</content:encoded>
-      <description>Alice Han and James Kynge analyze China's push for AI dominance, including Xi Jinping's pitch for open-source AI models targeting developing nations and the launch of the WAICO intergovernmental organization. The discussion explores China's parallels with Belt and Road and Digital Silk Road, and the sustainability of its open-source approach. The episode also touches on talent flow in science and the creator economy's impact on global perceptions of China. While the geopolitical context is valuable, the episode is less focused on actionable product strategy for senior PMs.</description>
-      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP9997952437.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/84a774f2-dab8-11f0-b8da-17390b1faa5b/image/34058758bebefa140944cbc7d516adeb.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Y Combinator Startup Podcast: Jensen Huang: The Mindset That Built NVIDIA</title>
-      <link />
-      <guid isPermaLink="false">7fb5052ef6cac696</guid>
-      <pubDate>Mon, 27 Jul 2026 21:29:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 51/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — The Prof G Pod: The Week: China Is Undercutting America’s AI Boom</title>
-      <link />
-      <guid isPermaLink="false">88b972254ee52526</guid>
-      <pubDate>Fri, 24 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 46/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Inside Commerce: Ecommerce Strategy, CX and Technology Podcast: and eCommerce podcast</title>
-      <link />
-      <guid isPermaLink="false">3c0fcc551fdac351</guid>
-      <pubDate>Mon, 27 Jul 2026 02:16:54 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 30/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — 下一本讀什麼: EP.628 《馬斯克寶典》讀後心得：含金量極高的好書、六個重點整理</title>
-      <link />
-      <guid isPermaLink="false">d983f5cd1fad0158</guid>
-      <pubDate>Fri, 24 Jul 2026 02:59:28 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 29/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — RetailCraft - digital retail, ecommerce and brands - Retail Podcast: and eCommerce podcast</title>
-      <link />
-      <guid isPermaLink="false">35937c0ab8391c17</guid>
-      <pubDate>Mon, 27 Jul 2026 02:16:54 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 24/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — The My Wife Quit Her Job Podcast: Start A Business Online, Quit Your Job, And Spend More Time With Your Loved Ones - My Wife Quit Her Job: and eCommerce podcast</title>
-      <link />
-      <guid isPermaLink="false">caf566b1c31bc72d</guid>
-      <pubDate>Mon, 27 Jul 2026 02:16:54 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 19/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — 科技浪: EP149 - 星艦飛了股價墜了、AI Agent 首次真實駭客事件、美國要禁中國 AI？</title>
-      <link />
-      <guid isPermaLink="false">4586a1cba8f6425b</guid>
-      <pubDate>Mon, 27 Jul 2026 04:02:07 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 14/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — 下一本讀什麼: EP.627 我差點錯過的好書！前天下雜誌出版總編輯的 10 本好書推薦</title>
-      <link />
-      <guid isPermaLink="false">cb8d6880a78a7b88</guid>
-      <pubDate>Mon, 20 Jul 2026 22:02:03 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 8/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — 周慕姿放心說: 總是不敢拒絕別人？AI 對話陪練，讓你勇敢說出心裡話｜Ft. 瓦基</title>
-      <link />
-      <guid isPermaLink="false">cccfa96fbb7c7e31</guid>
-      <pubDate>Wed, 22 Jul 2026 22:02:06 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 4/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
+      <guid isPermaLink="false">ce070fc81dbf509b</guid>
+      <pubDate>Wed, 29 Jul 2026 18:00:00 +0000</pubDate>
+      <itunes:duration>4531</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 0/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;While Tim Ferriss covers reinvention in the age of AI and enduring skills, the episode is broad and includes many topics not relevant to senior PMs. There is some strategic value in the AI discussion, but the lack of depth and actionable frameworks limits its usefulness.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Tim Ferriss answers audience questions in a wide-ranging Q&amp;amp;A, touching on reinvention in the age of AI, enduring skills, and personal development topics such as friendship, mental health, and fitness. The AI segment offers some perspective on adapting to technological change and skill-building, but the episode lacks deep strategic analysis or actionable frameworks for senior PMs. The content is diluted by generic advice and personal anecdotes, making it more suitable for a summary than a full listen.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Reinvention and skill adaptation in the age of AI&lt;/li&gt;&lt;li&gt;Enduring skills for future-proofing careers&lt;/li&gt;&lt;li&gt;Personal development and lifestyle optimization&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs may find value in the AI-related reinvention discussion, but the episode is too broad and lacks strategic depth for full listening. A summary suffices for extracting relevant insights.&lt;/p&gt;</content:encoded>
+      <description>Tim Ferriss answers audience questions in a wide-ranging Q&amp;A, touching on reinvention in the age of AI, enduring skills, and personal development topics such as friendship, mental health, and fitness. The AI segment offers some perspective on adapting to technological change and skill-building, but the episode lacks deep strategic analysis or actionable frameworks for senior PMs. The content is diluted by generic advice and personal anecdotes, making it more suitable for a summary than a full listen.</description>
+      <enclosure url="https://rss.art19.com/episodes/b7244dd5-291f-4ab3-9d1b-8ea015a8d59e.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="72507977" />
+      <itunes:image href="https://content.production.cdn.art19.com/images/69/10/10/fb/691010fb-625e-4abe-993c-a57228b28dbe/91cb53ae0d5dbb379b9dffecf0a772593891d0d09bbe6d90ee746edbdb79e3ec75584f2ceb8260e9f675a90c05419b9b99842a76905b686f0f51c1a9d3e227ab.jpeg" />
     </item>
   </channel>
 </rss>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<rss xmlns:ns0="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns1="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
   <channel>
     <title>Podcast Scout — Personal Growth</title>
     <description>Curated personal growth, mindfulness, and life philosophy episodes.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Jul 2026 07:49:48 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 20:02:58 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/personal-growth.xml" rel="self" type="application/rss+xml" />
@@ -17,8 +17,8 @@
       <link />
       <guid isPermaLink="false">c5c8317a5e00d35c</guid>
       <pubDate>Mon, 20 Jul 2026 04:09:28 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
   </channel>

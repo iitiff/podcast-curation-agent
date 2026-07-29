@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-07-29T07:49:48.494681+00:00",
+  "last_run": "2026-07-29T20:02:58.557362+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -652,6 +652,72 @@
       "classification": "Skip",
       "is_outside_feed": false,
       "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+    },
+    "eb5173660146cb5d": {
+      "guid": "eb5173660146cb5d",
+      "show_title": "Future Commerce",
+      "episode_title": "Bedfellows: How Boll & Branch Keeps Humans and AI in the Same Sheets",
+      "published": "2026-07-29T11:00:00Z",
+      "processed_at": "2026-07-29T20:02:58.490383Z",
+      "score": 56.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/hQ2eLzNW"
+    },
+    "7a8af04ee65d4958": {
+      "guid": "7a8af04ee65d4958",
+      "show_title": "The a16z Show",
+      "episode_title": "AI Micro Dramas, Generative Media, and the Future of Creativity",
+      "published": "2026-07-29T10:00:00Z",
+      "processed_at": "2026-07-29T20:02:58.490449Z",
+      "score": 64.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+    },
+    "d17a22bb1304e4e2": {
+      "guid": "d17a22bb1304e4e2",
+      "show_title": "The Prof G Pod",
+      "episode_title": "Do Ivy League Degrees Actually Matter? Plus, When to Rent vs. Buy",
+      "published": "2026-07-29T08:00:00Z",
+      "processed_at": "2026-07-29T20:02:58.490462Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+    },
+    "aad13933f01ffba2": {
+      "guid": "aad13933f01ffba2",
+      "show_title": "\u6587\u68ee\u8aaa\u66f8",
+      "episode_title": "\u4e0d\u7ba1\u5b58\u6b3e\u662f100\u5143\u9084\u662f10\u5104\u5143\uff0c\u6211\u5011\u90fd\u80fd\u5f9e\u9019\u672c\u66f8\u4e2d\u53d7\u76ca\uff5c\u300a\u8ca1\u5bcc\u968e\u68af\u300b",
+      "published": "2026-07-29T15:00:00Z",
+      "processed_at": "2026-07-29T20:02:58.490472Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss"
+    },
+    "c20ca94fcb7032b4": {
+      "guid": "c20ca94fcb7032b4",
+      "show_title": "The Real Story",
+      "episode_title": "Fauci's and Pritzker's Lies; Watchdog Wednesday - Remembering What They Did During COVID",
+      "published": "2026-07-29T17:12:01Z",
+      "processed_at": "2026-07-29T20:02:58.490479Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+    },
+    "ce070fc81dbf509b": {
+      "guid": "ce070fc81dbf509b",
+      "show_title": "The Tim Ferriss Show",
+      "episode_title": "#877: Q&A with Tim \u2014 The Art of Male Friendship, Mini-Retirements, Higher-Resolution Living, Reinvention in The Age of AI, and More",
+      "published": "2026-07-29T18:00:00Z",
+      "processed_at": "2026-07-29T20:02:58.490486Z",
+      "score": 0.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/tim-ferriss-show"
     }
   },
   "published": [
@@ -686,6 +752,10 @@
     "7fb5052ef6cac696",
     "d99da0b934e38cc5",
     "d0fb92fb8a3c821c",
-    "07f8d5666d09ef0c"
+    "07f8d5666d09ef0c",
+    "7a8af04ee65d4958",
+    "eb5173660146cb5d",
+    "54caa05108edc3e5",
+    "ce070fc81dbf509b"
   ]
 }
