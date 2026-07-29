@@ -58,6 +58,8 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           SMTP_TO: ${{ secrets.SMTP_TO }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          SMTP_USE_TLS: ${{ secrets.SMTP_USE_TLS }}
           PAGES_BASE_URL: ${{ secrets.PAGES_BASE_URL }}
         run: |
           ARGS=""
