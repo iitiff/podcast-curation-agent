@@ -87,17 +87,23 @@ def _make_llm(settings: Settings) -> GitHubModelsProvider | GeminiProvider | Non
 
 
 def _smtp_from_env() -> SMTPConfig | None:
-    host = os.getenv("SMTP_HOST", "")
+    # Use `or` fallback instead of the default= arg so that empty-string env
+    # vars injected by GitHub Actions for unset secrets are treated as absent.
+    host = (os.getenv("SMTP_HOST") or "").strip()
     if not host:
+        return None
+    user = (os.getenv("SMTP_USER") or "").strip()
+    if not user:
+        log.warning("SMTP_HOST is set but SMTP_USER is empty — skipping email.")
         return None
     return SMTPConfig(
         host=host,
-        port=int(os.getenv("SMTP_PORT", "587")),
-        user=os.getenv("SMTP_USER", ""),
-        password=os.getenv("SMTP_PASSWORD", ""),
-        to=os.getenv("SMTP_TO", os.getenv("SMTP_USER", "")),
-        from_addr=os.getenv("SMTP_FROM", os.getenv("SMTP_USER", "")),
-        use_tls=os.getenv("SMTP_USE_TLS", "true").lower() != "false",
+        port=int((os.getenv("SMTP_PORT") or "587").strip()),
+        user=user,
+        password=os.getenv("SMTP_PASSWORD") or "",
+        to=(os.getenv("SMTP_TO") or user).strip(),
+        from_addr=(os.getenv("SMTP_FROM") or user).strip(),
+        use_tls=(os.getenv("SMTP_USE_TLS") or "true").strip().lower() != "false",
     )
 
 
