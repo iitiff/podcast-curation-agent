@@ -1,24 +1,6 @@
 {
   "run_date": "2026-07-30",
   "queued": [],
-  "email_only": [
-    {
-      "guid": "966b8a11601ed04f",
-      "show": "Y Combinator Startup Podcast",
-      "title": "Blake Scholl: Breaking the Supersonic Ban",
-      "score": 27.0,
-      "classification": "Read Summary Only",
-      "duration_min": 50.0,
-      "url": "https://podcasters.spotify.com/pod/show/ycombinator/episodes/Blake-Scholl-Breaking-the-Supersonic-Ban-e3mngh9",
-      "summary": "Blake Scholl, founder of Boom Supersonic, shares his journey from a cardboard prototype to building the first independently developed supersonic jet. He discusses overcoming technical and industry barriers, the importance of preparing for both setbacks and successes, and answers questions about self-learning, breaking into hardware startups, and balancing ambition with personal life. While the episode offers inspiration and some practical founder lessons, it is more focused on entrepreneurial perseverance and hardware innovation than on strategic product management, AI, or eCommerce. The content is best suited for those interested in hardware startups and ambitious product vision, with limited direct applicability to senior PMs seeking advanced product strategy or technology market insights.",
-      "key_ideas": [
-        "Building disruptive hardware products requires resilience and adaptability.",
-        "Founders must prepare for both worst-case and best-case scenarios.",
-        "Self-teaching and breaking into new domains are crucial for ambitious innovation."
-      ],
-      "confidence": "low",
-      "category": "startup"
-    }
-  ],
+  "email_only": [],
   "synthesis": null
 }
