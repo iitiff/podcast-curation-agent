@@ -120,7 +120,7 @@ def send_digest(
 ) -> None:
     from_addr = smtp.from_addr or smtp.user
     msg = MIMEMultipart("alternative")
-    # Encode subject as RFC 2047 UTF-8 so emoji don't crash the ASCII codec
+    # Encode subject as RFC 2047 UTF-8 so emoji and non-ASCII don't crash
     msg["Subject"] = Header(subject, "utf-8").encode()
     msg["From"] = from_addr
     msg["To"] = smtp.to
@@ -129,17 +129,22 @@ def send_digest(
         msg.attach(MIMEText(text_body, "plain", "utf-8"))
     msg.attach(MIMEText(html_body, "html", "utf-8"))
 
+    # Use server.send_message() rather than sendmail() + msg.as_bytes().
+    # The legacy compat32 policy used by as_bytes() serialises headers with
+    # ASCII and raises UnicodeEncodeError on any non-ASCII character (e.g. a
+    # non-breaking space U+00A0 pasted into an SMTP secret).
+    # send_message() uses the correct SMTP policy that handles UTF-8 properly.
     try:
         if smtp.use_tls:
             with smtplib.SMTP(smtp.host, smtp.port) as server:
                 server.ehlo()
                 server.starttls()
                 server.login(smtp.user, smtp.password)
-                server.sendmail(from_addr, smtp.to, msg.as_bytes())
+                server.send_message(msg)
         else:
             with smtplib.SMTP_SSL(smtp.host, smtp.port) as server:
                 server.login(smtp.user, smtp.password)
-                server.sendmail(from_addr, smtp.to, msg.as_bytes())
+                server.send_message(msg)
         log.info("Email digest sent to %s", smtp.to)
     except Exception as exc:
         log.error("Failed to send email digest: %s", exc)
