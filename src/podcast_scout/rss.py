@@ -1,9 +1,14 @@
 """RSS 2.0 feed generator — one feed per category.
 
 Feeds are *persistent*: each run merges today's newly ranked episodes with
-items already in the published feed, re-sorts by score, and drops anything
-older than FEED_RETENTION_DAYS (21 days).  This means episodes curated into
-a podcast-app playlist will not disappear on the next daily update.
+items already in the published feed, re-sorts, and drops anything older than
+FEED_RETENTION_DAYS (21 days).  This means episodes curated into a
+podcast-app playlist will not disappear on the next daily update.
+
+Feed slot priority: NEW episodes from the current run always fill category
+slots first (sorted by score), and prior items from the existing XML fill
+any remaining slots.  This ensures fresh content always appears even when
+older high-scoring episodes are still within the retention window.
 
 Only "Listen Fully" episodes are written to the RSS XML.  "Read Summary Only"
 episodes are routed exclusively to the email digest — they must never appear
@@ -37,11 +42,11 @@ def _e(text: str) -> str:
 
 
 def _prefix(r: RankedEpisode, rank: int | None = None) -> str:
-    outside = "\U0001f310 OUTSIDE \u2014 " if r.episode.is_outside_feed else ""
+    outside = "\U0001f310 OUTSIDE — " if r.episode.is_outside_feed else ""
     if r.classification == "Listen Fully":
         num = f" #{rank}" if rank else ""
-        return f"{outside}\U0001f3a7 LISTEN{num} \u2014 {r.episode.show_title}: {r.episode.episode_title}"
-    return f"{outside}\U0001f4d6 SUMMARY \u2014 {r.episode.show_title}: {r.episode.episode_title}"
+        return f"{outside}\U0001f3a7 LISTEN{num} — {r.episode.show_title}: {r.episode.episode_title}"
+    return f"{outside}\U0001f4d6 SUMMARY — {r.episode.show_title}: {r.episode.episode_title}"
 
 
 def _show_notes_html(r: RankedEpisode) -> str:
@@ -241,21 +246,27 @@ def build_category_feed(
             if p.guid not in new_guids:
                 prior_items.append(p)
 
-    merged: list[tuple[float, str, str, RankedEpisode | _PriorItem]] = [
-        (r.score, r.classification, "new", r) for r in new_listen
-    ] + [
-        (p.score, p.classification, "prior", p) for p in prior_items
-    ]
-    merged.sort(key=lambda t: t[0], reverse=True)
+    # Feed slot priority: new episodes from this run always fill slots first
+    # (sorted by score), then prior items from the existing XML fill remaining
+    # slots (sorted by score).  This prevents old high-scoring episodes from
+    # permanently blocking fresh content while still preserving feed persistence.
+    new_listen_sorted = sorted(new_listen, key=lambda r: r.score, reverse=True)
+    prior_sorted = sorted(prior_items, key=lambda p: p.score, reverse=True)
 
     listen_count = 0
     final_order: list[tuple[str, RankedEpisode | _PriorItem]] = []
-    for _score, classification, kind, obj in merged:
-        if classification == "Listen Fully":
-            if listen_count >= max_listen:
-                continue
-            listen_count += 1
-        final_order.append((kind, obj))
+
+    for r in new_listen_sorted:
+        if listen_count >= max_listen:
+            break
+        final_order.append(("new", r))
+        listen_count += 1
+
+    for p in prior_sorted:
+        if listen_count >= max_listen:
+            break
+        final_order.append(("prior", p))
+        listen_count += 1
 
     rss = Element("rss", attrib=_RSS_NS)
     channel = _build_channel(rss, prefs.feed, cat_cfg, feed_url, base_url)
@@ -285,7 +296,9 @@ def build_category_feed(
             if r.episode.image_url:
                 img = SubElement(item, "itunes:image")
                 img.set("href", r.episode.image_url)
+            # Mark as published AND as winning a category-feed playlist slot.
             state.add_published(r.episode.guid)
+            state.add_to_playlist(r.episode.guid)
         else:
             if not isinstance(obj, _PriorItem):
                 continue
