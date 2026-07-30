@@ -20,7 +20,7 @@ categories:
     slug: ai-retail
     title: "Podcast Scout — AI & Retail"
     description: "Curated AI, retail, eCommerce, and product craft episodes."
-    max_listen_fully: 3
+    max_listen_fully: 2
     max_read_summary: 5
   startup:
     slug: startup
@@ -67,7 +67,7 @@ classification:
 
 # —— Weekly output caps (fallback if category not found) ——————————
 output_caps:
-  max_listen_fully: 3
+  max_listen_fully: 2
   max_read_summary: 5
   max_outside_feed: 3
   max_total_surfaced: 10
