@@ -58,8 +58,13 @@ def build_email_html(
     email_only: list[RankedEpisode],
     run_date: str,
     feed_url: str = "",
+    accumulated_week: list[RankedEpisode] | None = None,
 ) -> str:
-    """Build the full HTML email body."""
+    """Build the full HTML email body.
+
+    accumulated_week: episodes that scored well this week but never won a
+    category-feed playlist slot. Only included on Friday synthesis runs.
+    """
     sections: list[str] = []
 
     if queued:
@@ -93,6 +98,18 @@ def build_email_html(
             sections.append(f"""
 <h2 style='font-size:18px;margin:24px 0 8px;color:#111'>&#127760; Outside Your Feed</h2>
 <p style='color:#555;font-size:13px;margin:0 0 12px'>Discovered beyond your subscriptions.</p>
+<table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
+
+    # Weekly accumulated digest — only rendered on Friday synthesis runs
+    if accumulated_week:
+        top_accumulated = accumulated_week[:10]
+        rows = "".join(
+            _episode_row_html(r, "&#128197; This Week — Didn't Make It")
+            for r in top_accumulated
+        )
+        sections.append(f"""
+<h2 style='font-size:18px;margin:24px 0 8px;color:#111'>&#128197; This Week's Accumulated Queue</h2>
+<p style='color:#555;font-size:13px;margin:0 0 12px'>Scored well this week but never won a daily playlist slot. Worth reading or saving for later.</p>
 <table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
 
     feed_note = ""
