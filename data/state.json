@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-07-29T21:29:26.680072+00:00",
+  "last_run": "2026-07-30T00:41:22.857979+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -718,6 +718,28 @@
       "classification": "Read Summary Only",
       "is_outside_feed": false,
       "source_feed_url": "https://rss.art19.com/tim-ferriss-show"
+    },
+    "966b8a11601ed04f": {
+      "guid": "966b8a11601ed04f",
+      "show_title": "Y Combinator Startup Podcast",
+      "episode_title": "Blake Scholl: Breaking the Supersonic Ban",
+      "published": "2026-07-29T21:56:23Z",
+      "processed_at": "2026-07-30T00:41:22.818469Z",
+      "score": 27.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss"
+    },
+    "29b21377f622727a": {
+      "guid": "29b21377f622727a",
+      "show_title": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "episode_title": "\u3010\u5341\u5206\u9418\u5fc3\u7406\u5b78\u3011\u70ba\u4ec0\u9ebc\u6211\u5011\u7e3d\u662f\u4e0d\u6562\u958b\u53e3\u63d0\u8981\u6c42\uff1f\u5b78\u6703\u6b63\u78ba\u63d0\u554f\uff0c\u4eba\u751f\u5176\u5be6\u6c92\u90a3\u9ebc\u96e3",
+      "published": "2026-07-29T22:02:08Z",
+      "processed_at": "2026-07-30T00:41:22.818552Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g"
     }
   },
   "published": [
@@ -756,6 +778,7 @@
     "7a8af04ee65d4958",
     "eb5173660146cb5d",
     "54caa05108edc3e5",
-    "ce070fc81dbf509b"
+    "ce070fc81dbf509b",
+    "966b8a11601ed04f"
   ]
 }

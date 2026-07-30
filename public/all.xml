@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Jul 2026 21:29:26 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jul 2026 00:41:22 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/all.xml" rel="self" type="application/rss+xml" />
@@ -161,6 +161,17 @@
       <ns0:duration>0</ns0:duration>
       <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
+    </item>
+    <item>
+      <title>📖 SUMMARY — Y Combinator Startup Podcast: Blake Scholl: Breaking the Supersonic Ban</title>
+      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Blake-Scholl-Breaking-the-Supersonic-Ban-e3mngh9</link>
+      <guid isPermaLink="false">966b8a11601ed04f</guid>
+      <pubDate>Wed, 29 Jul 2026 21:56:23 +0000</pubDate>
+      <itunes:duration>3001</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 27/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;While the episode features a founder tackling a bold hardware challenge, the strategic insights are more relevant to startup founders and general innovation than to a senior PM focused on product strategy, AI, or eCommerce. The guest has credible operator experience, but the episode leans toward founder motivation and general lessons rather than deep market or product craft analysis. The transcript confidence is low, further reducing actionable signal.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Blake Scholl, founder of Boom Supersonic, shares his journey from a cardboard prototype to building the first independently developed supersonic jet. He discusses overcoming technical and industry barriers, the importance of preparing for both setbacks and successes, and answers questions about self-learning, breaking into hardware startups, and balancing ambition with personal life. While the episode offers inspiration and some practical founder lessons, it is more focused on entrepreneurial perseverance and hardware innovation than on strategic product management, AI, or eCommerce. The content is best suited for those interested in hardware startups and ambitious product vision, with limited direct applicability to senior PMs seeking advanced product strategy or technology market insights.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Building disruptive hardware products requires resilience and adaptability.&lt;/li&gt;&lt;li&gt;Founders must prepare for both worst-case and best-case scenarios.&lt;/li&gt;&lt;li&gt;Self-teaching and breaking into new domains are crucial for ambitious innovation.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs may find some inspiration in tackling ambitious projects and learning outside their comfort zone, but the episode lacks deep strategic frameworks or market analysis relevant to AI, eCommerce, or product craft at scale.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Blake-Scholl-Breaking-the-Supersonic-Ban-e3mngh9"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Blake Scholl, founder of Boom Supersonic, shares his journey from a cardboard prototype to building the first independently developed supersonic jet. He discusses overcoming technical and industry barriers, the importance of preparing for both setbacks and successes, and answers questions about self-learning, breaking into hardware startups, and balancing ambition with personal life. While the episode offers inspiration and some practical founder lessons, it is more focused on entrepreneurial perseverance and hardware innovation than on strategic product management, AI, or eCommerce. The content is best suited for those interested in hardware startups and ambitious product vision, with limited direct applicability to senior PMs seeking advanced product strategy or technology market insights.</description>
+      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123502569/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-29%2F428862376-44100-2-99591f9c333df.mp3" type="audio/mpeg" length="48020583" />
+      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785358916838-0beff08d6bf18.jpg" />
     </item>
   </channel>
 </rss>
