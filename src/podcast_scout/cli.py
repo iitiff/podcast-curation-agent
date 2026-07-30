@@ -143,35 +143,35 @@ def _load_carryover_candidates(
     lookback_days: int,
     already_scored_this_run: set[str],
 ) -> dict[str, list[RankedEpisode]]:
-    """Rebuild RankedEpisode stubs for scored episodes from previous runs.
+    """Rebuild RankedEpisode stubs for previously scored episodes that have not
+    yet won a category-feed (playlist) slot.
 
-    Includes only:
-    - Episodes scored but never queued (didn't make the daily cap)
+    Carryover pool includes:
+    - Episodes scored in previous runs, within the lookback window
+    - Episodes that appeared in email digest / all.xml only (not playlisted)
 
-    Previously published episodes are intentionally excluded: the RSS feed's
-    own prior-item persistence (_load_prior_items in rss.py) already keeps
-    them in the feed XML across runs.  Including them here would let old
-    high-scoring episodes fill all daily cap slots and block new episodes
-    from ever reaching the curated playlist.
+    Excluded:
+    - Episodes that have already won a category-feed slot (playlist_guids)
+    - Skip / unclassified episodes
+    - Episodes scored in the current run (already in newly_ranked)
 
-    Skip and unclassified episodes are always excluded.
-    Episodes scored in the current run are excluded to avoid duplicates.
+    Using playlist_guids (not published_guids) means email-only episodes remain
+    in the pool until they win a Pocket Casts category slot.
     """
     from .normalize import utcnow
     cutoff = utcnow() - timedelta(days=lookback_days)
     carryover: dict[str, list[RankedEpisode]] = {}
 
     processed = state._state.get("processed", {})
-    already_published = state.published_guids()
+    already_playlisted = state.playlist_guids()
 
     for guid, rec_data in processed.items():
         # Don't double-count episodes scored in this run
         if guid in already_scored_this_run:
             continue
-        # Skip episodes already published to the RSS feed — rss.py's
-        # _load_prior_items retains them in the feed XML independently.
-        # Adding them here would consume daily cap slots and block new episodes.
-        if guid in already_published:
+        # Only exclude episodes that won an actual category-feed playlist slot.
+        # Episodes published to all.xml / email digest only remain eligible.
+        if guid in already_playlisted:
             continue
         try:
             rec = EpisodeRecord(**rec_data)
@@ -209,6 +209,66 @@ def _load_carryover_candidates(
         carryover.setdefault(cat, []).append(ranked)
 
     return carryover
+
+
+def _load_accumulated_this_week(
+    state: StateManager,
+    category_map: dict[str, str],
+    lookback_days: int = 7,
+) -> list[RankedEpisode]:
+    """Return all scored-but-not-yet-playlisted episodes from the past week.
+
+    These are episodes that scored well enough to surface (not Skip) but never
+    won a daily category-feed slot. They are surfaced in the Friday weekly digest
+    email so good episodes don't disappear unseen.
+
+    Unlike the carryover pool (which uses settings.lookback_days), this always
+    looks back a full 7 days to give the complete weekly picture.
+    """
+    from .normalize import utcnow
+    cutoff = utcnow() - timedelta(days=lookback_days)
+    playlisted = state.playlist_guids()
+    accumulated: list[RankedEpisode] = []
+
+    processed = state._state.get("processed", {})
+    for guid, rec_data in processed.items():
+        if guid in playlisted:
+            continue
+        try:
+            rec = EpisodeRecord(**rec_data)
+        except Exception:
+            continue
+        if rec.processed_at and rec.processed_at < cutoff:
+            continue
+        if rec.classification in ("Skip", None, ""):
+            continue
+
+        ep = NormalizedEpisode(
+            guid=rec.guid,
+            show_title=rec.show_title,
+            episode_title=rec.episode_title,
+            description="",
+            published=rec.published or utcnow(),
+            duration_seconds=0,
+            episode_url="",
+            source_feed_url=rec.source_feed_url,
+        )
+        cat = _resolve_category(rec.show_title, category_map)
+        ep.category = cat
+
+        ranked = RankedEpisode(
+            episode=ep,
+            score=rec.score,
+            rubric=RubricScore(),
+            classification=rec.classification,
+            classification_reason="accumulated — did not win a daily playlist slot this week",
+            evidence_confidence="low",
+            summary="",
+        )
+        accumulated.append(ranked)
+
+    accumulated.sort(key=lambda r: r.score, reverse=True)
+    return accumulated
 
 
 async def _run_pipeline(
@@ -306,10 +366,10 @@ async def _run_pipeline(
                 source_feed_url=r.episode.source_feed_url,
             ))
 
-    # 7. Merge carryover: episodes scored in previous runs that were never
-    # published (didn't make the daily cap) compete alongside today's new episodes.
-    # Previously published episodes are excluded — rss.py's _load_prior_items
-    # already retains them in the feed XML across runs without consuming cap slots.
+    # 7. Merge carryover: episodes scored in previous runs that have not yet won
+    # a category-feed slot compete alongside today's new episodes. Episodes that
+    # appeared in email digest / all.xml only are still eligible (we use
+    # playlist_guids, not published_guids, as the exclusion set).
     current_run_guids: set[str] = {
         r.episode.guid
         for cat_ranked in newly_ranked.values()
@@ -354,10 +414,25 @@ async def _run_pipeline(
 
     console.print(f"Queue: {len(rss_queue)} episodes across {len(active_categories)} categories | Email-only: {len(email_only)}")
 
-    # 8. Weekly synthesis
+    # 8. Weekly synthesis + accumulated digest
+    # When --synthesis is passed (Friday runs), load all episodes from the past
+    # week that scored well but never won a category-feed playlist slot.
+    # These are surfaced in the Friday email as a "didn't make the cut" digest.
     synthesis = None
-    if run_synthesis and llm:
-        synthesis = await generate_synthesis(ranked, prefs, llm)
+    accumulated_this_week: list[RankedEpisode] = []
+    if run_synthesis:
+        accumulated_this_week = _load_accumulated_this_week(
+            state=state,
+            category_map=category_map,
+            lookback_days=7,
+        )
+        if accumulated_this_week:
+            console.print(
+                f"[dim]Weekly digest: {len(accumulated_this_week)} accumulated episode(s) "
+                f"that didn't win a playlist slot this week[/dim]"
+            )
+        if llm:
+            synthesis = await generate_synthesis(ranked + accumulated_this_week, prefs, llm)
 
     if dry_run:
         console.print("[yellow]Dry run — skipping writes and email.[/yellow]")
@@ -393,6 +468,7 @@ async def _run_pipeline(
         "run_date": run_date,
         "queued": [_ep_to_dict(r) for r in rss_queue],
         "email_only": [_ep_to_dict(r) for r in email_only],
+        "accumulated_week": [_ep_to_dict(r) for r in accumulated_this_week],
         "synthesis": synthesis.model_dump() if synthesis else None,
     }
     (data_dir / "latest.json").write_text(json.dumps(latest_json, indent=2, default=str))
@@ -412,7 +488,10 @@ async def _run_pipeline(
     md = render_markdown(rss_queue, email_only, synthesis, run_date)
     (settings.public_dir / "latest.md").write_text(md, encoding="utf-8")
 
-    # 10. Mark queued episodes as published in state
+    # 10. Mark queued episodes as published in state.
+    # Note: add_to_playlist is already called inside build_category_feed for
+    # new items that won a category-feed slot — this step handles the broader
+    # add_published for listen.xml items that may not have an enclosure match.
     for r in rss_queue:
         state.add_published(r.episode.guid)
 
@@ -425,7 +504,10 @@ async def _run_pipeline(
     smtp = _smtp_from_env()
     if smtp:
         feed_url = f"{base_url}/listen.xml" if base_url else ""
-        html_body = build_email_html(rss_queue, email_only, run_date, feed_url)
+        html_body = build_email_html(
+            rss_queue, email_only, run_date, feed_url,
+            accumulated_week=accumulated_this_week,
+        )
         subject = f"Your Podcast Scout — {run_date} ({len(rss_queue)} queued)"
         try:
             send_digest(smtp, subject, html_body)
