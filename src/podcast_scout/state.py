@@ -37,7 +37,7 @@ class StateManager:
                 return loaded
             except Exception:
                 pass
-        return {"processed": {}, "published": [], "last_run": None}
+        return {"processed": {}, "published": [], "playlist": [], "last_run": None}
 
     def save(self) -> None:
         self._path.write_text(json.dumps(self._state, indent=2, default=str), encoding="utf-8")
@@ -46,8 +46,19 @@ class StateManager:
         return set(self._state.get("processed", {}).keys())
 
     def published_guids(self) -> set[str]:
-        """Return the set of episode GUIDs that have been published to the RSS feed."""
+        """Return the set of episode GUIDs that have appeared in any RSS feed or email digest."""
         return set(self._state.get("published", []))
+
+    def playlist_guids(self) -> set[str]:
+        """Return the set of episode GUIDs that have won a category feed slot (Pocket Casts queue).
+
+        This is a strict subset of published_guids: an episode can be published to
+        all.xml or the email digest without ever winning a category-feed slot.
+        Only playlist_guids are excluded from the daily carryover pool — episodes
+        that appeared in email/all.xml only are still eligible to compete for a
+        category-feed slot on future days.
+        """
+        return set(self._state.get("playlist", []))
 
     def mark_processed(self, record: EpisodeRecord) -> None:
         self._state.setdefault("processed", {})[record.guid] = record.model_dump(mode="json")
@@ -64,6 +75,15 @@ class StateManager:
     def add_published(self, guid: str) -> None:
         if guid not in self._state.get("published", []):
             self._state.setdefault("published", []).append(guid)
+
+    def add_to_playlist(self, guid: str) -> None:
+        """Record that this episode won a category-feed slot (Pocket Casts queue).
+
+        Also marks the episode as published (superset relationship).
+        """
+        self.add_published(guid)
+        if guid not in self._state.get("playlist", []):
+            self._state.setdefault("playlist", []).append(guid)
 
     def update_last_run(self) -> None:
         self._state["last_run"] = datetime.now(tz=UTC).isoformat()
