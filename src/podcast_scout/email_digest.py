@@ -58,13 +58,8 @@ def build_email_html(
     email_only: list[RankedEpisode],
     run_date: str,
     feed_url: str = "",
-    accumulated_week: list[RankedEpisode] | None = None,
 ) -> str:
-    """Build the full HTML email body.
-
-    accumulated_week: episodes that scored well this week but never won a
-    category-feed playlist slot. Only included on Friday synthesis runs.
-    """
+    """Build the full HTML email body."""
     sections: list[str] = []
 
     if queued:
@@ -100,18 +95,6 @@ def build_email_html(
 <p style='color:#555;font-size:13px;margin:0 0 12px'>Discovered beyond your subscriptions.</p>
 <table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
 
-    # Weekly accumulated digest — only rendered on Friday synthesis runs
-    if accumulated_week:
-        top_accumulated = accumulated_week[:10]
-        rows = "".join(
-            _episode_row_html(r, "&#128197; This Week — Didn't Make It")
-            for r in top_accumulated
-        )
-        sections.append(f"""
-<h2 style='font-size:18px;margin:24px 0 8px;color:#111'>&#128197; This Week's Accumulated Queue</h2>
-<p style='color:#555;font-size:13px;margin:0 0 12px'>Scored well this week but never won a daily playlist slot. Worth reading or saving for later.</p>
-<table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
-
     feed_note = ""
     if feed_url:
         feed_note = f"<p style='font-size:12px;color:#999;margin-top:32px'>Pocket Casts feed: <a href='{feed_url}'>{feed_url}</a></p>"
@@ -136,21 +119,23 @@ def send_digest(
     text_body: str = "",
 ) -> None:
     from_addr = smtp.from_addr or smtp.user
+    # Strip non-ASCII characters from address header values. Email addresses
+    # must be ASCII per RFC 5321. A non-ASCII character such as U+00A0
+    # (non-breaking space) pasted from a rich-text editor into SMTP_TO or
+    # SMTP_USER fails the compat32 BytesGenerator that both as_bytes() and
+    # send_message() use internally — even when switching to send_message().
+    _clean = lambda s: s.encode("ascii", "ignore").decode("ascii").strip()
+
     msg = MIMEMultipart("alternative")
     # Encode subject as RFC 2047 UTF-8 so emoji and non-ASCII don't crash
     msg["Subject"] = Header(subject, "utf-8").encode()
-    msg["From"] = from_addr
-    msg["To"] = smtp.to
+    msg["From"] = _clean(from_addr)
+    msg["To"] = _clean(smtp.to)
 
     if text_body:
         msg.attach(MIMEText(text_body, "plain", "utf-8"))
     msg.attach(MIMEText(html_body, "html", "utf-8"))
 
-    # Use server.send_message() rather than sendmail() + msg.as_bytes().
-    # The legacy compat32 policy used by as_bytes() serialises headers with
-    # ASCII and raises UnicodeEncodeError on any non-ASCII character (e.g. a
-    # non-breaking space U+00A0 pasted into an SMTP secret).
-    # send_message() uses the correct SMTP policy that handles UTF-8 properly.
     try:
         if smtp.use_tls:
             with smtplib.SMTP(smtp.host, smtp.port) as server:
