@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Jul 2026 07:56:45 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jul 2026 19:51:44 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/listen.xml" rel="self" type="application/rss+xml" />

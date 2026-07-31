@@ -5,7 +5,7 @@
     <description>Curated AI, retail, eCommerce, and product craft episodes.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Jul 2026 07:56:45 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jul 2026 19:51:44 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/ai-retail.xml" rel="self" type="application/rss+xml" />
@@ -28,15 +28,6 @@
       <pubDate>Sun, 26 Jul 2026 12:32:06 +0000</pubDate>
       <ns0:duration>0</ns0:duration>
       <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
-      <description />
-    </item>
-    <item>
-      <title>🎧 LISTEN #3 — No Priors: Building an Autonomous Delivery Experience with DoorDash Co-Founders Andy Fang and Stanley Tang</title>
-      <link />
-      <guid isPermaLink="false">0aa9cdd123be2909</guid>
-      <pubDate>Thu, 23 Jul 2026 10:00:00 +0000</pubDate>
-      <ns0:duration>0</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 97/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
   </channel>

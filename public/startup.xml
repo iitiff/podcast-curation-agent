@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:ns0="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns1="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
   <channel>
     <title>Podcast Scout — Startup</title>
     <description>Curated startup, founder, and business strategy episodes.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Jul 2026 07:56:45 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jul 2026 19:51:44 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/startup.xml" rel="self" type="application/rss+xml" />
@@ -13,24 +13,22 @@
       <itunes:name>Your Name</itunes:name>
     </itunes:owner>
     <item>
-      <title>🎧 LISTEN #1 — Masters of Scale: Possible: Satya Nadella on making human and token capital compound</title>
+      <title>🎧 LISTEN #1 — The a16z Show: Fei-Fei Li on Spatial Intelligence and Robotics</title>
       <link />
-      <guid isPermaLink="false">21ef9a7f1fdf511d</guid>
-      <pubDate>Sat, 25 Jul 2026 09:00:00 +0000</pubDate>
-      <ns0:duration>0</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 81/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
+      <guid isPermaLink="false">d99da0b934e38cc5</guid>
+      <pubDate>Tue, 28 Jul 2026 10:00:00 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #2 — The a16z Show: Fei-Fei Li on Spatial Intelligence and Robotics</title>
-      <link>https://a16z.simplecast.com/episodes/fei-fei-li-on-spatial-intelligence-and-robotics-j8HvsWJf</link>
-      <guid isPermaLink="false">d99da0b934e38cc5</guid>
-      <pubDate>Tue, 28 Jul 2026 10:00:00 +0000</pubDate>
-      <ns0:duration>2584</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Fei-Fei Li is a renowned authority in AI and robotics. The episode explores spatial intelligence, simulation, and robotics foundation models, offering actionable frameworks and strategic insight for senior PMs in AI and emerging tech.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Fei-Fei Li and Yunzhu Li discuss the acquisition of SceniX by World Labs and the challenges of developing spatial intelligence in robotics. The conversation covers simulation pipelines, world models, and the differences between training robots and language models. The episode delves into synthetic data, evaluation methods, and the future of robotics foundation models. It provides strategic insight into the next frontier of AI, with implications for product leaders seeking to build intelligent systems that interact with the physical world.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Simulation and synthetic data as enablers for robotics intelligence&lt;/li&gt;&lt;li&gt;Real-to-sim-to-real pipelines for scalable product development&lt;/li&gt;&lt;li&gt;Robotics foundation models as a new paradigm for AI products&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage simulation and spatial intelligence frameworks to inform product strategy in robotics and AI. The episode offers actionable insights for scaling intelligent products.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/fei-fei-li-on-spatial-intelligence-and-robotics-j8HvsWJf"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
-      <description>Fei-Fei Li and Yunzhu Li discuss the acquisition of SceniX by World Labs and the challenges of developing spatial intelligence in robotics. The conversation covers simulation pipelines, world models, and the differences between training robots and language models. The episode delves into synthetic data, evaluation methods, and the future of robotics foundation models. It provides strategic insight into the next frontier of AI, with implications for product leaders seeking to build intelligent systems that interact with the physical world.</description>
-      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/e2a3c643-334f-47f6-a6e0-d9124f6786a3/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=e2a3c643-334f-47f6-a6e0-d9124f6786a3&amp;feed=JGE3yC0V" type="audio/mpeg" length="41344634" />
-      <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+      <title>🎧 LISTEN #2 — Invest Like the Best: Sam Altman - How to Make an Abundant Future - [Invest Like the Best, EP.484]</title>
+      <link />
+      <guid isPermaLink="false">d0fb92fb8a3c821c</guid>
+      <pubDate>Tue, 28 Jul 2026 08:00:00 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 71/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
     </item>
   </channel>
 </rss>
