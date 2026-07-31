@@ -86,13 +86,28 @@ def _make_llm(settings: Settings) -> GitHubModelsProvider | GeminiProvider | Non
     return None
 
 
+def _ascii_clean(value: str) -> str:
+    """Strip non-ASCII characters (e.g. a pasted U+00A0 non-breaking space)
+    and surrounding whitespace from an env-derived identifier.
+
+    Root cause history: smtplib's AUTH PLAIN/LOGIN mechanism calls
+    `.encode("ascii")` directly on the username inside `server.login()` —
+    a code path entirely separate from the email message headers. Sanitizing
+    only `From`/`To` in email_digest.py did NOT fix this, because the crash
+    happens during authentication, before any message is even built. Cleaning
+    every SMTP identifier at the single source (here) closes off all of those
+    call sites at once.
+    """
+    return value.encode("ascii", "ignore").decode("ascii").strip()
+
+
 def _smtp_from_env() -> SMTPConfig | None:
     # Use `or` fallback instead of the default= arg so that empty-string env
     # vars injected by GitHub Actions for unset secrets are treated as absent.
-    host = (os.getenv("SMTP_HOST") or "").strip()
+    host = _ascii_clean(os.getenv("SMTP_HOST") or "")
     if not host:
         return None
-    user = (os.getenv("SMTP_USER") or "").strip()
+    user = _ascii_clean(os.getenv("SMTP_USER") or "")
     if not user:
         log.warning("SMTP_HOST is set but SMTP_USER is empty — skipping email.")
         return None
@@ -101,8 +116,8 @@ def _smtp_from_env() -> SMTPConfig | None:
         port=int((os.getenv("SMTP_PORT") or "587").strip()),
         user=user,
         password=os.getenv("SMTP_PASSWORD") or "",
-        to=(os.getenv("SMTP_TO") or user).strip(),
-        from_addr=(os.getenv("SMTP_FROM") or user).strip(),
+        to=_ascii_clean(os.getenv("SMTP_TO") or user),
+        from_addr=_ascii_clean(os.getenv("SMTP_FROM") or user),
         use_tls=(os.getenv("SMTP_USE_TLS") or "true").strip().lower() != "false",
     )
 
