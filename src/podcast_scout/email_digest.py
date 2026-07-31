@@ -119,21 +119,23 @@ def send_digest(
     text_body: str = "",
 ) -> None:
     from_addr = smtp.from_addr or smtp.user
+    # Strip non-ASCII characters from address header values. Email addresses
+    # must be ASCII per RFC 5321. A non-ASCII character such as U+00A0
+    # (non-breaking space) pasted from a rich-text editor into SMTP_TO or
+    # SMTP_USER fails the compat32 BytesGenerator that both as_bytes() and
+    # send_message() use internally — even when switching to send_message().
+    _clean = lambda s: s.encode("ascii", "ignore").decode("ascii").strip()
+
     msg = MIMEMultipart("alternative")
     # Encode subject as RFC 2047 UTF-8 so emoji and non-ASCII don't crash
     msg["Subject"] = Header(subject, "utf-8").encode()
-    msg["From"] = from_addr
-    msg["To"] = smtp.to
+    msg["From"] = _clean(from_addr)
+    msg["To"] = _clean(smtp.to)
 
     if text_body:
         msg.attach(MIMEText(text_body, "plain", "utf-8"))
     msg.attach(MIMEText(html_body, "html", "utf-8"))
 
-    # Use server.send_message() rather than sendmail() + msg.as_bytes().
-    # The legacy compat32 policy used by as_bytes() serialises headers with
-    # ASCII and raises UnicodeEncodeError on any non-ASCII character (e.g. a
-    # non-breaking space U+00A0 pasted into an SMTP secret).
-    # send_message() uses the correct SMTP policy that handles UTF-8 properly.
     try:
         if smtp.use_tls:
             with smtplib.SMTP(smtp.host, smtp.port) as server:
