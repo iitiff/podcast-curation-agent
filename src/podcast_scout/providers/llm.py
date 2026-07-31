@@ -1,11 +1,14 @@
 """LLM provider implementations."""
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 import httpx
 
 from .base import BaseLLMProvider, LLMMessage, LLMResponse
+
+log = logging.getLogger(__name__)
 
 
 class GitHubModelsProvider(BaseLLMProvider):
@@ -64,7 +67,7 @@ class GitHubModelsProvider(BaseLLMProvider):
 
 
 class GeminiProvider(BaseLLMProvider):
-    """Google Gemini API provider (fallback)."""
+    """Google Gemini API provider."""
 
     BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 
@@ -109,3 +112,46 @@ class GeminiProvider(BaseLLMProvider):
             input_tokens=usage.get("promptTokenCount", 0),
             output_tokens=usage.get("candidatesTokenCount", 0),
         )
+
+
+class FallbackLLMProvider(BaseLLMProvider):
+    """Wraps a primary LLM provider with an automatic runtime fallback.
+
+    Previously, the pipeline picked ONE provider at startup based purely on
+    which credential was present (GITHUB_TOKEN is always set in Actions, so
+    Gemini was never actually tried even when GEMINI_API_KEY was configured).
+    Any runtime failure of the primary (e.g. a 401 from GitHub Models) was
+    caught deep inside stage2_batch_rank and silently downgraded to
+    metadata-only scoring for that batch — never retried with Gemini.
+
+    This wrapper closes that gap: complete() tries the primary provider first
+    and, on any exception, transparently retries the same request with the
+    secondary provider before giving up. Call sites (stage2_batch_rank,
+    generate_synthesis, etc.) are unchanged — they just see one BaseLLMProvider.
+    """
+
+    def __init__(
+        self,
+        primary: BaseLLMProvider,
+        secondary: BaseLLMProvider,
+        primary_name: str = "primary",
+        secondary_name: str = "secondary",
+    ) -> None:
+        self.primary = primary
+        self.secondary = secondary
+        self.primary_name = primary_name
+        self.secondary_name = secondary_name
+
+    async def complete(
+        self,
+        messages: list[LLMMessage],
+        max_tokens: int = 4096,
+    ) -> LLMResponse:
+        try:
+            return await self.primary.complete(messages, max_tokens=max_tokens)
+        except Exception as exc:
+            log.warning(
+                "%s LLM call failed (%s) — retrying with %s",
+                self.primary_name, exc, self.secondary_name,
+            )
+            return await self.secondary.complete(messages, max_tokens=max_tokens)
