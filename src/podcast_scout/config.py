@@ -110,9 +110,11 @@ class Settings:
         self.data_dir = Path(os.getenv("DATA_DIR", "data"))
         self.public_dir = Path(os.getenv("PUBLIC_DIR", "public"))
         self.templates_dir = Path("src/podcast_scout/templates")
-        # Primary LLM: GitHub Models (uses GITHUB_TOKEN, free in Actions)
+        # Primary LLM: GitHub Models (uses GITHUB_TOKEN, free in Actions).
+        # Model id uses the publisher-namespaced format required by the
+        # current models.github.ai/inference endpoint (e.g. "openai/gpt-4.1").
         self.github_token = os.getenv("GITHUB_TOKEN", "")
-        self.github_models_model = os.getenv("GITHUB_MODELS_MODEL", "gpt-4.1")
+        self.github_models_model = os.getenv("GITHUB_MODELS_MODEL", "openai/gpt-4.1")
         # Fallback LLM: Gemini
         self.gemini_api_key = os.getenv("GEMINI_API_KEY", "")
         self.gemini_stage1_model = os.getenv("GEMINI_STAGE1_MODEL", "gemini-2.5-flash")
