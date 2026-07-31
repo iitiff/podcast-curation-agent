@@ -12,14 +12,26 @@ class GitHubModelsProvider(BaseLLMProvider):
     """GitHub Models inference API (OpenAI-compatible).
 
     Uses GITHUB_TOKEN which is automatically available in all GitHub Actions
-    runs — no extra secret required.
+    runs (with `models: read` requested in the workflow permissions) — no
+    extra secret required.
+
+    NOTE: GitHub migrated the inference endpoint from the legacy
+    `models.inference.ai.azure.com` host to `models.github.ai/inference`.
+    The old host stopped honoring the Actions-issued GITHUB_TOKEN and returns
+    401 Unauthorized even when `models: read` is correctly granted. Model IDs
+    on the new endpoint also require a publisher namespace prefix, e.g.
+    "openai/gpt-4o" instead of the old bare "gpt-4o".
+    See: https://github.blog/ai-and-ml/llms/solving-the-inference-problem-for-open-source-ai-projects-with-github-models/
     """
 
-    BASE_URL = "https://models.inference.ai.azure.com"
+    BASE_URL = "https://models.github.ai/inference"
 
-    def __init__(self, token: str, model: str = "gpt-4.1") -> None:
+    def __init__(self, token: str, model: str = "openai/gpt-4.1") -> None:
         self.token = token
-        self.model = model
+        # Defensive normalization: if a bare model id (no publisher namespace)
+        # is passed — e.g. via a stale GITHUB_MODELS_MODEL env override — assume
+        # the OpenAI publisher, since that's what this project always used.
+        self.model = model if "/" in model else f"openai/{model}"
 
     async def complete(
         self,
