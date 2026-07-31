@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-07-30T23:31:09.349682+00:00",
+  "last_run": "2026-07-31T07:56:45.882843+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -850,6 +850,17 @@
       "classification": "Read Summary Only",
       "is_outside_feed": false,
       "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y"
+    },
+    "c9f7bc8824d30cc4": {
+      "guid": "c9f7bc8824d30cc4",
+      "show_title": "Jason & Scot Show",
+      "episode_title": "EP342 - The End of the Attention Economy, and What Retail Does Next with Mitch Joel",
+      "published": "2026-07-31T03:32:00Z",
+      "processed_at": "2026-07-31T07:56:45.776388Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.libsyn.com/shows/74302/destinations/325386.xml"
     }
   },
   "published": [
@@ -899,6 +910,7 @@
     "164b36db6b91e9bc",
     "a88abede4c44de42",
     "6b2a907277ae424d",
-    "671036c3ce644d5e"
+    "671036c3ce644d5e",
+    "c9f7bc8824d30cc4"
   ]
 }
