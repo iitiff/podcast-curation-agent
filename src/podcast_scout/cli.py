@@ -18,11 +18,10 @@ from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
 from .normalize import NormalizedEpisode, dedup_episodes
-from .providers.llm import FallbackLLMProvider, GeminiProvider, GitHubModelsProvider
+from .providers.llm import GeminiProvider, GitHubModelsProvider
 from .providers.podcast_search import ITunesSearchProvider, PodcastIndexProvider
 from .providers.transcription import CascadeTranscriptionProvider
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
-from .providers.base import BaseLLMProvider
 from .ranking import RankedEpisode, RubricScore, _classify, build_daily_queue, stage1_metadata_score
 from .render import render_briefing, render_markdown
 from .rss import build_category_feed, build_feed
@@ -69,47 +68,22 @@ def _make_web_search(
     return NullWebSearchProvider()
 
 
-def _make_llm(settings: Settings) -> BaseLLMProvider | None:
-    """Build the LLM provider: GitHub Models primary, Gemini as a true runtime
-    fallback when both credentials are available.
-
-    Previously this picked exactly one provider at startup based on which
-    credential existed. Since GITHUB_TOKEN is always present in GitHub
-    Actions, Gemini was effectively dead code even when GEMINI_API_KEY was
-    configured — any GitHub Models failure fell straight through to
-    metadata-only scoring instead of trying Gemini. Wrapping both providers
-    in FallbackLLMProvider makes the fallback happen on every LLM call, not
-    just at startup.
-    """
-    primary: BaseLLMProvider | None = None
-    secondary: BaseLLMProvider | None = None
-    primary_name = secondary_name = ""
-
+def _make_llm(settings: Settings) -> GitHubModelsProvider | GeminiProvider | None:
+    """Build LLM provider: GitHub Models first, Gemini as fallback."""
     if settings.github_token:
-        primary = GitHubModelsProvider(settings.github_token, settings.github_models_model)
-        primary_name = f"GitHub Models ({settings.github_models_model})"
-
-    if settings.gemini_api_key:
-        gemini = GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
-        if primary is None:
-            primary = gemini
-            primary_name = f"Gemini ({settings.gemini_stage2_model})"
-        else:
-            secondary = gemini
-            secondary_name = f"Gemini ({settings.gemini_stage2_model})"
-
-    if primary is None:
         console.print(
-            "[red]WARNING: No GITHUB_TOKEN or GEMINI_API_KEY — running metadata-only ranking.[/red]"
+            f"[cyan]LLM: GitHub Models ({settings.github_models_model})[/cyan]"
         )
-        return None
-
-    if secondary is not None:
-        console.print(f"[cyan]LLM: {primary_name} -> runtime fallback {secondary_name}[/cyan]")
-        return FallbackLLMProvider(primary, secondary, primary_name, secondary_name)
-
-    console.print(f"[cyan]LLM: {primary_name} (no fallback configured)[/cyan]")
-    return primary
+        return GitHubModelsProvider(settings.github_token, settings.github_models_model)
+    if settings.gemini_api_key:
+        console.print(
+            f"[yellow]LLM: Gemini fallback ({settings.gemini_stage2_model})[/yellow]"
+        )
+        return GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
+    console.print(
+        "[red]WARNING: No GITHUB_TOKEN or GEMINI_API_KEY — running metadata-only ranking.[/red]"
+    )
+    return None
 
 
 def _ascii_clean(value: str) -> str:
@@ -141,7 +115,12 @@ def _smtp_from_env() -> SMTPConfig | None:
         host=host,
         port=int((os.getenv("SMTP_PORT") or "587").strip()),
         user=user,
-        password=os.getenv("SMTP_PASSWORD") or "",
+        # smtplib's AUTH PLAIN/LOGIN mechanisms call .encode("ascii") on BOTH
+        # the username and the password. Real SMTP passwords (app passwords,
+        # etc.) are always plain ASCII, so it's safe to strip any stray
+        # non-ASCII byte here too — this was the one field left unsanitized
+        # after two prior attempts, and matches the exact recurring crash.
+        password=_ascii_clean(os.getenv("SMTP_PASSWORD") or ""),
         to=_ascii_clean(os.getenv("SMTP_TO") or user),
         from_addr=_ascii_clean(os.getenv("SMTP_FROM") or user),
         use_tls=(os.getenv("SMTP_USE_TLS") or "true").strip().lower() != "false",
