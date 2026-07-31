@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Jul 2026 19:51:44 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jul 2026 21:34:07 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/all.xml" rel="self" type="application/rss+xml" />
@@ -62,8 +62,8 @@
       <link />
       <guid isPermaLink="false">d99da0b934e38cc5</guid>
       <pubDate>Tue, 28 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -98,8 +98,8 @@
       <link />
       <guid isPermaLink="false">d0fb92fb8a3c821c</guid>
       <pubDate>Tue, 28 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 71/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 71/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -121,7 +121,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #3 — The a16z Show: AI Micro Dramas, Generative Media, and the Future of Creativity</title>
+      <title>🎧 LISTEN #1 — The a16z Show: AI Micro Dramas, Generative Media, and the Future of Creativity</title>
       <link />
       <guid isPermaLink="false">7a8af04ee65d4958</guid>
       <pubDate>Wed, 29 Jul 2026 10:00:00 +0000</pubDate>
@@ -173,17 +173,6 @@
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 55/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — No Priors: Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak</title>
-      <link />
-      <guid isPermaLink="false">764a97ef74d9b043</guid>
-      <pubDate>Fri, 31 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>2069</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;When your AC fails in a heatwave, you don’t want a busy signal; you need a solution. Netic founder and CEO Melisa Tokmak joins host Elad Gil to explain how Netic’s autonomous AI platform acts as an intermediary between companies and customers, deploying agents to instantly handle essential services,&lt;/p&gt;</content:encoded>
-      <description>When your AC fails in a heatwave, you don’t want a busy signal; you need a solution. Netic founder and CEO Melisa Tokmak joins host Elad Gil to explain how Netic’s autonomous AI platform acts as an intermediary between companies and customers, deploying agents to instantly handle essential services,</description>
-      <enclosure url="https://traffic.megaphone.fm/PDP6533459307.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/db17d1d8-8c79-11f1-9e05-6bb27aab1f6f/image/82d8177a07141efa60a0e14fb8b30b2b.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
       <title>📖 SUMMARY — Retailgentic: Shopify's Agentic Commerce Playbook: VP of Product Mani Fazeli on 8X Agentic Traffic Growth and the Long-Tail Boom</title>
@@ -240,47 +229,13 @@
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The a16z Show: How Enterprise AI Really Gets Deployed</title>
-      <link>https://a16z.simplecast.com/episodes/decagons-playbook-for-building-enterprise-ai-applications-VB3G3VC1</link>
-      <guid isPermaLink="false">c8734bd92a2afca8</guid>
-      <pubDate>Fri, 31 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>4836</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Sarah Wang and Kimberly Tan are joined by Jesse Zhang and Ashwin Sreenivas, co-founders of Decagon, to discuss the evolution of enterprise AI agents, why the company increasingly relies on open-source models, and how it is helping some of the world’s largest companies deploy AI in production.
-Decago&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/decagons-playbook-for-building-enterprise-ai-applications-VB3G3VC1"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>Sarah Wang and Kimberly Tan are joined by Jesse Zhang and Ashwin Sreenivas, co-founders of Decagon, to discuss the evolution of enterprise AI agents, why the company increasingly relies on open-source models, and how it is helping some of the world’s largest companies deploy AI in production.
-Decago</description>
-      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/9e904d6f-9c1a-40ec-9238-59acf0e69b9d/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=9e904d6f-9c1a-40ec-9238-59acf0e69b9d&amp;feed=JGE3yC0V" type="audio/mpeg" length="77381487" />
-      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — The Prof G Pod: The Week: The Hidden Debt Behind the AI Boom</title>
+      <title>📖 SUMMARY — No Priors: Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak</title>
       <link />
-      <guid isPermaLink="false">0be34ae25db800d2</guid>
-      <pubDate>Fri, 31 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>1023</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;George Hahn connects the dots across the week’s biggest stories: how hidden debt is fueling America’s AI buildout, why China is spreading cheap, open-source AI around the world, and what the rise of solo founders reveals about the new creator economy. Plus, No Mercy / No Malice turns ten.
-
-
-
-We’d lo&lt;/p&gt;</content:encoded>
-      <description>George Hahn connects the dots across the week’s biggest stories: how hidden debt is fueling America’s AI buildout, why China is spreading cheap, open-source AI around the world, and what the rise of solo founders reveals about the new creator economy. Plus, No Mercy / No Malice turns ten.
-
-
-
-We’d lo</description>
-      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP3332627397.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/c7c0b318-d1f6-11f0-95c8-77820a142810/image/971fe4de9e0b9eaa0cefe1029022365e.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Y Combinator Startup Podcast: Alexandr Wang: “This is a Once-in-a-Civilization Opportunity”</title>
-      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Alexandr-Wang-This-is-a-Once-in-a-Civilization-Opportunity-e3mq1mh</link>
-      <guid isPermaLink="false">698aa7c78a17e951</guid>
-      <pubDate>Fri, 31 Jul 2026 16:05:25 +0000</pubDate>
-      <itunes:duration>1929</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&amp;lt;p&amp;gt;Alexandr Wang&amp;#x27;s advice to his 18-year-old self: develop your own internal compass for how the future will unfold, and hold conviction in it against the noise. At Startup School 2026, the Scale AI (YC S16) founder — now leading Meta&amp;#x27;s Superintelligence Labs — talks with Garry Tan about rebuilding &lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Alexandr-Wang-This-is-a-Once-in-a-Civilization-Opportunity-e3mq1mh"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>&lt;p&gt;Alexandr Wang's advice to his 18-year-old self: develop your own internal compass for how the future will unfold, and hold conviction in it against the noise. At Startup School 2026, the Scale AI (YC S16) founder — now leading Meta's Superintelligence Labs — talks with Garry Tan about rebuilding </description>
-      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123585681/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-31%2F428975476-44100-2-60b67de499775.mp3" type="audio/mpeg" length="30877569" />
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785513180684-4e5ad1ec9f84.jpg" />
+      <guid isPermaLink="false">764a97ef74d9b043</guid>
+      <pubDate>Fri, 31 Jul 2026 10:00:00 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
     </item>
     <item>
       <title>📖 SUMMARY — The a16z Show: AI for America's Small Businesses | Lassie</title>
@@ -310,30 +265,31 @@ We’d lo</description>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Chasing Life: The Next Breakthrough Addiction Treatment May Be Here</title>
+      <title>📖 SUMMARY — The a16z Show: How Enterprise AI Really Gets Deployed</title>
       <link />
-      <guid isPermaLink="false">8815e5930a81f6b2</guid>
-      <pubDate>Fri, 31 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>1754</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;The&amp;amp;nbsp;diabetes drugs&amp;amp;nbsp;that transformed weight loss may be key to treating addiction, too. Dr. Sanjay Gupta speaks with Dr. Dhruv Khullar about how&amp;amp;nbsp;GLP-1s&amp;amp;nbsp;affect the brain,&amp;amp;nbsp;its reward system, and&amp;amp;nbsp;maybe even&amp;amp;nbsp;addiction.
-
-This episode was produced by Jennifer Lai with&amp;amp;nbs&lt;/p&gt;</content:encoded>
-      <description>The&amp;nbsp;diabetes drugs&amp;nbsp;that transformed weight loss may be key to treating addiction, too. Dr. Sanjay Gupta speaks with Dr. Dhruv Khullar about how&amp;nbsp;GLP-1s&amp;nbsp;affect the brain,&amp;nbsp;its reward system, and&amp;nbsp;maybe even&amp;nbsp;addiction.
-
-This episode was produced by Jennifer Lai with&amp;nbs</description>
-      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/swap.fm/track/2nzGkisFXQswLYT5s325/traffic.megaphone.fm/WMHY3694779984.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/ef2cde00-af5e-11f0-8766-bf4e3414fb8e/image/68eadf97c5062575ba4129cb91bde045.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+      <guid isPermaLink="false">c8734bd92a2afca8</guid>
+      <pubDate>Fri, 31 Jul 2026 10:00:00 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The Real Story: The State of Public Education with Corey DeAngelis; FREE FOR ALL FRIDAY: FAUCI LIES EDITION</title>
-      <link>https://omny.fm/shows/the-real-story-with-jeanne-ives/the-state-of-public-education-with-corey-deangelis-free-for-all-friday-fauci-lies-edition</link>
-      <guid isPermaLink="false">054800672a1ec596</guid>
-      <pubDate>Fri, 31 Jul 2026 17:10:27 +0000</pubDate>
-      <itunes:duration>2518</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&amp;lt;p&amp;gt;See &amp;lt;a href=&amp;quot;https://omnystudio.com/listener&amp;quot;&amp;gt;omnystudio.com/listener&amp;lt;/a&amp;gt; for privacy information.&amp;lt;/p&amp;gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://omny.fm/shows/the-real-story-with-jeanne-ives/the-state-of-public-education-with-corey-deangelis-free-for-all-friday-fauci-lies-edition"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>&lt;p&gt;See &lt;a href="https://omnystudio.com/listener"&gt;omnystudio.com/listener&lt;/a&gt; for privacy information.&lt;/p&gt;</description>
-      <enclosure url="https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/5730a533-0be7-4f15-a63e-b498011a63ce/audio.mp3?utm_source=Podcast&amp;in_playlist=84012dca-7261-4f57-8637-b03f01228cb9" type="audio/mpeg" length="20200191" />
-      <itunes:image href="https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/image.jpg?t=1781024838&amp;size=Large" />
+      <title>📖 SUMMARY — The Prof G Pod: The Week: The Hidden Debt Behind the AI Boom</title>
+      <link />
+      <guid isPermaLink="false">0be34ae25db800d2</guid>
+      <pubDate>Fri, 31 Jul 2026 08:00:00 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
+    </item>
+    <item>
+      <title>📖 SUMMARY — Y Combinator Startup Podcast: Alexandr Wang: “This is a Once-in-a-Civilization Opportunity”</title>
+      <link />
+      <guid isPermaLink="false">698aa7c78a17e951</guid>
+      <pubDate>Fri, 31 Jul 2026 16:05:25 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
     </item>
     <item>
       <title>📖 SUMMARY — The Real Story: Caucus Member Calls for Resignation of Speaker Welch; "The Pro-Life Doc" William Lile: Abortion Harms Women</title>
@@ -349,6 +305,24 @@ This episode was produced by Jennifer Lai with&amp;nbs</description>
       <link />
       <guid isPermaLink="false">671036c3ce644d5e</guid>
       <pubDate>Thu, 30 Jul 2026 22:02:20 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
+    </item>
+    <item>
+      <title>📖 SUMMARY — Chasing Life: The Next Breakthrough Addiction Treatment May Be Here</title>
+      <link />
+      <guid isPermaLink="false">8815e5930a81f6b2</guid>
+      <pubDate>Fri, 31 Jul 2026 08:00:00 +0000</pubDate>
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
+    </item>
+    <item>
+      <title>📖 SUMMARY — The Real Story: The State of Public Education with Corey DeAngelis; FREE FOR ALL FRIDAY: FAUCI LIES EDITION</title>
+      <link />
+      <guid isPermaLink="false">054800672a1ec596</guid>
+      <pubDate>Fri, 31 Jul 2026 17:10:27 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />

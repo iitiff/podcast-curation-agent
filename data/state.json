@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-07-31T19:51:44.153174+00:00",
+  "last_run": "2026-07-31T21:34:07.659647+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -987,6 +987,7 @@
   ],
   "playlist": [
     "d99da0b934e38cc5",
-    "d0fb92fb8a3c821c"
+    "d0fb92fb8a3c821c",
+    "7a8af04ee65d4958"
   ]
 }

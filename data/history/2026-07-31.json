@@ -2,34 +2,6 @@
   "run_date": "2026-07-31",
   "queued": [
     {
-      "guid": "d99da0b934e38cc5",
-      "show": "The a16z Show",
-      "title": "Fei-Fei Li on Spatial Intelligence and Robotics",
-      "score": 73.0,
-      "classification": "Listen Fully",
-      "duration_min": 0.0,
-      "url": "",
-      "summary": "",
-      "key_ideas": [],
-      "confidence": "low",
-      "category": "startup"
-    },
-    {
-      "guid": "d0fb92fb8a3c821c",
-      "show": "Invest Like the Best",
-      "title": "Sam Altman - How to Make an Abundant Future - [Invest Like the Best, EP.484]",
-      "score": 71.0,
-      "classification": "Listen Fully",
-      "duration_min": 0.0,
-      "url": "",
-      "summary": "",
-      "key_ideas": [],
-      "confidence": "low",
-      "category": "startup"
-    }
-  ],
-  "email_only": [
-    {
       "guid": "7a8af04ee65d4958",
       "show": "The a16z Show",
       "title": "AI Micro Dramas, Generative Media, and the Future of Creativity",
@@ -41,7 +13,9 @@
       "key_ideas": [],
       "confidence": "low",
       "category": "startup"
-    },
+    }
+  ],
+  "email_only": [
     {
       "guid": "eb5173660146cb5d",
       "show": "Future Commerce",
@@ -67,19 +41,6 @@
       "key_ideas": [],
       "confidence": "low",
       "category": "startup"
-    },
-    {
-      "guid": "764a97ef74d9b043",
-      "show": "No Priors",
-      "title": "Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak",
-      "score": 50.0,
-      "classification": "Read Summary Only",
-      "duration_min": 34.0,
-      "url": "",
-      "summary": "When your AC fails in a heatwave, you don\u2019t want a busy signal; you need a solution. Netic founder and CEO Melisa Tokmak joins host Elad Gil to explain how Netic\u2019s autonomous AI platform acts as an intermediary between companies and customers, deploying agents to instantly handle essential services,",
-      "key_ideas": [],
-      "confidence": "low",
-      "category": "ai_retail"
     },
     {
       "guid": "6a94a25c9cbce596",
@@ -160,43 +121,17 @@
       "category": "ai_retail"
     },
     {
-      "guid": "c8734bd92a2afca8",
-      "show": "The a16z Show",
-      "title": "How Enterprise AI Really Gets Deployed",
+      "guid": "764a97ef74d9b043",
+      "show": "No Priors",
+      "title": "Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak",
       "score": 50.0,
       "classification": "Read Summary Only",
-      "duration_min": 81.0,
-      "url": "https://a16z.simplecast.com/episodes/decagons-playbook-for-building-enterprise-ai-applications-VB3G3VC1",
-      "summary": "Sarah Wang and Kimberly Tan are joined by Jesse Zhang and Ashwin Sreenivas, co-founders of Decagon, to discuss the evolution of enterprise AI agents, why the company increasingly relies on open-source models, and how it is helping some of the world\u2019s largest companies deploy AI in production.\nDecago",
-      "key_ideas": [],
-      "confidence": "low",
-      "category": "startup"
-    },
-    {
-      "guid": "0be34ae25db800d2",
-      "show": "The Prof G Pod",
-      "title": "The Week: The Hidden Debt Behind the AI Boom",
-      "score": 50.0,
-      "classification": "Read Summary Only",
-      "duration_min": 17.0,
+      "duration_min": 0.0,
       "url": "",
-      "summary": "George Hahn connects the dots across the week\u2019s biggest stories: how hidden debt is fueling America\u2019s AI buildout, why China is spreading cheap, open-source AI around the world, and what the rise of solo founders reveals about the new creator economy. Plus, No Mercy / No Malice turns ten.\n\n\n\nWe\u2019d lo",
+      "summary": "",
       "key_ideas": [],
       "confidence": "low",
-      "category": "startup"
-    },
-    {
-      "guid": "698aa7c78a17e951",
-      "show": "Y Combinator Startup Podcast",
-      "title": "Alexandr Wang: \u201cThis is a Once-in-a-Civilization Opportunity\u201d",
-      "score": 50.0,
-      "classification": "Read Summary Only",
-      "duration_min": 32.0,
-      "url": "https://podcasters.spotify.com/pod/show/ycombinator/episodes/Alexandr-Wang-This-is-a-Once-in-a-Civilization-Opportunity-e3mq1mh",
-      "summary": "<p>Alexandr Wang's advice to his 18-year-old self: develop your own internal compass for how the future will unfold, and hold conviction in it against the noise. At Startup School 2026, the Scale AI (YC S16) founder \u2014 now leading Meta's Superintelligence Labs \u2014 talks with Garry Tan about rebuilding ",
-      "key_ideas": [],
-      "confidence": "low",
-      "category": "startup"
+      "category": "ai_retail"
     },
     {
       "guid": "077d3472234a103c",
@@ -238,30 +173,43 @@
       "category": "startup"
     },
     {
-      "guid": "8815e5930a81f6b2",
-      "show": "Chasing Life",
-      "title": "The Next Breakthrough Addiction Treatment May Be Here",
+      "guid": "c8734bd92a2afca8",
+      "show": "The a16z Show",
+      "title": "How Enterprise AI Really Gets Deployed",
       "score": 50.0,
       "classification": "Read Summary Only",
-      "duration_min": 29.0,
+      "duration_min": 0.0,
       "url": "",
-      "summary": "The&nbsp;diabetes drugs&nbsp;that transformed weight loss may be key to treating addiction, too. Dr. Sanjay Gupta speaks with Dr. Dhruv Khullar about how&nbsp;GLP-1s&nbsp;affect the brain,&nbsp;its reward system, and&nbsp;maybe even&nbsp;addiction.\n\nThis episode was produced by Jennifer Lai with&nbs",
+      "summary": "",
       "key_ideas": [],
       "confidence": "low",
-      "category": "personal_growth"
+      "category": "startup"
     },
     {
-      "guid": "054800672a1ec596",
-      "show": "The Real Story",
-      "title": "The State of Public Education with Corey DeAngelis; FREE FOR ALL FRIDAY: FAUCI LIES EDITION",
+      "guid": "0be34ae25db800d2",
+      "show": "The Prof G Pod",
+      "title": "The Week: The Hidden Debt Behind the AI Boom",
       "score": 50.0,
       "classification": "Read Summary Only",
-      "duration_min": 42.0,
-      "url": "https://omny.fm/shows/the-real-story-with-jeanne-ives/the-state-of-public-education-with-corey-deangelis-free-for-all-friday-fauci-lies-edition",
-      "summary": "<p>See <a href=\"https://omnystudio.com/listener\">omnystudio.com/listener</a> for privacy information.</p>",
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
       "key_ideas": [],
       "confidence": "low",
-      "category": "personal_growth"
+      "category": "startup"
+    },
+    {
+      "guid": "698aa7c78a17e951",
+      "show": "Y Combinator Startup Podcast",
+      "title": "Alexandr Wang: \u201cThis is a Once-in-a-Civilization Opportunity\u201d",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "startup"
     },
     {
       "guid": "6b2a907277ae424d",
@@ -280,6 +228,32 @@
       "guid": "671036c3ce644d5e",
       "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
       "title": "EP.630 \u300a\u6d3b\u51fa\u4f60\u7684\u539f\u5ee0\u8a2d\u5b9a\u300b\u8b80\u5f8c\u5fc3\u5f97\uff1a\u505a\u81ea\u5df1\uff0c\u4e0d\u9808\u8b49\u660e\u7d66\u8ab0\u770b",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "personal_growth"
+    },
+    {
+      "guid": "8815e5930a81f6b2",
+      "show": "Chasing Life",
+      "title": "The Next Breakthrough Addiction Treatment May Be Here",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "duration_min": 0.0,
+      "url": "",
+      "summary": "",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "personal_growth"
+    },
+    {
+      "guid": "054800672a1ec596",
+      "show": "The Real Story",
+      "title": "The State of Public Education with Corey DeAngelis; FREE FOR ALL FRIDAY: FAUCI LIES EDITION",
       "score": 50.0,
       "classification": "Read Summary Only",
       "duration_min": 0.0,
