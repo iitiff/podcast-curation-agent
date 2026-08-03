@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Jul 2026 21:34:07 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2026 08:36:46 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/all.xml" rel="self" type="application/rss+xml" />
@@ -125,8 +125,8 @@
       <link />
       <guid isPermaLink="false">7a8af04ee65d4958</guid>
       <pubDate>Wed, 29 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 64/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>0</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 64/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
       <description />
     </item>
     <item>
@@ -157,76 +157,15 @@
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Future Commerce: Bedfellows: How Boll &amp; Branch Keeps Humans and AI in the Same Sheets</title>
-      <link />
-      <guid isPermaLink="false">eb5173660146cb5d</guid>
-      <pubDate>Wed, 29 Jul 2026 11:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 56/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — The Prof G Pod: China Decode: China's Bid for AI Dominance, and Chinese Food Trends (ft. @BlondieinChina)</title>
-      <link />
-      <guid isPermaLink="false">07f8d5666d09ef0c</guid>
-      <pubDate>Tue, 28 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 55/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Retailgentic: Shopify's Agentic Commerce Playbook: VP of Product Mani Fazeli on 8X Agentic Traffic Growth and the Long-Tail Boom</title>
-      <link />
-      <guid isPermaLink="false">6a94a25c9cbce596</guid>
-      <pubDate>Thu, 30 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Future Commerce: *TEASER* The Dire State of Consumer Trust In 2026</title>
-      <link />
-      <guid isPermaLink="false">dbb9c763eb3ea8cd</guid>
-      <pubDate>Thu, 30 Jul 2026 14:06:26 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Sharp China: (Preview) A Memory-Maker Makes History; New Robot Rules; The Open Weights Debate Rages; End of July News and Notes</title>
-      <link />
-      <guid isPermaLink="false">4a976155a9a9712c</guid>
-      <pubDate>Thu, 30 Jul 2026 08:59:17 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Think Fast Talk Smart: 310. A Matter of Meaning: What Other People Teach You About Your Communication</title>
-      <link />
-      <guid isPermaLink="false">e2b896cbe0e2e296</guid>
-      <pubDate>Thu, 30 Jul 2026 13:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Decoder: The end of the human internet</title>
-      <link />
-      <guid isPermaLink="false">af0b4b8faf6c9ef1</guid>
-      <pubDate>Thu, 30 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Jason &amp; Scot Show: EP342 - The End of the Attention Economy, and What Retail Does Next with Mitch Joel</title>
-      <link />
-      <guid isPermaLink="false">c9f7bc8824d30cc4</guid>
-      <pubDate>Fri, 31 Jul 2026 03:32:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
+      <title>📖 SUMMARY — Jason &amp; Scot Show: E343 - Amazon Q2 2026 Earnings</title>
+      <link>https://jasonandscot.com/e343-amazon-q2-2026-earnings</link>
+      <guid isPermaLink="false">5666d988adc5e47e</guid>
+      <pubDate>Mon, 03 Aug 2026 02:17:00 +0000</pubDate>
+      <itunes:duration>3511</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&amp;lt;p&amp;gt;n this episode, Jason and Scot reunite after seeing each other in person, sharing stories from recent conferences and discussing how social media, micro-influencers, and AI-powered shopping agents are reshaping the way consumers discover and book travel.&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;The main event, though, is Amazon&amp;#x27;s&lt;/p&gt;&lt;p&gt;&lt;a href="https://jasonandscot.com/e343-amazon-q2-2026-earnings"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>&lt;p&gt;n this episode, Jason and Scot reunite after seeing each other in person, sharing stories from recent conferences and discussing how social media, micro-influencers, and AI-powered shopping agents are reshaping the way consumers discover and book travel.&lt;/p&gt; &lt;p&gt;The main event, though, is Amazon's</description>
+      <enclosure url="https://traffic.libsyn.com/secure/jasshow/jass_amazin_q2_VIDEO_AUPHONIC_AUDIO.mp3?dest-id=325386" type="audio/mpeg" length="49240090" />
+      <itunes:image href="https://static.libsyn.com/p/assets/2/d/c/a/2dca4baf49ba771d16c3140a3186d450/jass_amazin_q2_VIDEO_AUPHONIC_AUDIO.jpg" />
     </item>
     <item>
       <title>📖 SUMMARY — No Priors: Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak</title>
@@ -238,31 +177,94 @@
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The a16z Show: AI for America's Small Businesses | Lassie</title>
+      <title>📖 SUMMARY — Founders: #427 How Raymond Plank Built a $50 Billion Oil Company</title>
       <link />
-      <guid isPermaLink="false">077d3472234a103c</guid>
-      <pubDate>Thu, 30 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
+      <guid isPermaLink="false">499e4c446040be33</guid>
+      <pubDate>Sat, 01 Aug 2026 23:58:00 +0000</pubDate>
+      <itunes:duration>2290</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Raymond Plank founded Apache Corporation with just $250,000 in 1954. 50 years later his company was worth $50 billion. 
+
+This episode examines the life and entrepreneurial philosophy of Raymond Plank through his memoir A Small Difference 
+
+Rather than presenting a conventional history of Apache, thi&lt;/p&gt;</content:encoded>
+      <description>Raymond Plank founded Apache Corporation with just $250,000 in 1954. 50 years later his company was worth $50 billion. 
+
+This episode examines the life and entrepreneurial philosophy of Raymond Plank through his memoir A Small Difference 
+
+Rather than presenting a conventional history of Apache, thi</description>
+      <enclosure url="https://traffic.megaphone.fm/DSLLC1260176282.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/0fe786f2-3d92-11f0-8fb0-e778594b8bf8/image/b3123fe637dbdfa2bd55f9fbfb386aca.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>📖 SUMMARY — The Prof G Pod: The New Rules of Money in Your 20s — with Jack Raines</title>
-      <link />
-      <guid isPermaLink="false">164b36db6b91e9bc</guid>
-      <pubDate>Thu, 30 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
+      <title>📖 SUMMARY — Y Combinator Startup Podcast: Jeff Dean: The 1% Rule for Building in AI</title>
+      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jeff-Dean-The-1-Rule-for-Building-in-AI-e3mq28a</link>
+      <guid isPermaLink="false">9a498473d4309a7e</guid>
+      <pubDate>Sat, 01 Aug 2026 14:00:00 +0000</pubDate>
+      <itunes:duration>3426</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&amp;lt;p&amp;gt;In 2001, Jeff Dean and Sanjay Ghemawat did the math and realized Google’s entire search index would fit in RAM — then shipped it in a few days, and search got fast. In 2013, another napkin calculation showed that three minutes of daily speech recognition per user would require doubling Google’s s&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jeff-Dean-The-1-Rule-for-Building-in-AI-e3mq28a"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>&lt;p&gt;In 2001, Jeff Dean and Sanjay Ghemawat did the math and realized Google’s entire search index would fit in RAM — then shipped it in a few days, and search got fast. In 2013, another napkin calculation showed that three minutes of daily speech recognition per user would require doubling Google’s s</description>
+      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123586250/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-31%2F428976415-44100-2-4750afd8ab692.mp3" type="audio/mpeg" length="54829556" />
+      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785514200270-72a7d09aaff28.jpg" />
     </item>
     <item>
-      <title>📖 SUMMARY — Masters of Scale: How to beef up your business, with ButcherBox CEO Mike Salguero</title>
+      <title>📖 SUMMARY — The a16z Show: Ruby Thelot on Internet Culture, AI, and the Future of Taste</title>
+      <link>https://a16z.simplecast.com/episodes/ruby-thelot-on-internet-culture-ai-and-the-future-of-taste-CvhHSpzt</link>
+      <guid isPermaLink="false">d8efc40942f83bfe</guid>
+      <pubDate>Sun, 02 Aug 2026 10:46:36 +0000</pubDate>
+      <itunes:duration>2048</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Sophia Dew and Sofia Puccini are joined by Ruby Thelot, designer, artist, cyberethnographer, professor at NYU, and founder of 13101401, for a wide-ranging conversation about internet culture, AI, digital communities, and how technology is reshaping the way we relate to one another.
+Drawing on years &lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/ruby-thelot-on-internet-culture-ai-and-the-future-of-taste-CvhHSpzt"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Sophia Dew and Sofia Puccini are joined by Ruby Thelot, designer, artist, cyberethnographer, professor at NYU, and founder of 13101401, for a wide-ranging conversation about internet culture, AI, digital communities, and how technology is reshaping the way we relate to one another.
+Drawing on years </description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/03b39caa-2d5d-4ade-815f-7d9df9231c3f/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=03b39caa-2d5d-4ade-815f-7d9df9231c3f&amp;feed=JGE3yC0V" type="audio/mpeg" length="32780234" />
+      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — The a16z Show: Marc Andreessen and Chris Dixon: What’s at Stake in Crypto Regulation</title>
+      <link>https://a16z.simplecast.com/episodes/marc-andreessen-and-chris-dixon-whats-at-stake-in-crypto-regulation-2sleSszn</link>
+      <guid isPermaLink="false">1fb7e64c3cedcf6d</guid>
+      <pubDate>Sat, 01 Aug 2026 15:38:28 +0000</pubDate>
+      <itunes:duration>3595</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Marc Andreessen, Chris Dixon, and Robert Hackett discuss one of the most consequential policy debates facing the crypto industry: the push for comprehensive U.S. market structure legislation and what regulatory clarity could mean for innovation, financial markets, and America&amp;#x27;s technological leaders&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/marc-andreessen-and-chris-dixon-whats-at-stake-in-crypto-regulation-2sleSszn"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Marc Andreessen, Chris Dixon, and Robert Hackett discuss one of the most consequential policy debates facing the crypto industry: the push for comprehensive U.S. market structure legislation and what regulatory clarity could mean for innovation, financial markets, and America's technological leaders</description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/6a1f350c-90b5-47b5-bfa5-20e411df9ecd/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=6a1f350c-90b5-47b5-bfa5-20e411df9ecd&amp;feed=JGE3yC0V" type="audio/mpeg" length="57523836" />
+      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — The Prof G Pod: When to Sell Your Stocks, and How to Survive a High-Pressure Job</title>
       <link />
-      <guid isPermaLink="false">a88abede4c44de42</guid>
-      <pubDate>Thu, 30 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
+      <guid isPermaLink="false">f5f6640edd979157</guid>
+      <pubDate>Mon, 03 Aug 2026 08:00:00 +0000</pubDate>
+      <itunes:duration>1559</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Scott Galloway explains why you shouldn&amp;#x27;t try to time the market, how to survive the punishing culture of a high-pressure job, and how to care for an aging loved one without giving up your own life.
+
+
+
+Want to be featured in a future episode? Send a voice recording to officehours@profgmedia.com, or &lt;/p&gt;</content:encoded>
+      <description>Scott Galloway explains why you shouldn't try to time the market, how to survive the punishing culture of a high-pressure job, and how to care for an aging loved one without giving up your own life.
+
+
+
+Want to be featured in a future episode? Send a voice recording to officehours@profgmedia.com, or </description>
+      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP7016237940.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/c7d1ffb0-d1f6-11f0-95c8-0f11f83ae4a3/image/ea5d5fd880a60cdd91ed09b3782fac97.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — The Prof G Pod: No Mercy / No Malice: Shoulders of Giants</title>
+      <link />
+      <guid isPermaLink="false">3a5b9825d0167053</guid>
+      <pubDate>Sat, 01 Aug 2026 08:02:00 +0000</pubDate>
+      <itunes:duration>998</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;As read by George Hahn.
+
+https://www.profgmedia.com/p/shoulders-of-giants
+Learn more about your ad choices. Visit podcastchoices.com/adchoices&lt;/p&gt;</content:encoded>
+      <description>As read by George Hahn.
+
+https://www.profgmedia.com/p/shoulders-of-giants
+Learn more about your ad choices. Visit podcastchoices.com/adchoices</description>
+      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP4017556405.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/5ea8f1a0-d1f7-11f0-bb97-df94dd0f03e0/image/88c1ab73c74ed091b7c3e0c127cd2578.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
       <title>📖 SUMMARY — The a16z Show: How Enterprise AI Really Gets Deployed</title>
@@ -292,22 +294,26 @@
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The Real Story: Caucus Member Calls for Resignation of Speaker Welch; "The Pro-Life Doc" William Lile: Abortion Harms Women</title>
-      <link />
-      <guid isPermaLink="false">6b2a907277ae424d</guid>
-      <pubDate>Thu, 30 Jul 2026 17:09:45 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
+      <title>📖 SUMMARY — 周慕姿放心說: 【影劇分析】別急著貼上逃避與不負責的標籤！看懂周可傑、王永貴、韓其森的複雜性，溫柔理解男性的脆弱｜心理學解析《欠妳的那場婚禮》</title>
+      <link>https://open.firstory.me/story/cms8kz4k20dsl01ya1gw8fnac</link>
+      <guid isPermaLink="false">d7fed68e2ef134ef</guid>
+      <pubDate>Sun, 02 Aug 2026 22:02:06 +0000</pubDate>
+      <itunes:duration>2161</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&amp;lt;p&amp;gt;❝ &amp;lt;strong&amp;gt;看似截然不同的行為防衛，其實都在掩飾同一個最深層的恐懼：害怕自己沒有價值。&amp;lt;/strong&amp;gt; ❞ — 知識衛星製作&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;⠀&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;在影集《欠妳的那場婚禮》中，不只刻劃了女性的困境，也深刻描繪了男性在社會框架下尋找自我定位的掙扎。本集節目透過劇中三位重要的男性角色——周可傑、王永貴與韓其森，深入剖析他們在樂團中的位置，以及各自面對挫折、責任與情感時的真實心理防衛。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;⠀&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;大眾往往容易用單一的標籤來評斷一個人的行為，例如「自私」、「逃避」或是「油腔滑調」。然而，從心理學的角度來看，這些行為背後往往藏著極為複雜的生存策略。像是主唱周可傑，&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cms8kz4k20dsl01ya1gw8fnac"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>&lt;p&gt;❝ &lt;strong&gt;看似截然不同的行為防衛，其實都在掩飾同一個最深層的恐懼：害怕自己沒有價值。&lt;/strong&gt; ❞ — 知識衛星製作&lt;/p&gt;&lt;p&gt;⠀&lt;/p&gt;&lt;p&gt;在影集《欠妳的那場婚禮》中，不只刻劃了女性的困境，也深刻描繪了男性在社會框架下尋找自我定位的掙扎。本集節目透過劇中三位重要的男性角色——周可傑、王永貴與韓其森，深入剖析他們在樂團中的位置，以及各自面對挫折、責任與情感時的真實心理防衛。&lt;/p&gt;&lt;p&gt;⠀&lt;/p&gt;&lt;p&gt;大眾往往容易用單一的標籤來評斷一個人的行為，例如「自私」、「逃避」或是「油腔滑調」。然而，從心理學的角度來看，這些行為背後往往藏著極為複雜的生存策略。像是主唱周可傑，</description>
+      <enclosure url="https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cms8kz4k20dsl01ya1gw8fnac/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcms8kz4k20dsm01yaa0ii4t9t.mp3?v=1785480558818" type="audio/mpeg" length="0" />
+      <itunes:image href="https://image.firstory-cdn.me/Image/clysov3kl04yv01yi23cwbp3g/g6u-wuXy5-3uqhjW_1JSN.jpg" />
     </item>
     <item>
-      <title>📖 SUMMARY — 下一本讀什麼: EP.630 《活出你的原廠設定》讀後心得：做自己，不須證明給誰看</title>
-      <link />
-      <guid isPermaLink="false">671036c3ce644d5e</guid>
-      <pubDate>Thu, 30 Jul 2026 22:02:20 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
+      <title>📖 SUMMARY — 下一本讀什麼: EP.631 50 歲才學 AI 會太晚嗎？吳淡如 60 歲活用 AI 攻取第二博士？</title>
+      <link>https://open.firstory.me/story/cms8my0jz0d1701zo5ppk1tw5</link>
+      <guid isPermaLink="false">03678c37b28d5133</guid>
+      <pubDate>Sun, 02 Aug 2026 10:02:05 +0000</pubDate>
+      <itunes:duration>2684</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;【本集節目由 瓦基 贊助播出】&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;《AI 瓦基第二大腦》&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;從思考框架、實戰工具到實際案例，給你一套可以照著做的 AI 協作系統：&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;▪️一站式學好 AI｜思維底層到實戰產出，一次完整學&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;▪️10 項獨家 AI 專案包｜涵蓋寫作、決策、研究等場景&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;▪️PACE 行動思考地圖｜四大象限對應所有 AI 應用場景&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;▪️資料庫持續更新｜隨著 AI 迭代，持續跟你一起成長&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;✨學一次，建一套跟著你持續複利成長的 AI 高產出系統✨&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;📣結帳輸入折&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cms8my0jz0d1701zo5ppk1tw5"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>&lt;p&gt;&lt;strong&gt;【本集節目由 瓦基 贊助播出】&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;《AI 瓦基第二大腦》&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;從思考框架、實戰工具到實際案例，給你一套可以照著做的 AI 協作系統：&lt;/p&gt;&lt;p&gt;▪️一站式學好 AI｜思維底層到實戰產出，一次完整學&lt;/p&gt;&lt;p&gt;▪️10 項獨家 AI 專案包｜涵蓋寫作、決策、研究等場景&lt;/p&gt;&lt;p&gt;▪️PACE 行動思考地圖｜四大象限對應所有 AI 應用場景&lt;/p&gt;&lt;p&gt;▪️資料庫持續更新｜隨著 AI 迭代，持續跟你一起成長&lt;/p&gt;&lt;p&gt;✨學一次，建一套跟著你持續複利成長的 AI 高產出系統✨&lt;/p&gt;&lt;p&gt;📣結帳輸入折</description>
+      <enclosure url="https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cms8my0jz0d1701zo5ppk1tw5/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcms8my0jz0d1801zod69bgye8.mp3?v=1785483851570" type="audio/mpeg" length="0" />
+      <itunes:image href="https://image.firstory-cdn.me/Avatar/cl39lz2ky01co01ugaba7gr9y/1746157627292.jpg" />
     </item>
     <item>
       <title>📖 SUMMARY — Chasing Life: The Next Breakthrough Addiction Treatment May Be Here</title>
@@ -325,33 +331,6 @@
       <pubDate>Fri, 31 Jul 2026 17:10:27 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Y Combinator Startup Podcast: Sam Altman: "Never a Better Time to Do a Startup"</title>
-      <link />
-      <guid isPermaLink="false">54caa05108edc3e5</guid>
-      <pubDate>Tue, 28 Jul 2026 16:17:44 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 43/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Y Combinator Startup Podcast: Blake Scholl: Breaking the Supersonic Ban</title>
-      <link />
-      <guid isPermaLink="false">966b8a11601ed04f</guid>
-      <pubDate>Wed, 29 Jul 2026 21:56:23 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 27/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — The Tim Ferriss Show: #877: Q&amp;A with Tim — The Art of Male Friendship, Mini-Retirements, Higher-Resolution Living, Reinvention in The Age of AI, and More</title>
-      <link />
-      <guid isPermaLink="false">ce070fc81dbf509b</guid>
-      <pubDate>Wed, 29 Jul 2026 18:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 0/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
   </channel>

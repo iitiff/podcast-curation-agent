@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-07-31T21:34:07.659647+00:00",
+  "last_run": "2026-08-03T08:36:46.480039+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -927,6 +927,105 @@
       "classification": "Read Summary Only",
       "is_outside_feed": false,
       "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+    },
+    "5666d988adc5e47e": {
+      "guid": "5666d988adc5e47e",
+      "show_title": "Jason & Scot Show",
+      "episode_title": "E343 - Amazon Q2 2026 Earnings",
+      "published": "2026-08-03T02:17:00Z",
+      "processed_at": "2026-08-03T08:36:46.418762Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.libsyn.com/shows/74302/destinations/325386.xml"
+    },
+    "499e4c446040be33": {
+      "guid": "499e4c446040be33",
+      "show_title": "Founders",
+      "episode_title": "#427 How Raymond Plank Built a $50 Billion Oil Company",
+      "published": "2026-08-01T23:58:00Z",
+      "processed_at": "2026-08-03T08:36:46.418864Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/DSLLC6297708582"
+    },
+    "9a498473d4309a7e": {
+      "guid": "9a498473d4309a7e",
+      "show_title": "Y Combinator Startup Podcast",
+      "episode_title": "Jeff Dean: The 1% Rule for Building in AI",
+      "published": "2026-08-01T14:00:00Z",
+      "processed_at": "2026-08-03T08:36:46.418884Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss"
+    },
+    "d8efc40942f83bfe": {
+      "guid": "d8efc40942f83bfe",
+      "show_title": "The a16z Show",
+      "episode_title": "Ruby Thelot on Internet Culture, AI, and the Future of Taste",
+      "published": "2026-08-02T10:46:36Z",
+      "processed_at": "2026-08-03T08:36:46.418897Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+    },
+    "1fb7e64c3cedcf6d": {
+      "guid": "1fb7e64c3cedcf6d",
+      "show_title": "The a16z Show",
+      "episode_title": "Marc Andreessen and Chris Dixon: What\u2019s at Stake in Crypto Regulation",
+      "published": "2026-08-01T15:38:28Z",
+      "processed_at": "2026-08-03T08:36:46.418909Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+    },
+    "f5f6640edd979157": {
+      "guid": "f5f6640edd979157",
+      "show_title": "The Prof G Pod",
+      "episode_title": "When to Sell Your Stocks, and How to Survive a High-Pressure Job",
+      "published": "2026-08-03T08:00:00Z",
+      "processed_at": "2026-08-03T08:36:46.418920Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+    },
+    "3a5b9825d0167053": {
+      "guid": "3a5b9825d0167053",
+      "show_title": "The Prof G Pod",
+      "episode_title": "No Mercy / No Malice: Shoulders of Giants",
+      "published": "2026-08-01T08:02:00Z",
+      "processed_at": "2026-08-03T08:36:46.418931Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+    },
+    "d7fed68e2ef134ef": {
+      "guid": "d7fed68e2ef134ef",
+      "show_title": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "episode_title": "\u3010\u5f71\u5287\u5206\u6790\u3011\u5225\u6025\u8457\u8cbc\u4e0a\u9003\u907f\u8207\u4e0d\u8ca0\u8cac\u7684\u6a19\u7c64\uff01\u770b\u61c2\u5468\u53ef\u5091\u3001\u738b\u6c38\u8cb4\u3001\u97d3\u5176\u68ee\u7684\u8907\u96dc\u6027\uff0c\u6eab\u67d4\u7406\u89e3\u7537\u6027\u7684\u8106\u5f31\uff5c\u5fc3\u7406\u5b78\u89e3\u6790\u300a\u6b20\u59b3\u7684\u90a3\u5834\u5a5a\u79ae\u300b",
+      "published": "2026-08-02T22:02:06Z",
+      "processed_at": "2026-08-03T08:36:46.418941Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g"
+    },
+    "03678c37b28d5133": {
+      "guid": "03678c37b28d5133",
+      "show_title": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
+      "episode_title": "EP.631 50 \u6b72\u624d\u5b78 AI \u6703\u592a\u665a\u55ce\uff1f\u5433\u6de1\u5982 60 \u6b72\u6d3b\u7528 AI \u653b\u53d6\u7b2c\u4e8c\u535a\u58eb\uff1f",
+      "published": "2026-08-02T10:02:05Z",
+      "processed_at": "2026-08-03T08:36:46.418951Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y"
     }
   },
   "published": [
@@ -983,7 +1082,16 @@
     "0be34ae25db800d2",
     "698aa7c78a17e951",
     "8815e5930a81f6b2",
-    "054800672a1ec596"
+    "054800672a1ec596",
+    "5666d988adc5e47e",
+    "499e4c446040be33",
+    "9a498473d4309a7e",
+    "d8efc40942f83bfe",
+    "1fb7e64c3cedcf6d",
+    "f5f6640edd979157",
+    "3a5b9825d0167053",
+    "d7fed68e2ef134ef",
+    "03678c37b28d5133"
   ],
   "playlist": [
     "d99da0b934e38cc5",
