@@ -12,28 +12,34 @@ log = logging.getLogger(__name__)
 
 
 class GitHubModelsProvider(BaseLLMProvider):
-    """GitHub Models inference API (OpenAI-compatible).
+    """!! RETIRED — DO NOT USE. Kept for historical reference only. !!
 
-    Uses GITHUB_TOKEN which is automatically available in all GitHub Actions
-    runs (with `models: read` requested in the workflow permissions) — no
-    extra secret required.
+    GitHub permanently retired the entire GitHub Models product on
+    2026-07-30. The playground, model catalog, inference API, and BYOK are
+    all gone for every customer, including accounts with active usage.
+    Requests to the inference endpoint now return **410 Gone**.
+    See: https://github.blog/changelog/2026-07-30-github-models-is-now-retired/
 
-    NOTE: GitHub migrated the inference endpoint from the legacy
-    `models.inference.ai.azure.com` host to `models.github.ai/inference`.
-    The old host stopped honoring the Actions-issued GITHUB_TOKEN and returns
-    401 Unauthorized even when `models: read` is correctly granted. Model IDs
-    on the new endpoint also require a publisher namespace prefix, e.g.
-    "openai/gpt-4o" instead of the old bare "gpt-4o".
-    See: https://github.blog/ai-and-ml/llms/solving-the-inference-problem-for-open-source-ai-projects-with-github-models/
+    Endpoint history (all now dead):
+      - https://models.inference.ai.azure.com  (deprecated 2025-07-17,
+        support removed 2025-10-17)
+      - https://models.github.ai/inference     (retired 2026-07-30, 410 Gone)
+
+    There is no replacement endpoint. cli.py._make_llm() intentionally never
+    constructs this class. If you are here because episodes aren't getting
+    real LLM scores, the fix is a working GEMINI_API_KEY (or adding a
+    different provider), NOT another endpoint change.
     """
 
     BASE_URL = "https://models.github.ai/inference"
 
     def __init__(self, token: str, model: str = "openai/gpt-4.1") -> None:
+        log.warning(
+            "GitHubModelsProvider was instantiated, but GitHub Models was "
+            "permanently retired on 2026-07-30 and returns 410 Gone. "
+            "All requests through this provider will fail."
+        )
         self.token = token
-        # Defensive normalization: if a bare model id (no publisher namespace)
-        # is passed — e.g. via a stale GITHUB_MODELS_MODEL env override — assume
-        # the OpenAI publisher, since that's what this project always used.
         self.model = model if "/" in model else f"openai/{model}"
 
     async def complete(
@@ -67,7 +73,7 @@ class GitHubModelsProvider(BaseLLMProvider):
 
 
 class GeminiProvider(BaseLLMProvider):
-    """Google Gemini API provider."""
+    """Google Gemini API provider — the primary (and currently only) LLM."""
 
     BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 
@@ -117,17 +123,15 @@ class GeminiProvider(BaseLLMProvider):
 class FallbackLLMProvider(BaseLLMProvider):
     """Wraps a primary LLM provider with an automatic runtime fallback.
 
-    Previously, the pipeline picked ONE provider at startup based purely on
-    which credential was present (GITHUB_TOKEN is always set in Actions, so
-    Gemini was never actually tried even when GEMINI_API_KEY was configured).
-    Any runtime failure of the primary (e.g. a 401 from GitHub Models) was
-    caught deep inside stage2_batch_rank and silently downgraded to
-    metadata-only scoring for that batch — never retried with Gemini.
+    Currently unused (Gemini is the only live provider after GitHub Models was
+    retired), but retained because it's the correct shape for adding a second
+    provider later: complete() tries the primary and, on ANY exception,
+    transparently retries the same request with the secondary before giving up.
 
-    This wrapper closes that gap: complete() tries the primary provider first
-    and, on any exception, transparently retries the same request with the
-    secondary provider before giving up. Call sites (stage2_batch_rank,
-    generate_synthesis, etc.) are unchanged — they just see one BaseLLMProvider.
+    Why per-call and not per-startup: choosing one provider once at startup
+    means a mid-run failure (401, 410, rate limit, timeout) silently degrades
+    every subsequent episode to metadata-only scoring with no retry. Doing the
+    fallback inside complete() means each batch gets its own second chance.
     """
 
     def __init__(
