@@ -19,7 +19,11 @@ from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
 from .normalize import NormalizedEpisode, clean_snippet, dedup_episodes
 from .providers.base import BaseLLMProvider
-from .providers.llm import FallbackLLMProvider, GeminiProvider, GitHubModelsProvider
+# NOTE: GitHubModelsProvider is intentionally NOT imported — GitHub Models was
+# permanently retired 2026-07-30 (returns 410 Gone). FallbackLLMProvider is also
+# not imported since Gemini is currently the only live provider; import it here
+# if/when a second provider is added. See _make_llm() below.
+from .providers.llm import GeminiProvider
 from .providers.podcast_search import ITunesSearchProvider, PodcastIndexProvider
 from .providers.transcription import CascadeTranscriptionProvider
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
@@ -70,51 +74,47 @@ def _make_web_search(
 
 
 def _make_llm(settings: Settings) -> BaseLLMProvider | None:
-    """Build the LLM provider: GitHub Models primary, Gemini as a true runtime
-    fallback when both credentials are available.
+    """Build the LLM provider. Gemini is the sole supported provider.
 
-    IMPORTANT — regression history: this function was previously restored to
-    a single-provider version by a hotfix (PR#10) that was accidentally based
-    on a stale local file predating this fallback wiring. That silently
-    reverted true runtime fallback for several days while looking unrelated
-    to the change actually being shipped. If touching this function again,
-    always diff against the live file on GitHub first, never a cached copy.
+    GITHUB MODELS IS PERMANENTLY RETIRED. GitHub shut the entire product down
+    on 2026-07-30 -- playground, model catalog, inference API, and BYOK are all
+    gone for every customer including those with active usage. The endpoint
+    https://models.github.ai/inference/chat/completions now returns 410 Gone.
+    See: https://github.blog/changelog/2026-07-30-github-models-is-now-retired/
 
-    Since GITHUB_TOKEN is always present in GitHub Actions, a naive
-    "GitHub Models if token else Gemini" check always picks GitHub Models and
-    NEVER tries Gemini even when GEMINI_API_KEY is configured. Wrapping both
-    providers in FallbackLLMProvider makes the fallback happen on every LLM
-    call (per-batch), not just once at startup.
+    Timeline of what this cost us, so nobody re-litigates it:
+      - 2026-07-29..31: GitHub Models returned 401 Unauthorized (wind-down).
+        Diagnosed as a stale-endpoint problem and "fixed" by migrating from
+        models.inference.ai.azure.com to models.github.ai -- that migration
+        was chasing a service that had already been killed a day earlier.
+      - 2026-08-04: same endpoint returns 410 Gone, confirming permanent
+        retirement rather than any auth/config issue on our side.
+
+    Do NOT re-add GitHub Models as a provider. There is no endpoint to fix.
+    GitHubModelsProvider is retained in providers/llm.py only for historical
+    reference and is intentionally never constructed here.
+
+    FallbackLLMProvider remains available (and is used automatically) if a
+    second provider is ever configured -- see the commented example below.
     """
-    primary: BaseLLMProvider | None = None
-    secondary: BaseLLMProvider | None = None
-    primary_name = secondary_name = ""
-
-    if settings.github_token:
-        primary = GitHubModelsProvider(settings.github_token, settings.github_models_model)
-        primary_name = f"GitHub Models ({settings.github_models_model})"
-
-    if settings.gemini_api_key:
-        gemini = GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
-        if primary is None:
-            primary = gemini
-            primary_name = f"Gemini ({settings.gemini_stage2_model})"
-        else:
-            secondary = gemini
-            secondary_name = f"Gemini ({settings.gemini_stage2_model})"
-
-    if primary is None:
+    if not settings.gemini_api_key:
         console.print(
-            "[red]WARNING: No GITHUB_TOKEN or GEMINI_API_KEY — running metadata-only ranking.[/red]"
+            "[red]WARNING: No GEMINI_API_KEY — running metadata-only ranking. "
+            "Episodes will score at the metadata floor and cannot reach the "
+            "'Listen Fully' threshold, so the curated feed will not update.[/red]"
         )
         return None
 
-    if secondary is not None:
-        console.print(f"[cyan]LLM: {primary_name} -> runtime fallback {secondary_name}[/cyan]")
-        return FallbackLLMProvider(primary, secondary, primary_name, secondary_name)
+    provider: BaseLLMProvider = GeminiProvider(
+        settings.gemini_api_key, settings.gemini_stage2_model
+    )
+    console.print(f"[cyan]LLM: Gemini ({settings.gemini_stage2_model})[/cyan]")
 
-    console.print(f"[cyan]LLM: {primary_name} (no fallback configured)[/cyan]")
-    return primary
+    # To add a second provider later (e.g. OpenAI or Anthropic direct): import
+    # FallbackLLMProvider from .providers.llm, build the second provider here,
+    # and wrap both so every call gets an automatic runtime retry:
+    #     return FallbackLLMProvider(provider, other, "Gemini", "Other")
+    return provider
 
 
 def _ascii_clean(value: str) -> str:
@@ -363,7 +363,7 @@ async def _run_pipeline(
         episode.category = category
         episodes_by_category.setdefault(category, []).append(episode)
 
-    # 4. LLM — GitHub Models (primary) → Gemini (runtime fallback) → metadata-only
+    # 4. LLM — Gemini (GitHub Models permanently retired 2026-07-30) → metadata-only
     llm = _make_llm(settings)
 
     # 5. Rank new episodes
