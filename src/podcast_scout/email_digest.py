@@ -8,6 +8,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import NamedTuple
 
+from .normalize import strip_html
 from .ranking import RankedEpisode
 
 log = logging.getLogger(__name__)
@@ -36,9 +37,23 @@ def _episode_row_html(r: RankedEpisode, label: str) -> str:
     link = ep.episode_url or ep.source_feed_url
     dur = _duration_str(ep.duration_minutes)
     score_badge = f"<span style='color:#888;font-size:12px'>Score {r.score:.0f}/100 · {dur}</span>"
-    summary_snippet = (r.summary or ep.description or "")[:200].strip()
-    if summary_snippet:
-        summary_snippet += "..."
+
+    # r.summary may be raw HTML show-notes text (metadata fallback) or clean
+    # LLM prose. Strip any tags defensively either way before truncating —
+    # this prevents an unclosed tag from breaking the surrounding email HTML.
+    raw_summary = strip_html(r.summary) or strip_html(ep.description)
+    summary_snippet = raw_summary[:200].strip()
+    if summary_snippet and len(raw_summary) > 200:
+        summary_snippet += "…"
+    if not summary_snippet:
+        summary_snippet = "<em style='color:#999'>No summary available for this episode yet.</em>"
+
+    key_ideas_html = ""
+    if r.key_ideas:
+        items = "".join(f"<li>{strip_html(idea)}</li>" for idea in r.key_ideas if idea)
+        if items:
+            key_ideas_html = f"<ul style='margin:6px 0 0;padding-left:18px;font-size:13px;color:#444'>{items}</ul>"
+
     return f"""
 <tr>
   <td style='padding:12px 0;border-bottom:1px solid #eee;vertical-align:top'>
@@ -48,6 +63,7 @@ def _episode_row_html(r: RankedEpisode, label: str) -> str:
     </div>
     <div style='margin:2px 0'>{score_badge}</div>
     <div style='font-size:14px;color:#444;margin-top:6px;line-height:1.5'>{summary_snippet}</div>
+    {key_ideas_html}
     <div style='margin-top:6px'><a href='{link}' style='font-size:13px;color:#0066cc'>&#9654; Listen / Read &#8594;</a></div>
   </td>
 </tr>"""

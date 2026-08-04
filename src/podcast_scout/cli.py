@@ -17,8 +17,9 @@ from rich.table import Table
 from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
-from .normalize import NormalizedEpisode, dedup_episodes
-from .providers.llm import GeminiProvider, GitHubModelsProvider
+from .normalize import NormalizedEpisode, clean_snippet, dedup_episodes
+from .providers.base import BaseLLMProvider
+from .providers.llm import FallbackLLMProvider, GeminiProvider, GitHubModelsProvider
 from .providers.podcast_search import ITunesSearchProvider, PodcastIndexProvider
 from .providers.transcription import CascadeTranscriptionProvider
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
@@ -68,22 +69,52 @@ def _make_web_search(
     return NullWebSearchProvider()
 
 
-def _make_llm(settings: Settings) -> GitHubModelsProvider | GeminiProvider | None:
-    """Build LLM provider: GitHub Models first, Gemini as fallback."""
+def _make_llm(settings: Settings) -> BaseLLMProvider | None:
+    """Build the LLM provider: GitHub Models primary, Gemini as a true runtime
+    fallback when both credentials are available.
+
+    IMPORTANT — regression history: this function was previously restored to
+    a single-provider version by a hotfix (PR#10) that was accidentally based
+    on a stale local file predating this fallback wiring. That silently
+    reverted true runtime fallback for several days while looking unrelated
+    to the change actually being shipped. If touching this function again,
+    always diff against the live file on GitHub first, never a cached copy.
+
+    Since GITHUB_TOKEN is always present in GitHub Actions, a naive
+    "GitHub Models if token else Gemini" check always picks GitHub Models and
+    NEVER tries Gemini even when GEMINI_API_KEY is configured. Wrapping both
+    providers in FallbackLLMProvider makes the fallback happen on every LLM
+    call (per-batch), not just once at startup.
+    """
+    primary: BaseLLMProvider | None = None
+    secondary: BaseLLMProvider | None = None
+    primary_name = secondary_name = ""
+
     if settings.github_token:
-        console.print(
-            f"[cyan]LLM: GitHub Models ({settings.github_models_model})[/cyan]"
-        )
-        return GitHubModelsProvider(settings.github_token, settings.github_models_model)
+        primary = GitHubModelsProvider(settings.github_token, settings.github_models_model)
+        primary_name = f"GitHub Models ({settings.github_models_model})"
+
     if settings.gemini_api_key:
+        gemini = GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
+        if primary is None:
+            primary = gemini
+            primary_name = f"Gemini ({settings.gemini_stage2_model})"
+        else:
+            secondary = gemini
+            secondary_name = f"Gemini ({settings.gemini_stage2_model})"
+
+    if primary is None:
         console.print(
-            f"[yellow]LLM: Gemini fallback ({settings.gemini_stage2_model})[/yellow]"
+            "[red]WARNING: No GITHUB_TOKEN or GEMINI_API_KEY — running metadata-only ranking.[/red]"
         )
-        return GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
-    console.print(
-        "[red]WARNING: No GITHUB_TOKEN or GEMINI_API_KEY — running metadata-only ranking.[/red]"
-    )
-    return None
+        return None
+
+    if secondary is not None:
+        console.print(f"[cyan]LLM: {primary_name} -> runtime fallback {secondary_name}[/cyan]")
+        return FallbackLLMProvider(primary, secondary, primary_name, secondary_name)
+
+    console.print(f"[cyan]LLM: {primary_name} (no fallback configured)[/cyan]")
+    return primary
 
 
 def _ascii_clean(value: str) -> str:
@@ -91,12 +122,12 @@ def _ascii_clean(value: str) -> str:
     and surrounding whitespace from an env-derived identifier.
 
     Root cause history: smtplib's AUTH PLAIN/LOGIN mechanism calls
-    `.encode("ascii")` directly on the username inside `server.login()` —
-    a code path entirely separate from the email message headers. Sanitizing
-    only `From`/`To` in email_digest.py did NOT fix this, because the crash
-    happens during authentication, before any message is even built. Cleaning
-    every SMTP identifier at the single source (here) closes off all of those
-    call sites at once.
+    `.encode("ascii")` directly on the username AND password inside
+    `server.login()` — a code path entirely separate from the email message
+    headers. Sanitizing only `From`/`To` in email_digest.py did NOT fix this,
+    because the crash happens during authentication, before any message is
+    even built. Cleaning every SMTP identifier at the single source (here)
+    closes off all of those call sites at once.
     """
     return value.encode("ascii", "ignore").decode("ascii").strip()
 
@@ -118,8 +149,7 @@ def _smtp_from_env() -> SMTPConfig | None:
         # smtplib's AUTH PLAIN/LOGIN mechanisms call .encode("ascii") on BOTH
         # the username and the password. Real SMTP passwords (app passwords,
         # etc.) are always plain ASCII, so it's safe to strip any stray
-        # non-ASCII byte here too — this was the one field left unsanitized
-        # after two prior attempts, and matches the exact recurring crash.
+        # non-ASCII byte here too.
         password=_ascii_clean(os.getenv("SMTP_PASSWORD") or ""),
         to=_ascii_clean(os.getenv("SMTP_TO") or user),
         from_addr=_ascii_clean(os.getenv("SMTP_FROM") or user),
@@ -333,7 +363,7 @@ async def _run_pipeline(
         episode.category = category
         episodes_by_category.setdefault(category, []).append(episode)
 
-    # 4. LLM — GitHub Models (primary) → Gemini (fallback) → metadata-only
+    # 4. LLM — GitHub Models (primary) → Gemini (runtime fallback) → metadata-only
     llm = _make_llm(settings)
 
     # 5. Rank new episodes
@@ -363,7 +393,8 @@ async def _run_pipeline(
                 RankedEpisode(episode=episode, score=s1.score, rubric=RubricScore(),
                     classification=_classify(s1.score, prefs),
                     classification_reason="metadata only (no LLM key)",
-                    evidence_confidence="low", summary=episode.description[:300] or "No summary.")
+                    evidence_confidence="low",
+                    summary=clean_snippet(episode.description, 300) or "No summary available.")
                 for episode in candidates
                 for s1 in [stage1_metadata_score(episode, prefs)]
             ]
@@ -548,6 +579,7 @@ def _ep_to_dict(r: RankedEpisode) -> dict[str, object]:
         "title": ep.episode_title,
         "score": round(r.score, 1),
         "classification": r.classification,
+        "classification_reason": r.classification_reason,
         "duration_min": round(ep.duration_minutes, 0),
         "url": ep.episode_url,
         "summary": r.summary,
