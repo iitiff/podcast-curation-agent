@@ -10,7 +10,7 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from .config import Preferences
-from .normalize import NormalizedEpisode
+from .normalize import NormalizedEpisode, clean_snippet
 from .providers.base import BaseLLMProvider, LLMMessage, TranscriptResult
 
 log = logging.getLogger(__name__)
@@ -91,9 +91,9 @@ class _Stage2LLMOutput(BaseModel):
 
 def _normalize_apostrophes(s: str) -> str:
     """Normalize curly/fancy apostrophes to straight ASCII so prior lookups
-    match regardless of whether the RSS feed uses \u2019 vs '.
+    match regardless of whether the RSS feed uses ’ vs '.
     """
-    return unicodedata.normalize("NFKD", s).replace("\u2019", "'").replace("\u2018", "'")
+    return unicodedata.normalize("NFKD", s).replace("’", "'").replace("‘", "'")
 
 
 def _show_prior(show_title: str, prefs: Preferences) -> float:
@@ -431,7 +431,7 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
                     classification=_classify(s1.score, prefs),
                     classification_reason="LLM batch entry missing; metadata fallback",
                     evidence_confidence="low",
-                    summary=ep.description[:300] or "Summary unavailable.",
+                    summary=clean_snippet(ep.description, 300) or "Summary unavailable — no AI analysis for this episode.",
                     transcript_source=transcript.source,
                     tokens_used=0,
                 )
@@ -501,7 +501,7 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
                     classification=_classify(s1.score, prefs),
                     classification_reason="batch parse error; metadata fallback",
                     evidence_confidence="low",
-                    summary=ep.description[:300] or "Summary unavailable.",
+                    summary=clean_snippet(ep.description, 300) or "Summary unavailable — no AI analysis for this episode.",
                     transcript_source=transcript.source,
                     tokens_used=0,
                 )
