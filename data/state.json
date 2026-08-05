@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-08-04T07:44:58.911546+00:00",
+  "last_run": "2026-08-05T01:07:01.549729+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -1092,6 +1092,72 @@
       "classification": "Read Summary Only",
       "is_outside_feed": false,
       "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y"
+    },
+    "8c452eea0cceee70": {
+      "guid": "8c452eea0cceee70",
+      "show_title": "The a16z Show",
+      "episode_title": "OpenAI's Joshua Achiam: Did We Already Reach AGI?",
+      "published": "2026-08-04T14:56:48Z",
+      "processed_at": "2026-08-05T01:07:01.482324Z",
+      "score": 77.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+    },
+    "d817b7c154c23109": {
+      "guid": "d817b7c154c23109",
+      "show_title": "Invest Like the Best",
+      "episode_title": "Gavin Baker - AI Market Jitters - [Invest Like the Best, EP.485]",
+      "published": "2026-08-04T08:00:00Z",
+      "processed_at": "2026-08-05T01:07:01.482388Z",
+      "score": 77.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/investlikethebest"
+    },
+    "dbda426f447aeb37": {
+      "guid": "dbda426f447aeb37",
+      "show_title": "Y Combinator Startup Podcast",
+      "episode_title": "Waymo Co-CEO Dmitri Dolgov: \"Move Fast And Ship Safely\"",
+      "published": "2026-08-04T16:55:08Z",
+      "processed_at": "2026-08-05T01:07:01.482399Z",
+      "score": 76.0,
+      "classification": "Listen Fully",
+      "is_outside_feed": false,
+      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss"
+    },
+    "5352b8da038b60c3": {
+      "guid": "5352b8da038b60c3",
+      "show_title": "Masters of Scale",
+      "episode_title": "The new rules of brand building, with Wieden+Kennedy CEO",
+      "published": "2026-08-04T09:00:00Z",
+      "processed_at": "2026-08-05T01:07:01.482406Z",
+      "score": 48.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/masters-of-scale"
+    },
+    "c4191a8e0334e3cb": {
+      "guid": "c4191a8e0334e3cb",
+      "show_title": "The Real Story",
+      "episode_title": "Giannoulias Will Hold Your Banana For a Vote; Pressure Builds on Speaker Welch Over Slow Walking Sexual Harassment Charge; Judicial Watch Attorney Eric Lee on IL Voter Roll Case",
+      "published": "2026-08-04T17:10:40Z",
+      "processed_at": "2026-08-05T01:07:01.482412Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+    },
+    "cb0548c16599be71": {
+      "guid": "cb0548c16599be71",
+      "show_title": "Chasing Life",
+      "episode_title": "How to Protect Yourself from Extreme Weather",
+      "published": "2026-08-04T08:00:00Z",
+      "processed_at": "2026-08-05T01:07:01.482418Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245"
     }
   },
   "published": [
@@ -1163,11 +1229,16 @@
     "80359a3a91ea3a1c",
     "80fe79e11092a5ca",
     "8b8960b1a0e4d5ee",
-    "4d01abccb18efd7d"
+    "4d01abccb18efd7d",
+    "8c452eea0cceee70",
+    "d817b7c154c23109",
+    "dbda426f447aeb37"
   ],
   "playlist": [
     "d99da0b934e38cc5",
     "d0fb92fb8a3c821c",
-    "7a8af04ee65d4958"
+    "7a8af04ee65d4958",
+    "8c452eea0cceee70",
+    "d817b7c154c23109"
   ]
 }
