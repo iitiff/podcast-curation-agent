@@ -269,3 +269,96 @@ def test_forget_processed_survives_save_load(tmp_path):
 
     state2 = _make_state(tmp_path)
     assert state2.seen_guids() == {"b"}
+
+
+# ---------------------------------------------------------------------------
+# LLM insight persistence — regression guard
+#
+# Stage 2 runs ONCE per episode. If summary/key_ideas are not persisted, every
+# carried-over episode is rebuilt as an insight-free stub and the email digest
+# shows "No AI analysis available" for everything except that day's new items.
+# ---------------------------------------------------------------------------
+
+def test_episode_record_persists_llm_insights(tmp_path):
+    state = _make_state(tmp_path)
+    state.mark_processed(EpisodeRecord(
+        guid="rich",
+        show_title="The a16z Show",
+        episode_title="OpenAI's Joshua Achiam",
+        published=datetime(2026, 8, 5, tzinfo=timezone.utc),
+        processed_at=datetime(2026, 8, 5, tzinfo=timezone.utc),
+        score=77.0,
+        classification="Listen Fully",
+        classification_reason="High relevance to AI/emerging tech.",
+        summary="Joshua Achiam explores whether society already entered an AGI era.",
+        key_ideas=["Idea one.", "Idea two.", "Idea three."],
+        episode_url="https://a16z.simplecast.com/episodes/xyz",
+        duration_seconds=1860,
+    ))
+    state.save()
+
+    # Reload from disk — this is the path a later run takes.
+    reloaded = _make_state(tmp_path).get_record("rich")
+    assert reloaded is not None
+    assert reloaded.summary.startswith("Joshua Achiam")
+    assert reloaded.key_ideas == ["Idea one.", "Idea two.", "Idea three."]
+    assert reloaded.episode_url == "https://a16z.simplecast.com/episodes/xyz"
+    assert reloaded.duration_seconds == 1860
+    assert reloaded.classification_reason == "High relevance to AI/emerging tech."
+
+
+def test_episode_record_defaults_keep_old_state_loadable(tmp_path):
+    """A state.json written before these fields existed must still load."""
+    state = _make_state(tmp_path)
+    # Simulate a legacy row: no summary/key_ideas/episode_url/duration_seconds.
+    state._state["processed"]["legacy"] = {
+        "guid": "legacy",
+        "show_title": "Old Show",
+        "episode_title": "Old Ep",
+        "score": 50.0,
+        "classification": "Read Summary Only",
+    }
+    state.save()
+
+    reloaded = _make_state(tmp_path).get_record("legacy")
+    assert reloaded is not None
+    assert reloaded.summary == ""
+    assert reloaded.key_ideas == []
+    assert reloaded.episode_url == ""
+    assert reloaded.duration_seconds == 0
+
+
+def test_carryover_restores_insights(tmp_path):
+    """_load_carryover_candidates must rebuild stubs WITH their insights."""
+    from podcast_scout.cli import _load_carryover_candidates
+
+    state = _make_state(tmp_path)
+    state.mark_processed(EpisodeRecord(
+        guid="carried",
+        show_title="Some Show",
+        episode_title="Some Episode",
+        published=datetime(2026, 8, 4, tzinfo=timezone.utc),
+        processed_at=datetime(2026, 8, 4, tzinfo=timezone.utc),
+        score=68.0,
+        classification="Read Summary Only",
+        classification_reason="Solid but not top tier.",
+        summary="A useful discussion about product strategy.",
+        key_ideas=["Takeaway A.", "Takeaway B."],
+        episode_url="https://example.com/ep",
+        duration_seconds=2400,
+    ))
+
+    carryover = _load_carryover_candidates(
+        state=state,
+        category_map={},
+        lookback_days=30,
+        already_scored_this_run=set(),
+    )
+    items = [r for eps in carryover.values() for r in eps]
+    assert len(items) == 1
+    r = items[0]
+    assert r.key_ideas == ["Takeaway A.", "Takeaway B."], "insights must survive carryover"
+    assert r.summary == "A useful discussion about product strategy."
+    assert r.episode.episode_url == "https://example.com/ep"
+    assert r.episode.duration_seconds == 2400
+    assert "carried over" in r.classification_reason

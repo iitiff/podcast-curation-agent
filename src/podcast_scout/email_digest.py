@@ -33,38 +33,64 @@ def _duration_str(minutes: float) -> str:
 
 
 def _episode_row_html(r: RankedEpisode, label: str) -> str:
+    """Render one episode row.
+
+    Content priority is deliberate: **key ideas are the product**. They are the
+    concrete takeaways worth scanning, so when they exist they are shown in
+    full -- every idea, untruncated -- and the prose summary is omitted
+    entirely. Showing both just restates the same content twice and buries the
+    nuggets under a paragraph.
+
+    The summary is a FALLBACK only, used when an episode has no key ideas
+    (metadata-only scoring, or an LLM response that omitted them). In that case
+    it is truncated, because it is usually raw publisher show-notes rather than
+    analysis.
+    """
     ep = r.episode
     link = ep.episode_url or ep.source_feed_url
     dur = _duration_str(ep.duration_minutes)
     score_badge = f"<span style='color:#888;font-size:12px'>Score {r.score:.0f}/100 · {dur}</span>"
 
-    # r.summary may be raw HTML show-notes text (metadata fallback) or clean
-    # LLM prose. Strip any tags defensively either way before truncating —
-    # this prevents an unclosed tag from breaking the surrounding email HTML.
-    raw_summary = strip_html(r.summary) or strip_html(ep.description)
-    summary_snippet = raw_summary[:200].strip()
-    if summary_snippet and len(raw_summary) > 200:
-        summary_snippet += "…"
-    if not summary_snippet:
-        summary_snippet = "<em style='color:#999'>No summary available for this episode yet.</em>"
+    ideas = [strip_html(i).strip() for i in r.key_ideas]
+    ideas = [i for i in ideas if i]
 
-    key_ideas_html = ""
-    if r.key_ideas:
-        items = "".join(f"<li>{strip_html(idea)}</li>" for idea in r.key_ideas if idea)
-        if items:
-            key_ideas_html = f"<ul style='margin:6px 0 0;padding-left:18px;font-size:13px;color:#444'>{items}</ul>"
+    if ideas:
+        # Variable length by design: render ALL key ideas, in full.
+        items = "".join(
+            f"<li style='margin-bottom:4px'>{i}</li>" for i in ideas
+        )
+        body_html = (
+            "<ul style='margin:8px 0 0;padding-left:20px;font-size:14px;"
+            f"color:#333;line-height:1.55'>{items}</ul>"
+        )
+    else:
+        # No key ideas — fall back to prose. strip_html() defends against an
+        # unclosed tag from raw show-notes breaking the surrounding email HTML.
+        raw_summary = strip_html(r.summary) or strip_html(ep.description)
+        if raw_summary:
+            snippet = raw_summary[:280].strip()
+            if len(raw_summary) > 280:
+                snippet = snippet.rsplit(" ", 1)[0].rstrip(".,;:-") + "…"
+            body_html = (
+                "<div style='font-size:14px;color:#444;margin-top:6px;"
+                f"line-height:1.5'>{snippet}</div>"
+            )
+        else:
+            body_html = (
+                "<div style='font-size:13px;color:#999;margin-top:6px'>"
+                "<em>No AI analysis available for this episode.</em></div>"
+            )
 
     return f"""
 <tr>
-  <td style='padding:12px 0;border-bottom:1px solid #eee;vertical-align:top'>
+  <td style='padding:14px 0;border-bottom:1px solid #eee;vertical-align:top'>
     <div style='font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.5px'>{label}</div>
     <div style='font-size:16px;font-weight:600;margin:4px 0'>
       <a href='{link}' style='color:#1a1a1a;text-decoration:none'>{ep.show_title}: {ep.episode_title}</a>
     </div>
     <div style='margin:2px 0'>{score_badge}</div>
-    <div style='font-size:14px;color:#444;margin-top:6px;line-height:1.5'>{summary_snippet}</div>
-    {key_ideas_html}
-    <div style='margin-top:6px'><a href='{link}' style='font-size:13px;color:#0066cc'>&#9654; Listen / Read &#8594;</a></div>
+    {body_html}
+    <div style='margin-top:8px'><a href='{link}' style='font-size:13px;color:#0066cc'>&#9654; Listen / Read &#8594;</a></div>
   </td>
 </tr>"""
 

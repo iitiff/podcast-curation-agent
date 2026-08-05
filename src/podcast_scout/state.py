@@ -7,10 +7,22 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class EpisodeRecord(BaseModel):
+    """A processed episode as persisted to state.json.
+
+    The `summary` / `key_ideas` / `episode_url` / `duration_seconds` fields
+    exist because LLM analysis is expensive and only runs ONCE per episode.
+    Without persisting them, an episode carried over to a later run was rebuilt
+    as a stub with `summary=""` and `key_ideas=[]` -- so the insights were
+    computed, shown in one email, then silently thrown away. Every subsequent
+    digest showed that episode with no takeaways and a dead RSS-root link.
+
+    All new fields default to empty, so older state.json files load unchanged.
+    """
+
     guid: str
     show_title: str = ""
     episode_title: str = ""
@@ -18,8 +30,14 @@ class EpisodeRecord(BaseModel):
     processed_at: datetime | None = None
     score: float = 0.0
     classification: str = ""
+    classification_reason: str = ""
     is_outside_feed: bool = False
     source_feed_url: str = ""
+    # --- persisted LLM output + episode metadata (see docstring) ---
+    summary: str = ""
+    key_ideas: list[str] = Field(default_factory=list)
+    episode_url: str = ""
+    duration_seconds: int = 0
 
 
 class StateManager:
