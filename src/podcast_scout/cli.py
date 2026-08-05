@@ -683,3 +683,148 @@ def validate() -> None:
     console.print(f"[green]discovery.yaml OK — {len(queries)} queries will run[/green]")
     for q in queries:
         console.print(f"  [dim]· {q}[/dim]")
+
+
+@main.command()
+@click.option("--since", default=None,
+              help="Only clear episodes processed on/after this UTC date (YYYY-MM-DD).")
+@click.option("--until", default=None,
+              help="Only clear episodes processed before this UTC date (YYYY-MM-DD).")
+@click.option("--max-score", default=None, type=float,
+              help="Only clear episodes scoring at or below this value.")
+@click.option("--include-playlisted", is_flag=True,
+              help="Also clear episodes that already won a category-feed slot (default: keep them).")
+@click.option("--yes", is_flag=True, help="Apply the change. Without this flag it is a preview only.")
+def rescore(
+    since: str | None,
+    until: str | None,
+    max_score: float | None,
+    include_playlisted: bool,
+    yes: bool,
+) -> None:
+    """Forget past episodes so the next run re-scores them with a working LLM.
+
+    Episodes recorded in state are treated as already-seen by dedup and are
+    never re-evaluated, even if their stored score came from a degraded run.
+    During the 2026-07-30..08-04 outage (GitHub Models returning 410 Gone) every
+    episode fell back to the metadata floor: score 50.0 or 0.0, no summary, no
+    key ideas. Those scores are frozen and can never reach the "Listen Fully"
+    threshold on their own.
+
+    This command clears the matching episodes from `processed` so the next run
+    rediscovers and re-scores them. It never touches `published`/`playlist`, so
+    episodes already in the curated feed cannot be duplicated.
+
+    Preview first (no flags applied = dry run), then re-run with --yes:
+
+        podcast-scout rescore --since 2026-07-30 --max-score 50
+        podcast-scout rescore --since 2026-07-30 --max-score 50 --yes
+
+    IMPORTANT: clearing state is only half the job. Discovery only fetches
+    episodes published within --lookback days, so an old episode also needs a
+    wide enough window to be rediscovered. This command prints the exact
+    lookback value required.
+    """
+    if since is None and until is None and max_score is None:
+        console.print(
+            "[red]Refusing to run with no filters — that would clear the entire "
+            "processed history.[/red]\n"
+            "Pass at least one of --since / --until / --max-score. For the "
+            "GitHub Models outage window, this is what you want:\n"
+            "  [cyan]podcast-scout rescore --since 2026-07-30 --max-score 50[/cyan]"
+        )
+        raise SystemExit(1)
+
+    def _parse_date(value: str | None, label: str) -> datetime | None:
+        if value is None:
+            return None
+        try:
+            return datetime.strptime(value, "%Y-%m-%d").replace(tzinfo=UTC)
+        except ValueError:
+            console.print(f"[red]Could not parse --{label} '{value}'. Use YYYY-MM-DD.[/red]")
+            raise SystemExit(1) from None
+
+    since_dt = _parse_date(since, "since")
+    until_dt = _parse_date(until, "until")
+
+    # utcnow is imported locally here to match the pattern used elsewhere in
+    # this module (it is not a module-level import).
+    from .normalize import utcnow
+
+    settings = Settings()
+    state = StateManager(settings.data_dir)
+    playlisted = state.playlist_guids()
+
+    matches: list[EpisodeRecord] = []
+    kept_playlisted = 0
+    for rec in state.all_records():
+        if since_dt and (rec.processed_at is None or rec.processed_at < since_dt):
+            continue
+        if until_dt and (rec.processed_at is None or rec.processed_at >= until_dt):
+            continue
+        if max_score is not None and rec.score > max_score:
+            continue
+        if rec.guid in playlisted and not include_playlisted:
+            kept_playlisted += 1
+            continue
+        matches.append(rec)
+
+    if not matches:
+        console.print("[yellow]No episodes matched those filters — nothing to do.[/yellow]")
+        if kept_playlisted:
+            console.print(
+                f"[dim]({kept_playlisted} match(es) skipped because they are already "
+                f"in a category feed; pass --include-playlisted to include them.)[/dim]"
+            )
+        return
+
+    matches.sort(key=lambda r: (r.published or utcnow()))
+
+    table = Table(title=f"{'Clearing' if yes else 'Would clear'} {len(matches)} episode(s)")
+    table.add_column("Published", width=10)
+    table.add_column("Score", justify="right", width=5)
+    table.add_column("Class", width=17)
+    table.add_column("Show", max_width=24)
+    table.add_column("Episode", max_width=42)
+    for rec in matches:
+        table.add_row(
+            rec.published.strftime("%Y-%m-%d") if rec.published else "?",
+            f"{rec.score:.0f}",
+            rec.classification or "—",
+            rec.show_title[:24],
+            rec.episode_title[:42],
+        )
+    console.print(table)
+
+    oldest = min((r.published for r in matches if r.published), default=None)
+    needed_lookback = None
+    if oldest is not None:
+        needed_lookback = (utcnow() - oldest).days + 1
+
+    if kept_playlisted:
+        console.print(
+            f"[dim]{kept_playlisted} episode(s) skipped — already in a category feed. "
+            f"Use --include-playlisted to clear those too.[/dim]"
+        )
+
+    if not yes:
+        console.print(
+            "\n[yellow]Preview only — nothing was changed.[/yellow] "
+            "Re-run with [cyan]--yes[/cyan] to apply."
+        )
+        return
+
+    removed = state.forget_processed(r.guid for r in matches)
+    state.save()
+    console.print(f"[green]Cleared {removed} episode(s) from processed state.[/green]")
+
+    if needed_lookback:
+        console.print(
+            f"\n[bold]Next step:[/bold] the oldest cleared episode was published "
+            f"{needed_lookback - 1} day(s) ago, so discovery needs a wide enough "
+            f"window to find it again. Run:\n"
+            f"  [cyan]podcast-scout run --lookback {needed_lookback}[/cyan]\n"
+            f"[dim]Or trigger the workflow manually with lookback_days="
+            f"{needed_lookback}. A normal run (lookback "
+            f"{settings.lookback_days}) will silently skip anything older.[/dim]"
+        )
