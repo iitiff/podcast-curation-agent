@@ -49,6 +49,29 @@ def _prefix(r: RankedEpisode, rank: int | None = None) -> str:
     return f"{outside}\U0001f4d6 SUMMARY — {r.episode.show_title}: {r.episode.episode_title}"
 
 
+# Matches the "LISTEN" marker in an item title, with or without an existing
+# "#N" rank, so a carried-over title can be renumbered in place.
+_LISTEN_RANK_RE = re.compile("(\U0001f3a7 LISTEN)(?: #\\d+)?")
+
+
+def _renumber_prior_title(prior: "_PriorItem", rank: int) -> None:
+    """Rewrite a carried-over item's LISTEN rank in place.
+
+    Prior items are appended as raw XML lifted from the previous feed, so their
+    <title> still embeds the rank they held in THAT run. Without rewriting it a
+    feed can show duplicate ranks (e.g. two "LISTEN #1") or skip numbers, which
+    makes the queue order look broken in a podcast app. Observed live in
+    startup.xml on 2026-08-05: a new item was assigned #1 while a prior item
+    already carried #1, because the rank counter only advanced for new items.
+    """
+    title_el = prior.xml_element.find("title")
+    if title_el is None or not title_el.text:
+        return
+    title_el.text = _LISTEN_RANK_RE.sub(
+        lambda m: f"{m.group(1)} #{rank}", title_el.text, count=1
+    )
+
+
 def _show_notes_html(r: RankedEpisode) -> str:
     lines = [
         f"<p><strong>Score: {r.score:.0f}/100</strong> | "
@@ -303,6 +326,11 @@ def build_category_feed(
             if not isinstance(obj, _PriorItem):
                 continue
             p = obj
+            # Renumber carried-over items so ranks stay sequential across the
+            # whole feed instead of preserving stale numbers from a past run.
+            if p.classification == "Listen Fully":
+                _renumber_prior_title(p, listen_rank)
+                listen_rank += 1
             channel.append(p.xml_element)
 
     return _xml_string(rss)
@@ -375,6 +403,10 @@ def build_feed(
             if not isinstance(obj, _PriorItem):
                 continue
             p = obj
+            # Same sequential-rank fix as build_category_feed.
+            if p.classification == "Listen Fully":
+                _renumber_prior_title(p, listen_rank)
+                listen_rank += 1
             channel.append(p.xml_element)
 
     return _xml_string(rss)
