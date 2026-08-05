@@ -187,3 +187,85 @@ def test_playlisted_episodes_excluded_from_carryover(tmp_path):
     assert unqueued_guid in all_guids, (
         "Unqueued scored episode must be in carryover so it gets another chance"
     )
+
+
+# ---------------------------------------------------------------------------
+# forget_processed() / all_records() — support for the `rescore` command
+# ---------------------------------------------------------------------------
+
+def _rec(guid, score, classification="Read Summary Only", processed_day=4):
+    return EpisodeRecord(
+        guid=guid,
+        show_title="Show",
+        episode_title=f"Ep {guid}",
+        published=datetime(2026, 8, processed_day, tzinfo=timezone.utc),
+        processed_at=datetime(2026, 8, processed_day, tzinfo=timezone.utc),
+        score=score,
+        classification=classification,
+    )
+
+
+def test_all_records_returns_parsed_records(tmp_path):
+    state = _make_state(tmp_path)
+    state.mark_processed(_rec("a", 50.0))
+    state.mark_processed(_rec("b", 77.0, "Listen Fully"))
+
+    records = state.all_records()
+    assert {r.guid for r in records} == {"a", "b"}
+    assert {r.score for r in records} == {50.0, 77.0}
+
+
+def test_all_records_skips_malformed_rows(tmp_path):
+    """A single corrupt entry must not break state-wide operations."""
+    state = _make_state(tmp_path)
+    state.mark_processed(_rec("good", 50.0))
+    # Inject a row that cannot parse into EpisodeRecord
+    state._state["processed"]["bad"] = {"not_a_valid": "record", "score": "abc"}
+
+    records = state.all_records()
+    assert [r.guid for r in records] == ["good"]
+
+
+def test_forget_processed_removes_and_counts(tmp_path):
+    state = _make_state(tmp_path)
+    state.mark_processed(_rec("a", 50.0))
+    state.mark_processed(_rec("b", 50.0))
+    state.mark_processed(_rec("c", 77.0, "Listen Fully"))
+
+    removed = state.forget_processed(["a", "b"])
+    assert removed == 2
+    assert state.seen_guids() == {"c"}
+
+
+def test_forget_processed_ignores_unknown_guids(tmp_path):
+    state = _make_state(tmp_path)
+    state.mark_processed(_rec("a", 50.0))
+
+    removed = state.forget_processed(["a", "does-not-exist"])
+    assert removed == 1
+    assert state.seen_guids() == set()
+
+
+def test_forget_processed_preserves_published_and_playlist(tmp_path):
+    """Forgetting must not drop feed history — otherwise a re-scored episode
+    could be re-added to the curated feed as a duplicate."""
+    state = _make_state(tmp_path)
+    state.mark_processed(_rec("a", 50.0, "Listen Fully"))
+    state.add_to_playlist("a")
+
+    state.forget_processed(["a"])
+
+    assert "a" not in state.seen_guids()
+    assert "a" in state.published_guids()
+    assert "a" in state.playlist_guids()
+
+
+def test_forget_processed_survives_save_load(tmp_path):
+    state = _make_state(tmp_path)
+    state.mark_processed(_rec("a", 50.0))
+    state.mark_processed(_rec("b", 50.0))
+    state.forget_processed(["a"])
+    state.save()
+
+    state2 = _make_state(tmp_path)
+    assert state2.seen_guids() == {"b"}
