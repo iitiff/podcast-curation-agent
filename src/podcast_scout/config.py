@@ -110,15 +110,42 @@ class Settings:
         self.data_dir = Path(os.getenv("DATA_DIR", "data"))
         self.public_dir = Path(os.getenv("PUBLIC_DIR", "public"))
         self.templates_dir = Path("src/podcast_scout/templates")
-        # Primary LLM: GitHub Models (uses GITHUB_TOKEN, free in Actions).
-        # Model id uses the publisher-namespaced format required by the
-        # current models.github.ai/inference endpoint (e.g. "openai/gpt-4.1").
+
+        # GITHUB_TOKEN is still read because the workflow uses it for git
+        # commit/push, but it is NO LONGER an LLM credential: GitHub Models was
+        # permanently retired 2026-07-30 and its endpoint returns 410 Gone.
         self.github_token = os.getenv("GITHUB_TOKEN", "")
-        self.github_models_model = os.getenv("GITHUB_MODELS_MODEL", "openai/gpt-4.1")
-        # Fallback LLM: Gemini
+
+        # ---- LLM providers ------------------------------------------------
+        # PRIMARY: Gemini. Chosen for strongest adherence to the strict
+        # "return ONLY a raw JSON array" contract that stage2_batch_rank parses,
+        # plus large context headroom for batched episodes.
         self.gemini_api_key = os.getenv("GEMINI_API_KEY", "")
         self.gemini_stage1_model = os.getenv("GEMINI_STAGE1_MODEL", "gemini-2.5-flash")
         self.gemini_stage2_model = os.getenv("GEMINI_STAGE2_MODEL", "gemini-2.5-flash")
+
+        # FALLBACK: any OpenAI-compatible endpoint. Defaults target NVIDIA's
+        # hosted NIM API (build.nvidia.com). Deliberately generic -- to switch to
+        # OpenRouter / Groq / Together / a self-hosted NIM, change only
+        # LLM_FALLBACK_BASE_URL and LLM_FALLBACK_MODEL, no code edits required.
+        # Legacy NVIDIA_* names are still honoured for convenience.
+        self.fallback_api_key = (
+            os.getenv("LLM_FALLBACK_API_KEY")
+            or os.getenv("NVIDIA_API_KEY")
+            or ""
+        )
+        self.fallback_base_url = (
+            os.getenv("LLM_FALLBACK_BASE_URL")
+            or os.getenv("NVIDIA_BASE_URL")
+            or "https://integrate.api.nvidia.com/v1"
+        )
+        self.fallback_model = (
+            os.getenv("LLM_FALLBACK_MODEL")
+            or os.getenv("NVIDIA_MODEL")
+            or "meta/llama-3.3-70b-instruct"
+        )
+        self.fallback_provider_name = os.getenv("LLM_FALLBACK_NAME", "NVIDIA NIM")
+
         self.podcast_index_key = os.getenv("PODCAST_INDEX_KEY", "")
         self.podcast_index_secret = os.getenv("PODCAST_INDEX_SECRET", "")
         self.web_search_api_key = os.getenv("WEB_SEARCH_API_KEY", "")
