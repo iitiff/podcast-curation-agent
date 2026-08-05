@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Iterable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -60,6 +61,20 @@ class StateManager:
         """
         return set(self._state.get("playlist", []))
 
+    def all_records(self) -> list[EpisodeRecord]:
+        """Return every processed episode as a parsed EpisodeRecord.
+
+        Malformed rows are skipped rather than raising, so a single bad entry
+        can't break state-wide operations like rescore selection.
+        """
+        records: list[EpisodeRecord] = []
+        for rec_data in self._state.get("processed", {}).values():
+            try:
+                records.append(EpisodeRecord(**rec_data))
+            except Exception:
+                continue
+        return records
+
     def mark_processed(self, record: EpisodeRecord) -> None:
         self._state.setdefault("processed", {})[record.guid] = record.model_dump(mode="json")
 
@@ -71,6 +86,27 @@ class StateManager:
             except Exception:
                 pass
         return None
+
+    def forget_processed(self, guids: Iterable[str]) -> int:
+        """Remove episodes from the processed map and return how many were removed.
+
+        An episode in `processed` is treated as already-seen by dedup_episodes and
+        is therefore never re-scored, even if its stored score came from a
+        degraded run (e.g. the 2026-07-30..08-04 window when GitHub Models was
+        returning 410 and every episode fell to the metadata floor). Forgetting
+        an episode makes it eligible for discovery and a fresh LLM pass.
+
+        Note this does NOT touch `published` / `playlist`: an episode that
+        already won a feed slot keeps that record, so re-scoring can't cause a
+        duplicate entry in the curated feed.
+        """
+        processed: dict[str, Any] = self._state.setdefault("processed", {})
+        removed = 0
+        for guid in list(guids):
+            if guid in processed:
+                del processed[guid]
+                removed += 1
+        return removed
 
     def add_published(self, guid: str) -> None:
         if guid not in self._state.get("published", []):
