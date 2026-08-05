@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Aug 2026 07:46:03 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2026 15:53:14 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/listen.xml" rel="self" type="application/rss+xml" />
@@ -24,7 +24,7 @@
       <ns0:image href="https://substackcdn.com/feed/podcast/10845/post/207214207/756e556fcbda393739f83e6d27dbbe52.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #1 — Retailgentic: AI Is a New Customer Category: Wharton Professor &amp; Bodhium Labs Co-Founder Kartik Hosanagar</title>
+      <title>🎧 LISTEN #2 — Retailgentic: AI Is a New Customer Category: Wharton Professor &amp; Bodhium Labs Co-Founder Kartik Hosanagar</title>
       <link>https://share.transistor.fm/s/4f452d50</link>
       <guid isPermaLink="false">88610221f5aa0101</guid>
       <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
@@ -35,7 +35,18 @@
       <ns0:image href="https://img.transistorcdn.com/6XIZepBoZ7wBaIN7aYbPQ7mRhNUslzHBEtnQ-EoFMXQ/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS9mNDFi/M2E1NzRlMjc1Y2U2/MzA3OGQyNmFiNGZj/OTU5YS5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #2 — No Priors: Building an Autonomous Delivery Experience with DoorDash Co-Founders Andy Fang and Stanley Tang</title>
+      <title>🎧 LISTEN #3 — Retailgentic: Shopify's Agentic Commerce Playbook: VP of Product Mani Fazeli on 8X Agentic Traffic Growth and the Long-Tail Boom</title>
+      <link>https://share.transistor.fm/s/426fc9df</link>
+      <guid isPermaLink="false">6a94a25c9cbce596</guid>
+      <pubDate>Thu, 30 Jul 2026 09:00:00 +0000</pubDate>
+      <itunes:duration>3201</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 97/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 97 &amp;gt;= 75. This episode is highly relevant, strategic, and packed with concrete data and insights from a top-tier guest at Shopify, directly addressing AI, eCommerce, and product strategy at scale.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Shopify&amp;#x27;s VP of Product, Mani Fazeli, detailing their &amp;quot;agentic commerce&amp;quot; playbook. It introduces a four-stage framework (crawl, walk, run, fly) for AI-driven discovery and purchasing. Fazeli shares compelling Q1 data: 8X year-over-year growth in AI-driven traffic and 13X in orders for Shopify merchants. AI buyers convert at twice the rate, spend 14% more, and drive 70% of orders to long-tail products. The discussion highlights Shopify&amp;#x27;s real-time catalog data advantage (2X better conversion) and the strategic shift towards a &amp;quot;non-merchant-of-record&amp;quot; era, where Shopify acts as an interface, preserving merchant-customer relationships. It also touches on how AI is reshaping product, design, and engineering roles.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Shopify&amp;#x27;s &amp;quot;Agentic Commerce&amp;quot; framework and impressive growth metrics (8X traffic, 13X orders) driven by AI.&lt;/li&gt;&lt;li&gt;AI buyers exhibit superior conversion and spend, significantly boosting long-tail product discovery (70% of AI orders).&lt;/li&gt;&lt;li&gt;Strategic shift for platforms like Shopify to be an interface, not a merchant-of-record, maintaining merchant-customer relationships.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs in eCommerce should consider how AI agents will redefine customer discovery and purchasing funnels, particularly for long-tail products. Product strategy needs to adapt to platform shifts (e.g., non-merchant-of-record models) and leverage real-time data for competitive advantage. Organizational structures for product, design, and engineering will require re-evaluation to integrate AI capabilities effectively.&lt;/p&gt;&lt;p&gt;&lt;a href="https://share.transistor.fm/s/426fc9df"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode features Shopify's VP of Product, Mani Fazeli, detailing their "agentic commerce" playbook. It introduces a four-stage framework (crawl, walk, run, fly) for AI-driven discovery and purchasing. Fazeli shares compelling Q1 data: 8X year-over-year growth in AI-driven traffic and 13X in orders for Shopify merchants. AI buyers convert at twice the rate, spend 14% more, and drive 70% of orders to long-tail products. The discussion highlights Shopify's real-time catalog data advantage (2X better conversion) and the strategic shift towards a "non-merchant-of-record" era, where Shopify acts as an interface, preserving merchant-customer relationships. It also touches on how AI is reshaping product, design, and engineering roles.</description>
+      <enclosure url="https://media.transistor.fm/426fc9df/e30c1039.mp3" type="audio/mpeg" length="51267777" />
+      <itunes:image href="https://img.transistorcdn.com/d9-9nHJYi1wyKnWvqi3Fi766XlAF6JvrDahmaB8IFfE/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS85ZTM2/NTk2NDdlNzE4NzJj/MDU3ZGY0YzFiYTU3/NzJmOS5qcGc.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #4 — No Priors: Building an Autonomous Delivery Experience with DoorDash Co-Founders Andy Fang and Stanley Tang</title>
       <link />
       <guid isPermaLink="false">0aa9cdd123be2909</guid>
       <pubDate>Thu, 23 Jul 2026 10:00:00 +0000</pubDate>
@@ -46,7 +57,40 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/67540c92-8640-11f1-8f2a-e322343e668d/image/7117c68b7f633d2b72f99d31e26d27f8.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #1 — Masters of Scale: Possible: Satya Nadella on making human and token capital compound</title>
+      <title>🎧 LISTEN #5 — Y Combinator Startup Podcast: Jeff Dean: The 1% Rule for Building in AI</title>
+      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jeff-Dean-The-1-Rule-for-Building-in-AI-e3mq28a</link>
+      <guid isPermaLink="false">9a498473d4309a7e</guid>
+      <pubDate>Sat, 01 Aug 2026 14:00:00 +0000</pubDate>
+      <itunes:duration>3426</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 94/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Jeff Dean, Google&amp;#x27;s Chief Scientist, provides unparalleled strategic insights into AI, infrastructure, and innovation at scale, directly addressing the persona&amp;#x27;s focus on AI and emerging technology, and product strategy. The content is highly novel, actionable, and backed by concrete examples from Google&amp;#x27;s history.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Google&amp;#x27;s Chief Scientist, Jeff Dean, discusses strategic thought experiments behind Google&amp;#x27;s foundational successes (search index, TPU for speech recognition). He delves into the &amp;#x27;1% Rule for Building in AI,&amp;#x27; the future of inference hardware specialization, and how small teams can still achieve significant wins. This episode is highly relevant for a senior PM focused on AI and emerging technology, offering deep strategic insights into large-scale technical decisions, infrastructure, and innovation from a leading expert.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategic &amp;#x27;napkin calculations&amp;#x27; for massive scale infrastructure (e.g., Google Search, TPU).&lt;/li&gt;&lt;li&gt;The &amp;#x27;1% Rule&amp;#x27; for building in AI and future of inference hardware.&lt;/li&gt;&lt;li&gt;Principles for innovation and how small teams can still make a big impact.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Offers a strategic blueprint for approaching large-scale technical challenges in AI, understanding infrastructure evolution, and fostering innovation within product teams. Provides a high-level perspective on AI product strategy and technological foresight.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jeff-Dean-The-1-Rule-for-Building-in-AI-e3mq28a"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Google's Chief Scientist, Jeff Dean, discusses strategic thought experiments behind Google's foundational successes (search index, TPU for speech recognition). He delves into the '1% Rule for Building in AI,' the future of inference hardware specialization, and how small teams can still achieve significant wins. This episode is highly relevant for a senior PM focused on AI and emerging technology, offering deep strategic insights into large-scale technical decisions, infrastructure, and innovation from a leading expert.</description>
+      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123586250/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-31%2F428976415-44100-2-4750afd8ab692.mp3" type="audio/mpeg" length="54829556" />
+      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785514200270-72a7d09aaff28.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #6 — No Priors: Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak</title>
+      <link />
+      <guid isPermaLink="false">764a97ef74d9b043</guid>
+      <pubDate>Fri, 31 Jul 2026 10:00:00 +0000</pubDate>
+      <itunes:duration>2069</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 93/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 93 &amp;gt;= 75. This episode is highly relevant, offering deep strategic insights into AI product development, business models, and market dynamics from a founder, interviewed by a top-tier host.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Melisa Tokmak, Founder and CEO of Netic, discusses building an autonomous AI platform for essential real-world services like home repairs and pet care. She explains the complexities of automating these workflows, noting that over 70% of Netic&amp;#x27;s customers first interact with AI. The conversation with host Elad Gil delves into Netic&amp;#x27;s strategy of building a scalable product company versus an AI roll-up, why robotics isn&amp;#x27;t a near-term solution for these industries, and how Netic views competition from large frontier AI labs. Tokmak also provides insights into how private equity&amp;#x27;s investment playbook has shifted towards measurable ROI in the AI era and expresses optimism about AI&amp;#x27;s future impact on education.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Applying autonomous AI to complex real-world services, with high AI-first customer interaction (70%).&lt;/li&gt;&lt;li&gt;Strategic choices in building an AI company: scalable product vs. AI roll-up, competitive landscape, and the role of robotics.&lt;/li&gt;&lt;li&gt;Private equity&amp;#x27;s evolving investment criteria in the AI era, focusing on measurable ROI.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can gain insights into building AI-first products for complex service industries, understanding the trade-offs in business model choices (product vs. service/roll-up), and navigating the competitive landscape with large AI labs. The discussion on PE&amp;#x27;s shift provides valuable context for funding and growth strategies in the AI space.&lt;/p&gt;</content:encoded>
+      <description>Melisa Tokmak, Founder and CEO of Netic, discusses building an autonomous AI platform for essential real-world services like home repairs and pet care. She explains the complexities of automating these workflows, noting that over 70% of Netic's customers first interact with AI. The conversation with host Elad Gil delves into Netic's strategy of building a scalable product company versus an AI roll-up, why robotics isn't a near-term solution for these industries, and how Netic views competition from large frontier AI labs. Tokmak also provides insights into how private equity's investment playbook has shifted towards measurable ROI in the AI era and expresses optimism about AI's future impact on education.</description>
+      <enclosure url="https://traffic.megaphone.fm/PDP6533459307.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/db17d1d8-8c79-11f1-9e05-6bb27aab1f6f/image/82d8177a07141efa60a0e14fb8b30b2b.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #7 — Y Combinator Startup Podcast: Patrick Collison: "What If You Succeed?"</title>
+      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Patrick-Collison-What-If-You-Succeed-e3mtper</link>
+      <guid isPermaLink="false">80fe79e11092a5ca</guid>
+      <pubDate>Mon, 03 Aug 2026 16:43:22 +0000</pubDate>
+      <itunes:duration>1859</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 89/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Patrick Collison, a top-tier founder, offers highly relevant insights into product strategy, founder mindset, and market timing, explicitly mentioning Stripe&amp;#x27;s data. This aligns perfectly with the persona&amp;#x27;s focus on career growth, product craft, and eCommerce.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Patrick Collison, co-founder of Stripe, discusses the company&amp;#x27;s origins, the importance of asking &amp;#x27;what if you succeed?&amp;#x27;, and insights from Stripe&amp;#x27;s own data on optimal timing for starting a company. This episode offers valuable lessons on founder mindset, long-term strategic thinking, and market entry, directly applicable to product strategy and career growth for a senior PM. Collison&amp;#x27;s first-hand experience building a significant eCommerce infrastructure player provides concrete, transferable lessons for product craft at scale.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategic importance of planning for success (&amp;#x27;what if you succeed?&amp;#x27;).&lt;/li&gt;&lt;li&gt;Insights from Stripe&amp;#x27;s data on optimal company founding times.&lt;/li&gt;&lt;li&gt;Founder&amp;#x27;s perspective on building and scaling a major tech company.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides frameworks for long-term product vision, market timing, and strategic planning. Offers transferable lessons from a successful founder on scaling product and business, particularly relevant for eCommerce infrastructure and product craft.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Patrick-Collison-What-If-You-Succeed-e3mtper"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Patrick Collison, co-founder of Stripe, discusses the company's origins, the importance of asking 'what if you succeed?', and insights from Stripe's own data on optimal timing for starting a company. This episode offers valuable lessons on founder mindset, long-term strategic thinking, and market entry, directly applicable to product strategy and career growth for a senior PM. Collison's first-hand experience building a significant eCommerce infrastructure player provides concrete, transferable lessons for product craft at scale.</description>
+      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123708315/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-3%2F429138468-44100-2-8806da84c4f95.mp3" type="audio/mpeg" length="29760364" />
+      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785775023800-6a5cf88653b21.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #8 — Masters of Scale: Possible: Satya Nadella on making human and token capital compound</title>
       <link />
       <guid isPermaLink="false">21ef9a7f1fdf511d</guid>
       <pubDate>Sat, 25 Jul 2026 09:00:00 +0000</pubDate>
@@ -57,7 +101,7 @@
       <ns0:image href="https://content.production.cdn.art19.com/images/09/8f/ad/8c/098fad8c-017e-4035-89c4-acc82bb6b51e/1a8c6b08b1d313f030249d852f2ee67fb7382277eacf2ca7fbfb5e3f6c3ed2a7b9ed6ac84e8ea21ff849e4c1c73eedc32fea30cce9062a4d1dd7f95079ee38b6.jpeg" />
     </item>
     <item>
-      <title>🎧 LISTEN #1 — The a16z Show: OpenAI's Joshua Achiam: Did We Already Reach AGI?</title>
+      <title>🎧 LISTEN #9 — The a16z Show: OpenAI's Joshua Achiam: Did We Already Reach AGI?</title>
       <link>https://a16z.simplecast.com/episodes/openais-joshua-achiam-did-we-already-reach-agi-kjP0kXD4</link>
       <guid isPermaLink="false">8c452eea0cceee70</guid>
       <pubDate>Tue, 04 Aug 2026 14:56:48 +0000</pubDate>
@@ -68,7 +112,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #2 — Invest Like the Best: Gavin Baker - AI Market Jitters - [Invest Like the Best, EP.485]</title>
+      <title>🎧 LISTEN #10 — Invest Like the Best: Gavin Baker - AI Market Jitters - [Invest Like the Best, EP.485]</title>
       <link />
       <guid isPermaLink="false">d817b7c154c23109</guid>
       <pubDate>Tue, 04 Aug 2026 08:00:00 +0000</pubDate>
@@ -79,7 +123,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/c8fca7de-8f77-11f1-ae96-ab857574605f/image/e34471e6c9b4af0375abbd710ff0fa11.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #2 — Decoder: Tariffs didn’t bring manufacturing jobs back to the US</title>
+      <title>🎧 LISTEN #11 — Decoder: Tariffs didn’t bring manufacturing jobs back to the US</title>
       <link />
       <guid isPermaLink="false">1419fb4400c20e59</guid>
       <pubDate>Mon, 27 Jul 2026 09:00:00 +0000</pubDate>
@@ -90,7 +134,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/eceb07ba-cfc6-11f0-83c5-6fd03bb9cbf1/image/785c153fcef13637fb3208e1a83e9082.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #1 — The a16z Show: Fei-Fei Li on Spatial Intelligence and Robotics</title>
+      <title>🎧 LISTEN #12 — The a16z Show: Fei-Fei Li on Spatial Intelligence and Robotics</title>
       <link>https://a16z.simplecast.com/episodes/fei-fei-li-on-spatial-intelligence-and-robotics-j8HvsWJf</link>
       <guid isPermaLink="false">d99da0b934e38cc5</guid>
       <pubDate>Tue, 28 Jul 2026 10:00:00 +0000</pubDate>
@@ -101,7 +145,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #3 — The a16z Show: Steven Sinofsky: AI Doesn't Need New Rules Yet</title>
+      <title>🎧 LISTEN #13 — The a16z Show: Steven Sinofsky: AI Doesn't Need New Rules Yet</title>
       <link>https://a16z.simplecast.com/episodes/steven-sinofsky-ai-doesnt-need-new-rules-yet-BuNOSzIn</link>
       <guid isPermaLink="false">638055d053e280da</guid>
       <pubDate>Mon, 27 Jul 2026 10:00:00 +0000</pubDate>
@@ -112,7 +156,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #3 — The SaaS Podcast: Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.</title>
+      <title>🎧 LISTEN #14 — The SaaS Podcast: Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.</title>
       <link />
       <guid isPermaLink="false">6eaa776b43d6e57f</guid>
       <pubDate>Thu, 23 Jul 2026 12:00:00 +0000</pubDate>
@@ -123,7 +167,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/a7e9f7cc-046b-11ed-9c6d-13dc01eb807a/image/56aa351592d4af156f6e323fc03f036d.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #4 — The a16z Show: Ben Horowitz: The Fight Over Open Source AI</title>
+      <title>🎧 LISTEN #15 — The a16z Show: Ben Horowitz: The Fight Over Open Source AI</title>
       <link>https://a16z.simplecast.com/episodes/ben-horowitz-the-fight-over-open-source-ai-RnXTUEqk</link>
       <guid isPermaLink="false">233712672e620be9</guid>
       <pubDate>Sun, 26 Jul 2026 13:15:04 +0000</pubDate>
@@ -134,7 +178,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #2 — The a16z Show: Sriram Krishnan on Open Source AI's Biggest Week Yet</title>
+      <title>🎧 LISTEN #16 — The a16z Show: Sriram Krishnan on Open Source AI's Biggest Week Yet</title>
       <link>https://a16z.simplecast.com/episodes/sriram-krishnan-on-open-source-ais-biggest-week-yet-1yfA3ln5</link>
       <guid isPermaLink="false">02fce9f57fb0ca25</guid>
       <pubDate>Fri, 24 Jul 2026 10:00:00 +0000</pubDate>
@@ -145,7 +189,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #1 — The a16z Show: AI Micro Dramas, Generative Media, and the Future of Creativity</title>
+      <title>🎧 LISTEN #17 — The a16z Show: AI Micro Dramas, Generative Media, and the Future of Creativity</title>
       <link>https://a16z.simplecast.com/episodes/ai-micro-dramas-generative-media-and-the-future-of-creativity-ZbK1xyzO</link>
       <guid isPermaLink="false">7a8af04ee65d4958</guid>
       <pubDate>Wed, 29 Jul 2026 10:00:00 +0000</pubDate>
@@ -156,7 +200,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #5 — Decoder: What Apple’s OpenAI lawsuit is really about</title>
+      <title>🎧 LISTEN #18 — Decoder: What Apple’s OpenAI lawsuit is really about</title>
       <link />
       <guid isPermaLink="false">4c1c246be3e646a8</guid>
       <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
@@ -167,7 +211,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/ed704010-cfc6-11f0-83c5-7b53d12da9de/image/09d043d67770e8d4b59451e8d72524c5.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #6 — 科技浪: EP148 - Kimi K3 震撼矽谷！真的這麼強嗎？</title>
+      <title>🎧 LISTEN #19 — 科技浪: EP148 - Kimi K3 震撼矽谷！真的這麼強嗎？</title>
       <link>https://open.firstory.me/story/cmrsobin9048k01tj184d5bta</link>
       <guid isPermaLink="false">c5c8317a5e00d35c</guid>
       <pubDate>Mon, 20 Jul 2026 04:09:28 +0000</pubDate>

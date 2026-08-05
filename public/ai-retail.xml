@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:ns0="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns1="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
   <channel>
     <title>Podcast Scout — AI &amp; Retail</title>
     <description>Curated AI, retail, eCommerce, and product craft episodes.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Aug 2026 07:46:03 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2026 15:53:14 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/ai-retail.xml" rel="self" type="application/rss+xml" />
@@ -13,22 +13,26 @@
       <itunes:name>Your Name</itunes:name>
     </itunes:owner>
     <item>
-      <title>🎧 LISTEN #1 — Retailgentic: AI Is a New Customer Category: Wharton Professor &amp; Bodhium Labs Co-Founder Kartik Hosanagar</title>
-      <link />
-      <guid isPermaLink="false">88610221f5aa0101</guid>
-      <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
-      <ns0:duration>0</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
-      <description />
+      <title>🎧 LISTEN #1 — Retailgentic: Shopify's Agentic Commerce Playbook: VP of Product Mani Fazeli on 8X Agentic Traffic Growth and the Long-Tail Boom</title>
+      <link>https://share.transistor.fm/s/426fc9df</link>
+      <guid isPermaLink="false">6a94a25c9cbce596</guid>
+      <pubDate>Thu, 30 Jul 2026 09:00:00 +0000</pubDate>
+      <itunes:duration>3201</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 97/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 97 &amp;gt;= 75. This episode is highly relevant, strategic, and packed with concrete data and insights from a top-tier guest at Shopify, directly addressing AI, eCommerce, and product strategy at scale.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Shopify&amp;#x27;s VP of Product, Mani Fazeli, detailing their &amp;quot;agentic commerce&amp;quot; playbook. It introduces a four-stage framework (crawl, walk, run, fly) for AI-driven discovery and purchasing. Fazeli shares compelling Q1 data: 8X year-over-year growth in AI-driven traffic and 13X in orders for Shopify merchants. AI buyers convert at twice the rate, spend 14% more, and drive 70% of orders to long-tail products. The discussion highlights Shopify&amp;#x27;s real-time catalog data advantage (2X better conversion) and the strategic shift towards a &amp;quot;non-merchant-of-record&amp;quot; era, where Shopify acts as an interface, preserving merchant-customer relationships. It also touches on how AI is reshaping product, design, and engineering roles.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Shopify&amp;#x27;s &amp;quot;Agentic Commerce&amp;quot; framework and impressive growth metrics (8X traffic, 13X orders) driven by AI.&lt;/li&gt;&lt;li&gt;AI buyers exhibit superior conversion and spend, significantly boosting long-tail product discovery (70% of AI orders).&lt;/li&gt;&lt;li&gt;Strategic shift for platforms like Shopify to be an interface, not a merchant-of-record, maintaining merchant-customer relationships.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs in eCommerce should consider how AI agents will redefine customer discovery and purchasing funnels, particularly for long-tail products. Product strategy needs to adapt to platform shifts (e.g., non-merchant-of-record models) and leverage real-time data for competitive advantage. Organizational structures for product, design, and engineering will require re-evaluation to integrate AI capabilities effectively.&lt;/p&gt;&lt;p&gt;&lt;a href="https://share.transistor.fm/s/426fc9df"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode features Shopify's VP of Product, Mani Fazeli, detailing their "agentic commerce" playbook. It introduces a four-stage framework (crawl, walk, run, fly) for AI-driven discovery and purchasing. Fazeli shares compelling Q1 data: 8X year-over-year growth in AI-driven traffic and 13X in orders for Shopify merchants. AI buyers convert at twice the rate, spend 14% more, and drive 70% of orders to long-tail products. The discussion highlights Shopify's real-time catalog data advantage (2X better conversion) and the strategic shift towards a "non-merchant-of-record" era, where Shopify acts as an interface, preserving merchant-customer relationships. It also touches on how AI is reshaping product, design, and engineering roles.</description>
+      <enclosure url="https://media.transistor.fm/426fc9df/e30c1039.mp3" type="audio/mpeg" length="51267777" />
+      <itunes:image href="https://img.transistorcdn.com/d9-9nHJYi1wyKnWvqi3Fi766XlAF6JvrDahmaB8IFfE/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS85ZTM2/NTk2NDdlNzE4NzJj/MDU3ZGY0YzFiYTU3/NzJmOS5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #2 — Lenny's Podcast: Anthropic’s first technical PM on token maxing, the jagged edge, and living in the future | Dianne Penn</title>
+      <title>🎧 LISTEN #2 — No Priors: Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak</title>
       <link />
-      <guid isPermaLink="false">a3f883ca9e1977da</guid>
-      <pubDate>Sun, 26 Jul 2026 12:32:06 +0000</pubDate>
-      <ns0:duration>0</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 100/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
-      <description />
+      <guid isPermaLink="false">764a97ef74d9b043</guid>
+      <pubDate>Fri, 31 Jul 2026 10:00:00 +0000</pubDate>
+      <itunes:duration>2069</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 93/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 93 &amp;gt;= 75. This episode is highly relevant, offering deep strategic insights into AI product development, business models, and market dynamics from a founder, interviewed by a top-tier host.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Melisa Tokmak, Founder and CEO of Netic, discusses building an autonomous AI platform for essential real-world services like home repairs and pet care. She explains the complexities of automating these workflows, noting that over 70% of Netic&amp;#x27;s customers first interact with AI. The conversation with host Elad Gil delves into Netic&amp;#x27;s strategy of building a scalable product company versus an AI roll-up, why robotics isn&amp;#x27;t a near-term solution for these industries, and how Netic views competition from large frontier AI labs. Tokmak also provides insights into how private equity&amp;#x27;s investment playbook has shifted towards measurable ROI in the AI era and expresses optimism about AI&amp;#x27;s future impact on education.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Applying autonomous AI to complex real-world services, with high AI-first customer interaction (70%).&lt;/li&gt;&lt;li&gt;Strategic choices in building an AI company: scalable product vs. AI roll-up, competitive landscape, and the role of robotics.&lt;/li&gt;&lt;li&gt;Private equity&amp;#x27;s evolving investment criteria in the AI era, focusing on measurable ROI.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can gain insights into building AI-first products for complex service industries, understanding the trade-offs in business model choices (product vs. service/roll-up), and navigating the competitive landscape with large AI labs. The discussion on PE&amp;#x27;s shift provides valuable context for funding and growth strategies in the AI space.&lt;/p&gt;</content:encoded>
+      <description>Melisa Tokmak, Founder and CEO of Netic, discusses building an autonomous AI platform for essential real-world services like home repairs and pet care. She explains the complexities of automating these workflows, noting that over 70% of Netic's customers first interact with AI. The conversation with host Elad Gil delves into Netic's strategy of building a scalable product company versus an AI roll-up, why robotics isn't a near-term solution for these industries, and how Netic views competition from large frontier AI labs. Tokmak also provides insights into how private equity's investment playbook has shifted towards measurable ROI in the AI era and expresses optimism about AI's future impact on education.</description>
+      <enclosure url="https://traffic.megaphone.fm/PDP6533459307.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/db17d1d8-8c79-11f1-9e05-6bb27aab1f6f/image/82d8177a07141efa60a0e14fb8b30b2b.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
   </channel>
 </rss>
