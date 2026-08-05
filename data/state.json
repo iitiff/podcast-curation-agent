@@ -13,7 +13,10 @@
       "score": 100.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.transistor.fm/retailgentic"
+      "source_feed_url": "https://feeds.transistor.fm/retailgentic",
+      "enclosure_url": "https://media.transistor.fm/4f452d50/77af1914.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 41003431
     },
     "0aa9cdd123be2909": {
       "guid": "0aa9cdd123be2909",
@@ -24,7 +27,10 @@
       "score": 97.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/nopriors"
+      "source_feed_url": "https://feeds.megaphone.fm/nopriors",
+      "enclosure_url": "https://traffic.megaphone.fm/PDP3380514610.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "c5adbd47553e3d8d": {
       "guid": "c5adbd47553e3d8d",
@@ -35,7 +41,10 @@
       "score": 77.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://sharptech.fm/feed/podcast"
+      "source_feed_url": "https://sharptech.fm/feed/podcast",
+      "enclosure_url": "https://sharptech.fm/assets/sharptech0285_preview.mp3?access_token=WtLvUDEHgB7rE4MbAfmDVT",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 11469429
     },
     "9e5147dc3d9fe0da": {
       "guid": "9e5147dc3d9fe0da",
@@ -46,7 +55,10 @@
       "score": 70.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://sharpchina.fm/feed/podcast"
+      "source_feed_url": "https://sharpchina.fm/feed/podcast",
+      "enclosure_url": "https://sharpchina.fm/assets/sharpchina162-preview.mp3?access_token=MSorAZNuXsdNR1taQBKjcF",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 14019751
     },
     "17b74684842e3172": {
       "guid": "17b74684842e3172",
@@ -57,7 +69,10 @@
       "score": 70.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques"
+      "source_feed_url": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques",
+      "enclosure_url": "https://mgln.ai/e/p155759/op3.dev/e/pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/98df3f8f/360a8168.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 16780594
     },
     "4c1c246be3e646a8": {
       "guid": "4c1c246be3e646a8",
@@ -68,7 +83,10 @@
       "score": 61.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/recodedecode"
+      "source_feed_url": "https://feeds.megaphone.fm/recodedecode",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP8735488557.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "4455b6e90ff3ac10": {
       "guid": "4455b6e90ff3ac10",
@@ -79,7 +97,10 @@
       "score": 61.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/recodedecode"
+      "source_feed_url": "https://feeds.megaphone.fm/recodedecode",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP2484941224.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "3c0fcc551fdac351": {
       "guid": "3c0fcc551fdac351",
@@ -134,7 +155,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques"
+      "source_feed_url": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques",
+      "enclosure_url": "https://mgln.ai/e/p155759/op3.dev/e/pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/79170dbf/2a7b22bd.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 22352414
     },
     "467b316f09e1ceda": {
       "guid": "467b316f09e1ceda",
@@ -156,7 +180,10 @@
       "score": 73.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/AHARO1075645324"
+      "source_feed_url": "https://feeds.megaphone.fm/AHARO1075645324",
+      "enclosure_url": "https://traffic.megaphone.fm/AHARO9671875320.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "233712672e620be9": {
       "guid": "233712672e620be9",
@@ -167,7 +194,10 @@
       "score": 72.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/a06277c7-6617-4cbf-b37d-94f9516c033c/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=a06277c7-6617-4cbf-b37d-94f9516c033c&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 31286863
     },
     "b6421cbd96cbddc4": {
       "guid": "b6421cbd96cbddc4",
@@ -178,7 +208,10 @@
       "score": 70.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/c0548882-482c-45e3-b1c5-bff8f17399f5/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=c0548882-482c-45e3-b1c5-bff8f17399f5&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 43608726
     },
     "02fce9f57fb0ca25": {
       "guid": "02fce9f57fb0ca25",
@@ -189,7 +222,10 @@
       "score": 65.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/8788edcc-da22-4a36-8656-36c04ca2458f/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=8788edcc-da22-4a36-8656-36c04ca2458f&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 22157799
     },
     "88b972254ee52526": {
       "guid": "88b972254ee52526",
@@ -200,7 +236,10 @@
       "score": 46.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP2747931693.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "b2e78b6190439993": {
       "guid": "b2e78b6190439993",
@@ -211,7 +250,10 @@
       "score": 30.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/investlikethebest"
+      "source_feed_url": "https://feeds.megaphone.fm/investlikethebest",
+      "enclosure_url": "https://traffic.megaphone.fm/CLS1352215254.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "73f5620850201b77": {
       "guid": "73f5620850201b77",
@@ -222,7 +264,10 @@
       "score": 24.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/CPUAI1584649469"
+      "source_feed_url": "https://feeds.megaphone.fm/CPUAI1584649469",
+      "enclosure_url": "https://pscrb.fm/rss/p/traffic.megaphone.fm/CPUAI4466953098.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "a8706449ca2b46e5": {
       "guid": "a8706449ca2b46e5",
@@ -233,7 +278,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP4213751555.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "eb2983a5ab4588d3": {
       "guid": "eb2983a5ab4588d3",
@@ -244,7 +292,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP5832591539.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "c5c8317a5e00d35c": {
       "guid": "c5c8317a5e00d35c",
@@ -255,7 +306,10 @@
       "score": 59.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feed.firstory.me/rss/user/cm3o5681s06e801v3fxpjehwb"
+      "source_feed_url": "https://feed.firstory.me/rss/user/cm3o5681s06e801v3fxpjehwb",
+      "enclosure_url": "https://m.cdn.firstory.me/track/cm3o5681s06e801v3fxpjehwb/cmrsobin9048k01tj184d5bta/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcm3o5681s06e801v3fxpjehwb%2Fcmrsobin9048l01tj7cdk62a6.mp3?v=1784518743363",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "d983f5cd1fad0158": {
       "guid": "d983f5cd1fad0158",
@@ -266,7 +320,10 @@
       "score": 29.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y"
+      "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y",
+      "enclosure_url": "https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cmrycm98f11ty01wma59uca79/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcmrycm98f11tz01wmeeen8cjl.mp3?v=1784861810403",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "cb8d6880a78a7b88": {
       "guid": "cb8d6880a78a7b88",
@@ -277,7 +334,10 @@
       "score": 8.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y"
+      "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y",
+      "enclosure_url": "https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cmrswe4i81k2f01xb43lraqo9/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcmrswe4i81k2g01xbch6tartb.mp3?v=1784532259295",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "cccfa96fbb7c7e31": {
       "guid": "cccfa96fbb7c7e31",
@@ -288,7 +348,10 @@
       "score": 4.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g"
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g",
+      "enclosure_url": "https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cmrvnvc390b3x01tg2q230kwc/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcmrvnvc390b3y01tg59of8lws.mp3?v=1784699566972",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "a4e86adeaa238581": {
       "guid": "a4e86adeaa238581",
@@ -299,7 +362,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://www.amrtf.org/podcast/rss/B000035.xml"
+      "source_feed_url": "https://www.amrtf.org/podcast/rss/B000035.xml",
+      "enclosure_url": "https://cdn.amec.amrtf.org/volumeMedia/B000035/560/6ccb2f6a-56ca-4c69-a075-45372c782662.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 4656526
     },
     "ccfa58dabbcfa510": {
       "guid": "ccfa58dabbcfa510",
@@ -310,7 +376,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss"
+      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss",
+      "enclosure_url": "https://www.buzzsprout.com/1096139/episodes/19542482-.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 37402538
     },
     "39fe21975e05a5ad": {
       "guid": "39fe21975e05a5ad",
@@ -321,7 +390,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss"
+      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss",
+      "enclosure_url": "https://www.buzzsprout.com/1096139/episodes/19513941-feat.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 59120557
     },
     "d26f1dc68dccaa99": {
       "guid": "d26f1dc68dccaa99",
@@ -332,7 +404,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245"
+      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/swap.fm/track/2nzGkisFXQswLYT5s325/traffic.megaphone.fm/WMHY2856649854.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "e453d0bdd826e0c4": {
       "guid": "e453d0bdd826e0c4",
@@ -343,7 +418,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245"
+      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/swap.fm/track/2nzGkisFXQswLYT5s325/traffic.megaphone.fm/WMHY1606000403.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "f3c82d4d88faadc2": {
       "guid": "f3c82d4d88faadc2",
@@ -354,7 +432,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss",
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/f074ffd8-7d5b-4631-a2ba-b49101199fb4/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 20178277
     },
     "48bc4042b9f052bf": {
       "guid": "48bc4042b9f052bf",
@@ -365,7 +446,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss",
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/47dcfdb6-31ce-49ad-82b0-b4900130bf8a/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 19647878
     },
     "abcbb861771b6fe7": {
       "guid": "abcbb861771b6fe7",
@@ -376,7 +460,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss",
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/4f251522-3618-49be-92e2-b48f0119e0a8/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 20086102
     },
     "0a7a67cf37bbaaba": {
       "guid": "0a7a67cf37bbaaba",
@@ -387,7 +474,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.art19.com/tim-ferriss-show"
+      "source_feed_url": "https://rss.art19.com/tim-ferriss-show",
+      "enclosure_url": "https://rss.art19.com/episodes/704b2f6c-7362-4586-bf69-093021bc40e6.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 128705933
     },
     "f0b306f451c28a08": {
       "guid": "f0b306f451c28a08",
@@ -398,7 +488,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g"
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g",
+      "enclosure_url": "https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cmrwymtoi0x1k01tg833a0adn/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcmrwymtoi0x1l01tgavio37di.mp3?v=1784777866045",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "811810d0bee68661": {
       "guid": "811810d0bee68661",
@@ -409,7 +502,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g"
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g",
+      "enclosure_url": "https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cmrk5m7ai01w001u82jedc5vz/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcmrk5m7ai01w101u8468g7q52.mp3?v=1784003530713",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "145d126afbdf39fb": {
       "guid": "145d126afbdf39fb",
@@ -420,7 +516,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP5203248547.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "4586a1cba8f6425b": {
       "guid": "4586a1cba8f6425b",
@@ -431,7 +530,10 @@
       "score": 14.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feed.firstory.me/rss/user/cm3o5681s06e801v3fxpjehwb"
+      "source_feed_url": "https://feed.firstory.me/rss/user/cm3o5681s06e801v3fxpjehwb",
+      "enclosure_url": "https://m.cdn.firstory.me/track/cm3o5681s06e801v3fxpjehwb/cms2mp6nz016801y6f5ilgu4f/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcm3o5681s06e801v3fxpjehwb%2Fcms2mp6nz016901y6hkkrgtfx.mp3?v=1785120666789",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "1419fb4400c20e59": {
       "guid": "1419fb4400c20e59",
@@ -442,7 +544,10 @@
       "score": 74.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/recodedecode"
+      "source_feed_url": "https://feeds.megaphone.fm/recodedecode",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP4137105999.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "e97648c7d63ae319": {
       "guid": "e97648c7d63ae319",
@@ -453,7 +558,10 @@
       "score": 63.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.simplecast.com/hQ2eLzNW"
+      "source_feed_url": "https://feeds.simplecast.com/hQ2eLzNW",
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/afp-935226-injected.calisto.simplecastaudio.com/fed613f6-db08-4178-9009-bc6bae8658fc/episodes/af8ec1f8-90be-46a6-ac36-a6414e2aa63a/audio/128/default.mp3?aid=rss_feed&awCollectionId=fed613f6-db08-4178-9009-bc6bae8658fc&awEpisodeId=af8ec1f8-90be-46a6-ac36-a6414e2aa63a&feed=hQ2eLzNW",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 48192056
     },
     "7381c2c67c6943d8": {
       "guid": "7381c2c67c6943d8",
@@ -464,7 +572,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques"
+      "source_feed_url": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques",
+      "enclosure_url": "https://mgln.ai/e/p155759/op3.dev/e/pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/c08eab83/953866cc.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 25014823
     },
     "21ef9a7f1fdf511d": {
       "guid": "21ef9a7f1fdf511d",
@@ -475,7 +586,10 @@
       "score": 81.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.art19.com/masters-of-scale"
+      "source_feed_url": "https://rss.art19.com/masters-of-scale",
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/c9873675-e551-4f4b-a6b4-ae2086338972.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 57866449
     },
     "638055d053e280da": {
       "guid": "638055d053e280da",
@@ -486,7 +600,10 @@
       "score": 73.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/428f598f-a8c0-4b71-9400-e2c3f387ca94/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=428f598f-a8c0-4b71-9400-e2c3f387ca94&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 28110794
     },
     "992047e54d15c565": {
       "guid": "992047e54d15c565",
@@ -497,7 +614,10 @@
       "score": 37.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.art19.com/masters-of-scale"
+      "source_feed_url": "https://rss.art19.com/masters-of-scale",
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/f25e7ea4-a2ce-4d96-8827-82c0ae656eeb.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 27246759
     },
     "8affb4ef941a1e28": {
       "guid": "8affb4ef941a1e28",
@@ -508,7 +628,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.art19.com/masters-of-scale"
+      "source_feed_url": "https://rss.art19.com/masters-of-scale",
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/3d77fe78-a6ee-4aaa-8966-2d639438b72d.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 30875480
     },
     "a3f883ca9e1977da": {
       "guid": "a3f883ca9e1977da",
@@ -519,7 +642,10 @@
       "score": 100.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://api.substack.com/feed/podcast/10845.rss"
+      "source_feed_url": "https://api.substack.com/feed/podcast/10845.rss",
+      "enclosure_url": "https://pscrb.fm/rss/p/api.substack.com/feed/podcast/207214207/aaa7067cd960f0369661f0976cbe3d0a.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 90086782
     },
     "9733549111931408": {
       "guid": "9733549111931408",
@@ -530,7 +656,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/DSLLC6297708582"
+      "source_feed_url": "https://feeds.megaphone.fm/DSLLC6297708582",
+      "enclosure_url": "https://traffic.megaphone.fm/DSLLC9873777977.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "4d68289ff8e87246": {
       "guid": "4d68289ff8e87246",
@@ -541,7 +670,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss",
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/4467b370-f460-4b1b-9b8d-b494011a473d/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 20147126
     },
     "f15f122ebf0732fa": {
       "guid": "f15f122ebf0732fa",
@@ -552,7 +684,10 @@
       "score": 59.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss"
+      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss",
+      "enclosure_url": "https://anchor.fm/s/8c1524bc/podcast/play/123415216/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-28%2F428743828-44100-2-eb65dd355d011.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 34774203
     },
     "7fb5052ef6cac696": {
       "guid": "7fb5052ef6cac696",
@@ -563,7 +698,10 @@
       "score": 51.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss"
+      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss",
+      "enclosure_url": "https://anchor.fm/s/8c1524bc/podcast/play/123400698/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-27%2F428723985-44100-2-b1d7f98df8a9c.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 47036289
     },
     "0d1b1b314c776121": {
       "guid": "0d1b1b314c776121",
@@ -574,7 +712,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y"
+      "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y",
+      "enclosure_url": "https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cms2tg0k5031p01xf5kidai6w/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcms2tg0k5031q01xfbkip57gj.mp3?v=1785131950451",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "d99da0b934e38cc5": {
       "guid": "d99da0b934e38cc5",
@@ -585,7 +726,10 @@
       "score": 73.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/e2a3c643-334f-47f6-a6e0-d9124f6786a3/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=e2a3c643-334f-47f6-a6e0-d9124f6786a3&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 41344634
     },
     "d0fb92fb8a3c821c": {
       "guid": "d0fb92fb8a3c821c",
@@ -596,7 +740,10 @@
       "score": 71.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/investlikethebest"
+      "source_feed_url": "https://feeds.megaphone.fm/investlikethebest",
+      "enclosure_url": "https://traffic.megaphone.fm/CLS4111343994.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "07f8d5666d09ef0c": {
       "guid": "07f8d5666d09ef0c",
@@ -607,7 +754,10 @@
       "score": 55.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP9997952437.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "54caa05108edc3e5": {
       "guid": "54caa05108edc3e5",
@@ -618,7 +768,10 @@
       "score": 43.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss"
+      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss",
+      "enclosure_url": "https://anchor.fm/s/8c1524bc/podcast/play/123433442/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-28%2F428769142-44100-2-5c82673dfc0a.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 37442036
     },
     "59a6022a4e2b61a9": {
       "guid": "59a6022a4e2b61a9",
@@ -629,7 +782,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.art19.com/masters-of-scale"
+      "source_feed_url": "https://rss.art19.com/masters-of-scale",
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/28f54176-1dae-42c0-bddd-91902320bbb6.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 24900754
     },
     "94a191a06811fe15": {
       "guid": "94a191a06811fe15",
@@ -640,7 +796,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245"
+      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/swap.fm/track/2nzGkisFXQswLYT5s325/traffic.megaphone.fm/WMHY7821767394.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "01a4514e44b6b515": {
       "guid": "01a4514e44b6b515",
@@ -651,7 +810,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss",
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/b1473990-f339-4630-a305-b4950119ecfc/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 20114305
     },
     "eb5173660146cb5d": {
       "guid": "eb5173660146cb5d",
@@ -662,7 +824,10 @@
       "score": 56.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.simplecast.com/hQ2eLzNW"
+      "source_feed_url": "https://feeds.simplecast.com/hQ2eLzNW",
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/afp-935226-injected.calisto.simplecastaudio.com/fed613f6-db08-4178-9009-bc6bae8658fc/episodes/f243b9a8-361f-4da9-a98a-0e2c987b94f3/audio/128/default.mp3?aid=rss_feed&awCollectionId=fed613f6-db08-4178-9009-bc6bae8658fc&awEpisodeId=f243b9a8-361f-4da9-a98a-0e2c987b94f3&feed=hQ2eLzNW",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 41391444
     },
     "7a8af04ee65d4958": {
       "guid": "7a8af04ee65d4958",
@@ -673,7 +838,10 @@
       "score": 64.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/7fd0c85e-6602-4a74-a5a4-1ae04e7bdcd8/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=7fd0c85e-6602-4a74-a5a4-1ae04e7bdcd8&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 48998305
     },
     "d17a22bb1304e4e2": {
       "guid": "d17a22bb1304e4e2",
@@ -684,7 +852,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236"
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP6841093679.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "aad13933f01ffba2": {
       "guid": "aad13933f01ffba2",
@@ -695,7 +866,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss"
+      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss",
+      "enclosure_url": "https://www.buzzsprout.com/1096139/episodes/19562454-100-10.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 42587789
     },
     "c20ca94fcb7032b4": {
       "guid": "c20ca94fcb7032b4",
@@ -706,7 +880,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss",
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/cc3f59d0-8f54-4650-a0b5-b496011a4084/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 20378239
     },
     "ce070fc81dbf509b": {
       "guid": "ce070fc81dbf509b",
@@ -717,7 +894,10 @@
       "score": 0.0,
       "classification": "Read Summary Only",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.art19.com/tim-ferriss-show"
+      "source_feed_url": "https://rss.art19.com/tim-ferriss-show",
+      "enclosure_url": "https://rss.art19.com/episodes/b7244dd5-291f-4ab3-9d1b-8ea015a8d59e.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 72507977
     },
     "8c452eea0cceee70": {
       "guid": "8c452eea0cceee70",
@@ -728,7 +908,10 @@
       "score": 77.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V"
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/877d13fc-d13f-4690-9859-6605a2f2b404/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=877d13fc-d13f-4690-9859-6605a2f2b404&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 29919722
     },
     "d817b7c154c23109": {
       "guid": "d817b7c154c23109",
@@ -739,7 +922,10 @@
       "score": 77.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/investlikethebest"
+      "source_feed_url": "https://feeds.megaphone.fm/investlikethebest",
+      "enclosure_url": "https://traffic.megaphone.fm/CLS6565465184.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "dbda426f447aeb37": {
       "guid": "dbda426f447aeb37",
@@ -750,7 +936,10 @@
       "score": 76.0,
       "classification": "Listen Fully",
       "is_outside_feed": false,
-      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss"
+      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss",
+      "enclosure_url": "https://anchor.fm/s/8c1524bc/podcast/play/123764066/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-4%2F429211619-44100-2-80c61c5d2a7a4.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 47424573
     },
     "5352b8da038b60c3": {
       "guid": "5352b8da038b60c3",
@@ -761,7 +950,10 @@
       "score": 48.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://rss.art19.com/masters-of-scale"
+      "source_feed_url": "https://rss.art19.com/masters-of-scale",
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/aad88f84-d1a6-4bc1-9016-4a051a9c3d01.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 28937822
     },
     "c4191a8e0334e3cb": {
       "guid": "c4191a8e0334e3cb",
@@ -772,7 +964,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss"
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss",
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/dfc49cc6-5563-4374-a5b7-b49c011a3e36/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 19281812
     },
     "cb0548c16599be71": {
       "guid": "cb0548c16599be71",
@@ -783,7 +978,10 @@
       "score": 0.0,
       "classification": "Skip",
       "is_outside_feed": false,
-      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245"
+      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245",
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/swap.fm/track/2nzGkisFXQswLYT5s325/traffic.megaphone.fm/WMHY8959965052.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "6a94a25c9cbce596": {
       "guid": "6a94a25c9cbce596",
@@ -803,7 +1001,10 @@
         "Strategic shift for platforms like Shopify to be an interface, not a merchant-of-record, maintaining merchant-customer relationships."
       ],
       "episode_url": "https://share.transistor.fm/s/426fc9df",
-      "duration_seconds": 3201
+      "duration_seconds": 3201,
+      "enclosure_url": "https://media.transistor.fm/426fc9df/e30c1039.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 51267777
     },
     "764a97ef74d9b043": {
       "guid": "764a97ef74d9b043",
@@ -823,7 +1024,10 @@
         "Private equity's evolving investment criteria in the AI era, focusing on measurable ROI."
       ],
       "episode_url": "",
-      "duration_seconds": 2069
+      "duration_seconds": 2069,
+      "enclosure_url": "https://traffic.megaphone.fm/PDP6533459307.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "6c66a26e3ccb29bb": {
       "guid": "6c66a26e3ccb29bb",
@@ -843,7 +1047,10 @@
         "Strategic insights on hiring, developing senior ICs, and leadership lessons from high-growth companies."
       ],
       "episode_url": "https://www.lennysnewsletter.com/p/this-cpo-regrets-that-product-management",
-      "duration_seconds": 5098
+      "duration_seconds": 5098,
+      "enclosure_url": "https://pscrb.fm/rss/p/api.substack.com/feed/podcast/209025231/702fecd1ae63276633753e2cc9356073.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 81562922
     },
     "c180c171760b6030": {
       "guid": "c180c171760b6030",
@@ -863,7 +1070,10 @@
         "Challenges and trustworthiness implications of ad-supported AI agents in the retail environment."
       ],
       "episode_url": "https://www.futurecommerce.com/podcasts/commerce-medias-day-two-the-agentic-shelf-and-the-measurement-reckoning",
-      "duration_seconds": 2637
+      "duration_seconds": 2637,
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/afp-935226-injected.calisto.simplecastaudio.com/fed613f6-db08-4178-9009-bc6bae8658fc/episodes/0b6485f2-be8d-4720-8ad4-ec8e9cef16b7/audio/128/default.mp3?aid=rss_feed&awCollectionId=fed613f6-db08-4178-9009-bc6bae8658fc&awEpisodeId=0b6485f2-be8d-4720-8ad4-ec8e9cef16b7&feed=hQ2eLzNW",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 42198936
     },
     "5666d988adc5e47e": {
       "guid": "5666d988adc5e47e",
@@ -883,7 +1093,10 @@
         "The evolving landscape of consumer discovery and booking, influenced by AI-powered shopping agents and micro-influencers."
       ],
       "episode_url": "https://jasonandscot.com/e343-amazon-q2-2026-earnings",
-      "duration_seconds": 3511
+      "duration_seconds": 3511,
+      "enclosure_url": "https://traffic.libsyn.com/secure/jasshow/jass_amazin_q2_VIDEO_AUPHONIC_AUDIO.mp3?dest-id=325386",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 49240090
     },
     "c9f7bc8824d30cc4": {
       "guid": "c9f7bc8824d30cc4",
@@ -903,7 +1116,10 @@
         "Strategic considerations for AI deployment in companies, balancing internal productivity with customer-facing applications and the challenge of trust."
       ],
       "episode_url": "https://jasonandscot.com/ep342-the-end-of-the-attention-economy-and-what-retail-does-next-with-mitch-joel",
-      "duration_seconds": 2968
+      "duration_seconds": 2968,
+      "enclosure_url": "https://traffic.libsyn.com/secure/jasshow/jass_mitch_VIDEO_AUPHONIC_AUDIO.mp3?dest-id=325386",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 41629112
     },
     "af0b4b8faf6c9ef1": {
       "guid": "af0b4b8faf6c9ef1",
@@ -923,7 +1139,10 @@
         "Strategic considerations for product managers in an internet increasingly shaped by AI."
       ],
       "episode_url": "",
-      "duration_seconds": 2584
+      "duration_seconds": 2584,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP9978291563.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "80359a3a91ea3a1c": {
       "guid": "80359a3a91ea3a1c",
@@ -943,7 +1162,10 @@
         "The \"big tent\" vs. \"bubble\" approach to platform development and user base."
       ],
       "episode_url": "",
-      "duration_seconds": 4528
+      "duration_seconds": 4528,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP2631794244.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "4a976155a9a9712c": {
       "guid": "4a976155a9a9712c",
@@ -963,7 +1185,10 @@
         "The intersection of technology, trade policy, and international relations."
       ],
       "episode_url": "https://sharpchina.fm/member/episode/preview-a-memory-maker-makes-history-new-robot-rules-the-open-weights-debate-rages-end-of-july-news-and-notes",
-      "duration_seconds": 873
+      "duration_seconds": 873,
+      "enclosure_url": "https://sharpchina.fm/assets/sharpchina163-preview.mp3?access_token=MSorAZNuXsdNR1taQBKjcF",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 14295689
     },
     "dbb9c763eb3ea8cd": {
       "guid": "dbb9c763eb3ea8cd",
@@ -979,7 +1204,10 @@
       "summary": "This is a 2-minute teaser for an exclusive, members-only episode of Future Commerce. It briefly mentions a discussion on the \"current state of consumer trust\" and includes lighthearted, irrelevant content about reviews of \"The Odyssey\" and Air Bud. The teaser provides no strategic or actionable insights for a senior product manager and serves primarily as a promotional clip for a subscription service.",
       "key_ideas": [],
       "episode_url": "http://futurecommerce.fm",
-      "duration_seconds": 97
+      "duration_seconds": 97,
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/afp-935226-injected.calisto.simplecastaudio.com/fed613f6-db08-4178-9009-bc6bae8658fc/episodes/25e87c6d-3232-45b6-b476-b3f224bbec55/audio/128/default.mp3?aid=rss_feed&awCollectionId=fed613f6-db08-4178-9009-bc6bae8658fc&awEpisodeId=25e87c6d-3232-45b6-b476-b3f224bbec55&feed=hQ2eLzNW",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 1553266
     },
     "2426cc18e2a55c99": {
       "guid": "2426cc18e2a55c99",
@@ -999,7 +1227,10 @@
         "Techniques for engaging an audience and building trust."
       ],
       "episode_url": "https://www.fastersmarter.io/311-dont-lose-the-room-how-to-make-ideas-stick/",
-      "duration_seconds": 1352
+      "duration_seconds": 1352,
+      "enclosure_url": "https://mgln.ai/e/p155759/op3.dev/e/pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/550311e4/c15607da.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 21650471
     },
     "e2b896cbe0e2e296": {
       "guid": "e2b896cbe0e2e296",
@@ -1019,7 +1250,10 @@
         "The importance of mindful communication and feedback for building strong connections."
       ],
       "episode_url": "https://www.fastersmarter.io/310-a-matter-of-meaning-what-other-people-teach-you-about-your-communication/",
-      "duration_seconds": 1186
+      "duration_seconds": 1186,
+      "enclosure_url": "https://mgln.ai/e/p155759/op3.dev/e/pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/44b35af1/08f5ed87.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 18999887
     },
     "9a498473d4309a7e": {
       "guid": "9a498473d4309a7e",
@@ -1039,7 +1273,10 @@
         "Principles for innovation and how small teams can still make a big impact."
       ],
       "episode_url": "https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jeff-Dean-The-1-Rule-for-Building-in-AI-e3mq28a",
-      "duration_seconds": 3426
+      "duration_seconds": 3426,
+      "enclosure_url": "https://anchor.fm/s/8c1524bc/podcast/play/123586250/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-31%2F428976415-44100-2-4750afd8ab692.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 54829556
     },
     "80fe79e11092a5ca": {
       "guid": "80fe79e11092a5ca",
@@ -1059,7 +1296,10 @@
         "Founder's perspective on building and scaling a major tech company."
       ],
       "episode_url": "https://podcasters.spotify.com/pod/show/ycombinator/episodes/Patrick-Collison-What-If-You-Succeed-e3mtper",
-      "duration_seconds": 1859
+      "duration_seconds": 1859,
+      "enclosure_url": "https://anchor.fm/s/8c1524bc/podcast/play/123708315/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-3%2F429138468-44100-2-8806da84c4f95.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 29760364
     },
     "d8efc40942f83bfe": {
       "guid": "d8efc40942f83bfe",
@@ -1079,7 +1319,10 @@
         "Cyberethnography and understanding online behavior for product strategy"
       ],
       "episode_url": "https://a16z.simplecast.com/episodes/ruby-thelot-on-internet-culture-ai-and-the-future-of-taste-CvhHSpzt",
-      "duration_seconds": 2048
+      "duration_seconds": 2048,
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/03b39caa-2d5d-4ade-815f-7d9df9231c3f/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=03b39caa-2d5d-4ade-815f-7d9df9231c3f&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 32780234
     },
     "a88abede4c44de42": {
       "guid": "a88abede4c44de42",
@@ -1099,7 +1342,10 @@
         "Expanding from online delivery into nationwide retail"
       ],
       "episode_url": "",
-      "duration_seconds": 2144
+      "duration_seconds": 2144,
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/24f3b049-6384-44fb-a64a-960098461474.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 34306925
     },
     "aa629c66114a730d": {
       "guid": "aa629c66114a730d",
@@ -1119,7 +1365,10 @@
         "Founder challenges in highly complex and regulated industries"
       ],
       "episode_url": "https://a16z.simplecast.com/episodes/three-startups-reinventing-critical-infrastructure-FkRDwjit",
-      "duration_seconds": 4522
+      "duration_seconds": 4522,
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/15117efd-a4fa-490c-a098-726d0b74ba74/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=15117efd-a4fa-490c-a098-726d0b74ba74&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 72368074
     },
     "499e4c446040be33": {
       "guid": "499e4c446040be33",
@@ -1139,7 +1388,10 @@
         "Adaptation and resilience in business over decades"
       ],
       "episode_url": "",
-      "duration_seconds": 2290
+      "duration_seconds": 2290,
+      "enclosure_url": "https://traffic.megaphone.fm/DSLLC1260176282.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "2852baaef11ebcb9": {
       "guid": "2852baaef11ebcb9",
@@ -1159,7 +1411,10 @@
         "Dating advice"
       ],
       "episode_url": "",
-      "duration_seconds": 1481
+      "duration_seconds": 1481,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP8390222140.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "f5f6640edd979157": {
       "guid": "f5f6640edd979157",
@@ -1179,7 +1434,10 @@
         "Tips for balancing personal caregiving responsibilities."
       ],
       "episode_url": "",
-      "duration_seconds": 1559
+      "duration_seconds": 1559,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP7016237940.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "3a5b9825d0167053": {
       "guid": "3a5b9825d0167053",
@@ -1199,7 +1457,10 @@
         "Unlikely to contain specific strategic product insights."
       ],
       "episode_url": "",
-      "duration_seconds": 998
+      "duration_seconds": 998,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP4017556405.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "8815e5930a81f6b2": {
       "guid": "8815e5930a81f6b2",
@@ -1219,7 +1480,10 @@
         "Implications of medical breakthroughs for new treatment paradigms"
       ],
       "episode_url": "",
-      "duration_seconds": 1754
+      "duration_seconds": 1754,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/swap.fm/track/2nzGkisFXQswLYT5s325/traffic.megaphone.fm/WMHY3694779984.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "4d01abccb18efd7d": {
       "guid": "4d01abccb18efd7d",
@@ -1235,7 +1499,10 @@
       "summary": "\u3010\u672c\u96c6\u7bc0\u76ee\u7531 \u74e6\u57fa\u81ea\u5df1 \u8d0a\u52a9\u64ad\u51fa\u3011 \u300aAI \u74e6\u57fa\u7b2c\u4e8c\u5927\u8166\u300b \u5f9e\u601d\u8003\u6846\u67b6\u3001\u5be6\u6230\u5de5\u5177\u5230\u5be6\u969b\u6848\u4f8b\uff0c\u7d66\u4f60\u4e00\u5957\u53ef\u4ee5\u7167\u8457\u505a\u7684 AI \u5354\u4f5c\u7cfb\u7d71\uff1a \u25aa\ufe0f\u4e00\u7ad9\u5f0f\u5b78\u597d AI\uff5c\u601d\u7dad\u5e95\u5c64\u5230\u5be6\u6230\u7522\u51fa\uff0c\u4e00\u6b21\u5b8c\u6574\u5b78 \u25aa\ufe0f10 \u9805\u7368\u5bb6 AI \u5c08\u6848\u5305\uff5c\u6db5\u84cb\u5beb\u4f5c\u3001\u6c7a\u7b56\u3001\u7814\u7a76\u7b49\u5834\u666f \u25aa\ufe0fPACE \u884c\u52d5\u601d\u8003\u5730\u5716\uff5c\u56db\u5927\u8c61\u9650\u5c0d\u61c9\u6240\u6709 AI \u61c9\u7528\u5834\u666f \u25aa\ufe0f\u8cc7\u6599\u5eab\u6301\u7e8c\u66f4\u65b0\uff5c\u96a8\u8457 AI \u8fed\u4ee3\uff0c\u6301\u7e8c\u8ddf\u4f60\u4e00\u8d77\u6210\u9577 \u2728\u5b78\u4e00\u6b21\uff0c\u5efa\u4e00\u5957\u8ddf\u8457\u4f60\u6301\u7e8c\u8907\u5229\u6210\u9577\u7684 AI \u9ad8\u7522\u51fa\u7cfb\u7d71\u2728 \ud83d\udce3\u7d50\u5e33\u8f38\u5165\u6298\u6263\u78bc\uff1aWKWF350\uff0c\u518d\u6298 $350 \ud83d\udce3\u8ab2\u7a0b\u4ecb\u7d39\uff1a https://hi.sat.cool/u6R1Q \u3010\u672c\u96c6\u8a2a\u8ac7\u3011 \u4f60\u6709\u591a\u4e45\uff0c\u6c92\u6709\u628a\u81ea\u5df1\u653e\u5728\u7b2c\u4e00\u4f4d\u4e86\uff1f\u2026",
       "key_ideas": [],
       "episode_url": "https://open.firstory.me/story/cmscvvx8c059w01td6fpu5353",
-      "duration_seconds": 2741
+      "duration_seconds": 2741,
+      "enclosure_url": "https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cmscvvx8c059w01td6fpu5353/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcmscvvx8c059x01td006q9kk8.mp3?v=1785740719296",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "03678c37b28d5133": {
       "guid": "03678c37b28d5133",
@@ -1251,7 +1518,10 @@
       "summary": "\u3010\u672c\u96c6\u7bc0\u76ee\u7531 \u74e6\u57fa \u8d0a\u52a9\u64ad\u51fa\u3011 \u300aAI \u74e6\u57fa\u7b2c\u4e8c\u5927\u8166\u300b \u5f9e\u601d\u8003\u6846\u67b6\u3001\u5be6\u6230\u5de5\u5177\u5230\u5be6\u969b\u6848\u4f8b\uff0c\u7d66\u4f60\u4e00\u5957\u53ef\u4ee5\u7167\u8457\u505a\u7684 AI \u5354\u4f5c\u7cfb\u7d71\uff1a \u25aa\ufe0f\u4e00\u7ad9\u5f0f\u5b78\u597d AI\uff5c\u601d\u7dad\u5e95\u5c64\u5230\u5be6\u6230\u7522\u51fa\uff0c\u4e00\u6b21\u5b8c\u6574\u5b78 \u25aa\ufe0f10 \u9805\u7368\u5bb6 AI \u5c08\u6848\u5305\uff5c\u6db5\u84cb\u5beb\u4f5c\u3001\u6c7a\u7b56\u3001\u7814\u7a76\u7b49\u5834\u666f \u25aa\ufe0fPACE \u884c\u52d5\u601d\u8003\u5730\u5716\uff5c\u56db\u5927\u8c61\u9650\u5c0d\u61c9\u6240\u6709 AI \u61c9\u7528\u5834\u666f \u25aa\ufe0f\u8cc7\u6599\u5eab\u6301\u7e8c\u66f4\u65b0\uff5c\u96a8\u8457 AI \u8fed\u4ee3\uff0c\u6301\u7e8c\u8ddf\u4f60\u4e00\u8d77\u6210\u9577 \u2728\u5b78\u4e00\u6b21\uff0c\u5efa\u4e00\u5957\u8ddf\u8457\u4f60\u6301\u7e8c\u8907\u5229\u6210\u9577\u7684 AI \u9ad8\u7522\u51fa\u7cfb\u7d71\u2728 \ud83d\udce3\u7d50\u5e33\u8f38\u5165\u6298\u6263\u78bc\uff1aWKWF350\uff0c\u518d\u6298 $350 \ud83d\udce3\u8ab2\u7a0b\u4ecb\u7d39\uff1a https://hi.sat.cool/u6R1Q \u3010\u672c\u96c6\u8a2a\u8ac7\u3011 50 \u6b72\u624d\u5b78 AI \u6703\u592a\u665a\u55ce\uff1f\u2026",
       "key_ideas": [],
       "episode_url": "https://open.firstory.me/story/cms8my0jz0d1701zo5ppk1tw5",
-      "duration_seconds": 2684
+      "duration_seconds": 2684,
+      "enclosure_url": "https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cms8my0jz0d1701zo5ppk1tw5/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcms8my0jz0d1801zod69bgye8.mp3?v=1785483851570",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "671036c3ce644d5e": {
       "guid": "671036c3ce644d5e",
@@ -1267,7 +1537,10 @@
       "summary": "\u3010\u672c\u96c6\u7bc0\u76ee\u7531 PressPlay \u77e5\u5cf6 \u8d0a\u52a9\u64ad\u51fa\u3011 \u300a\u591a\u91cd\u8ff7\u8d70\u795e\u7d93\u5851\u9020\u300b \u8aee\u5546\u5fc3\u7406\u5e2b\u8607\u4e88\u6615\u63a8\u85a6\u4e86 Deb Dana \u958b\u7684\u7dda\u4e0a\u8ab2\u7a0b\uff0c\u9019\u5802\u8ab2\u7528\u516d\u9031\u6642\u9593\uff0c\u5e36\u4f60\u8a8d\u8b58\u795e\u7d93\u7cfb\u7d71\u7684\u4e09\u7a2e\u72c0\u614b\uff0c\u5b78\u6703\u8fa8\u8a8d\u751f\u6d3b\u88e1\u7684\u300c\u5fae\u5149\u6642\u523b\u300d\uff0c\u5efa\u7acb\u81ea\u5df1\u7684\u5b89\u5168\u9328\u9ede\uff0c\u91cd\u65b0\u7406\u89e3\u81ea\u5df1\u7684\u6545\u4e8b\u3002 \ud83d\udccd \u3010\u591a\u91cd\u8ff7\u8d70\u795e\u7d93\u5851\u9020 \u2502 6 \u9031\u6c89\u6d78\u5f0f\u5be6\u8e10\uff0c\u91cd\u5efa\u5b89\u5168\u611f\u8207\u6df1\u5c64\u5167\u5728\u9023\u7d50\u3011 Deb Dana \u662f\u5168\u7403\u591a\u91cd\u8ff7\u8d70\u795e\u7d93\u81e8\u5e8a\u5be6\u8e10\u6b0a\u5a01\uff0c\u5728\u9019\u9019\u5802\u8ab2\u53ef\u4ee5\u5b78\u5230\uff1a \u25aa\ufe0f \u8a8d\u8b58\u795e\u7d93\u7cfb\u7d71\u7684\u4e09\u7a2e\u72c0\u614b\uff0c\u5b78\u6703\u8fa8\u8a8d\u81ea\u5df1\u7576\u4e0b\u8655\u5728\u54ea\u4e00\u7a2e \u25aa\ufe0f \u7df4\u7fd2\u807d\u61c2\u8eab\u9ad4\u767c\u51fa\u7684\u8a0a\u865f\uff0c\u62ff\u634f\u300c\u6709\u76ca\u7684\u6311\u6230\u300d\u548c\u300c\u904e\u5ea6\u7684\u58d3\u529b\u300d \u25aa\ufe0f\u5b78\u6703\u8fa8\u8a8d\u4e26\u653e\u5927\u751f\u6d3b\u4e2d\u7684\u300c\u5fae\u5149\u6642\u523b\u300d\uff0c\u5efa\u7acb\u81ea\u5df1\u7684\u5b89\u5168\u9328\u9ede \u25aa\ufe0f\u2026",
       "key_ideas": [],
       "episode_url": "https://open.firstory.me/story/cms5hcg0a1phb01xfcfka03ge",
-      "duration_seconds": 3563
+      "duration_seconds": 3563,
+      "enclosure_url": "https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cms5hcg0a1phb01xfcfka03ge/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcms5hcg0a1phc01xfghvo1b1w.mp3?v=1785293058865",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "d7fed68e2ef134ef": {
       "guid": "d7fed68e2ef134ef",
@@ -1287,7 +1560,10 @@
         "Empathy and avoiding judgmental labels for complex behaviors"
       ],
       "episode_url": "https://open.firstory.me/story/cms8kz4k20dsl01ya1gw8fnac",
-      "duration_seconds": 2161
+      "duration_seconds": 2161,
+      "enclosure_url": "https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cms8kz4k20dsl01ya1gw8fnac/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcms8kz4k20dsm01yaa0ii4t9t.mp3?v=1785480558818",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "29b21377f622727a": {
       "guid": "29b21377f622727a",
@@ -1307,7 +1583,10 @@
         "Reclaiming personal agency and improving communication in relationships"
       ],
       "episode_url": "https://open.firstory.me/story/cmrx5iahi0u6k01xph7ks4nto",
-      "duration_seconds": 1405
+      "duration_seconds": 1405,
+      "enclosure_url": "https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cmrx5iahi0u6k01xph7ks4nto/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcmrx5iahi0u6l01xp0r846mym.mp3?v=1784789407621",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0
     },
     "8b8960b1a0e4d5ee": {
       "guid": "8b8960b1a0e4d5ee",
@@ -1326,7 +1605,10 @@
         "Allegations of sexual harassment in local politics"
       ],
       "episode_url": "https://omny.fm/shows/the-real-story-with-jeanne-ives/alexi-giannoulias-announces-his-candidacy-for-mayor-of-chicago-sexual-harassment-claims-against-harry-benton-and-chris-welch",
-      "duration_seconds": 2515
+      "duration_seconds": 2515,
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/0fa9d0eb-932f-4009-8059-b49b0119bd98/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 20179328
     },
     "054800672a1ec596": {
       "guid": "054800672a1ec596",
@@ -1345,7 +1627,10 @@
         "Political commentary on public health figures"
       ],
       "episode_url": "https://omny.fm/shows/the-real-story-with-jeanne-ives/the-state-of-public-education-with-corey-deangelis-free-for-all-friday-fauci-lies-edition",
-      "duration_seconds": 2518
+      "duration_seconds": 2518,
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/5730a533-0be7-4f15-a63e-b498011a63ce/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 20200191
     },
     "578b68829d7f110c": {
       "guid": "578b68829d7f110c",
@@ -1365,7 +1650,10 @@
         "Overcoming extreme engineering and market challenges, including economic and political justifications for novel infrastructure."
       ],
       "episode_url": "https://podcasters.spotify.com/pod/show/ycombinator/episodes/Building-the-First-Data-Centers-in-Space-e3n13ek",
-      "duration_seconds": 2173
+      "duration_seconds": 2173,
+      "enclosure_url": "https://anchor.fm/s/8c1524bc/podcast/play/123816852/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-5%2F429283987-44100-2-43ac4a2874969.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 34780472
     },
     "34d503d0ae062d7b": {
       "guid": "34d503d0ae062d7b",
@@ -1385,7 +1673,10 @@
         "Personal spiritual development"
       ],
       "episode_url": "https://www.amrtf.org/zh-hant/clear-moonlight-great-ocean-0561",
-      "duration_seconds": 939
+      "duration_seconds": 939,
+      "enclosure_url": "https://cdn.amec.amrtf.org/volumeMedia/B000035/561/138c7342-0270-4ab3-9f93-7793bbf22144.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 7512650
     },
     "67b7f2510daf7eaa": {
       "guid": "67b7f2510daf7eaa",
@@ -1405,7 +1696,10 @@
         "Government corruption and oversight"
       ],
       "episode_url": "https://omny.fm/shows/the-real-story-with-jeanne-ives/reacting-to-the-michigan-primaries-more-corruption-in-illinois-watchdog-wednesday",
-      "duration_seconds": 2500
+      "duration_seconds": 2500,
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/968b2f27-be27-41b7-9176-b49d011a2bad/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 20058286
     },
     "1c0385f7460c56f9": {
       "guid": "1c0385f7460c56f9",
@@ -1425,7 +1719,10 @@
         "Managing fear and embracing iterative creation"
       ],
       "episode_url": "",
-      "duration_seconds": 3530
+      "duration_seconds": 3530,
+      "enclosure_url": "https://rss.art19.com/episodes/9f261454-c4d9-46aa-91db-4f6340cdab8a.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 56490109
     }
   },
   "published": [
