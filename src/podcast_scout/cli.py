@@ -17,7 +17,7 @@ from rich.table import Table
 from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
-from .normalize import NormalizedEpisode, clean_snippet, dedup_episodes
+from .normalize import Enclosure, NormalizedEpisode, clean_snippet, dedup_episodes
 from .providers.base import BaseLLMProvider
 # NOTE: GitHubModelsProvider is intentionally NOT imported — GitHub Models was
 # permanently retired 2026-07-30 (returns 410 Gone). See _make_llm() below.
@@ -272,6 +272,15 @@ def _load_carryover_candidates(
             duration_seconds=rec.duration_seconds,
             episode_url=rec.episode_url,
             source_feed_url=rec.source_feed_url,
+            enclosure=(
+                Enclosure(
+                    url=rec.enclosure_url,
+                    mime_type=rec.enclosure_type or "audio/mpeg",
+                    length=rec.enclosure_length,
+                )
+                if rec.enclosure_url
+                else None
+            ),
         )
         cat = _resolve_category(rec.show_title, category_map)
         ep.category = cat
@@ -339,6 +348,15 @@ def _load_accumulated_this_week(
             duration_seconds=rec.duration_seconds,
             episode_url=rec.episode_url,
             source_feed_url=rec.source_feed_url,
+            enclosure=(
+                Enclosure(
+                    url=rec.enclosure_url,
+                    mime_type=rec.enclosure_type or "audio/mpeg",
+                    length=rec.enclosure_length,
+                )
+                if rec.enclosure_url
+                else None
+            ),
         )
         cat = _resolve_category(rec.show_title, category_map)
         ep.category = cat
@@ -462,6 +480,13 @@ async def _run_pipeline(
                 key_ideas=list(r.key_ideas),
                 episode_url=r.episode.episode_url,
                 duration_seconds=r.episode.duration_seconds,
+                # Enclosure must survive carryover or the episode silently
+                # becomes unplayable and gets dropped from the category feed.
+                enclosure_url=r.episode.enclosure.url if r.episode.enclosure else "",
+                enclosure_type=(
+                    r.episode.enclosure.mime_type if r.episode.enclosure else "audio/mpeg"
+                ),
+                enclosure_length=r.episode.enclosure.length if r.episode.enclosure else 0,
             ))
 
     # 7. Merge carryover: episodes scored in previous runs that have not yet won
@@ -540,6 +565,9 @@ async def _run_pipeline(
     # 9. Write outputs
     settings.public_dir.mkdir(parents=True, exist_ok=True)
     base_url = prefs.feed.base_url or settings.pages_base_url
+    # One timestamp for every feed written this run, so all newly-curated items
+    # share an identical pubDate rather than drifting by milliseconds.
+    curated_at = utcnow()
 
     for cat_key in active_categories:
         cat_cfg = prefs.categories.get(cat_key)
@@ -551,12 +579,15 @@ async def _run_pipeline(
             base_url=base_url,
             state=state,
             public_dir=settings.public_dir,
+            curated_at=curated_at,
         )
         (settings.public_dir / f"{slug}.xml").write_text(xml, encoding="utf-8")
         console.print(f"  [green]Wrote public/{slug}.xml[/green]")
 
-    listen_xml = build_feed(rss_queue, prefs, "listen", base_url, state, public_dir=settings.public_dir)
-    all_xml = build_feed(all_surfaced, prefs, "all", base_url, state, public_dir=settings.public_dir)
+    listen_xml = build_feed(rss_queue, prefs, "listen", base_url, state,
+                            public_dir=settings.public_dir, curated_at=curated_at)
+    all_xml = build_feed(all_surfaced, prefs, "all", base_url, state,
+                         public_dir=settings.public_dir, curated_at=curated_at)
     (settings.public_dir / "listen.xml").write_text(listen_xml, encoding="utf-8")
     (settings.public_dir / "all.xml").write_text(all_xml, encoding="utf-8")
 
