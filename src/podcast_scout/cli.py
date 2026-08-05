@@ -267,8 +267,10 @@ def _load_carryover_candidates(
             episode_title=rec.episode_title,
             description="",
             published=rec.published or utcnow(),
-            duration_seconds=0,
-            episode_url="",
+            # Restore persisted metadata so carried-over episodes keep their
+            # real duration and a working episode link in the email digest.
+            duration_seconds=rec.duration_seconds,
+            episode_url=rec.episode_url,
             source_feed_url=rec.source_feed_url,
         )
         cat = _resolve_category(rec.show_title, category_map)
@@ -279,9 +281,17 @@ def _load_carryover_candidates(
             score=rec.score,
             rubric=RubricScore(),
             classification=rec.classification,
-            classification_reason="carried over from previous run",
+            classification_reason=(
+                f"{rec.classification_reason} (carried over)"
+                if rec.classification_reason
+                else "carried over from previous run"
+            ),
             evidence_confidence="low",
-            summary="",
+            # Restore the LLM insights rather than discarding them. Stage 2
+            # never re-runs for an already-processed episode, so anything not
+            # restored here is gone from every future digest.
+            summary=rec.summary,
+            key_ideas=list(rec.key_ideas),
         )
         carryover.setdefault(cat, []).append(ranked)
 
@@ -326,8 +336,8 @@ def _load_accumulated_this_week(
             episode_title=rec.episode_title,
             description="",
             published=rec.published or utcnow(),
-            duration_seconds=0,
-            episode_url="",
+            duration_seconds=rec.duration_seconds,
+            episode_url=rec.episode_url,
             source_feed_url=rec.source_feed_url,
         )
         cat = _resolve_category(rec.show_title, category_map)
@@ -340,7 +350,9 @@ def _load_accumulated_this_week(
             classification=rec.classification,
             classification_reason="accumulated — did not win a daily playlist slot this week",
             evidence_confidence="low",
-            summary="",
+            # Same rationale as _load_carryover_candidates: keep the insights.
+            summary=rec.summary,
+            key_ideas=list(rec.key_ideas),
         )
         accumulated.append(ranked)
 
@@ -440,8 +452,16 @@ async def _run_pipeline(
                 processed_at=utcnow(),
                 score=r.score,
                 classification=r.classification,
+                classification_reason=r.classification_reason,
                 is_outside_feed=False,
                 source_feed_url=r.episode.source_feed_url,
+                # Persist the LLM output and episode metadata. Stage 2 runs
+                # ONCE per episode; without saving these, every later run
+                # rebuilds the episode as an insight-free stub.
+                summary=r.summary,
+                key_ideas=list(r.key_ideas),
+                episode_url=r.episode.episode_url,
+                duration_seconds=r.episode.duration_seconds,
             ))
 
     # 7. Merge carryover: episodes scored in previous runs that have not yet won
