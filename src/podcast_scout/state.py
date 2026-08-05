@@ -56,7 +56,7 @@ class StateManager:
                 return loaded
             except Exception:
                 pass
-        return {"processed": {}, "published": [], "playlist": [], "last_run": None}
+        return {"processed": {}, "published": [], "playlist": [], "emailed": [], "last_run": None}
 
     def save(self) -> None:
         self._path.write_text(json.dumps(self._state, indent=2, default=str), encoding="utf-8")
@@ -78,6 +78,24 @@ class StateManager:
         category-feed slot on future days.
         """
         return set(self._state.get("playlist", []))
+
+    def emailed_guids(self) -> set[str]:
+        """Episode GUIDs that have already appeared in a sent email digest.
+
+        Tracked SEPARATELY from `playlist` on purpose. Carryover eligibility
+        uses `playlist` so an episode that missed a feed slot keeps competing on
+        later days -- but that also meant it reappeared in every daily digest
+        until it won a slot or aged out. Filtering the email on this set instead
+        gives both properties: keep competing for the playlist, get emailed once.
+
+        Only written after a digest is SENT successfully, so a send failure does
+        not silently suppress an episode from the next attempt.
+        """
+        return set(self._state.get("emailed", []))
+
+    def add_emailed(self, guid: str) -> None:
+        if guid not in self._state.get("emailed", []):
+            self._state.setdefault("emailed", []).append(guid)
 
     def all_records(self) -> list[EpisodeRecord]:
         """Return every processed episode as a parsed EpisodeRecord.
@@ -114,9 +132,10 @@ class StateManager:
         returning 410 and every episode fell to the metadata floor). Forgetting
         an episode makes it eligible for discovery and a fresh LLM pass.
 
-        Note this does NOT touch `published` / `playlist`: an episode that
-        already won a feed slot keeps that record, so re-scoring can't cause a
-        duplicate entry in the curated feed.
+        Note this does NOT touch `published` / `playlist` / `emailed`: an
+        episode that already won a feed slot or was already emailed keeps
+        those records, so re-scoring can't cause a duplicate feed entry or a
+        repeat email.
         """
         processed: dict[str, Any] = self._state.setdefault("processed", {})
         removed = 0

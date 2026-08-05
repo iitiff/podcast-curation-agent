@@ -362,3 +362,72 @@ def test_carryover_restores_insights(tmp_path):
     assert r.episode.episode_url == "https://example.com/ep"
     assert r.episode.duration_seconds == 2400
     assert "carried over" in r.classification_reason
+
+
+# ---------------------------------------------------------------------------
+# emailed_guids() — one email per episode
+#
+# Carryover keys off `playlist` so an episode that missed a feed slot keeps
+# competing on later days. Without a separate `emailed` set that also meant the
+# same episode reappeared in every daily digest until it won a slot or aged out.
+# ---------------------------------------------------------------------------
+
+def test_emailed_guids_empty_initial(tmp_path):
+    assert _make_state(tmp_path).emailed_guids() == set()
+
+
+def test_add_emailed_is_idempotent(tmp_path):
+    state = _make_state(tmp_path)
+    state.add_emailed("a")
+    state.add_emailed("a")
+    assert state.emailed_guids() == {"a"}
+
+
+def test_emailed_guids_persists(tmp_path):
+    state = _make_state(tmp_path)
+    state.add_emailed("a")
+    state.save()
+    assert "a" in _make_state(tmp_path).emailed_guids()
+
+
+def test_emailed_is_independent_of_playlist_and_published(tmp_path):
+    """The three sets must not leak into each other.
+
+    An episode can be emailed without being playlisted (the common case: it
+    surfaced in the digest but lost the feed-slot contest), and vice versa.
+    """
+    state = _make_state(tmp_path)
+    state.add_emailed("emailed-only")
+    state.add_to_playlist("playlisted-only")
+
+    assert state.emailed_guids() == {"emailed-only"}
+    assert state.playlist_guids() == {"playlisted-only"}
+    assert "emailed-only" not in state.playlist_guids()
+    assert "playlisted-only" not in state.emailed_guids()
+    # add_to_playlist implies published; add_emailed does not.
+    assert "playlisted-only" in state.published_guids()
+    assert "emailed-only" not in state.published_guids()
+
+
+def test_forget_processed_preserves_emailed(tmp_path):
+    """Re-scoring must not cause an episode to be emailed twice."""
+    state = _make_state(tmp_path)
+    state.mark_processed(_rec("a", 50.0))
+    state.add_emailed("a")
+
+    state.forget_processed(["a"])
+
+    assert "a" not in state.seen_guids()
+    assert "a" in state.emailed_guids(), "re-score must not re-open the email gate"
+
+
+def test_emailed_survives_legacy_state_without_the_key(tmp_path):
+    """A state.json written before `emailed` existed must still load."""
+    state = _make_state(tmp_path)
+    state._state.pop("emailed", None)
+    state.save()
+
+    reloaded = _make_state(tmp_path)
+    assert reloaded.emailed_guids() == set()
+    reloaded.add_emailed("x")
+    assert reloaded.emailed_guids() == {"x"}
