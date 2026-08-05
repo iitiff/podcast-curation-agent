@@ -120,6 +120,69 @@ class GeminiProvider(BaseLLMProvider):
         )
 
 
+class OpenAICompatibleProvider(BaseLLMProvider):
+    """Generic provider for ANY OpenAI-compatible /chat/completions endpoint.
+
+    Deliberately provider-agnostic: NVIDIA NIM (build.nvidia.com), OpenRouter,
+    Groq, Together, Fireworks, vLLM, and a self-hosted NIM container all speak
+    this same wire format. Point it at a base URL + key + model and it works.
+
+    This exists instead of an NvidiaProvider class specifically so that the next
+    provider swap is a config change, not a code change. The GitHub Models
+    retirement (2026-07-30) demonstrated how fast a hosted inference dependency
+    can vanish; keeping the transport generic means the blast radius next time
+    is one environment variable.
+
+    Note on JSON adherence: stage2_batch_rank parses a raw JSON array from the
+    response, and _parse_llm_json_array already strips markdown fences and
+    attempts json_repair. Smaller / more chat-tuned models sometimes prepend
+    prose despite instructions -- that is handled downstream, not here.
+    """
+
+    def __init__(
+        self,
+        api_key: str,
+        base_url: str,
+        model: str,
+        provider_name: str = "openai-compatible",
+    ) -> None:
+        self.api_key = api_key
+        # Tolerate a trailing slash in the configured base URL.
+        self.base_url = base_url.rstrip("/")
+        self.model = model
+        self.provider_name = provider_name
+
+    async def complete(
+        self,
+        messages: list[LLMMessage],
+        max_tokens: int = 4096,
+    ) -> LLMResponse:
+        payload: dict[str, Any] = {
+            "model": self.model,
+            "messages": [{"role": m.role, "content": m.content} for m in messages],
+            "max_tokens": max_tokens,
+            "temperature": 0.3,
+        }
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        }
+        url = f"{self.base_url}/chat/completions"
+        async with httpx.AsyncClient(timeout=120.0) as client:
+            resp = await client.post(url, json=payload, headers=headers)
+            resp.raise_for_status()
+            data = resp.json()
+
+        text = data["choices"][0]["message"]["content"]
+        usage = data.get("usage", {})
+        return LLMResponse(
+            content=text,
+            input_tokens=usage.get("prompt_tokens", 0),
+            output_tokens=usage.get("completion_tokens", 0),
+        )
+
+
 class FallbackLLMProvider(BaseLLMProvider):
     """Wraps a primary LLM provider with an automatic runtime fallback.
 

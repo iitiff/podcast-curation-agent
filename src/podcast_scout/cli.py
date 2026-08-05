@@ -20,10 +20,12 @@ from .email_digest import SMTPConfig, build_email_html, send_digest
 from .normalize import NormalizedEpisode, clean_snippet, dedup_episodes
 from .providers.base import BaseLLMProvider
 # NOTE: GitHubModelsProvider is intentionally NOT imported — GitHub Models was
-# permanently retired 2026-07-30 (returns 410 Gone). FallbackLLMProvider is also
-# not imported since Gemini is currently the only live provider; import it here
-# if/when a second provider is added. See _make_llm() below.
-from .providers.llm import GeminiProvider
+# permanently retired 2026-07-30 (returns 410 Gone). See _make_llm() below.
+from .providers.llm import (
+    FallbackLLMProvider,
+    GeminiProvider,
+    OpenAICompatibleProvider,
+)
 from .providers.podcast_search import ITunesSearchProvider, PodcastIndexProvider
 from .providers.transcription import CascadeTranscriptionProvider
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
@@ -74,47 +76,72 @@ def _make_web_search(
 
 
 def _make_llm(settings: Settings) -> BaseLLMProvider | None:
-    """Build the LLM provider. Gemini is the sole supported provider.
+    """Build the LLM provider: Gemini primary, OpenAI-compatible fallback.
 
     GITHUB MODELS IS PERMANENTLY RETIRED. GitHub shut the entire product down
     on 2026-07-30 -- playground, model catalog, inference API, and BYOK are all
     gone for every customer including those with active usage. The endpoint
     https://models.github.ai/inference/chat/completions now returns 410 Gone.
     See: https://github.blog/changelog/2026-07-30-github-models-is-now-retired/
+    Do NOT re-add it. There is no endpoint to fix.
 
-    Timeline of what this cost us, so nobody re-litigates it:
-      - 2026-07-29..31: GitHub Models returned 401 Unauthorized (wind-down).
-        Diagnosed as a stale-endpoint problem and "fixed" by migrating from
-        models.inference.ai.azure.com to models.github.ai -- that migration
-        was chasing a service that had already been killed a day earlier.
-      - 2026-08-04: same endpoint returns 410 Gone, confirming permanent
-        retirement rather than any auth/config issue on our side.
+    Provider roles:
+      - PRIMARY  Gemini. Best adherence to the strict "return ONLY a raw JSON
+        array" contract that stage2_batch_rank parses, and ample context for
+        batched episodes.
+      - FALLBACK Any OpenAI-compatible endpoint (defaults to NVIDIA NIM). Used
+        automatically on ANY primary failure, per call.
 
-    Do NOT re-add GitHub Models as a provider. There is no endpoint to fix.
-    GitHubModelsProvider is retained in providers/llm.py only for historical
-    reference and is intentionally never constructed here.
+    Why a real second provider matters here: for ~5 days this pipeline ran with
+    a dead primary and no reachable fallback, so every episode silently scored
+    at the metadata floor (50.0) -- below the 75-point "Listen Fully" threshold
+    -- and the curated feed froze. Nothing in the output said "the LLM is down";
+    it just quietly produced worse results. A second provider turns that silent
+    quality collapse into a logged retry.
 
-    FallbackLLMProvider remains available (and is used automatically) if a
-    second provider is ever configured -- see the commented example below.
+    Either provider alone is fine; configure both to get the retry behaviour.
     """
-    if not settings.gemini_api_key:
+    primary: BaseLLMProvider | None = None
+    secondary: BaseLLMProvider | None = None
+    primary_name = secondary_name = ""
+
+    if settings.gemini_api_key:
+        primary = GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
+        primary_name = f"Gemini ({settings.gemini_stage2_model})"
+
+    if settings.fallback_api_key:
+        compat = OpenAICompatibleProvider(
+            api_key=settings.fallback_api_key,
+            base_url=settings.fallback_base_url,
+            model=settings.fallback_model,
+            provider_name=settings.fallback_provider_name,
+        )
+        compat_label = f"{settings.fallback_provider_name} ({settings.fallback_model})"
+        if primary is None:
+            primary = compat
+            primary_name = compat_label
+        else:
+            secondary = compat
+            secondary_name = compat_label
+
+    if primary is None:
         console.print(
-            "[red]WARNING: No GEMINI_API_KEY — running metadata-only ranking. "
-            "Episodes will score at the metadata floor and cannot reach the "
-            "'Listen Fully' threshold, so the curated feed will not update.[/red]"
+            "[red]WARNING: No GEMINI_API_KEY or LLM_FALLBACK_API_KEY/NVIDIA_API_KEY — "
+            "running metadata-only ranking. Episodes will score at the metadata "
+            "floor and cannot reach the 'Listen Fully' threshold, so the curated "
+            "feed will not update.[/red]"
         )
         return None
 
-    provider: BaseLLMProvider = GeminiProvider(
-        settings.gemini_api_key, settings.gemini_stage2_model
-    )
-    console.print(f"[cyan]LLM: Gemini ({settings.gemini_stage2_model})[/cyan]")
+    if secondary is not None:
+        console.print(f"[cyan]LLM: {primary_name} -> runtime fallback {secondary_name}[/cyan]")
+        return FallbackLLMProvider(primary, secondary, primary_name, secondary_name)
 
-    # To add a second provider later (e.g. OpenAI or Anthropic direct): import
-    # FallbackLLMProvider from .providers.llm, build the second provider here,
-    # and wrap both so every call gets an automatic runtime retry:
-    #     return FallbackLLMProvider(provider, other, "Gemini", "Other")
-    return provider
+    console.print(
+        f"[yellow]LLM: {primary_name} (no fallback configured — a provider outage "
+        f"will silently degrade results to metadata-only scoring)[/yellow]"
+    )
+    return primary
 
 
 def _ascii_clean(value: str) -> str:
@@ -363,7 +390,7 @@ async def _run_pipeline(
         episode.category = category
         episodes_by_category.setdefault(category, []).append(episode)
 
-    # 4. LLM — Gemini (GitHub Models permanently retired 2026-07-30) → metadata-only
+    # 4. LLM — Gemini (primary) → OpenAI-compatible fallback → metadata-only
     llm = _make_llm(settings)
 
     # 5. Rank new episodes
