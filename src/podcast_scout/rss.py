@@ -17,6 +17,7 @@ in the Pocket Casts feed.
 from __future__ import annotations
 
 import html
+import logging
 import re
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -33,6 +34,8 @@ _RSS_NS = {
     "xmlns:content": "http://purl.org/rss/1.0/modules/content/",
     "version": "2.0",
 }
+
+log = logging.getLogger(__name__)
 
 FEED_RETENTION_DAYS = 21
 
@@ -76,6 +79,10 @@ def _show_notes_html(r: RankedEpisode) -> str:
     lines = [
         f"<p><strong>Score: {r.score:.0f}/100</strong> | "
         f"{r.classification} | Confidence: {r.evidence_confidence}</p>",
+        # The feed <pubDate> is the CURATION date (see _item_pub_date), so the
+        # show's real publish date is surfaced here instead of being lost.
+        f"<p><em>Originally published "
+        f"{r.episode.published.strftime('%d %b %Y')}</em></p>",
         f"<p><em>{_e(r.classification_reason)}</em></p>",
         f"<h3>Summary</h3><p>{_e(r.summary)}</p>",
     ]
@@ -92,6 +99,24 @@ def _show_notes_html(r: RankedEpisode) -> str:
 
 
 _RFC822 = "%a, %d %b %Y %H:%M:%S %z"
+
+
+def _item_pub_date(r: RankedEpisode, curated_at: datetime) -> str:
+    """RFC-822 <pubDate> for a NEW feed item -- the CURATION time, not the
+    show's original publish date.
+
+    Podcast clients read pubDate as "when did this become available in THIS
+    feed" and use it to decide what is new since the last sync. Emitting the
+    original date meant an episode published 6 days ago but added to the
+    playlist today arrived stamped in the past: it sorted below episodes the
+    listener already had and was filtered out as already-seen, so a correct
+    feed still looked like it never updated.
+
+    Prior items keep whatever pubDate is already baked into their XML, so their
+    position stays stable across runs instead of shuffling every day.
+    """
+    return curated_at.strftime("%a, %d %b %Y %H:%M:%S +0000")
+
 
 
 def _parse_rfc822(s: str) -> datetime | None:
@@ -219,7 +244,7 @@ def _add_new_items(
             listen_rank += 1
         SubElement(item, "link").text = r.episode.episode_url or ""
         SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
-        SubElement(item, "pubDate").text = r.episode.published.strftime("%a, %d %b %Y %H:%M:%S +0000")
+        SubElement(item, "pubDate").text = r.episode.published.strftime("%a, %d %b %Y %H:%M:%S +0000")  # noqa: E501  (legacy helper, unused)
         SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
         notes = SubElement(item, "content:encoded")
         notes.text = _show_notes_html(r)
@@ -247,7 +272,9 @@ def build_category_feed(
     base_url: str,
     state: StateManager,
     public_dir: Path | None = None,
+    curated_at: datetime | None = None,
 ) -> str:
+    curated_at = curated_at or utcnow()
     cat_cfg = prefs.categories.get(category)
     slug = cat_cfg.slug if cat_cfg else category.replace("_", "-")
     feed_url = f"{base_url.rstrip('/')}/{slug}.xml" if base_url else ""
@@ -257,7 +284,24 @@ def build_category_feed(
     cat_episodes = [r for r in episodes if getattr(r.episode, "category", None) == category]
     # RSS feed contains ONLY Listen Fully episodes.
     # Read Summary Only episodes go exclusively to the email digest.
-    new_listen = [r for r in cat_episodes if r.classification == "Listen Fully"]
+    # An item without an <enclosure> is not a playable episode -- most podcast
+    # clients hide it entirely, which made a category look empty even though the
+    # XML had entries (observed: personal-growth held only an enclosure-less
+    # item). Require one here, matching what build_feed already does for
+    # listen.xml.
+    new_listen = [
+        r for r in cat_episodes
+        if r.classification == "Listen Fully" and r.episode.enclosure
+    ]
+    dropped = [
+        r for r in cat_episodes
+        if r.classification == "Listen Fully" and not r.episode.enclosure
+    ]
+    for r in dropped:
+        log.warning(
+            "Excluding %r from %s feed: no audio enclosure, so it would not be "
+            "playable in a podcast app.", r.episode.episode_title[:60], slug,
+        )
     new_guids = {r.episode.guid for r in new_listen}
 
     retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
@@ -306,7 +350,7 @@ def build_category_feed(
                 listen_rank += 1
             SubElement(item, "link").text = r.episode.episode_url or ""
             SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
-            SubElement(item, "pubDate").text = r.episode.published.strftime("%a, %d %b %Y %H:%M:%S +0000")
+            SubElement(item, "pubDate").text = _item_pub_date(r, curated_at)
             SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
             notes = SubElement(item, "content:encoded")
             notes.text = _show_notes_html(r)
@@ -343,7 +387,9 @@ def build_feed(
     base_url: str,
     state: StateManager,
     public_dir: Path | None = None,
+    curated_at: datetime | None = None,
 ) -> str:
+    curated_at = curated_at or utcnow()
     slug = "listen.xml" if feed_type == "listen" else "all.xml"
     feed_url = f"{base_url.rstrip('/')}/{slug}" if base_url else ""
     retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
@@ -385,7 +431,7 @@ def build_feed(
                 listen_rank += 1
             SubElement(item, "link").text = r.episode.episode_url or ""
             SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
-            SubElement(item, "pubDate").text = r.episode.published.strftime("%a, %d %b %Y %H:%M:%S +0000")
+            SubElement(item, "pubDate").text = _item_pub_date(r, curated_at)
             SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
             notes = SubElement(item, "content:encoded")
             notes.text = _show_notes_html(r)
