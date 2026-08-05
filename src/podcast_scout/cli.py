@@ -598,19 +598,49 @@ async def _run_pipeline(
     state.snapshot_history(run_date, latest_json)
     state.save()
 
-    # 11. Email digest
+    # 11. Email digest — only ever email an episode ONCE.
+    #
+    # Carryover eligibility keys off `playlist` so an episode that missed a feed
+    # slot keeps competing on later days. Without a separate `emailed` set that
+    # also meant the same episode reappeared in every daily digest until it won
+    # a slot or aged out of the lookback window. Filtering here decouples the
+    # two: keep competing for the playlist, but get emailed once.
     smtp = _smtp_from_env()
     if smtp:
-        feed_url = f"{base_url}/listen.xml" if base_url else ""
-        html_body = build_email_html(
-            rss_queue, email_only, run_date, feed_url,
-            accumulated_week=accumulated_this_week,
-        )
-        subject = f"Your Podcast Scout — {run_date} ({len(rss_queue)} queued)"
-        try:
-            send_digest(smtp, subject, html_body)
-        except Exception as exc:
-            console.print(f"[red]Email failed: {exc}[/red]")
+        already_emailed = state.emailed_guids()
+        new_queued = [r for r in rss_queue if r.episode.guid not in already_emailed]
+        new_extra = [r for r in email_only if r.episode.guid not in already_emailed]
+        suppressed = (len(rss_queue) - len(new_queued)) + (len(email_only) - len(new_extra))
+
+        # The weekly accumulated section is deliberately NOT filtered: it is a
+        # consolidation of the week's near-misses, so repetition is the point.
+        if not new_queued and not new_extra and not accumulated_this_week:
+            console.print(
+                f"[dim]Nothing new to email "
+                f"({suppressed} episode(s) already sent in a previous digest) "
+                f"— skipping email.[/dim]"
+            )
+        else:
+            feed_url = f"{base_url}/listen.xml" if base_url else ""
+            html_body = build_email_html(
+                new_queued, new_extra, run_date, feed_url,
+                accumulated_week=accumulated_this_week,
+            )
+            subject = f"Your Podcast Scout — {run_date} ({len(new_queued)} queued)"
+            try:
+                send_digest(smtp, subject, html_body)
+                # Mark ONLY after a successful send, so a transient SMTP failure
+                # doesn't permanently suppress an episode from the next attempt.
+                for r in new_queued + new_extra:
+                    state.add_emailed(r.episode.guid)
+                state.save()
+                if suppressed:
+                    console.print(
+                        f"[dim]Suppressed {suppressed} already-emailed episode(s) "
+                        f"from this digest.[/dim]"
+                    )
+            except Exception as exc:
+                console.print(f"[red]Email failed: {exc}[/red]")
     else:
         console.print("[yellow]SMTP not configured — skipping email.[/yellow]")
 
