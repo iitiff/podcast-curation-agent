@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link> https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Aug 2026 01:07:01 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2026 07:46:03 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href=" https://iitiff.github.io/podcast-curation-agent/all.xml" rel="self" type="application/rss+xml" />
@@ -53,33 +53,31 @@
       <link>https://a16z.simplecast.com/episodes/openais-joshua-achiam-did-we-already-reach-agi-kjP0kXD4</link>
       <guid isPermaLink="false">8c452eea0cceee70</guid>
       <pubDate>Tue, 04 Aug 2026 14:56:48 +0000</pubDate>
-      <itunes:duration>1869</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 77/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;High relevance to AI/emerging tech, top-tier guest, strategic insights into AGI and its implications for cybersecurity and societal adaptation.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Joshua Achiam, OpenAI&amp;#x27;s Chief Futurist, explores the possibility that society has already entered an AGI era without full recognition. The discussion delves into AI&amp;#x27;s rapidly advancing cybersecurity capabilities, including state-sponsored hacking and model jailbreaks, and the potential for AI systems to discover vulnerabilities faster than humans can patch them. Achiam highlights how people have quietly adapted to previously unimaginable AI capabilities and suggests that the most profound changes from AI may unfold gradually rather than through sudden, dramatic shifts. This episode offers a strategic perspective on the future trajectory of AI and its societal and security implications.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Society may have already crossed the AGI threshold without realizing it.&lt;/li&gt;&lt;li&gt;AI&amp;#x27;s advanced cyber capabilities pose significant security and vulnerability challenges.&lt;/li&gt;&lt;li&gt;The biggest changes from AI may arrive gradually, leading to quiet adaptation.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders need to consider advanced AI capabilities in security strategies, anticipate gradual but profound market shifts, and understand the evolving landscape of human-AI interaction and risk.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/openais-joshua-achiam-did-we-already-reach-agi-kjP0kXD4"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>1869</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 77/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;High relevance to AI/emerging tech, top-tier guest, strategic insights into AGI and its implications for cybersecurity and societal adaptation.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Joshua Achiam, OpenAI&amp;#x27;s Chief Futurist, explores the possibility that society has already entered an AGI era without full recognition. The discussion delves into AI&amp;#x27;s rapidly advancing cybersecurity capabilities, including state-sponsored hacking and model jailbreaks, and the potential for AI systems to discover vulnerabilities faster than humans can patch them. Achiam highlights how people have quietly adapted to previously unimaginable AI capabilities and suggests that the most profound changes from AI may unfold gradually rather than through sudden, dramatic shifts. This episode offers a strategic perspective on the future trajectory of AI and its societal and security implications.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Society may have already crossed the AGI threshold without realizing it.&lt;/li&gt;&lt;li&gt;AI&amp;#x27;s advanced cyber capabilities pose significant security and vulnerability challenges.&lt;/li&gt;&lt;li&gt;The biggest changes from AI may arrive gradually, leading to quiet adaptation.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders need to consider advanced AI capabilities in security strategies, anticipate gradual but profound market shifts, and understand the evolving landscape of human-AI interaction and risk.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/openais-joshua-achiam-did-we-already-reach-agi-kjP0kXD4"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>Joshua Achiam, OpenAI's Chief Futurist, explores the possibility that society has already entered an AGI era without full recognition. The discussion delves into AI's rapidly advancing cybersecurity capabilities, including state-sponsored hacking and model jailbreaks, and the potential for AI systems to discover vulnerabilities faster than humans can patch them. Achiam highlights how people have quietly adapted to previously unimaginable AI capabilities and suggests that the most profound changes from AI may unfold gradually rather than through sudden, dramatic shifts. This episode offers a strategic perspective on the future trajectory of AI and its societal and security implications.</description>
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/877d13fc-d13f-4690-9859-6605a2f2b404/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=877d13fc-d13f-4690-9859-6605a2f2b404&amp;feed=JGE3yC0V" type="audio/mpeg" length="29919722" />
-      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+      <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
       <title>🎧 LISTEN #2 — Invest Like the Best: Gavin Baker - AI Market Jitters - [Invest Like the Best, EP.485]</title>
       <link />
       <guid isPermaLink="false">d817b7c154c23109</guid>
       <pubDate>Tue, 04 Aug 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>3904</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 77/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Excellent relevance to AI market dynamics, strategic supply chain issues, and long-term risks, with an authoritative guest providing deep market insights.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Gavin Baker, CIO of Atreides Management, discusses the current disconnect between public AI market jitters and the continued growth observed on the ground in Silicon Valley. The conversation delves into critical AI market dynamics, including contracted versus spot GPU prices, the game theory behind memory supply agreements, and the role of models like Claude in market sentiment. Baker also touches on emerging areas like SpaceX and orbital compute, concluding with his perspective on the single biggest risk facing the AI industry. This episode offers a strategic financial and market-structure lens on the rapidly evolving AI landscape.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;A significant gap exists between public AI market jitters and on-the-ground industry activity.&lt;/li&gt;&lt;li&gt;Strategic importance of GPU and memory supply chain dynamics in the AI ecosystem.&lt;/li&gt;&lt;li&gt;Identification of key risks and emerging trends like orbital compute in the AI market.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage these market insights to inform product roadmaps, resource planning (e.g., compute infrastructure), competitive analysis, and long-term strategic investments in the AI space.&lt;/p&gt;</content:encoded>
+      <ns0:duration>3904</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 77/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Excellent relevance to AI market dynamics, strategic supply chain issues, and long-term risks, with an authoritative guest providing deep market insights.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Gavin Baker, CIO of Atreides Management, discusses the current disconnect between public AI market jitters and the continued growth observed on the ground in Silicon Valley. The conversation delves into critical AI market dynamics, including contracted versus spot GPU prices, the game theory behind memory supply agreements, and the role of models like Claude in market sentiment. Baker also touches on emerging areas like SpaceX and orbital compute, concluding with his perspective on the single biggest risk facing the AI industry. This episode offers a strategic financial and market-structure lens on the rapidly evolving AI landscape.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;A significant gap exists between public AI market jitters and on-the-ground industry activity.&lt;/li&gt;&lt;li&gt;Strategic importance of GPU and memory supply chain dynamics in the AI ecosystem.&lt;/li&gt;&lt;li&gt;Identification of key risks and emerging trends like orbital compute in the AI market.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage these market insights to inform product roadmaps, resource planning (e.g., compute infrastructure), competitive analysis, and long-term strategic investments in the AI space.&lt;/p&gt;</ns1:encoded>
       <description>Gavin Baker, CIO of Atreides Management, discusses the current disconnect between public AI market jitters and the continued growth observed on the ground in Silicon Valley. The conversation delves into critical AI market dynamics, including contracted versus spot GPU prices, the game theory behind memory supply agreements, and the role of models like Claude in market sentiment. Baker also touches on emerging areas like SpaceX and orbital compute, concluding with his perspective on the single biggest risk facing the AI industry. This episode offers a strategic financial and market-structure lens on the rapidly evolving AI landscape.</description>
       <enclosure url="https://traffic.megaphone.fm/CLS6565465184.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/c8fca7de-8f77-11f1-ae96-ab857574605f/image/e34471e6c9b4af0375abbd710ff0fa11.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+      <ns0:image href="https://megaphone.imgix.net/podcasts/c8fca7de-8f77-11f1-ae96-ab857574605f/image/e34471e6c9b4af0375abbd710ff0fa11.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #3 — Y Combinator Startup Podcast: Waymo Co-CEO Dmitri Dolgov: "Move Fast And Ship Safely"</title>
-      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Waymo-Co-CEO-Dmitri-Dolgov-Move-Fast-And-Ship-Safely-e3mvft2</link>
+      <title>🎧 LISTEN #1 — Y Combinator Startup Podcast: Waymo Co-CEO Dmitri Dolgov: "Move Fast And Ship Safely"</title>
+      <link />
       <guid isPermaLink="false">dbda426f447aeb37</guid>
       <pubDate>Tue, 04 Aug 2026 16:55:08 +0000</pubDate>
-      <itunes:duration>2964</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 76/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Excellent relevance to AI/emerging tech and product craft at scale, featuring a top-tier operator guest with concrete lessons from a long and successful product journey.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Waymo co-CEO Dmitri Dolgov shares seven critical lessons learned from Waymo&amp;#x27;s 15-year journey, transforming an 18-month demo into a product that now completes 500,000 autonomous trips weekly across fifteen cities. The discussion highlights the challenges and strategies involved in bridging the gap between a prototype and a real, scalable product, particularly in building systems that can safely operate in the complex physical world. Dolgov&amp;#x27;s insights are backed by Waymo&amp;#x27;s impressive safety record, demonstrating 17 times fewer serious-injury crashes than human drivers. This episode offers invaluable strategic and operational wisdom for developing and scaling complex, safety-critical AI products.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The significant gap between a demo and a real, scalable product requires long-term commitment.&lt;/li&gt;&lt;li&gt;Building safety-critical AI systems for the physical world demands unique product development strategies.&lt;/li&gt;&lt;li&gt;Lessons from Waymo&amp;#x27;s 15-year journey provide actionable insights for product scaling and safety.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can apply these lessons to their own complex product development cycles, focusing on safety, scalability, and the strategic long-term vision required to bring emerging tech to market.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Waymo-Co-CEO-Dmitri-Dolgov-Move-Fast-And-Ship-Safely-e3mvft2"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>Waymo co-CEO Dmitri Dolgov shares seven critical lessons learned from Waymo's 15-year journey, transforming an 18-month demo into a product that now completes 500,000 autonomous trips weekly across fifteen cities. The discussion highlights the challenges and strategies involved in bridging the gap between a prototype and a real, scalable product, particularly in building systems that can safely operate in the complex physical world. Dolgov's insights are backed by Waymo's impressive safety record, demonstrating 17 times fewer serious-injury crashes than human drivers. This episode offers invaluable strategic and operational wisdom for developing and scaling complex, safety-critical AI products.</description>
-      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123764066/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-4%2F429211619-44100-2-80c61c5d2a7a4.mp3" type="audio/mpeg" length="47424573" />
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785862226403-5a660799be862.jpg" />
+      <itunes:duration>0</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 76/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
+      <description />
     </item>
     <item>
       <title>🎧 LISTEN #5 — Decoder: Tariffs didn’t bring manufacturing jobs back to the US</title>
@@ -181,111 +179,12 @@
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Y Combinator Startup Podcast: Boris Cherny: Building Claude Code</title>
-      <link />
-      <guid isPermaLink="false">f15f122ebf0732fa</guid>
-      <pubDate>Tue, 28 Jul 2026 05:17:01 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
       <title>🎧 LISTEN #15 — 科技浪: EP148 - Kimi K3 震撼矽谷！真的這麼強嗎？</title>
       <link />
       <guid isPermaLink="false">c5c8317a5e00d35c</guid>
       <pubDate>Mon, 20 Jul 2026 04:09:28 +0000</pubDate>
       <ns0:duration>0</ns0:duration>
       <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Future Commerce: Bedfellows: How Boll &amp; Branch Keeps Humans and AI in the Same Sheets</title>
-      <link />
-      <guid isPermaLink="false">eb5173660146cb5d</guid>
-      <pubDate>Wed, 29 Jul 2026 11:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 56/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — The Prof G Pod: China Decode: China's Bid for AI Dominance, and Chinese Food Trends (ft. @BlondieinChina)</title>
-      <link />
-      <guid isPermaLink="false">07f8d5666d09ef0c</guid>
-      <pubDate>Tue, 28 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 55/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Y Combinator Startup Podcast: Jensen Huang: The Mindset That Built NVIDIA</title>
-      <link />
-      <guid isPermaLink="false">7fb5052ef6cac696</guid>
-      <pubDate>Mon, 27 Jul 2026 21:29:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 51/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Retailgentic: Shopify's Agentic Commerce Playbook: VP of Product Mani Fazeli on 8X Agentic Traffic Growth and the Long-Tail Boom</title>
-      <link />
-      <guid isPermaLink="false">6a94a25c9cbce596</guid>
-      <pubDate>Thu, 30 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Future Commerce: *TEASER* The Dire State of Consumer Trust In 2026</title>
-      <link />
-      <guid isPermaLink="false">dbb9c763eb3ea8cd</guid>
-      <pubDate>Thu, 30 Jul 2026 14:06:26 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Sharp China: (Preview) A Memory-Maker Makes History; New Robot Rules; The Open Weights Debate Rages; End of July News and Notes</title>
-      <link />
-      <guid isPermaLink="false">4a976155a9a9712c</guid>
-      <pubDate>Thu, 30 Jul 2026 08:59:17 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Think Fast Talk Smart: 310. A Matter of Meaning: What Other People Teach You About Your Communication</title>
-      <link />
-      <guid isPermaLink="false">e2b896cbe0e2e296</guid>
-      <pubDate>Thu, 30 Jul 2026 13:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Decoder: The end of the human internet</title>
-      <link />
-      <guid isPermaLink="false">af0b4b8faf6c9ef1</guid>
-      <pubDate>Thu, 30 Jul 2026 09:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Jason &amp; Scot Show: EP342 - The End of the Attention Economy, and What Retail Does Next with Mitch Joel</title>
-      <link />
-      <guid isPermaLink="false">c9f7bc8824d30cc4</guid>
-      <pubDate>Fri, 31 Jul 2026 03:32:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — No Priors: Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak</title>
-      <link />
-      <guid isPermaLink="false">764a97ef74d9b043</guid>
-      <pubDate>Fri, 31 Jul 2026 10:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
@@ -307,91 +206,82 @@
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The a16z Show: AI for America's Small Businesses | Lassie</title>
+      <title>📖 SUMMARY — Think Fast Talk Smart: 311. Don't Lose the Room: How to Make Ideas Stick</title>
       <link />
-      <guid isPermaLink="false">077d3472234a103c</guid>
-      <pubDate>Thu, 30 Jul 2026 10:00:00 +0000</pubDate>
+      <guid isPermaLink="false">2426cc18e2a55c99</guid>
+      <pubDate>Mon, 03 Aug 2026 13:00:00 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The Prof G Pod: The New Rules of Money in Your 20s — with Jack Raines</title>
+      <title>📖 SUMMARY — Decoder: Bluesky’s new CEO wants a big tent, not a bubble</title>
       <link />
-      <guid isPermaLink="false">164b36db6b91e9bc</guid>
-      <pubDate>Thu, 30 Jul 2026 08:00:00 +0000</pubDate>
+      <guid isPermaLink="false">80359a3a91ea3a1c</guid>
+      <pubDate>Mon, 03 Aug 2026 09:00:00 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Masters of Scale: How to beef up your business, with ButcherBox CEO Mike Salguero</title>
+      <title>📖 SUMMARY — Founders: #427 How Raymond Plank Built a $50 Billion Oil Company</title>
       <link />
-      <guid isPermaLink="false">a88abede4c44de42</guid>
-      <pubDate>Thu, 30 Jul 2026 09:00:00 +0000</pubDate>
+      <guid isPermaLink="false">499e4c446040be33</guid>
+      <pubDate>Sat, 01 Aug 2026 23:58:00 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The a16z Show: How Enterprise AI Really Gets Deployed</title>
+      <title>📖 SUMMARY — Y Combinator Startup Podcast: Jeff Dean: The 1% Rule for Building in AI</title>
       <link />
-      <guid isPermaLink="false">c8734bd92a2afca8</guid>
-      <pubDate>Fri, 31 Jul 2026 10:00:00 +0000</pubDate>
+      <guid isPermaLink="false">9a498473d4309a7e</guid>
+      <pubDate>Sat, 01 Aug 2026 14:00:00 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The Prof G Pod: The Week: The Hidden Debt Behind the AI Boom</title>
+      <title>📖 SUMMARY — The a16z Show: Ruby Thelot on Internet Culture, AI, and the Future of Taste</title>
       <link />
-      <guid isPermaLink="false">0be34ae25db800d2</guid>
-      <pubDate>Fri, 31 Jul 2026 08:00:00 +0000</pubDate>
+      <guid isPermaLink="false">d8efc40942f83bfe</guid>
+      <pubDate>Sun, 02 Aug 2026 10:46:36 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Y Combinator Startup Podcast: Alexandr Wang: “This is a Once-in-a-Civilization Opportunity”</title>
+      <title>📖 SUMMARY — The a16z Show: Marc Andreessen and Chris Dixon: What’s at Stake in Crypto Regulation</title>
       <link />
-      <guid isPermaLink="false">698aa7c78a17e951</guid>
-      <pubDate>Fri, 31 Jul 2026 16:05:25 +0000</pubDate>
+      <guid isPermaLink="false">1fb7e64c3cedcf6d</guid>
+      <pubDate>Sat, 01 Aug 2026 15:38:28 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — The Real Story: Caucus Member Calls for Resignation of Speaker Welch; "The Pro-Life Doc" William Lile: Abortion Harms Women</title>
+      <title>📖 SUMMARY — The Prof G Pod: When to Sell Your Stocks, and How to Survive a High-Pressure Job</title>
       <link />
-      <guid isPermaLink="false">6b2a907277ae424d</guid>
-      <pubDate>Thu, 30 Jul 2026 17:09:45 +0000</pubDate>
+      <guid isPermaLink="false">f5f6640edd979157</guid>
+      <pubDate>Mon, 03 Aug 2026 08:00:00 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — 下一本讀什麼: EP.630 《活出你的原廠設定》讀後心得：做自己，不須證明給誰看</title>
+      <title>📖 SUMMARY — The Prof G Pod: No Mercy / No Malice: Shoulders of Giants</title>
       <link />
-      <guid isPermaLink="false">671036c3ce644d5e</guid>
-      <pubDate>Thu, 30 Jul 2026 22:02:20 +0000</pubDate>
+      <guid isPermaLink="false">3a5b9825d0167053</guid>
+      <pubDate>Sat, 01 Aug 2026 08:02:00 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Chasing Life: The Next Breakthrough Addiction Treatment May Be Here</title>
+      <title>📖 SUMMARY — Y Combinator Startup Podcast: Patrick Collison: "What If You Succeed?"</title>
       <link />
-      <guid isPermaLink="false">8815e5930a81f6b2</guid>
-      <pubDate>Fri, 31 Jul 2026 08:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — The Real Story: The State of Public Education with Corey DeAngelis; FREE FOR ALL FRIDAY: FAUCI LIES EDITION</title>
-      <link />
-      <guid isPermaLink="false">054800672a1ec596</guid>
-      <pubDate>Fri, 31 Jul 2026 17:10:27 +0000</pubDate>
+      <guid isPermaLink="false">80fe79e11092a5ca</guid>
+      <pubDate>Mon, 03 Aug 2026 16:43:22 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
@@ -430,15 +320,6 @@
       <pubDate>Mon, 03 Aug 2026 22:02:11 +0000</pubDate>
       <itunes:duration>0</itunes:duration>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
-      <description />
-    </item>
-    <item>
-      <title>📖 SUMMARY — The Tim Ferriss Show: #877: Q&amp;A with Tim — The Art of Male Friendship, Mini-Retirements, Higher-Resolution Living, Reinvention in The Age of AI, and More</title>
-      <link />
-      <guid isPermaLink="false">ce070fc81dbf509b</guid>
-      <pubDate>Wed, 29 Jul 2026 18:00:00 +0000</pubDate>
-      <itunes:duration>0</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 0/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</content:encoded>
       <description />
     </item>
   </channel>
