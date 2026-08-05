@@ -38,6 +38,18 @@ class EpisodeRecord(BaseModel):
     key_ideas: list[str] = Field(default_factory=list)
     episode_url: str = ""
     duration_seconds: int = 0
+    # Enclosure must persist too: an item with no <enclosure> is not a playable
+    # episode, and most podcast clients hide it entirely. Carried-over episodes
+    # were losing theirs and silently becoming unplayable rows in the feed.
+    enclosure_url: str = ""
+    enclosure_type: str = "audio/mpeg"
+    enclosure_length: int = 0
+    # When this episode first entered a curated feed. Used as the feed <pubDate>
+    # instead of the show's ORIGINAL publish date: clients read pubDate as "when
+    # did this become available in THIS feed", so a 6-day-old episode newly
+    # added to the playlist was sorting into the past and being filtered out as
+    # already-seen rather than surfacing as new.
+    curated_at: datetime | None = None
 
 
 class StateManager:
