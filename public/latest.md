@@ -2,69 +2,66 @@
 
 ## 🎧 In Your Queue Today
 
-### 1. Retailgentic: Shopify's Agentic Commerce Playbook: VP of Product Mani Fazeli on 8X Agentic Traffic Growth and the Long-Tail Boom
-**Score:** 97/100 | **Listen Fully** | low confidence
-**Duration:** 53 min
+### 1. Lenny's Podcast: This CPO regrets that product management exists | Tom Verrilli (CPO of Whatnot)
+**Score:** 88/100 | **Listen Fully** | low confidence
+**Duration:** 85 min
 
-This episode features Shopify's VP of Product, Mani Fazeli, detailing their "agentic commerce" playbook. It introduces a four-stage framework (crawl, walk, run, fly) for AI-driven discovery and purchasing. Fazeli shares compelling Q1 data: 8X year-over-year growth in AI-driven traffic and 13X in orders for Shopify merchants. AI buyers convert at twice the rate, spend 14% more, and drive 70% of orders to long-tail products. The discussion highlights Shopify's real-time catalog data advantage (2X better conversion) and the strategic shift towards a "non-merchant-of-record" era, where Shopify acts as an interface, preserving merchant-customer relationships. It also touches on how AI is reshaping product, design, and engineering roles.
-
-**Key Ideas:**
-- Shopify's "Agentic Commerce" framework and impressive growth metrics (8X traffic, 13X orders) driven by AI.
-- AI buyers exhibit superior conversion and spend, significantly boosting long-tail product discovery (70% of AI orders).
-- Strategic shift for platforms like Shopify to be an interface, not a merchant-of-record, maintaining merchant-customer relationships.
-
-[Listen →](https://share.transistor.fm/s/426fc9df)
-
-
-### 2. Y Combinator Startup Podcast: Jeff Dean: The 1% Rule for Building in AI
-**Score:** 94/100 | **Listen Fully** | low confidence
-**Duration:** 57 min
-
-Google's Chief Scientist, Jeff Dean, discusses strategic thought experiments behind Google's foundational successes (search index, TPU for speech recognition). He delves into the '1% Rule for Building in AI,' the future of inference hardware specialization, and how small teams can still achieve significant wins. This episode is highly relevant for a senior PM focused on AI and emerging technology, offering deep strategic insights into large-scale technical decisions, infrastructure, and innovation from a leading expert.
+This episode features Tom Verrilli, CPO of Whatnot (a rapidly growing live shopping platform), discussing his unique perspective on product management, including the premise “we regret that product management exists.” He delves into how AI is fundamentally reshaping the PM role and data science, the shift towards senior ICs, and what he seeks when hiring product managers. Verrilli shares strategic insights on product organizational design, leadership, and lessons from his extensive experience at companies like Twitch and Twitter, offering a deep dive into product craft at scale within the dynamic eCommerce space.
 
 **Key Ideas:**
-- Strategic 'napkin calculations' for massive scale infrastructure (e.g., Google Search, TPU).
-- The '1% Rule' for building in AI and future of inference hardware.
-- Principles for innovation and how small teams can still make a big impact.
+- Rethinking product management's existence and organizational design for efficiency.
+- The transformative impact of AI on the PM role and data science functions.
+- Strategic insights on hiring, developing senior ICs, and leadership lessons from high-growth companies.
 
-[Listen →](https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jeff-Dean-The-1-Rule-for-Building-in-AI-e3mq28a)
+[Listen →](https://www.lennysnewsletter.com/p/this-cpo-regrets-that-product-management)
 
 
-### 3. No Priors: Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak
-**Score:** 93/100 | **Listen Fully** | low confidence
+### 2. Future Commerce: Commerce Media's Day Two: The Agentic Shelf and the Measurement Reckoning
+**Score:** 85/100 | **Listen Fully** | low confidence
+**Duration:** 44 min
+
+Collin Colburn, VP of Commerce and Retail Media at the IAB, discusses the evolution of retail media, now a $100 billion industry, entering its "day two." This new phase emphasizes operational integration, interoperable measurement, and the emergence of the "agentic shelf." The episode explores why brands perceive retail media as a "tax," advocating for a re-evaluation of traditional attribution models. A key concern addressed is the trustworthiness of ad-supported AI agents, prompting strategic considerations for product leaders in the commerce media space. The discussion provides a high-level overview of the challenges and opportunities facing this rapidly growing sector.
+
+**Key Ideas:**
+- Retail media's "day two" focuses on operational integration, interoperable measurement, and the "agentic shelf."
+- The need to rethink attribution models in commerce media and address brand perception of it as a "tax."
+- Challenges and trustworthiness implications of ad-supported AI agents in the retail environment.
+
+[Listen →](https://www.futurecommerce.com/podcasts/commerce-medias-day-two-the-agentic-shelf-and-the-measurement-reckoning)
+
+
+### 3. Y Combinator Startup Podcast: Building the First Data Centers in Space
+**Score:** 83/100 | **Listen Fully** | low confidence
+**Duration:** 36 min
+
+This episode features Philip Johnston, co-founder and CEO of Starcloud, a company pioneering data centers in space. Johnston details Starcloud's journey from a nascent idea to launching an Nvidia H100 GPU into orbit and training the first large language model in space. The discussion covers their rapid ascent, including raising $200 million and achieving a billion-dollar valuation within 17 months of YC Demo Day. Listeners will gain insights into the audacious strategic decisions, such as booking a SpaceX launch before fully defining their product, and the immense engineering challenges involved in developing the Starcloud-1. The episode also explores the economic and political rationales that underpin the viability and necessity of space-based data centers, offering a unique perspective on frontier technology and market creation.
+
+**Key Ideas:**
+- Strategic product development in frontier tech: building data centers in space for AI/LLM training.
+- Founder journey and rapid scaling: from YC to unicorn status with significant fundraising.
+- Overcoming extreme engineering and market challenges, including economic and political justifications for novel infrastructure.
+
+[Listen →](https://podcasters.spotify.com/pod/show/ycombinator/episodes/Building-the-First-Data-Centers-in-Space-e3n13ek)
+
+
+### 4. The a16z Show: Ruby Thelot on Internet Culture, AI, and the Future of Taste
+**Score:** 80/100 | **Listen Fully** | low confidence
 **Duration:** 34 min
 
-Melisa Tokmak, Founder and CEO of Netic, discusses building an autonomous AI platform for essential real-world services like home repairs and pet care. She explains the complexities of automating these workflows, noting that over 70% of Netic's customers first interact with AI. The conversation with host Elad Gil delves into Netic's strategy of building a scalable product company versus an AI roll-up, why robotics isn't a near-term solution for these industries, and how Netic views competition from large frontier AI labs. Tokmak also provides insights into how private equity's investment playbook has shifted towards measurable ROI in the AI era and expresses optimism about AI's future impact on education.
+Ruby Thelot, a designer, artist, cyberethnographer, and NYU professor, discusses internet culture, AI's profound impact on digital communities, creativity, communication, and identity. The conversation covers topics like 'machinic taste,' AI companions, online subcultures, and the paradox of public perception versus actual reliance on AI, drawing on years of research into online behavior.
 
 **Key Ideas:**
-- Applying autonomous AI to complex real-world services, with high AI-first customer interaction (70%).
-- Strategic choices in building an AI company: scalable product vs. AI roll-up, competitive landscape, and the role of robotics.
-- Private equity's evolving investment criteria in the AI era, focusing on measurable ROI.
+- AI's influence on internet culture, taste, and identity
+- Algorithms' role in shaping digital communities and perception
+- Cyberethnography and understanding online behavior for product strategy
 
-### 4. Y Combinator Startup Podcast: Patrick Collison: "What If You Succeed?"
-**Score:** 89/100 | **Listen Fully** | low confidence
-**Duration:** 31 min
-
-Patrick Collison, co-founder of Stripe, discusses the company's origins, the importance of asking 'what if you succeed?', and insights from Stripe's own data on optimal timing for starting a company. This episode offers valuable lessons on founder mindset, long-term strategic thinking, and market entry, directly applicable to product strategy and career growth for a senior PM. Collison's first-hand experience building a significant eCommerce infrastructure player provides concrete, transferable lessons for product craft at scale.
-
-**Key Ideas:**
-- Strategic importance of planning for success ('what if you succeed?').
-- Insights from Stripe's data on optimal company founding times.
-- Founder's perspective on building and scaling a major tech company.
-
-[Listen →](https://podcasters.spotify.com/pod/show/ycombinator/episodes/Patrick-Collison-What-If-You-Succeed-e3mtper)
+[Listen →](https://a16z.simplecast.com/episodes/ruby-thelot-on-internet-culture-ai-and-the-future-of-taste-CvhHSpzt)
 
 
 ## 📌 Also Good — Didn't Fit Today's Queue
 
-- **Lenny's Podcast: This CPO regrets that product management exists | Tom Verrilli (CPO of Whatnot)** (Score 88) — This episode features Tom Verrilli, CPO of Whatnot (a rapidly growing live shopping platform), discussing his unique perspective on product management...
-  [Link](https://www.lennysnewsletter.com/p/this-cpo-regrets-that-product-management)
-- **Future Commerce: Commerce Media's Day Two: The Agentic Shelf and the Measurement Reckoning** (Score 85) — Collin Colburn, VP of Commerce and Retail Media at the IAB, discusses the evolution of retail media, now a $100 billion industry, entering its "day tw...
-  [Link](https://www.futurecommerce.com/podcasts/commerce-medias-day-two-the-agentic-shelf-and-the-measurement-reckoning)
 - **Jason & Scot Show: E343 - Amazon Q2 2026 Earnings** (Score 81) — This episode offers a comprehensive breakdown of Amazon's Q2 earnings, with a sharp focus on AWS's sustained growth, improved margins, and Wall Street...
   [Link](https://jasonandscot.com/e343-amazon-q2-2026-earnings)
-- **The a16z Show: Ruby Thelot on Internet Culture, AI, and the Future of Taste** (Score 80) — Ruby Thelot, a designer, artist, cyberethnographer, and NYU professor, discusses internet culture, AI's profound impact on digital communities, creati...
-  [Link](https://a16z.simplecast.com/episodes/ruby-thelot-on-internet-culture-ai-and-the-future-of-taste-CvhHSpzt)
 - **Jason & Scot Show: EP342 - The End of the Attention Economy, and What Retail Does Next with Mitch Joel** (Score 75) — Recorded live from NRF Nexus, this episode features a discussion with keynote speaker Mitch Joel, who posits that the 'attention economy' is over, giv...
   [Link](https://jasonandscot.com/ep342-the-end-of-the-attention-economy-and-what-retail-does-next-with-mitch-joel)
 - **Masters of Scale: How to beef up your business, with ButcherBox CEO Mike Salguero** (Score 73) — ButcherBox CEO and founder Mike Salguero shares his journey of building a $600M+ subscription meat delivery business after a previous VC-backed failur...

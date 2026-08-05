@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-08-05T15:53:14.458929+00:00",
+  "last_run": "2026-08-05T19:11:53.106600+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -1346,6 +1346,86 @@
       ],
       "episode_url": "https://omny.fm/shows/the-real-story-with-jeanne-ives/the-state-of-public-education-with-corey-deangelis-free-for-all-friday-fauci-lies-edition",
       "duration_seconds": 2518
+    },
+    "578b68829d7f110c": {
+      "guid": "578b68829d7f110c",
+      "show_title": "Y Combinator Startup Podcast",
+      "episode_title": "Building the First Data Centers in Space",
+      "published": "2026-08-05T16:57:31Z",
+      "processed_at": "2026-08-05T19:11:53.069589Z",
+      "score": 83.0,
+      "classification": "Listen Fully",
+      "classification_reason": "This episode offers exceptional relevance to AI and emerging technology, coupled with high strategic importance for product development in frontier tech. The guest is a highly authoritative founder of a unicorn company in a cutting-edge field, providing concrete insights into building and scaling a complex product, despite the low transcript confidence.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://anchor.fm/s/8c1524bc/podcast/rss",
+      "summary": "This episode features Philip Johnston, co-founder and CEO of Starcloud, a company pioneering data centers in space. Johnston details Starcloud's journey from a nascent idea to launching an Nvidia H100 GPU into orbit and training the first large language model in space. The discussion covers their rapid ascent, including raising $200 million and achieving a billion-dollar valuation within 17 months of YC Demo Day. Listeners will gain insights into the audacious strategic decisions, such as booking a SpaceX launch before fully defining their product, and the immense engineering challenges involved in developing the Starcloud-1. The episode also explores the economic and political rationales that underpin the viability and necessity of space-based data centers, offering a unique perspective on frontier technology and market creation.",
+      "key_ideas": [
+        "Strategic product development in frontier tech: building data centers in space for AI/LLM training.",
+        "Founder journey and rapid scaling: from YC to unicorn status with significant fundraising.",
+        "Overcoming extreme engineering and market challenges, including economic and political justifications for novel infrastructure."
+      ],
+      "episode_url": "https://podcasters.spotify.com/pod/show/ycombinator/episodes/Building-the-First-Data-Centers-in-Space-e3n13ek",
+      "duration_seconds": 2173
+    },
+    "34d503d0ae062d7b": {
+      "guid": "34d503d0ae062d7b",
+      "show_title": "\u771f\u5982\u8001\u5e2b-\u5ee3\u6d77\u660e\u6708",
+      "episode_title": "0561\u3000\u807d\u6cd5\u524d\u7684\u6e96\u5099\u975e\u5e38\u91cd\u8981",
+      "published": "2026-08-05T16:01:07Z",
+      "processed_at": "2026-08-05T19:11:53.069655Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode is entirely focused on spiritual/religious teachings, which is completely irrelevant to a Senior PM's professional focus on product strategy, AI, eCommerce, or career growth. It offers no business or product insights.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://www.amrtf.org/podcast/rss/B000035.xml",
+      "summary": "This episode, titled 'Preparation before listening to the Dharma is very important,' likely delves into spiritual or religious teachings, emphasizing the mindset and readiness required to absorb such wisdom. It is probably focused on personal spiritual development rather than professional or strategic insights. The content would guide listeners on how to approach sacred texts or teachings for maximum personal benefit and understanding within a spiritual context, offering guidance on inner reflection and receptivity.",
+      "key_ideas": [
+        "Spiritual preparation for learning",
+        "Mindset for absorbing Dharma teachings",
+        "Personal spiritual development"
+      ],
+      "episode_url": "https://www.amrtf.org/zh-hant/clear-moonlight-great-ocean-0561",
+      "duration_seconds": 939
+    },
+    "67b7f2510daf7eaa": {
+      "guid": "67b7f2510daf7eaa",
+      "show_title": "The Real Story",
+      "episode_title": "Reacting to the Michigan Primaries; More Corruption in Illinois; Watchdog Wednesday",
+      "published": "2026-08-05T17:09:58Z",
+      "processed_at": "2026-08-05T19:11:53.069671Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode is dedicated to political commentary and current events, which bears no relevance to the target persona's professional interests in product strategy, AI, eCommerce, or career development. It lacks any strategic business insights.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss",
+      "summary": "This episode appears to be a political commentary segment, discussing reactions to the Michigan Primaries, ongoing corruption issues in Illinois, and a 'Watchdog Wednesday' segment, likely focusing on government oversight or accountability. It would involve analysis of recent political events, electoral outcomes, and potentially investigative journalism into public sector issues. The discussion would be centered on current affairs and political dynamics within the United States.",
+      "key_ideas": [
+        "US political analysis",
+        "Election commentary (Michigan Primaries)",
+        "Government corruption and oversight"
+      ],
+      "episode_url": "https://omny.fm/shows/the-real-story-with-jeanne-ives/reacting-to-the-michigan-primaries-more-corruption-in-illinois-watchdog-wednesday",
+      "duration_seconds": 2500
+    },
+    "1c0385f7460c56f9": {
+      "guid": "1c0385f7460c56f9",
+      "show_title": "The Tim Ferriss Show",
+      "episode_title": "#878: How to Start When You're Stuck, Finish What You Begin, and Stop Waiting for Inspiration \u2014 Creative Advice from Elizabeth Gilbert, Seth Godin, Joyce Carol Oates, Anne Lamott and More",
+      "published": "2026-08-05T17:00:00Z",
+      "processed_at": "2026-08-05T19:11:53.069682Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "Despite featuring top-tier guests, the episode's core topic is 'creative advice on writing,' which is too generic and tangential to the persona's specific focus on product strategy, AI, and eCommerce. It lacks the strategic depth and direct applicability required for a senior executive making product and business decisions.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/tim-ferriss-show",
+      "summary": "This compilation episode from The Tim Ferriss Show offers creative advice from renowned authors and thinkers like Elizabeth Gilbert, Seth Godin, and Jerry Seinfeld on the craft of writing. It covers topics such as choosing and committing to projects, overcoming writer's block, building consistent writing habits, dealing with 'shitty first drafts,' the importance of revision, and managing the fear of producing bad work. The episode aims to provide practical strategies for creative output and sustained effort, drawing from the personal experiences and systems of highly successful individuals in the writing world.",
+      "key_ideas": [
+        "Overcoming creative blocks and procrastination",
+        "Building consistent work habits and systems",
+        "Managing fear and embracing iterative creation"
+      ],
+      "episode_url": "",
+      "duration_seconds": 3530
     }
   },
   "published": [
@@ -1422,7 +1502,8 @@
     "d817b7c154c23109",
     "dbda426f447aeb37",
     "c180c171760b6030",
-    "aa629c66114a730d"
+    "aa629c66114a730d",
+    "578b68829d7f110c"
   ],
   "playlist": [
     "d99da0b934e38cc5",
@@ -1434,7 +1515,11 @@
     "6a94a25c9cbce596",
     "764a97ef74d9b043",
     "9a498473d4309a7e",
-    "80fe79e11092a5ca"
+    "80fe79e11092a5ca",
+    "6c66a26e3ccb29bb",
+    "c180c171760b6030",
+    "578b68829d7f110c",
+    "d8efc40942f83bfe"
   ],
   "emailed": [
     "6a94a25c9cbce596",
@@ -1458,6 +1543,7 @@
     "03678c37b28d5133",
     "671036c3ce644d5e",
     "54caa05108edc3e5",
-    "ce070fc81dbf509b"
+    "ce070fc81dbf509b",
+    "578b68829d7f110c"
   ]
 }
