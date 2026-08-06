@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-08-05T19:11:53.106600+00:00",
+  "last_run": "2026-08-06T07:46:05.353176+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -1723,6 +1723,30 @@
       "enclosure_url": "https://rss.art19.com/episodes/9f261454-c4d9-46aa-91db-4f6340cdab8a.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
       "enclosure_type": "audio/mpeg",
       "enclosure_length": 56490109
+    },
+    "3fb61a2d059a930f": {
+      "guid": "3fb61a2d059a930f",
+      "show_title": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "episode_title": "\u3010\u653e\u5fc3\u4f86\u4fe1\u3011T\u4eba\u611b\u8b1b\u9053\u7406\u53cd\u88ab\u7f75\uff1f\u653e\u4e0b\u7cfe\u6b63\u6b32\uff0c\u770b\u61c2\u5c0d\u65b9\u60c5\u7dd2\u80cc\u5f8c\u7684\u771f\u5be6\u9700\u6c42",
+      "published": "2026-08-05T22:01:59Z",
+      "processed_at": "2026-08-06T07:46:05.296623Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode focuses on generic interpersonal communication and emotional intelligence, which is entirely outside the persona's stated strategic focus on product strategy, AI/emerging tech, and eCommerce. It lacks any strategic depth, business relevance, or expert insights pertinent to a Senior PM's career growth in product craft.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g",
+      "summary": "This episode explores communication challenges between analytical (often termed 'T-type') individuals and those who prioritize emotional connection. It highlights how a problem-solving approach, intended as care, can be misinterpreted as criticism when emotional needs are not first addressed. The discussion emphasizes the importance of active listening, validating feelings, and understanding underlying emotional requirements before offering logical solutions. It suggests clarifying communication motives and choosing appropriate contexts for purely logical debate, even mentioning AI as an outlet for such discussions, to foster more effective and empathetic interactions.",
+      "key_ideas": [
+        "Analytical communication, when not balanced with emotional validation, can lead to misunderstandings and conflict.",
+        "Prioritizing active listening and acknowledging emotional needs before offering solutions improves interpersonal communication.",
+        "Understanding personal communication motives and tailoring the approach to the audience is crucial for effective dialogue."
+      ],
+      "episode_url": "https://open.firstory.me/story/cms8g4d0r076101ya9byr7ed3",
+      "duration_seconds": 882,
+      "enclosure_url": "https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cms8g4d0r076101ya9byr7ed3/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcms8g4d0r076201ya7ysvbmhe.mp3?v=1785472344878",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
     }
   },
   "published": [
@@ -1816,7 +1840,9 @@
     "6c66a26e3ccb29bb",
     "c180c171760b6030",
     "578b68829d7f110c",
-    "d8efc40942f83bfe"
+    "d8efc40942f83bfe",
+    "5666d988adc5e47e",
+    "c9f7bc8824d30cc4"
   ],
   "emailed": [
     "6a94a25c9cbce596",
