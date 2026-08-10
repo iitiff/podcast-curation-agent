@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link>https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Aug 2026 06:14:33 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2026 06:18:13 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href="https://iitiff.github.io/podcast-curation-agent/all.xml" rel="self" type="application/rss+xml" />
@@ -84,7 +84,18 @@
       <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785775023800-6a5cf88653b21.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #8 — Lenny's Podcast: This CPO regrets that product management exists | Tom Verrilli (CPO of Whatnot)</title>
+      <title>🎧 LISTEN #8 — Jason &amp; Scot Show: EP344 - How Brooklinen Is Preparing for Agentic Commerce</title>
+      <link>https://jasonandscot.com/ep344-how-brooklinen-is-preparing-for-agentic-commerce</link>
+      <guid isPermaLink="false">d3a4258792221fb5</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>2370</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 88/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 07 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode directly addresses key focus areas: eCommerce, AI/emerging technology (agentic commerce), and product strategy. It provides concrete insights from an industry operator on how a digital-first brand is adapting to future retail trends, making it highly actionable and strategically important.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Live from NRF Nexus, Jason and Scot interview Abbie Weiss, SVP of Digital &amp;amp; E-Commerce at Brooklinen, about the brand&amp;#x27;s strategy for digital-first retail and its preparation for &amp;#x27;agentic commerce.&amp;#x27; The discussion covers Brooklinen&amp;#x27;s expansion into retail, B2B, and design trade, emphasizing customer experience and ease. They explore the changing landscape of product discovery, the role of influencers, and the blurring lines between awareness and conversion. Abbie details how Brooklinen is future-proofing its operations through enhanced content, catalog readiness, and cross-team collaboration to leverage emerging AI-driven commerce agents.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategies for preparing for &amp;#x27;agentic commerce&amp;#x27; and AI&amp;#x27;s impact on retail.&lt;/li&gt;&lt;li&gt;Evolving customer discovery and conversion in digital-first retail.&lt;/li&gt;&lt;li&gt;Cross-channel expansion and customer experience as core strategy.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides highly relevant and actionable insights for product leaders in eCommerce and retail. It offers a practical case study on how a digital-first brand is adapting its product and marketing strategies to emerging AI technologies and changing consumer behaviors, directly informing strategic decisions for future-proofing and growth.&lt;/p&gt;&lt;p&gt;&lt;a href="https://jasonandscot.com/ep344-how-brooklinen-is-preparing-for-agentic-commerce"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Live from NRF Nexus, Jason and Scot interview Abbie Weiss, SVP of Digital &amp; E-Commerce at Brooklinen, about the brand's strategy for digital-first retail and its preparation for 'agentic commerce.' The discussion covers Brooklinen's expansion into retail, B2B, and design trade, emphasizing customer experience and ease. They explore the changing landscape of product discovery, the role of influencers, and the blurring lines between awareness and conversion. Abbie details how Brooklinen is future-proofing its operations through enhanced content, catalog readiness, and cross-team collaboration to leverage emerging AI-driven commerce agents.</description>
+      <enclosure url="https://traffic.libsyn.com/secure/jasshow/jass_abbie_HANDBRAKE_AUPHONIC_AUDIO.mp3?dest-id=325386" type="audio/mpeg" length="33256749" />
+      <itunes:image href="https://static.libsyn.com/p/assets/b/b/a/a/bbaac30c345ddec7d959afa2a1bf1c87/jass_abbie_HANDBRAKE_AUPHONIC_AUDIO.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #9 — Lenny's Podcast: This CPO regrets that product management exists | Tom Verrilli (CPO of Whatnot)</title>
       <link>https://www.lennysnewsletter.com/p/this-cpo-regrets-that-product-management</link>
       <guid isPermaLink="false">6c66a26e3ccb29bb</guid>
       <pubDate>Sun, 02 Aug 2026 12:32:02 +0000</pubDate>
@@ -93,29 +104,29 @@
       <description>This episode features Tom Verrilli, CPO of Whatnot (a rapidly growing live shopping platform), discussing his unique perspective on product management, including the premise “we regret that product management exists.” He delves into how AI is fundamentally reshaping the PM role and data science, the shift towards senior ICs, and what he seeks when hiring product managers. Verrilli shares strategic insights on product organizational design, leadership, and lessons from his extensive experience at companies like Twitch and Twitter, offering a deep dive into product craft at scale within the dynamic eCommerce space.</description>
     </item>
     <item>
-      <title>🎧 LISTEN #9 — Retailgentic: Baird Managing Director of Internet Research Colin Sebastian: What Wall St. Thinks About Agentic Commerce</title>
+      <title>🎧 LISTEN #10 — Retailgentic: Baird Managing Director of Internet Research Colin Sebastian: What Wall St. Thinks About Agentic Commerce</title>
       <link>https://share.transistor.fm/s/07b550ff</link>
       <guid isPermaLink="false">1e539d4f8a9cda71</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>3298</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 87/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Highly relevant to eCommerce and AI product strategy, featuring a top Wall Street analyst providing concrete insights into market shifts, company valuations, and strategic implications of agentic commerce.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Colin Sebastian, Baird&amp;#x27;s Managing Director of Internet Research, discussing Wall Street&amp;#x27;s perspective on the emerging &amp;#x27;agentic commerce&amp;#x27; paradigm. He analyzes how professional investors are pricing this shift across mega-cap companies like Meta, Amazon, Google, eBay, and Shopify. Key topics include Baird&amp;#x27;s &amp;#x27;SPEED&amp;#x27; framework for internet winners, the underestimated potential of agentic commerce, and why Meta is a top AI pick due to its consumer reach and business agents. Sebastian also explores how foundation models will commoditize, value will accrue to platforms, Amazon&amp;#x27;s strategic move to open its catalog to AI agents, and the potential pressure on retail media advertising as agents bypass traditional search. The discussion emphasizes the importance of owning the authenticated consumer experience, from identity to fulfillment.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Wall Street&amp;#x27;s pricing models and strategic outlook on agentic commerce.&lt;/li&gt;&lt;li&gt;The &amp;#x27;SPEED&amp;#x27; framework for internet winners and Meta&amp;#x27;s AI advantage.&lt;/li&gt;&lt;li&gt;Shifts in value capture from foundation models to platforms and the impact on retail media.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides a critical financial and strategic lens on the future of eCommerce and AI. A Senior PM can leverage these insights to anticipate market shifts, identify new value pools, and understand the competitive dynamics among major players, particularly regarding AI agent integration and consumer authentication.&lt;/p&gt;&lt;p&gt;&lt;a href="https://share.transistor.fm/s/07b550ff"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>3298</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 87/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Highly relevant to eCommerce and AI product strategy, featuring a top Wall Street analyst providing concrete insights into market shifts, company valuations, and strategic implications of agentic commerce.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Colin Sebastian, Baird&amp;#x27;s Managing Director of Internet Research, discussing Wall Street&amp;#x27;s perspective on the emerging &amp;#x27;agentic commerce&amp;#x27; paradigm. He analyzes how professional investors are pricing this shift across mega-cap companies like Meta, Amazon, Google, eBay, and Shopify. Key topics include Baird&amp;#x27;s &amp;#x27;SPEED&amp;#x27; framework for internet winners, the underestimated potential of agentic commerce, and why Meta is a top AI pick due to its consumer reach and business agents. Sebastian also explores how foundation models will commoditize, value will accrue to platforms, Amazon&amp;#x27;s strategic move to open its catalog to AI agents, and the potential pressure on retail media advertising as agents bypass traditional search. The discussion emphasizes the importance of owning the authenticated consumer experience, from identity to fulfillment.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Wall Street&amp;#x27;s pricing models and strategic outlook on agentic commerce.&lt;/li&gt;&lt;li&gt;The &amp;#x27;SPEED&amp;#x27; framework for internet winners and Meta&amp;#x27;s AI advantage.&lt;/li&gt;&lt;li&gt;Shifts in value capture from foundation models to platforms and the impact on retail media.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides a critical financial and strategic lens on the future of eCommerce and AI. A Senior PM can leverage these insights to anticipate market shifts, identify new value pools, and understand the competitive dynamics among major players, particularly regarding AI agent integration and consumer authentication.&lt;/p&gt;&lt;p&gt;&lt;a href="https://share.transistor.fm/s/07b550ff"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>This episode features Colin Sebastian, Baird's Managing Director of Internet Research, discussing Wall Street's perspective on the emerging 'agentic commerce' paradigm. He analyzes how professional investors are pricing this shift across mega-cap companies like Meta, Amazon, Google, eBay, and Shopify. Key topics include Baird's 'SPEED' framework for internet winners, the underestimated potential of agentic commerce, and why Meta is a top AI pick due to its consumer reach and business agents. Sebastian also explores how foundation models will commoditize, value will accrue to platforms, Amazon's strategic move to open its catalog to AI agents, and the potential pressure on retail media advertising as agents bypass traditional search. The discussion emphasizes the importance of owning the authenticated consumer experience, from identity to fulfillment.</description>
       <enclosure url="https://media.transistor.fm/07b550ff/28782261.mp3" type="audio/mpeg" length="52826763" />
-      <itunes:image href="https://img.transistorcdn.com/jqWRgTPXdYsHCKeNIdSFyGU-iWUpmBXaZ_cE0akxFpg/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8zOTRi/Zjk1MDBlMDNjNWIx/OGMzZjc2YWRhM2E4/OWZkMy5qcGc.jpg" />
+      <ns0:image href="https://img.transistorcdn.com/jqWRgTPXdYsHCKeNIdSFyGU-iWUpmBXaZ_cE0akxFpg/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8zOTRi/Zjk1MDBlMDNjNWIx/OGMzZjc2YWRhM2E4/OWZkMy5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #10 — Y Combinator Startup Podcast: Garry Tan: Own Your Intelligence</title>
+      <title>🎧 LISTEN #11 — Y Combinator Startup Podcast: Garry Tan: Own Your Intelligence</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Garry-Tan-Own-Your-Intelligence-e3n2rc1</link>
       <guid isPermaLink="false">b595bf30074b66d4</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>2527</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 85/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode is highly relevant, featuring a top authority discussing the strategic implications of AI for product development, team structure, and competitive advantage. The concept of &amp;#x27;personal AGI&amp;#x27; and owning intelligence offers novel and actionable insights for a senior PM.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;YC President &amp;amp; CEO Garry Tan discusses the advent of &amp;#x27;personal AGI&amp;#x27; and its impact on the future of startups, predicting smaller, more powerful teams. He advocates for founders to &amp;#x27;own their intelligence&amp;#x27; by leveraging AI agents on personal infrastructure to compound knowledge and dramatically enhance building capabilities. The episode likely shares practical tools and workflows, offering a strategic vision for how AI will transform productivity, product development, and the competitive landscape for new ventures.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The rise of &amp;#x27;personal AGI&amp;#x27; and its impact on startup team size and efficiency.&lt;/li&gt;&lt;li&gt;The strategic imperative to &amp;#x27;own your intelligence&amp;#x27; via AI agents and personal infrastructure.&lt;/li&gt;&lt;li&gt;Practical tools and workflows for leveraging AI in building products and enhancing productivity.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This episode provides a forward-looking strategic framework for senior PMs to consider how AI will reshape product development processes, team structures, and competitive advantages. It encourages thinking about leveraging AI for internal efficiency and as a core component of future products, impacting technology stack decisions and talent strategy.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Garry-Tan-Own-Your-Intelligence-e3n2rc1"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>2527</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 85/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode is highly relevant, featuring a top authority discussing the strategic implications of AI for product development, team structure, and competitive advantage. The concept of &amp;#x27;personal AGI&amp;#x27; and owning intelligence offers novel and actionable insights for a senior PM.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;YC President &amp;amp; CEO Garry Tan discusses the advent of &amp;#x27;personal AGI&amp;#x27; and its impact on the future of startups, predicting smaller, more powerful teams. He advocates for founders to &amp;#x27;own their intelligence&amp;#x27; by leveraging AI agents on personal infrastructure to compound knowledge and dramatically enhance building capabilities. The episode likely shares practical tools and workflows, offering a strategic vision for how AI will transform productivity, product development, and the competitive landscape for new ventures.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The rise of &amp;#x27;personal AGI&amp;#x27; and its impact on startup team size and efficiency.&lt;/li&gt;&lt;li&gt;The strategic imperative to &amp;#x27;own your intelligence&amp;#x27; via AI agents and personal infrastructure.&lt;/li&gt;&lt;li&gt;Practical tools and workflows for leveraging AI in building products and enhancing productivity.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This episode provides a forward-looking strategic framework for senior PMs to consider how AI will reshape product development processes, team structures, and competitive advantages. It encourages thinking about leveraging AI for internal efficiency and as a core component of future products, impacting technology stack decisions and talent strategy.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Garry-Tan-Own-Your-Intelligence-e3n2rc1"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>YC President &amp; CEO Garry Tan discusses the advent of 'personal AGI' and its impact on the future of startups, predicting smaller, more powerful teams. He advocates for founders to 'own their intelligence' by leveraging AI agents on personal infrastructure to compound knowledge and dramatically enhance building capabilities. The episode likely shares practical tools and workflows, offering a strategic vision for how AI will transform productivity, product development, and the competitive landscape for new ventures.</description>
       <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123874113/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-6%2F429363789-44100-2-e2c4dd8914daf.mp3" type="audio/mpeg" length="40445073" />
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1786044493780-9c6135490eda.jpg" />
+      <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1786044493780-9c6135490eda.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #11 — Future Commerce: Commerce Media's Day Two: The Agentic Shelf and the Measurement Reckoning</title>
+      <title>🎧 LISTEN #12 — Future Commerce: Commerce Media's Day Two: The Agentic Shelf and the Measurement Reckoning</title>
       <link>https://www.futurecommerce.com/podcasts/commerce-medias-day-two-the-agentic-shelf-and-the-measurement-reckoning</link>
       <guid isPermaLink="false">c180c171760b6030</guid>
       <pubDate>Wed, 05 Aug 2026 11:00:00 +0000</pubDate>
@@ -124,7 +135,18 @@
       <description>Collin Colburn, VP of Commerce and Retail Media at the IAB, discusses the evolution of retail media, now a $100 billion industry, entering its "day two." This new phase emphasizes operational integration, interoperable measurement, and the emergence of the "agentic shelf." The episode explores why brands perceive retail media as a "tax," advocating for a re-evaluation of traditional attribution models. A key concern addressed is the trustworthiness of ad-supported AI agents, prompting strategic considerations for product leaders in the commerce media space. The discussion provides a high-level overview of the challenges and opportunities facing this rapidly growing sector.</description>
     </item>
     <item>
-      <title>🎧 LISTEN #12 — Y Combinator Startup Podcast: Building the First Data Centers in Space</title>
+      <title>🎧 LISTEN #13 — Acquired: Disney: The Renaissance and the Empire</title>
+      <link>https://www.acquired.fm/episodes/disney-the-renaissance-and-the-empire</link>
+      <guid isPermaLink="false">8b71f7516f11d384</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>16376</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 84/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 10 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode offers a deep, strategic dive into corporate turnarounds, M&amp;amp;A, and long-term product/brand portfolio management at an empire scale. The lessons on strategic pivots, market dynamics, and leadership are highly relevant for a Senior PM focused on product strategy and career growth, despite not being directly about AI or eCommerce.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This extensive episode from Acquired chronicles the tumultuous history of the Walt Disney Company, from near bankruptcy in 1984 to its resurgence under Michael Eisner and Frank Wells, marked by iconic animation, Broadway expansion, and the acquisition of ESPN. It then details the subsequent challenges, including executive infighting and a hostile takeover attempt by Comcast, leading to another epic comeback under Bob Iger with strategic acquisitions like Pixar, Marvel, and Lucasfilm. The narrative provides a masterclass in corporate strategy, M&amp;amp;A, brand management, and navigating market shifts to build and sustain a global media empire.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Corporate turnaround strategies and leadership in crisis.&lt;/li&gt;&lt;li&gt;Strategic M&amp;amp;A for portfolio growth and market dominance.&lt;/li&gt;&lt;li&gt;Long-term brand management and product flywheel development.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides a rich case study for understanding long-term product strategy, portfolio management, and the role of M&amp;amp;A in building and defending market leadership. Offers transferable lessons on strategic foresight, navigating complex market dynamics, and the importance of leadership in driving innovation and growth at scale.&lt;/p&gt;&lt;p&gt;&lt;a href="https://www.acquired.fm/episodes/disney-the-renaissance-and-the-empire"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This extensive episode from Acquired chronicles the tumultuous history of the Walt Disney Company, from near bankruptcy in 1984 to its resurgence under Michael Eisner and Frank Wells, marked by iconic animation, Broadway expansion, and the acquisition of ESPN. It then details the subsequent challenges, including executive infighting and a hostile takeover attempt by Comcast, leading to another epic comeback under Bob Iger with strategic acquisitions like Pixar, Marvel, and Lucasfilm. The narrative provides a masterclass in corporate strategy, M&amp;A, brand management, and navigating market shifts to build and sustain a global media empire.</description>
+      <enclosure url="https://pscrb.fm/rss/p/media.transistor.fm/4bcdc326/22e5d62f.mp3" type="audio/mpeg" length="262022993" />
+      <itunes:image href="https://img.transistorcdn.com/GwI1v26-YH_dXUXm6cxbMAU8_kLZ0TucnptVEAbOElY/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS80ZmU3/ZGE4MTQ3NjAzZGZj/MWU5YzVjYzViNTAw/OTIwYS5qcGc.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #14 — Y Combinator Startup Podcast: Building the First Data Centers in Space</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Building-the-First-Data-Centers-in-Space-e3n13ek</link>
       <guid isPermaLink="false">578b68829d7f110c</guid>
       <pubDate>Wed, 05 Aug 2026 16:57:31 +0000</pubDate>
@@ -135,51 +157,51 @@
       <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785948783215-3620695ea8356.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #13 — No Priors: Chasing Trillion-Dollar Companies, Founder Ambition, Token Budgets, and Regulatory Capture with Sarah &amp; Elad</title>
+      <title>🎧 LISTEN #15 — No Priors: Chasing Trillion-Dollar Companies, Founder Ambition, Token Budgets, and Regulatory Capture with Sarah &amp; Elad</title>
       <link />
       <guid isPermaLink="false">2084c15806050019</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>2369</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;High relevance to AI product strategy, market dynamics, and founder insights from top-tier guests (Elad Gil, Sarah Guo). Provides strategic frameworks and covers important macro trends.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Sarah and Elad discussing the rapid evolution of the AI landscape, venture capital, and startup dynamics. They delve into the pursuit of multi-trillion-dollar companies, the realities of market sizing versus revenue, and the optimal timing for startup exits. The conversation also covers the impact of major AI labs on founder ambition, potential researcher burnout, and critical bottlenecks in compute power. Furthermore, they explore the implications of regulatory capture and the shifting geographical ecosystems for tech innovation, offering a comprehensive look at the strategic challenges and opportunities facing the tech industry.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The pursuit of multi-trillion-dollar companies and realistic market sizing.&lt;/li&gt;&lt;li&gt;Impact of AI labs on startup strategy and founder ambition.&lt;/li&gt;&lt;li&gt;Compute bottlenecks, regulatory capture, and evolving tech ecosystems.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides a high-level strategic overview of the AI and VC landscape, helping a Senior PM understand macro trends, potential market shifts, and the strategic considerations for building and scaling AI-native products. It offers insights into founder psychology and investor expectations.&lt;/p&gt;</content:encoded>
+      <ns0:duration>2369</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;High relevance to AI product strategy, market dynamics, and founder insights from top-tier guests (Elad Gil, Sarah Guo). Provides strategic frameworks and covers important macro trends.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Sarah and Elad discussing the rapid evolution of the AI landscape, venture capital, and startup dynamics. They delve into the pursuit of multi-trillion-dollar companies, the realities of market sizing versus revenue, and the optimal timing for startup exits. The conversation also covers the impact of major AI labs on founder ambition, potential researcher burnout, and critical bottlenecks in compute power. Furthermore, they explore the implications of regulatory capture and the shifting geographical ecosystems for tech innovation, offering a comprehensive look at the strategic challenges and opportunities facing the tech industry.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The pursuit of multi-trillion-dollar companies and realistic market sizing.&lt;/li&gt;&lt;li&gt;Impact of AI labs on startup strategy and founder ambition.&lt;/li&gt;&lt;li&gt;Compute bottlenecks, regulatory capture, and evolving tech ecosystems.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides a high-level strategic overview of the AI and VC landscape, helping a Senior PM understand macro trends, potential market shifts, and the strategic considerations for building and scaling AI-native products. It offers insights into founder psychology and investor expectations.&lt;/p&gt;</ns1:encoded>
       <description>This episode features Sarah and Elad discussing the rapid evolution of the AI landscape, venture capital, and startup dynamics. They delve into the pursuit of multi-trillion-dollar companies, the realities of market sizing versus revenue, and the optimal timing for startup exits. The conversation also covers the impact of major AI labs on founder ambition, potential researcher burnout, and critical bottlenecks in compute power. Furthermore, they explore the implications of regulatory capture and the shifting geographical ecosystems for tech innovation, offering a comprehensive look at the strategic challenges and opportunities facing the tech industry.</description>
       <enclosure url="https://traffic.megaphone.fm/PDP3190127956.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/17b96322-915c-11f1-aad7-53d361bc6996/image/78c924fc0fdf91eca870f6dc07f2dc9e.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+      <ns0:image href="https://megaphone.imgix.net/podcasts/17b96322-915c-11f1-aad7-53d361bc6996/image/78c924fc0fdf91eca870f6dc07f2dc9e.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #14 — AI + a16z: Inside vLLM: The Engine Powering Open-Source AI</title>
+      <title>🎧 LISTEN #16 — AI + a16z: Inside vLLM: The Engine Powering Open-Source AI</title>
       <link>https://ai-a16z.simplecast.com/episodes/inside-vllm-the-engine-powering-open-source-ai-etgKL1N9</link>
       <guid isPermaLink="false">97db65deb61a4199</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>2809</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode directly addresses critical strategic areas for a Senior PM: AI infrastructure, open-source models, and the economics of AI. The guest is a highly relevant operator, and the content promises actionable insights for product strategy in AI.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode delves into vLLM, an open-source inference engine, exploring its evolution from a research project to critical AI infrastructure. Simon Mo, co-founder and CEO of Inferact, discusses the rise of open-weight models, why companies seek control over their AI infrastructure, and how open-source inference is enabling next-gen AI applications. The conversation also covers model licensing, the economics of open-weight AI, and the diminishing gap between open and closed AI models, offering strategic insights into the future of AI development and deployment.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Open-source AI&amp;#x27;s role as critical infrastructure (vLLM) and its evolution.&lt;/li&gt;&lt;li&gt;Strategic importance and economics of open-weight models and inference in the AI stack.&lt;/li&gt;&lt;li&gt;Companies&amp;#x27; increasing desire for control over their AI infrastructure and its implications.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage insights into open-source AI infrastructure to inform product strategy, make build vs. buy decisions for AI capabilities, understand competitive dynamics with closed models, and navigate the evolving landscape of AI licensing and economics. This directly impacts resource allocation and technology choices.&lt;/p&gt;&lt;p&gt;&lt;a href="https://ai-a16z.simplecast.com/episodes/inside-vllm-the-engine-powering-open-source-ai-etgKL1N9"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>2809</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode directly addresses critical strategic areas for a Senior PM: AI infrastructure, open-source models, and the economics of AI. The guest is a highly relevant operator, and the content promises actionable insights for product strategy in AI.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode delves into vLLM, an open-source inference engine, exploring its evolution from a research project to critical AI infrastructure. Simon Mo, co-founder and CEO of Inferact, discusses the rise of open-weight models, why companies seek control over their AI infrastructure, and how open-source inference is enabling next-gen AI applications. The conversation also covers model licensing, the economics of open-weight AI, and the diminishing gap between open and closed AI models, offering strategic insights into the future of AI development and deployment.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Open-source AI&amp;#x27;s role as critical infrastructure (vLLM) and its evolution.&lt;/li&gt;&lt;li&gt;Strategic importance and economics of open-weight models and inference in the AI stack.&lt;/li&gt;&lt;li&gt;Companies&amp;#x27; increasing desire for control over their AI infrastructure and its implications.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage insights into open-source AI infrastructure to inform product strategy, make build vs. buy decisions for AI capabilities, understand competitive dynamics with closed models, and navigate the evolving landscape of AI licensing and economics. This directly impacts resource allocation and technology choices.&lt;/p&gt;&lt;p&gt;&lt;a href="https://ai-a16z.simplecast.com/episodes/inside-vllm-the-engine-powering-open-source-ai-etgKL1N9"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>This episode delves into vLLM, an open-source inference engine, exploring its evolution from a research project to critical AI infrastructure. Simon Mo, co-founder and CEO of Inferact, discusses the rise of open-weight models, why companies seek control over their AI infrastructure, and how open-source inference is enabling next-gen AI applications. The conversation also covers model licensing, the economics of open-weight AI, and the diminishing gap between open and closed AI models, offering strategic insights into the future of AI development and deployment.</description>
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/bd288922-f2a9-44c6-9363-8971c973706f/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&amp;awEpisodeId=bd288922-f2a9-44c6-9363-8971c973706f&amp;feed=Hb_IuXOo" type="audio/mpeg" length="44955385" />
-      <itunes:image href="https://image.simplecastcdn.com/images/89450696-5007-4713-8168-eea085e49626/80ad2223-d8fa-4bb2-9645-8e2c1168a372/3000x3000/ai-a16z-podcast-cover-art-2.jpg?aid=rss_feed" />
+      <ns0:image href="https://image.simplecastcdn.com/images/89450696-5007-4713-8168-eea085e49626/80ad2223-d8fa-4bb2-9645-8e2c1168a372/3000x3000/ai-a16z-podcast-cover-art-2.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #15 — The a16z Show: The Engine Powering Open-Source AI</title>
+      <title>🎧 LISTEN #17 — The a16z Show: The Engine Powering Open-Source AI</title>
       <link>https://a16z.simplecast.com/episodes/how-open-source-ai-became-critical-infrastructure-3yYJbsEz</link>
       <guid isPermaLink="false">c120b83839fb7854</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>2809</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode directly addresses critical strategic areas for a Senior PM: AI infrastructure, open-source models, and the economics of AI. The guest is a highly relevant operator, and the content promises actionable insights for product strategy in AI.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode delves into vLLM, an open-source inference engine, exploring its evolution from a research project to critical AI infrastructure. Simon Mo, co-founder and CEO of Inferact, discusses the rise of open-weight models, why companies seek control over their AI infrastructure, and how open-source inference is enabling next-gen AI applications. The conversation also covers model licensing, the economics of open-weight AI, and the diminishing gap between open and closed AI models, offering strategic insights into the future of AI development and deployment.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Open-source AI&amp;#x27;s role as critical infrastructure (vLLM) and its evolution.&lt;/li&gt;&lt;li&gt;Strategic importance and economics of open-weight models and inference in the AI stack.&lt;/li&gt;&lt;li&gt;Companies&amp;#x27; increasing desire for control over their AI infrastructure and its implications.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage insights into open-source AI infrastructure to inform product strategy, make build vs. buy decisions for AI capabilities, understand competitive dynamics with closed models, and navigate the evolving landscape of AI licensing and economics. This directly impacts resource allocation and technology choices.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/how-open-source-ai-became-critical-infrastructure-3yYJbsEz"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>2809</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode directly addresses critical strategic areas for a Senior PM: AI infrastructure, open-source models, and the economics of AI. The guest is a highly relevant operator, and the content promises actionable insights for product strategy in AI.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode delves into vLLM, an open-source inference engine, exploring its evolution from a research project to critical AI infrastructure. Simon Mo, co-founder and CEO of Inferact, discusses the rise of open-weight models, why companies seek control over their AI infrastructure, and how open-source inference is enabling next-gen AI applications. The conversation also covers model licensing, the economics of open-weight AI, and the diminishing gap between open and closed AI models, offering strategic insights into the future of AI development and deployment.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Open-source AI&amp;#x27;s role as critical infrastructure (vLLM) and its evolution.&lt;/li&gt;&lt;li&gt;Strategic importance and economics of open-weight models and inference in the AI stack.&lt;/li&gt;&lt;li&gt;Companies&amp;#x27; increasing desire for control over their AI infrastructure and its implications.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can leverage insights into open-source AI infrastructure to inform product strategy, make build vs. buy decisions for AI capabilities, understand competitive dynamics with closed models, and navigate the evolving landscape of AI licensing and economics. This directly impacts resource allocation and technology choices.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/how-open-source-ai-became-critical-infrastructure-3yYJbsEz"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>This episode delves into vLLM, an open-source inference engine, exploring its evolution from a research project to critical AI infrastructure. Simon Mo, co-founder and CEO of Inferact, discusses the rise of open-weight models, why companies seek control over their AI infrastructure, and how open-source inference is enabling next-gen AI applications. The conversation also covers model licensing, the economics of open-weight AI, and the diminishing gap between open and closed AI models, offering strategic insights into the future of AI development and deployment.</description>
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/40ae9846-5fcf-49d2-95de-fa631a615ad4/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=40ae9846-5fcf-49d2-95de-fa631a615ad4&amp;feed=JGE3yC0V" type="audio/mpeg" length="44955385" />
-      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+      <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #16 — Stratechery: (Preview) Microsoft’s Plan for Platform Survival, Meta and the Market’s Permission, A Lack of Situational Awareness</title>
+      <title>🎧 LISTEN #18 — Stratechery: (Preview) Microsoft’s Plan for Platform Survival, Meta and the Market’s Permission, A Lack of Situational Awareness</title>
       <link>https://sharptech.fm/member/episode/preview-microsofts-plan-for-platform-survival-meta-and-the-markets-permission-a-lack-of-situational-awareness</link>
       <guid isPermaLink="false">90ff9e859175a190</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>1727</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 81/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Provides deep strategic analysis of major tech companies&amp;#x27; AI strategies and competitive positioning from a highly authoritative source (Ben Thompson), directly relevant to product strategy and market dynamics.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This Stratechery episode, featuring Ben Thompson and Andrew Parker, delves into the recent earnings reports of Microsoft, Meta, and Google. The discussion centers on Microsoft&amp;#x27;s strategy to become the enterprise AI middle layer, potential long-term threats to its competitive edge, and the implications of the open weights open letter. They then contrast Google&amp;#x27;s cautious approach to frontier AI with Meta&amp;#x27;s continued heavy investment and its nascent enterprise ambitions. The episode also touches on the lending environment for hyperscalers, a general market bubble check-in, and other tangential topics, offering a comprehensive strategic overview of the big tech landscape in the age of AI.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Microsoft&amp;#x27;s enterprise AI strategy and competitive threats.&lt;/li&gt;&lt;li&gt;Contrasting AI investment strategies of Google and Meta.&lt;/li&gt;&lt;li&gt;Broader market dynamics and platform survival in the AI era.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Essential for a Senior PM to understand the strategic plays of major tech companies in the AI space, competitive threats, and platform shifts. It helps in anticipating market directions and positioning product strategies within this evolving landscape.&lt;/p&gt;&lt;p&gt;&lt;a href="https://sharptech.fm/member/episode/preview-microsofts-plan-for-platform-survival-meta-and-the-markets-permission-a-lack-of-situational-awareness"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>1727</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 81/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Provides deep strategic analysis of major tech companies&amp;#x27; AI strategies and competitive positioning from a highly authoritative source (Ben Thompson), directly relevant to product strategy and market dynamics.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This Stratechery episode, featuring Ben Thompson and Andrew Parker, delves into the recent earnings reports of Microsoft, Meta, and Google. The discussion centers on Microsoft&amp;#x27;s strategy to become the enterprise AI middle layer, potential long-term threats to its competitive edge, and the implications of the open weights open letter. They then contrast Google&amp;#x27;s cautious approach to frontier AI with Meta&amp;#x27;s continued heavy investment and its nascent enterprise ambitions. The episode also touches on the lending environment for hyperscalers, a general market bubble check-in, and other tangential topics, offering a comprehensive strategic overview of the big tech landscape in the age of AI.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Microsoft&amp;#x27;s enterprise AI strategy and competitive threats.&lt;/li&gt;&lt;li&gt;Contrasting AI investment strategies of Google and Meta.&lt;/li&gt;&lt;li&gt;Broader market dynamics and platform survival in the AI era.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Essential for a Senior PM to understand the strategic plays of major tech companies in the AI space, competitive threats, and platform shifts. It helps in anticipating market directions and positioning product strategies within this evolving landscape.&lt;/p&gt;&lt;p&gt;&lt;a href="https://sharptech.fm/member/episode/preview-microsofts-plan-for-platform-survival-meta-and-the-markets-permission-a-lack-of-situational-awareness"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>This Stratechery episode, featuring Ben Thompson and Andrew Parker, delves into the recent earnings reports of Microsoft, Meta, and Google. The discussion centers on Microsoft's strategy to become the enterprise AI middle layer, potential long-term threats to its competitive edge, and the implications of the open weights open letter. They then contrast Google's cautious approach to frontier AI with Meta's continued heavy investment and its nascent enterprise ambitions. The episode also touches on the lending environment for hyperscalers, a general market bubble check-in, and other tangential topics, offering a comprehensive strategic overview of the big tech landscape in the age of AI.</description>
       <enclosure url="https://sharptech.fm/assets/sharptech0286_preview.mp3?access_token=WtLvUDEHgB7rE4MbAfmDVT" type="audio/mpeg" length="28139396" />
-      <itunes:image href="https://sharptech.fm/assets/Sharp%20Tech%20-%20Black.png" />
+      <ns0:image href="https://sharptech.fm/assets/Sharp%20Tech%20-%20Black.png" />
     </item>
     <item>
-      <title>🎧 LISTEN #17 — Jason &amp; Scot Show: E343 - Amazon Q2 2026 Earnings</title>
+      <title>🎧 LISTEN #19 — Jason &amp; Scot Show: E343 - Amazon Q2 2026 Earnings</title>
       <link>https://jasonandscot.com/e343-amazon-q2-2026-earnings</link>
       <guid isPermaLink="false">5666d988adc5e47e</guid>
       <pubDate>Thu, 06 Aug 2026 07:46:05 +0000</pubDate>
@@ -189,7 +211,7 @@
       <enclosure url="https://traffic.libsyn.com/secure/jasshow/jass_amazin_q2_VIDEO_AUPHONIC_AUDIO.mp3?dest-id=325386" type="audio/mpeg" length="49240090" />
     </item>
     <item>
-      <title>🎧 LISTEN #18 — Masters of Scale: Possible: Satya Nadella on making human and token capital compound</title>
+      <title>🎧 LISTEN #20 — Masters of Scale: Possible: Satya Nadella on making human and token capital compound</title>
       <link />
       <guid isPermaLink="false">21ef9a7f1fdf511d</guid>
       <pubDate>Sat, 25 Jul 2026 09:00:00 +0000</pubDate>
@@ -198,7 +220,18 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #19 — The a16z Show: Ruby Thelot on Internet Culture, AI, and the Future of Taste</title>
+      <title>🎧 LISTEN #21 — Y Combinator Startup Podcast: How To Design In The Agent Era</title>
+      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/How-To-Design-In-The-Agent-Era-e3n42jd</link>
+      <guid isPermaLink="false">8319abe1935572d1</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>3361</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 80/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 07 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Highly relevant to AI and product craft, featuring expert guests (founder of a fast-growing AI design tool and a YC GP), offering actionable insights on AI-native workflows, design differentiation, and strategic implications for product development. The strategic depth and practical examples make it a valuable listen for a senior PM.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode of the Y Combinator Startup Podcast features Stephen Haney, founder of the AI-native design tool Paper, and YC General Partner Aaron Epstein. They delve into how AI is fundamentally transforming product design beyond just tool usage, focusing on &amp;quot;agent-first&amp;quot; workflows. The discussion includes live redesigns of user-submitted websites to illustrate common &amp;quot;AI design tells&amp;quot; and demonstrate quick fixes. A core theme is the strategic imperative for founders to differentiate their products in the AI era, warning against the risk of shipping generic-looking solutions. The episode provides practical insights into leveraging AI for competitive advantage in product development and design, emphasizing speed and uniqueness.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI is shifting design from traditional tools to agent-first workflows, fundamentally changing product development and shipping.&lt;/li&gt;&lt;li&gt;Practical demonstration of identifying and fixing common &amp;quot;AI design tells&amp;quot; to ensure high-quality, unique product experiences.&lt;/li&gt;&lt;li&gt;Strategic importance of product differentiation in the AI era to avoid generic solutions and achieve competitive advantage.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;For a Senior PM, this episode offers critical insights into integrating AI into product development processes, specifically design. It highlights the need to understand emerging AI-native workflows and how to leverage them for efficiency and differentiation. The discussion on &amp;quot;AI design tells&amp;quot; provides a practical lens for evaluating AI-generated outputs and ensuring high-quality, unique product experiences. Strategically, it underscores the competitive risk of not adapting to AI&amp;#x27;s impact on product craft and the imperative to build distinctive solutions.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/How-To-Design-In-The-Agent-Era-e3n42jd"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode of the Y Combinator Startup Podcast features Stephen Haney, founder of the AI-native design tool Paper, and YC General Partner Aaron Epstein. They delve into how AI is fundamentally transforming product design beyond just tool usage, focusing on "agent-first" workflows. The discussion includes live redesigns of user-submitted websites to illustrate common "AI design tells" and demonstrate quick fixes. A core theme is the strategic imperative for founders to differentiate their products in the AI era, warning against the risk of shipping generic-looking solutions. The episode provides practical insights into leveraging AI for competitive advantage in product development and design, emphasizing speed and uniqueness.</description>
+      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123914285/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-7%2F429419166-44100-2-5b7b650740ab6.mp3" type="audio/mpeg" length="53777971" />
+      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/23401959/23401959-1715188660604-894894aeaa81c.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #22 — The a16z Show: Ruby Thelot on Internet Culture, AI, and the Future of Taste</title>
       <link>https://a16z.simplecast.com/episodes/ruby-thelot-on-internet-culture-ai-and-the-future-of-taste-CvhHSpzt</link>
       <guid isPermaLink="false">d8efc40942f83bfe</guid>
       <pubDate>Sun, 02 Aug 2026 10:46:36 +0000</pubDate>
@@ -207,7 +240,18 @@
       <description>Ruby Thelot, a designer, artist, cyberethnographer, and NYU professor, discusses internet culture, AI's profound impact on digital communities, creativity, communication, and identity. The conversation covers topics like 'machinic taste,' AI companions, online subcultures, and the paradox of public perception versus actual reliance on AI, drawing on years of research into online behavior.</description>
     </item>
     <item>
-      <title>🎧 LISTEN #20 — The a16z Show: OpenAI's Joshua Achiam: Did We Already Reach AGI?</title>
+      <title>🎧 LISTEN #23 — AI + a16z: How AI Is Rewriting the Rules of Cybersecurity | Truffle Security &amp; Socket</title>
+      <link>https://ai-a16z.simplecast.com/episodes/the-reality-of-ai-powered-cyberattacks-truffle-security-socket-f9XcoAFq</link>
+      <guid isPermaLink="false">9e13b0a0c3f46257</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>1431</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 77/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 07 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Highly relevant to AI and product strategy, featuring expert founders discussing critical shifts in cybersecurity due to AI, with actionable insights for enterprises.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features co-founders Dylan Ayrey (Truffle Security) and Feross Aboukhadijeh (Socket) discussing the profound impact of AI on cybersecurity. They highlight a critical shift where AI models are not just identifying vulnerabilities but actively exploiting them, ushering in a new era for software security, supply chain attacks, and cyber defense. The conversation delves into AI-powered hacking, zero-day vulnerabilities, and the inherent dangers of increasingly autonomous AI systems. It provides strategic insights for enterprises, developers, and the open-source community on how to adapt to this evolving threat landscape and mitigate risks as the gap between vulnerability discovery and exploitation rapidly shrinks.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI models are moving from vulnerability discovery to active exploitation in cybersecurity.&lt;/li&gt;&lt;li&gt;This shift fundamentally changes software security, supply chain defense, and enterprise risk.&lt;/li&gt;&lt;li&gt;Enterprises and developers must adapt strategies to counter autonomous AI hacking capabilities.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders need to re-evaluate their security posture, invest in AI-driven defense mechanisms, and understand the evolving threat landscape for their products and supply chains. This impacts product design, development processes, and risk management.&lt;/p&gt;&lt;p&gt;&lt;a href="https://ai-a16z.simplecast.com/episodes/the-reality-of-ai-powered-cyberattacks-truffle-security-socket-f9XcoAFq"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode features co-founders Dylan Ayrey (Truffle Security) and Feross Aboukhadijeh (Socket) discussing the profound impact of AI on cybersecurity. They highlight a critical shift where AI models are not just identifying vulnerabilities but actively exploiting them, ushering in a new era for software security, supply chain attacks, and cyber defense. The conversation delves into AI-powered hacking, zero-day vulnerabilities, and the inherent dangers of increasingly autonomous AI systems. It provides strategic insights for enterprises, developers, and the open-source community on how to adapt to this evolving threat landscape and mitigate risks as the gap between vulnerability discovery and exploitation rapidly shrinks.</description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/7ee00d99-5bdd-4291-a6a9-10c4a14fc6dc/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&amp;awEpisodeId=7ee00d99-5bdd-4291-a6a9-10c4a14fc6dc&amp;feed=Hb_IuXOo" type="audio/mpeg" length="22904277" />
+      <itunes:image href="https://image.simplecastcdn.com/images/89450696-5007-4713-8168-eea085e49626/80ad2223-d8fa-4bb2-9645-8e2c1168a372/3000x3000/ai-a16z-podcast-cover-art-2.jpg?aid=rss_feed" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #24 — The a16z Show: OpenAI's Joshua Achiam: Did We Already Reach AGI?</title>
       <link>https://a16z.simplecast.com/episodes/openais-joshua-achiam-did-we-already-reach-agi-kjP0kXD4</link>
       <guid isPermaLink="false">8c452eea0cceee70</guid>
       <pubDate>Tue, 04 Aug 2026 14:56:48 +0000</pubDate>
@@ -218,7 +262,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #21 — Invest Like the Best: Gavin Baker - AI Market Jitters - [Invest Like the Best, EP.485]</title>
+      <title>🎧 LISTEN #25 — Invest Like the Best: Gavin Baker - AI Market Jitters - [Invest Like the Best, EP.485]</title>
       <link />
       <guid isPermaLink="false">d817b7c154c23109</guid>
       <pubDate>Tue, 04 Aug 2026 08:00:00 +0000</pubDate>
@@ -229,7 +273,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/c8fca7de-8f77-11f1-ae96-ab857574605f/image/e34471e6c9b4af0375abbd710ff0fa11.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #22 — Y Combinator Startup Podcast: Waymo Co-CEO Dmitri Dolgov: "Move Fast And Ship Safely"</title>
+      <title>🎧 LISTEN #26 — Y Combinator Startup Podcast: Waymo Co-CEO Dmitri Dolgov: "Move Fast And Ship Safely"</title>
       <link />
       <guid isPermaLink="false">dbda426f447aeb37</guid>
       <pubDate>Tue, 04 Aug 2026 16:55:08 +0000</pubDate>
@@ -238,7 +282,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #23 — Jason &amp; Scot Show: EP342 - The End of the Attention Economy, and What Retail Does Next with Mitch Joel</title>
+      <title>🎧 LISTEN #27 — Jason &amp; Scot Show: EP342 - The End of the Attention Economy, and What Retail Does Next with Mitch Joel</title>
       <link>https://jasonandscot.com/ep342-the-end-of-the-attention-economy-and-what-retail-does-next-with-mitch-joel</link>
       <guid isPermaLink="false">c9f7bc8824d30cc4</guid>
       <pubDate>Thu, 06 Aug 2026 07:46:05 +0000</pubDate>
@@ -248,7 +292,7 @@
       <enclosure url="https://traffic.libsyn.com/secure/jasshow/jass_mitch_VIDEO_AUPHONIC_AUDIO.mp3?dest-id=325386" type="audio/mpeg" length="41629112" />
     </item>
     <item>
-      <title>🎧 LISTEN #24 — Decoder: Tariffs didn’t bring manufacturing jobs back to the US</title>
+      <title>🎧 LISTEN #28 — Decoder: Tariffs didn’t bring manufacturing jobs back to the US</title>
       <link />
       <guid isPermaLink="false">1419fb4400c20e59</guid>
       <pubDate>Mon, 27 Jul 2026 09:00:00 +0000</pubDate>
@@ -257,17 +301,7 @@
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Masters of Scale: How to beef up your business, with ButcherBox CEO Mike Salguero</title>
-      <link />
-      <guid isPermaLink="false">a88abede4c44de42</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>2144</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 73/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 30 Jul 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 73 is between 50 and 74. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;ButcherBox CEO and founder Mike Salguero shares his journey of building a $600M+ subscription meat delivery business after a previous VC-backed failure. The episode highlights lessons learned the hard way, focusing on strategies like clean ingredients, clever marketing, and hiring for grit. It also covers the company&amp;#x27;s expansion into nationwide retail, offering direct insights into eCommerce and D2C scaling.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Scaling a D2C subscription business to significant revenue&lt;/li&gt;&lt;li&gt;Leveraging marketing and hiring strategies for growth&lt;/li&gt;&lt;li&gt;Expanding from online delivery into nationwide retail&lt;/li&gt;&lt;/ul&gt;</content:encoded>
-      <description>ButcherBox CEO and founder Mike Salguero shares his journey of building a $600M+ subscription meat delivery business after a previous VC-backed failure. The episode highlights lessons learned the hard way, focusing on strategies like clean ingredients, clever marketing, and hiring for grit. It also covers the company's expansion into nationwide retail, offering direct insights into eCommerce and D2C scaling.</description>
-      <enclosure url="https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/24f3b049-6384-44fb-a64a-960098461474.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="34306925" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #25 — The a16z Show: Fei-Fei Li on Spatial Intelligence and Robotics</title>
+      <title>🎧 LISTEN #29 — The a16z Show: Fei-Fei Li on Spatial Intelligence and Robotics</title>
       <link />
       <guid isPermaLink="false">d99da0b934e38cc5</guid>
       <pubDate>Tue, 28 Jul 2026 10:00:00 +0000</pubDate>
@@ -276,7 +310,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #26 — The SaaS Podcast: Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.</title>
+      <title>🎧 LISTEN #30 — The SaaS Podcast: Stuck at $50K ARR for 5 Years. Now $1.5M With AI Agents.</title>
       <link />
       <guid isPermaLink="false">6eaa776b43d6e57f</guid>
       <pubDate>Thu, 23 Jul 2026 12:00:00 +0000</pubDate>
@@ -285,7 +319,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #27 — The a16z Show: Steven Sinofsky: AI Doesn't Need New Rules Yet</title>
+      <title>🎧 LISTEN #31 — The a16z Show: Steven Sinofsky: AI Doesn't Need New Rules Yet</title>
       <link />
       <guid isPermaLink="false">638055d053e280da</guid>
       <pubDate>Mon, 27 Jul 2026 10:00:00 +0000</pubDate>
@@ -294,7 +328,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #28 — The a16z Show: Ben Horowitz: The Fight Over Open Source AI</title>
+      <title>🎧 LISTEN #32 — The a16z Show: Ben Horowitz: The Fight Over Open Source AI</title>
       <link />
       <guid isPermaLink="false">233712672e620be9</guid>
       <pubDate>Sun, 26 Jul 2026 13:15:04 +0000</pubDate>
@@ -303,7 +337,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #29 — Invest Like the Best: Sam Altman - How to Make an Abundant Future - [Invest Like the Best, EP.484]</title>
+      <title>🎧 LISTEN #33 — Invest Like the Best: Sam Altman - How to Make an Abundant Future - [Invest Like the Best, EP.484]</title>
       <link />
       <guid isPermaLink="false">d0fb92fb8a3c821c</guid>
       <pubDate>Tue, 28 Jul 2026 08:00:00 +0000</pubDate>
@@ -312,7 +346,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #30 — The a16z Show: Building the Physical AI Stack | Travis Kalanick on TBPN</title>
+      <title>🎧 LISTEN #34 — The a16z Show: Building the Physical AI Stack | Travis Kalanick on TBPN</title>
       <link />
       <guid isPermaLink="false">b6421cbd96cbddc4</guid>
       <pubDate>Thu, 23 Jul 2026 10:00:00 +0000</pubDate>
@@ -321,37 +355,7 @@
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Decoder: The end of the human internet</title>
-      <link />
-      <guid isPermaLink="false">af0b4b8faf6c9ef1</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>2584</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 68/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 30 Jul 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Highly relevant to AI and emerging technology, discussing a critical macro trend (&amp;quot;the end of the human internet&amp;quot;) that impacts product strategy. While the guest is a journalist rather than an operator, the strategic importance and novelty are high. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode, a cross-post from The Gray Area, features journalist Charlie Warzel discussing the evolving state of the internet, particularly the increasing prevalence of non-human actors and bots. It explores the implications of the &amp;quot;dead internet theory&amp;quot; and how the digital landscape is becoming overrun by AI-driven entities. The conversation delves into what this means for the future of online interaction, trust, and the design of digital products, offering a critical perspective on a significant emerging technology trend.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The increasing dominance of non-human actors (bots, AI) on the internet.&lt;/li&gt;&lt;li&gt;Implications of the &amp;quot;dead internet theory&amp;quot; for digital ecosystems and user experience.&lt;/li&gt;&lt;li&gt;Strategic considerations for product managers in an internet increasingly shaped by AI.&lt;/li&gt;&lt;/ul&gt;</content:encoded>
-      <description>This episode, a cross-post from The Gray Area, features journalist Charlie Warzel discussing the evolving state of the internet, particularly the increasing prevalence of non-human actors and bots. It explores the implications of the "dead internet theory" and how the digital landscape is becoming overrun by AI-driven entities. The conversation delves into what this means for the future of online interaction, trust, and the design of digital products, offering a critical perspective on a significant emerging technology trend.</description>
-      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP9978291563.mp3" type="audio/mpeg" length="0" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — The a16z Show: Three Startups Reinventing Critical Infrastructure</title>
-      <link>https://a16z.simplecast.com/episodes/three-startups-reinventing-critical-infrastructure-FkRDwjit</link>
-      <guid isPermaLink="false">aa629c66114a730d</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>4522</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 67/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 05 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 67 is between 50 and 74. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode revisits conversations with founders of three startups tackling critical infrastructure challenges: Ulysses (autonomous underwater robots), Mariana Materials (critical minerals supply chain), and Radiant (portable nuclear microreactors). It explores the technologies and entrepreneurial approaches behind rebuilding America&amp;#x27;s industrial foundations, offering a look at product strategy in complex, deep tech domains.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Product strategy in deep tech and critical infrastructure&lt;/li&gt;&lt;li&gt;Innovation in autonomous systems, supply chains, and energy&lt;/li&gt;&lt;li&gt;Founder challenges in highly complex and regulated industries&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/three-startups-reinventing-critical-infrastructure-FkRDwjit"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>This episode revisits conversations with founders of three startups tackling critical infrastructure challenges: Ulysses (autonomous underwater robots), Mariana Materials (critical minerals supply chain), and Radiant (portable nuclear microreactors). It explores the technologies and entrepreneurial approaches behind rebuilding America's industrial foundations, offering a look at product strategy in complex, deep tech domains.</description>
-      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/15117efd-a4fa-490c-a098-726d0b74ba74/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=15117efd-a4fa-490c-a098-726d0b74ba74&amp;feed=JGE3yC0V" type="audio/mpeg" length="72368074" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — Founders: #427 How Raymond Plank Built a $50 Billion Oil Company</title>
-      <link />
-      <guid isPermaLink="false">499e4c446040be33</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>2290</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 65/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 01 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 65 is between 50 and 74. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode delves into the entrepreneurial philosophy of Raymond Plank, founder of Apache Corporation, which grew from $250,000 to $50 billion. Drawing from his memoir, it focuses on Plank&amp;#x27;s lessons on opportunity, courage, cost control, resourcefulness, and adaptation over seven decades in business. While the industry is oil and gas, the principles of scaling a massive enterprise and strategic decision-making are highly transferable for a senior PM.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Long-term strategic thinking for massive business growth&lt;/li&gt;&lt;li&gt;Founder mindset: opportunity, resourcefulness, cost control&lt;/li&gt;&lt;li&gt;Adaptation and resilience in business over decades&lt;/li&gt;&lt;/ul&gt;</content:encoded>
-      <description>This episode delves into the entrepreneurial philosophy of Raymond Plank, founder of Apache Corporation, which grew from $250,000 to $50 billion. Drawing from his memoir, it focuses on Plank's lessons on opportunity, courage, cost control, resourcefulness, and adaptation over seven decades in business. While the industry is oil and gas, the principles of scaling a massive enterprise and strategic decision-making are highly transferable for a senior PM.</description>
-      <enclosure url="https://traffic.megaphone.fm/DSLLC1260176282.mp3" type="audio/mpeg" length="0" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #31 — The a16z Show: Sriram Krishnan on Open Source AI's Biggest Week Yet</title>
+      <title>🎧 LISTEN #35 — The a16z Show: Sriram Krishnan on Open Source AI's Biggest Week Yet</title>
       <link />
       <guid isPermaLink="false">02fce9f57fb0ca25</guid>
       <pubDate>Fri, 24 Jul 2026 10:00:00 +0000</pubDate>
@@ -360,7 +364,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #32 — The a16z Show: AI Micro Dramas, Generative Media, and the Future of Creativity</title>
+      <title>🎧 LISTEN #36 — The a16z Show: AI Micro Dramas, Generative Media, and the Future of Creativity</title>
       <link />
       <guid isPermaLink="false">7a8af04ee65d4958</guid>
       <pubDate>Wed, 29 Jul 2026 10:00:00 +0000</pubDate>
@@ -369,7 +373,7 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #33 — Future Commerce: VC Partner Predicts the Next Billion-Dollar Brand</title>
+      <title>🎧 LISTEN #37 — Future Commerce: VC Partner Predicts the Next Billion-Dollar Brand</title>
       <link />
       <guid isPermaLink="false">e97648c7d63ae319</guid>
       <pubDate>Wed, 22 Jul 2026 11:00:00 +0000</pubDate>
@@ -378,27 +382,18 @@
       <description />
     </item>
     <item>
-      <title>📖 SUMMARY — Decoder: Bluesky’s new CEO wants a big tent, not a bubble</title>
-      <link />
-      <guid isPermaLink="false">80359a3a91ea3a1c</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>4528</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 62/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 03 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;While featuring a high-authority guest discussing platform strategy and leadership, the specific domain (social media) is not a primary focus for the persona. It offers transferable strategic insights but lacks direct relevance to AI or eCommerce. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features an interview with Toni Schneider, the new CEO of Bluesky, a social platform. The discussion centers on Schneider&amp;#x27;s new priorities and vision for Bluesky, particularly his aim for a &amp;quot;big tent&amp;quot; approach rather than a niche &amp;quot;bubble.&amp;quot; The conversation likely delves into platform growth strategies, user acquisition, content moderation challenges, and the strategic shifts that come with new leadership, offering insights into building and scaling a tech platform. The value lies in the strategic thinking behind platform growth and leadership, rather than the specific social media context.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategic vision and leadership changes for a growing social platform.&lt;/li&gt;&lt;li&gt;Challenges and strategies for platform growth, user acquisition, and community building.&lt;/li&gt;&lt;li&gt;The &amp;quot;big tent&amp;quot; vs. &amp;quot;bubble&amp;quot; approach to platform development and user base.&lt;/li&gt;&lt;/ul&gt;</content:encoded>
-      <description>This episode features an interview with Toni Schneider, the new CEO of Bluesky, a social platform. The discussion centers on Schneider's new priorities and vision for Bluesky, particularly his aim for a "big tent" approach rather than a niche "bubble." The conversation likely delves into platform growth strategies, user acquisition, content moderation challenges, and the strategic shifts that come with new leadership, offering insights into building and scaling a tech platform. The value lies in the strategic thinking behind platform growth and leadership, rather than the specific social media context.</description>
-      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP2631794244.mp3" type="audio/mpeg" length="0" />
+      <title>📖 SUMMARY — The a16z Show: The Reality of AI-Powered Cyberattacks | Truffle Security &amp; Socket</title>
+      <link>https://a16z.simplecast.com/episodes/the-reality-of-ai-powered-cyberattacks-truffle-security-socket-vbyiWFXA</link>
+      <guid isPermaLink="false">1b40f34abe016c60</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>1431</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 62/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 07 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;While the content is highly relevant and strategic, this episode is a duplicate of Episode 0, making it redundant for the listener.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode, a duplicate of Episode 0, features co-founders Dylan Ayrey (Truffle Security) and Feross Aboukhadijeh (Socket) discussing the profound impact of AI on cybersecurity. They highlight a critical shift where AI models are not just identifying vulnerabilities but actively exploiting them, ushering in a new era for software security, supply chain attacks, and cyber defense. The conversation delves into AI-powered hacking, zero-day vulnerabilities, and the inherent dangers of increasingly autonomous AI systems. It provides strategic insights for enterprises, developers, and the open-source community on how to adapt to this evolving threat landscape and mitigate risks as the gap between vulnerability discovery and exploitation rapidly shrinks.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI models are moving from vulnerability discovery to active exploitation in cybersecurity.&lt;/li&gt;&lt;li&gt;This shift fundamentally changes software security, supply chain defense, and enterprise risk.&lt;/li&gt;&lt;li&gt;Enterprises and developers must adapt strategies to counter autonomous AI hacking capabilities.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders need to re-evaluate their security posture, invest in AI-driven defense mechanisms, and understand the evolving threat landscape for their products and supply chains. This impacts product design, development processes, and risk management.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/the-reality-of-ai-powered-cyberattacks-truffle-security-socket-vbyiWFXA"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode, a duplicate of Episode 0, features co-founders Dylan Ayrey (Truffle Security) and Feross Aboukhadijeh (Socket) discussing the profound impact of AI on cybersecurity. They highlight a critical shift where AI models are not just identifying vulnerabilities but actively exploiting them, ushering in a new era for software security, supply chain attacks, and cyber defense. The conversation delves into AI-powered hacking, zero-day vulnerabilities, and the inherent dangers of increasingly autonomous AI systems. It provides strategic insights for enterprises, developers, and the open-source community on how to adapt to this evolving threat landscape and mitigate risks as the gap between vulnerability discovery and exploitation rapidly shrinks.</description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/87281352-dde8-4d86-8aca-b732656f750d/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=87281352-dde8-4d86-8aca-b732656f750d&amp;feed=JGE3yC0V" type="audio/mpeg" length="22904277" />
+      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>📖 SUMMARY — Chasing Life: The Next Breakthrough Addiction Treatment May Be Here</title>
-      <link />
-      <guid isPermaLink="false">8815e5930a81f6b2</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>1754</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 62/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 31 Jul 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode discusses a significant emerging technology (GLP-1s) and its potential to disrupt healthcare, aligning with the persona&amp;#x27;s interest in &amp;#x27;AI and emerging technology&amp;#x27; and &amp;#x27;market structure analysis.&amp;#x27; The guests are highly authoritative. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Dr. Sanjay Gupta and Dr. Dhruv Khullar discussing the groundbreaking potential of GLP-1 drugs, initially known for diabetes and weight loss, in treating addiction. They explore how these drugs impact the brain&amp;#x27;s reward system and could offer a new frontier in addiction treatment. The conversation delves into the scientific mechanisms and the broader implications of this medical breakthrough, highlighting how a single class of drugs could transform multiple areas of healthcare and human behavior.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;GLP-1 drugs&amp;#x27; potential beyond diabetes and weight loss to treat addiction&lt;/li&gt;&lt;li&gt;Impact of GLP-1s on the brain&amp;#x27;s reward system&lt;/li&gt;&lt;li&gt;Implications of medical breakthroughs for new treatment paradigms&lt;/li&gt;&lt;/ul&gt;</content:encoded>
-      <description>This episode features Dr. Sanjay Gupta and Dr. Dhruv Khullar discussing the groundbreaking potential of GLP-1 drugs, initially known for diabetes and weight loss, in treating addiction. They explore how these drugs impact the brain's reward system and could offer a new frontier in addiction treatment. The conversation delves into the scientific mechanisms and the broader implications of this medical breakthrough, highlighting how a single class of drugs could transform multiple areas of healthcare and human behavior.</description>
-      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/swap.fm/track/2nzGkisFXQswLYT5s325/traffic.megaphone.fm/WMHY3694779984.mp3" type="audio/mpeg" length="0" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #34 — Decoder: What Apple’s OpenAI lawsuit is really about</title>
+      <title>🎧 LISTEN #38 — Decoder: What Apple’s OpenAI lawsuit is really about</title>
       <link />
       <guid isPermaLink="false">4c1c246be3e646a8</guid>
       <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
@@ -407,54 +402,59 @@
       <description />
     </item>
     <item>
-      <title>🎧 LISTEN #35 — 科技浪: EP148 - Kimi K3 震撼矽谷！真的這麼強嗎？</title>
+      <title>📖 SUMMARY — 文森說書: 遠看像是一本雞湯大全，仔細一看才發現真的是神作｜《隨他們去》</title>
       <link />
-      <guid isPermaLink="false">c5c8317a5e00d35c</guid>
-      <pubDate>Mon, 20 Jul 2026 04:09:28 +0000</pubDate>
-      <ns0:duration>0</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 59/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;carried over from previous run&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;&lt;/p&gt;</ns1:encoded>
-      <description />
+      <guid isPermaLink="false">b08132c5e091d9ba</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>4075</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 10 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;如果你有意願應徵兼職片師，可以將作品集以及你的介紹寄到信箱:readrwork@gmail.com 同一本書的動畫版本：https://youtu.be/1lxDrghv07k 我最喜歡書上談到的「比較」的部分！因為很多書都會談到比較帶來的缺點，但這本書卻將比較的情境變成一種激勵的情境，來告訴我們「讓他們去成功」，但我們能從他的成功當中看到什麼機會，還有給自己哪些力量！ 💻頻道官方網站：https://vincentreading.com/ 文森說書的專屬折扣都整理在這：https://vincentreading.com/reading-skill-tree/ 📩…&lt;/p&gt;</content:encoded>
+      <description>如果你有意願應徵兼職片師，可以將作品集以及你的介紹寄到信箱:readrwork@gmail.com 同一本書的動畫版本：https://youtu.be/1lxDrghv07k 我最喜歡書上談到的「比較」的部分！因為很多書都會談到比較帶來的缺點，但這本書卻將比較的情境變成一種激勵的情境，來告訴我們「讓他們去成功」，但我們能從他的成功當中看到什麼機會，還有給自己哪些力量！ 💻頻道官方網站：https://vincentreading.com/ 文森說書的專屬折扣都整理在這：https://vincentreading.com/reading-skill-tree/ 📩…</description>
+      <enclosure url="https://www.buzzsprout.com/1096139/episodes/19623290-.mp3" type="audio/mpeg" length="48959049" />
+      <itunes:image href="https://storage.buzzsprout.com/unm4kdiv1y0nu3pjzjad4qy0xu7l?.jpg" />
     </item>
     <item>
-      <title>📖 SUMMARY — 下一本讀什麼: EP.633 《大人學選擇》讀後心得：別當螺絲釘，要成為發電機</title>
-      <link>https://open.firstory.me/story/cmsgzmdxc0fnv01ykaxk61u6f</link>
-      <guid isPermaLink="false">f345ee72e455f35f</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>3297</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 53/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 06 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode offers frameworks for career decision-making and strategic positioning in the AI era, which is relevant for a Senior PM focused on career growth. While not directly about product strategy, it provides valuable personal strategic insights. The low transcript confidence and the somewhat generic nature of career advice prevent a &amp;#x27;Listen Fully&amp;#x27; recommendation.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode reviews the book &amp;#x27;Adult Learning Choices&amp;#x27; and features an interview with its author, Bryan 姚詩豪, co-founder of &amp;#x27;大人學&amp;#x27; (Adult Learning). It addresses the challenge of making career decisions in an increasingly complex and AI-driven world, where abundant information can paradoxically lead to more confusion. The core message advocates for moving beyond being a &amp;#x27;screw&amp;#x27; (a replaceable cog) to becoming a &amp;#x27;generator&amp;#x27; (an indispensable value creator). The discussion promises to introduce decision-making frameworks and strategies for building a personal career map, specifically tailored for the AI era, to help professionals make intentional choices that align with their long-term goals and accumulate valuable experience.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Adopt a &amp;#x27;generator&amp;#x27; mindset over a &amp;#x27;screw&amp;#x27; mindset for career longevity and impact in the AI era.&lt;/li&gt;&lt;li&gt;Utilize structured decision-making frameworks to navigate complex career choices.&lt;/li&gt;&lt;li&gt;Develop a personalized career map to ensure efforts align with long-term professional growth.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;A Senior PM can apply the discussed decision frameworks to their own career trajectory, especially in navigating the impact of AI on their role and industry. It encourages a proactive, strategic approach to personal development and skill acquisition, moving beyond reactive learning to intentional growth.&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cmsgzmdxc0fnv01ykaxk61u6f"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>This episode reviews the book 'Adult Learning Choices' and features an interview with its author, Bryan 姚詩豪, co-founder of '大人學' (Adult Learning). It addresses the challenge of making career decisions in an increasingly complex and AI-driven world, where abundant information can paradoxically lead to more confusion. The core message advocates for moving beyond being a 'screw' (a replaceable cog) to becoming a 'generator' (an indispensable value creator). The discussion promises to introduce decision-making frameworks and strategies for building a personal career map, specifically tailored for the AI era, to help professionals make intentional choices that align with their long-term goals and accumulate valuable experience.</description>
-      <enclosure url="https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cmsgzmdxc0fnv01ykaxk61u6f/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcmsgzmdxc0fnw01yk9qf67141.mp3?v=1785988851391" type="audio/mpeg" length="0" />
+      <title>📖 SUMMARY — Chasing Life: Your Checklist for Medical Care Abroad</title>
+      <link />
+      <guid isPermaLink="false">3c55359a31e0c759</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>1833</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 07 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;More Americans are traveling abroad for medical care. Sanjay talks with Harvard Law professor Glenn Cohen about vetting providers, understanding risks and asking the right questions, plus a practical checklist for navigating the process. Harvard Law Bulletin, “Patient Without Borders,” July 1, 2013…&lt;/p&gt;</content:encoded>
+      <description>More Americans are traveling abroad for medical care. Sanjay talks with Harvard Law professor Glenn Cohen about vetting providers, understanding risks and asking the right questions, plus a practical checklist for navigating the process. Harvard Law Bulletin, “Patient Without Borders,” July 1, 2013…</description>
+      <enclosure url="https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/swap.fm/track/2nzGkisFXQswLYT5s325/traffic.megaphone.fm/WMHY5457096870.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/f09483b0-af5e-11f0-8766-3f0de793611c/image/691d0c9b926a3e9c69da6d42f30529ff.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — The Real Story: Sales Tax Holiday Propaganda; Allie G. Responds to Our Interview with Maria Pappas; Purple Heart Veterans Day with Lynn Lowder; FREE FOR ALL FRIDAY</title>
+      <link>https://omny.fm/shows/the-real-story-with-jeanne-ives/sales-tax-holiday-propaganda-allie-g-responds-to-our-interview-with-maria-pappas-purple-heart-veterans-day-with-lynn-lowder-free-for-all-friday</link>
+      <guid isPermaLink="false">c08cb34d4fbf6b07</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>2525</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 07 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;See omnystudio.com/listener for privacy information.&lt;/p&gt;&lt;p&gt;&lt;a href="https://omny.fm/shows/the-real-story-with-jeanne-ives/sales-tax-holiday-propaganda-allie-g-responds-to-our-interview-with-maria-pappas-purple-heart-veterans-day-with-lynn-lowder-free-for-all-friday"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>See omnystudio.com/listener for privacy information.</description>
+      <enclosure url="https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/6524dddd-d2af-4e7a-acc0-b49f011980be/audio.mp3?utm_source=Podcast&amp;in_playlist=84012dca-7261-4f57-8637-b03f01228cb9" type="audio/mpeg" length="20256881" />
+      <itunes:image href="https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/image.jpg?t=1781024838&amp;size=Large" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — 周慕姿放心說: 【十分鐘心理學】不用開口就被照顧，是真愛還是陷阱？暖男與渣男情感操控的關鍵差別</title>
+      <link>https://open.firstory.me/story/cmsgyx5as06rr01vi6nbe6nao</link>
+      <guid isPermaLink="false">79efb1b2256168b9</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>1028</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 09 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;【專業聲明】 本集提及的「渣男」、「渣女」為通俗用語，泛指相關行為特質，並非特定指涉任何生理性別。 ⠀ ❝ 那些在關係裡最懂事、最體貼的人，往往也最容易留在忽冷忽熱的煎熬中，用無盡的理解來委屈自己。 ❞ — 知識衛星製作 ⠀ 在親密關係中，有一群在工作與生活上展現強大能力的個體，一旦進入重要關係，卻極易陷入令人痛苦的情感陷阱。面對伴侶忽冷忽熱、難以預測的態度，這群人往往成了最放不下、也最容易受傷的對象。 ⠀ 從心理學與 Bowen…&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cmsgyx5as06rr01vi6nbe6nao"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>【專業聲明】 本集提及的「渣男」、「渣女」為通俗用語，泛指相關行為特質，並非特定指涉任何生理性別。 ⠀ ❝ 那些在關係裡最懂事、最體貼的人，往往也最容易留在忽冷忽熱的煎熬中，用無盡的理解來委屈自己。 ❞ — 知識衛星製作 ⠀ 在親密關係中，有一群在工作與生活上展現強大能力的個體，一旦進入重要關係，卻極易陷入令人痛苦的情感陷阱。面對伴侶忽冷忽熱、難以預測的態度，這群人往往成了最放不下、也最容易受傷的對象。 ⠀ 從心理學與 Bowen…</description>
+      <enclosure url="https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cmsgyx5as06rr01vi6nbe6nao/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcmsgyx5as06rs01vicvs50f3w.mp3?v=1785987676384" type="audio/mpeg" length="0" />
+      <itunes:image href="https://image.firstory-cdn.me/Image/clysov3kl04yv01yi23cwbp3g/iX4KH__UrUk92g7xkXKcg.jpg" />
+    </item>
+    <item>
+      <title>📖 SUMMARY — 下一本讀什麼: EP.634 怎麼去除 AI 味？用 AI 提案不被老闆打槍的三個實戰做法</title>
+      <link>https://open.firstory.me/story/cmsjlwtp71oaf01xihz20070v</link>
+      <guid isPermaLink="false">8bd7cf02c23a964f</guid>
+      <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
+      <itunes:duration>2053</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 09 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;【本集節目由 瓦基自己 贊助播出】 《AI 瓦基第二大腦》 從思考框架、實戰工具到實際案例，給你一套可以照著做的 AI 協作系統： ▪️一站式學好 AI｜思維底層到實戰產出，一次完整學 ▪️10 項獨家 AI 專案包｜涵蓋寫作、決策、研究等場景 ▪️PACE 行動思考地圖｜四大象限對應所有 AI 應用場景 ▪️資料庫持續更新｜隨著 AI 迭代，持續跟你一起成長 ✨學一次，建一套跟著你持續複利成長的 AI 高產出系統✨ 📣結帳輸入折扣碼：yukiai，再折 $350 📣課程介紹： https://hi.sat.cool/u6R1Q 【本集訪談】 那天早上，Yuki…&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cmsjlwtp71oaf01xihz20070v"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>【本集節目由 瓦基自己 贊助播出】 《AI 瓦基第二大腦》 從思考框架、實戰工具到實際案例，給你一套可以照著做的 AI 協作系統： ▪️一站式學好 AI｜思維底層到實戰產出，一次完整學 ▪️10 項獨家 AI 專案包｜涵蓋寫作、決策、研究等場景 ▪️PACE 行動思考地圖｜四大象限對應所有 AI 應用場景 ▪️資料庫持續更新｜隨著 AI 迭代，持續跟你一起成長 ✨學一次，建一套跟著你持續複利成長的 AI 高產出系統✨ 📣結帳輸入折扣碼：yukiai，再折 $350 📣課程介紹： https://hi.sat.cool/u6R1Q 【本集訪談】 那天早上，Yuki…</description>
+      <enclosure url="https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cmsjlwtp71oaf01xihz20070v/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcmsjlwtp71oag01xi8oew6j2t.mp3?v=1786147224634" type="audio/mpeg" length="0" />
       <itunes:image href="https://image.firstory-cdn.me/Avatar/cl39lz2ky01co01ugaba7gr9y/1746157627292.jpg" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — 下一本讀什麼: EP.632 《偏心自己，不必向誰說明》讀後心得：活成自己喜歡的樣子</title>
-      <link>https://open.firstory.me/story/cmscvvx8c059w01td6fpu5353</link>
-      <guid isPermaLink="false">4d01abccb18efd7d</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>2741</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 03 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;【本集節目由 瓦基自己 贊助播出】 《AI 瓦基第二大腦》 從思考框架、實戰工具到實際案例，給你一套可以照著做的 AI 協作系統： ▪️一站式學好 AI｜思維底層到實戰產出，一次完整學 ▪️10 項獨家 AI 專案包｜涵蓋寫作、決策、研究等場景 ▪️PACE 行動思考地圖｜四大象限對應所有 AI 應用場景 ▪️資料庫持續更新｜隨著 AI 迭代，持續跟你一起成長 ✨學一次，建一套跟著你持續複利成長的 AI 高產出系統✨ 📣結帳輸入折扣碼：WKWF350，再折 $350 📣課程介紹： https://hi.sat.cool/u6R1Q 【本集訪談】 你有多久，沒有把自己放在第一位了？…&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cmscvvx8c059w01td6fpu5353"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>【本集節目由 瓦基自己 贊助播出】 《AI 瓦基第二大腦》 從思考框架、實戰工具到實際案例，給你一套可以照著做的 AI 協作系統： ▪️一站式學好 AI｜思維底層到實戰產出，一次完整學 ▪️10 項獨家 AI 專案包｜涵蓋寫作、決策、研究等場景 ▪️PACE 行動思考地圖｜四大象限對應所有 AI 應用場景 ▪️資料庫持續更新｜隨著 AI 迭代，持續跟你一起成長 ✨學一次，建一套跟著你持續複利成長的 AI 高產出系統✨ 📣結帳輸入折扣碼：WKWF350，再折 $350 📣課程介紹： https://hi.sat.cool/u6R1Q 【本集訪談】 你有多久，沒有把自己放在第一位了？…</description>
-      <enclosure url="https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cmscvvx8c059w01td6fpu5353/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcmscvvx8c059x01td006q9kk8.mp3?v=1785740719296" type="audio/mpeg" length="0" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — 下一本讀什麼: EP.631 50 歲才學 AI 會太晚嗎？吳淡如 60 歲活用 AI 攻取第二博士？</title>
-      <link>https://open.firstory.me/story/cms8my0jz0d1701zo5ppk1tw5</link>
-      <guid isPermaLink="false">03678c37b28d5133</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>2684</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 02 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;【本集節目由 瓦基 贊助播出】 《AI 瓦基第二大腦》 從思考框架、實戰工具到實際案例，給你一套可以照著做的 AI 協作系統： ▪️一站式學好 AI｜思維底層到實戰產出，一次完整學 ▪️10 項獨家 AI 專案包｜涵蓋寫作、決策、研究等場景 ▪️PACE 行動思考地圖｜四大象限對應所有 AI 應用場景 ▪️資料庫持續更新｜隨著 AI 迭代，持續跟你一起成長 ✨學一次，建一套跟著你持續複利成長的 AI 高產出系統✨ 📣結帳輸入折扣碼：WKWF350，再折 $350 📣課程介紹： https://hi.sat.cool/u6R1Q 【本集訪談】 50 歲才學 AI 會太晚嗎？…&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cms8my0jz0d1701zo5ppk1tw5"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>【本集節目由 瓦基 贊助播出】 《AI 瓦基第二大腦》 從思考框架、實戰工具到實際案例，給你一套可以照著做的 AI 協作系統： ▪️一站式學好 AI｜思維底層到實戰產出，一次完整學 ▪️10 項獨家 AI 專案包｜涵蓋寫作、決策、研究等場景 ▪️PACE 行動思考地圖｜四大象限對應所有 AI 應用場景 ▪️資料庫持續更新｜隨著 AI 迭代，持續跟你一起成長 ✨學一次，建一套跟著你持續複利成長的 AI 高產出系統✨ 📣結帳輸入折扣碼：WKWF350，再折 $350 📣課程介紹： https://hi.sat.cool/u6R1Q 【本集訪談】 50 歲才學 AI 會太晚嗎？…</description>
-      <enclosure url="https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cms8my0jz0d1701zo5ppk1tw5/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcms8my0jz0d1801zod69bgye8.mp3?v=1785483851570" type="audio/mpeg" length="0" />
-    </item>
-    <item>
-      <title>📖 SUMMARY — 下一本讀什麼: EP.630 《活出你的原廠設定》讀後心得：做自己，不須證明給誰看</title>
-      <link>https://open.firstory.me/story/cms5hcg0a1phb01xfcfka03ge</link>
-      <guid isPermaLink="false">671036c3ce644d5e</guid>
-      <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
-      <itunes:duration>3563</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 50/100&lt;/strong&gt; | Read Summary Only | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 30 Jul 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;LLM batch entry missing; metadata fallback (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;【本集節目由 PressPlay 知島 贊助播出】 《多重迷走神經塑造》 諮商心理師蘇予昕推薦了 Deb Dana 開的線上課程，這堂課用六週時間，帶你認識神經系統的三種狀態，學會辨認生活裡的「微光時刻」，建立自己的安全錨點，重新理解自己的故事。 📍 【多重迷走神經塑造 │ 6 週沉浸式實踐，重建安全感與深層內在連結】 Deb Dana 是全球多重迷走神經臨床實踐權威，在這這堂課可以學到： ▪️ 認識神經系統的三種狀態，學會辨認自己當下處在哪一種 ▪️ 練習聽懂身體發出的訊號，拿捏「有益的挑戰」和「過度的壓力」 ▪️學會辨認並放大生活中的「微光時刻」，建立自己的安全錨點 ▪️…&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cms5hcg0a1phb01xfcfka03ge"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
-      <description>【本集節目由 PressPlay 知島 贊助播出】 《多重迷走神經塑造》 諮商心理師蘇予昕推薦了 Deb Dana 開的線上課程，這堂課用六週時間，帶你認識神經系統的三種狀態，學會辨認生活裡的「微光時刻」，建立自己的安全錨點，重新理解自己的故事。 📍 【多重迷走神經塑造 │ 6 週沉浸式實踐，重建安全感與深層內在連結】 Deb Dana 是全球多重迷走神經臨床實踐權威，在這這堂課可以學到： ▪️ 認識神經系統的三種狀態，學會辨認自己當下處在哪一種 ▪️ 練習聽懂身體發出的訊號，拿捏「有益的挑戰」和「過度的壓力」 ▪️學會辨認並放大生活中的「微光時刻」，建立自己的安全錨點 ▪️…</description>
-      <enclosure url="https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cms5hcg0a1phb01xfcfka03ge/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcms5hcg0a1phc01xfghvo1b1w.mp3?v=1785293058865" type="audio/mpeg" length="0" />
     </item>
     <item>
       <title>📖 SUMMARY — The a16z Show: Marc Andreessen and Chris Dixon: What’s at Stake in Crypto Regulation</title>
