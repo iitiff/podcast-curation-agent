@@ -1,19 +1,33 @@
-# Podcast Scout — 2026-08-11
+# Podcast Scout — 2026-08-12
 
 ## 🎧 In Your Queue Today
 
-### 1. The a16z Show: The Self-Improving Company | Kavak's AI Playbook
-**Score:** 97/100 | **Listen Fully** | low confidence
-**Duration:** 37 min
+### 1. The a16z Show: The CISO Playbook for AI Agents | Datadog
+**Score:** 87/100 | **Listen Fully** | low confidence
+**Duration:** 23 min
 
-This episode features Alejandro Maza Ayala, Chief Product & AI Officer at Kavak, discussing how the Latin American used-car marketplace transformed its operations by rebuilding around AI agents. Kavak now handles 96% of customer interactions and 95% of transactions with AI. Alejandro explains their strategic decision to redesign systems, teams, and customer experience around agents, rather than just providing AI tools to employees. Key insights include Kavak's significant investment in AI evals, how AI sellers outperform human teams, and an experiment where an AI "CEO" boosted city profits by 50% in a month. The discussion also covers the impact on organizational structure, the company-wide AI training, and the argument for a holistic organizational redesign for AI adoption.
+Emilio Escobar, CISO at Datadog, discusses the strategic playbook for securing an organization where AI is pervasive, with thousands of engineers using coding agents. Datadog's approach involves embracing AI early and building robust security infrastructure rather than blocking tools. The conversation covers how AI redefines traditional security assumptions around data permissions, credentials, and software supply chains. Specific solutions like role-based MCP servers, ephemeral credentials, and an internal AI 'judge' are highlighted. The episode emphasizes the need for security teams to proactively innovate and collaborate with developers, focusing on managing AI vulnerabilities rather than fearing AI 'escaping'.
 
 **Key Ideas:**
-- Strategic organizational redesign around AI agents, not just AI tools, for significant business impact.
-- AI agents driving substantial operational efficiency and profit increases (e.g., 96% customer interactions, 50% profit increase).
-- Importance of robust AI evaluation systems and company-wide AI literacy for successful transformation.
+- Proactive AI security strategy: embrace and build, don't block.
+- AI's impact on traditional security assumptions (data, credentials, supply chain).
+- Practical solutions: AI 'judge', role-based MCP, ephemeral credentials.
 
-[Listen →](https://a16z.simplecast.com/episodes/how-kavak-rebuilt-itself-around-ai-agents-alejandro-maza-ayala-lp7LuwGh)
+[Listen →](https://a16z.simplecast.com/episodes/the-ciso-playbook-for-ai-agents-datadog-rhAxFNQK)
+
+
+### 2. Invest Like the Best: Eric Vishria - A Decade of Lessons Investing in Software & Hardware - [Invest Like the Best, EP.486]
+**Score:** 79/100 | **Listen Fully** | low confidence
+**Duration:** 66 min
+
+Eric Vishria, a General Partner at Benchmark, shares insights from his extensive career in software and cloud investing. The discussion delves into historical market shifts, drawing parallels between the rise of AWS and the current landscape of AI. Vishria explores what he's learned from investing in companies like Fireworks, Sierra, and Cerebras, and how the criteria for success have evolved for both founders and investors. This episode offers a macro-level view of technology markets, providing strategic context for understanding current trends and future directions in AI and software.
+
+**Key Ideas:**
+- Lessons from AWS's rise are applicable to understanding the AI market.
+- Changing criteria for successful founders and investors in tech.
+- Strategic insights from a decade of investing in software and hardware.
+
+[Listen →](https://colossus.com/episode/sandcastles-and-silicon/)
 
 
 ## 📌 Also Good — Didn't Fit Today's Queue
