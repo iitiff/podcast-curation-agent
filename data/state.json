@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-08-12T06:21:39.110082+00:00",
+  "last_run": "2026-08-13T06:23:42.404404+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -2630,6 +2630,166 @@
       "enclosure_type": "audio/mpeg",
       "enclosure_length": 18522690,
       "curated_at": null
+    },
+    "f6a358c2a3a58acf": {
+      "guid": "f6a358c2a3a58acf",
+      "show_title": "Future Commerce",
+      "episode_title": "Enter Through the Gift Shop: Inside MoMA's Retail Journey",
+      "published": "2026-08-12T11:00:00Z",
+      "processed_at": "2026-08-13T06:23:42.342040Z",
+      "score": 80.0,
+      "classification": "Listen Fully",
+      "classification_reason": "The episode features a high-authority guest discussing strategic retail innovation, brand extension, and the critical intersection of AI with human craft, directly addressing the persona's core interests in eCommerce, product strategy, and AI. Despite low transcript confidence, the description strongly indicates high strategic value.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/hQ2eLzNW",
+      "summary": "This episode delves into MoMA's innovative retail strategy, featuring Chief Retail Officer Jesse Goldstine. It explores how MoMA has transformed its gift shop model from a mere souvenir outlet into a significant revenue driver and brand extension, reaching millions beyond its physical visitors through thoughtfully designed products like apparel and home goods. Goldstine explains the meticulous process of ensuring every product aligns with MoMA's artistic mission and design principles. A key strategic focus is the institution's approach to integrating AI partnerships while safeguarding the integrity of human craft and artistic expression. This discussion offers valuable insights into scaling a brand through product, navigating the complexities of modern retail, and making strategic decisions about technology adoption in a creative context, making it highly relevant for senior product leaders interested in eCommerce, brand strategy, and AI ethics.",
+      "key_ideas": [
+        "Strategic inversion of the museum retail model for brand extension and revenue growth.",
+        "Integrating product craft and brand alignment across a diverse retail catalog.",
+        "Navigating AI partnerships while preserving human creativity and ethical considerations in design."
+      ],
+      "episode_url": "https://www.futurecommerce.com/podcasts/enter-through-the-gift-shop-inside-momas-retail-journey",
+      "duration_seconds": 1727,
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/afp-935226-injected.calisto.simplecastaudio.com/fed613f6-db08-4178-9009-bc6bae8658fc/episodes/db341cec-37dd-401f-b941-6355e092f0d7/audio/128/default.mp3?aid=rss_feed&awCollectionId=fed613f6-db08-4178-9009-bc6bae8658fc&awEpisodeId=db341cec-37dd-401f-b941-6355e092f0d7&feed=hQ2eLzNW",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 27647271,
+      "curated_at": null
+    },
+    "a4d2d8ea02ac96a7": {
+      "guid": "a4d2d8ea02ac96a7",
+      "show_title": "The a16z Show",
+      "episode_title": "Garry Tan on Taste, Agents and Founder Ambition",
+      "published": "2026-08-12T10:26:08Z",
+      "processed_at": "2026-08-13T06:23:42.342128Z",
+      "score": 86.0,
+      "classification": "Listen Fully",
+      "classification_reason": "This episode features a top-tier guest (Garry Tan) discussing highly relevant and strategic topics like AI's impact on company building, the rise of 'agentic companies,' and the future of SaaS. It offers concrete insights into AI product strategy and organizational design, directly aligning with the persona's focus on AI, product craft, and career growth at a strategic level.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "summary": "Garry Tan, President and CEO of Y Combinator, explores how AI is fundamentally reshaping the startup playbook and the economics of company building. He discusses the emergence of 'agentic companies' where small teams leverage AI to achieve unprecedented scale, challenging traditional SaaS models and organizational bureaucracy. Tan shares lessons from his two decades in Silicon Valley, emphasizing the pursuit of 'earnest obsessions' over fleeting trends. The conversation delves into the future of consumer AI, the concept of 'harness wars,' and the potential for a slower-than-expected AI adoption, providing strategic foresight for product leaders on building the next generation of intelligent products.",
+      "key_ideas": [
+        "AI enables 'agentic companies' where small teams leverage AI agents to achieve massive scale, fundamentally changing organizational structures and the economics of company building.",
+        "Strategic product development should focus on 'earnest obsessions' rather than chasing 'hot' trends, a lesson drawn from decades of Silicon Valley experience.",
+        "The future of AI involves 'harness wars' and a potentially slower adoption curve than anticipated, requiring product leaders to consider long-term strategic implications for consumer AI."
+      ],
+      "episode_url": "https://a16z.simplecast.com/episodes/garry-tan-on-taste-agents-and-founder-ambition-5Wi5biPg",
+      "duration_seconds": 3123,
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/cab51e91-62c3-4d8f-bf0b-93bfdf079f56/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=cab51e91-62c3-4d8f-bf0b-93bfdf079f56&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 49971731,
+      "curated_at": null
+    },
+    "6c97223e9838a6ec": {
+      "guid": "6c97223e9838a6ec",
+      "show_title": "The Prof G Pod",
+      "episode_title": "The Case for Moving Money and Life to Europe, and the Future of Podcast Ads",
+      "published": "2026-08-12T08:00:00Z",
+      "processed_at": "2026-08-13T06:23:42.342150Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode covers disparate topics largely irrelevant to the persona's focus on AI, product strategy, and eCommerce. Discussions on personal finance, higher education, and general podcast ad economics lack the strategic depth and direct applicability required for a senior PM's career growth and product craft upskill. The content is too generic and off-topic.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "summary": "Scott Galloway discusses a range of disparate topics including the personal finance and lifestyle thesis of 'make it in America, spend it in Europe,' the economic metrics driving podcast advertising, the financial aspects of higher education, and advice on building an academic career. The episode offers general market commentary and personal insights, touching on media economics and career paths, but lacks a focused strategic discussion relevant to product strategy, AI, or eCommerce for a senior product leader.",
+      "key_ideas": [
+        "Analysis of the economic metrics and trends within the podcast advertising market.",
+        "Discussion on the personal finance strategy of living in Europe while earning in America.",
+        "Insights into the economics of higher education and career development in academia."
+      ],
+      "episode_url": "",
+      "duration_seconds": 1590,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP9077777089.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "b49612650409c25e": {
+      "guid": "b49612650409c25e",
+      "show_title": "The Tim Ferriss Show",
+      "episode_title": "#879: How to Reinvent Yourself and Make Bold Moves \u2014 Decisive Stories from Matthew McConaughey, Steve Young, Samin Nosrat, and More",
+      "published": "2026-08-12T10:00:00Z",
+      "processed_at": "2026-08-13T06:23:42.342165Z",
+      "score": 82.0,
+      "classification": "Listen Fully",
+      "classification_reason": "This compilation episode offers deep insights into strategic career reinvention and bold decision-making through the compelling, first-hand accounts of highly authoritative guests, including founders and operators. It directly supports the persona's focus on career growth and provides transferable lessons on high-stakes strategic pivots, even if not directly in AI or eCommerce product craft.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/tim-ferriss-show",
+      "summary": "This Tim Ferriss Show compilation explores the theme of reinvention and making bold career moves through the decisive stories of various high-achieving individuals. It features Matthew McConaughey's strategic pivot from romantic comedies, Steve Young's identity shift, Lori Gottlieb's multi-career path, Samin Nosrat's choice to leave a successful business for writing, and Martine Rothblatt's entrepreneurial journey in starting a pharmaceutical company. The episode provides diverse perspectives on shedding old identities, navigating uncertainty, and committing to new professional chapters, offering transferable lessons on strategic career management and risk-taking.",
+      "key_ideas": [
+        "Strategic career pivots require bold decisions and a willingness to shed old identities.",
+        "High-stakes reinvention often involves navigating uncertainty and long-term commitment.",
+        "Lessons from diverse successful individuals can inform personal and professional strategic choices."
+      ],
+      "episode_url": "",
+      "duration_seconds": 3680,
+      "enclosure_url": "https://rss.art19.com/episodes/9eacccbb-545a-4944-81c8-d1c9a0efd805.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 58883761,
+      "curated_at": null
+    },
+    "aba25a8061ecae13": {
+      "guid": "aba25a8061ecae13",
+      "show_title": "\u771f\u5982\u8001\u5e2b-\u5ee3\u6d77\u660e\u6708",
+      "episode_title": "0562\u3000\u8001\u6bd4\u4e18\u8b49\u56db\u679c\u516c\u6848\uff08\u4e00\uff09",
+      "published": "2026-08-12T16:01:07Z",
+      "processed_at": "2026-08-13T06:23:42.342177Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "This episode is entirely focused on religious/spiritual content, which is completely irrelevant to a Senior PM's focus on product strategy, AI, eCommerce, or career growth in a business context.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://www.amrtf.org/podcast/rss/B000035.xml",
+      "summary": "This episode, titled \"Old Bhikkhu Attains Four Fruits Case (1)\", appears to be a religious or spiritual discourse, likely Buddhist, focusing on a specific case or teaching within that tradition. It is entirely unrelated to business, technology, product management, or career development for a Senior PM.",
+      "key_ideas": [],
+      "episode_url": "https://www.amrtf.org/zh-hant/clear-moonlight-great-ocean-0562",
+      "duration_seconds": 614,
+      "enclosure_url": "https://cdn.amec.amrtf.org/volumeMedia/B000035/562/c1d692d5-a45e-42ec-9a2a-a6bd9a193149.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 4912526,
+      "curated_at": null
+    },
+    "8451c048f6809fa7": {
+      "guid": "8451c048f6809fa7",
+      "show_title": "The Real Story",
+      "episode_title": "WI and MN Are Still Going Socialist; Another Great Scam in IL; Watchdog Wednesday",
+      "published": "2026-08-12T17:09:28Z",
+      "processed_at": "2026-08-13T06:23:42.342189Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode appears to be political commentary focused on US state-level politics and economic policies, framed in a partisan manner. It does not offer strategic insights into product strategy, AI, eCommerce, or product craft relevant to a Senior PM.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/84012dca-7261-4f57-8637-b03f01228cb9/podcast.rss",
+      "summary": "This episode from \"The Real Story\" discusses political and economic developments in Wisconsin, Minnesota, and Illinois, with titles like \"WI and MN Are Still Going Socialist\" and \"Another Great Scam in IL.\" It likely offers commentary on state-level policies and alleged misdoings, possibly from a specific political viewpoint.",
+      "key_ideas": [],
+      "episode_url": "https://omny.fm/shows/the-real-story-with-jeanne-ives/wi-and-mn-are-still-going-socialist-another-great-scam-in-il-watchdog-wednesday",
+      "duration_seconds": 2487,
+      "enclosure_url": "https://traffic.omny.fm/d/clips/5e27a451-e6e6-4c51-aa03-a7370003783c/5893dc74-62b8-4c47-893c-b03f01224dc8/c49b08b3-2422-42e5-9003-b4a4011a2d4c/audio.mp3?utm_source=Podcast&in_playlist=84012dca-7261-4f57-8637-b03f01228cb9",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 19950869,
+      "curated_at": null
+    },
+    "7fcc568ecefccef7": {
+      "guid": "7fcc568ecefccef7",
+      "show_title": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "episode_title": "\u3010\u653e\u5fc3\u4f86\u4fe1\u3011\u5bb6\u4eba\u53cd\u5c0d\u4f60\u7684\u5922\u60f3\uff0c\u8a72\u5805\u6301\u9084\u662f\u653e\u68c4\uff1f\u771f\u6b63\u91cd\u8981\u7684\uff0c\u662f\u5206\u6e05\u5225\u4eba\u7684\u7126\u616e\u8207\u81ea\u5df1\u7684\u8cac\u4efb",
+      "published": "2026-08-12T22:02:11Z",
+      "processed_at": "2026-08-13T06:23:42.342199Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "This episode focuses on personal development, managing family expectations, and pursuing dreams, which falls under generic soft-skills and motivational content. It does not provide strategic insights into product strategy, AI, eCommerce, or product craft relevant to a Senior PM.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g",
+      "summary": "This episode addresses the challenge of pursuing personal dreams when faced with family opposition, especially amidst financial or health pressures. The host, a psychologist, shares personal anecdotes and offers advice on distinguishing one's own responsibilities from others' anxieties, setting boundaries, and accepting the costs of one's choices. It emphasizes strengthening self-belief to navigate external criticism and avoid letting \"laymen\" dictate one's career path.",
+      "key_ideas": [
+        "Distinguish between personal aspirations and family expectations.",
+        "Understand the roots of self-doubt when facing criticism.",
+        "Establish clear personal boundaries to protect one's chosen path."
+      ],
+      "episode_url": "https://open.firstory.me/story/cmsil20od0w5o01vi3prn10ao",
+      "duration_seconds": 988,
+      "enclosure_url": "https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cmsil20od0w5o01vi3prn10ao/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcmsil20od0w5p01vicc8bbtv4.mp3?v=1786085299406",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
     }
   },
   "published": [
@@ -2730,7 +2890,10 @@
     "deac1283001f853c",
     "5748a497470a67b6",
     "74f04c0a7c6e5059",
-    "6a517f2e04febb38"
+    "6a517f2e04febb38",
+    "f6a358c2a3a58acf",
+    "a4d2d8ea02ac96a7",
+    "b49612650409c25e"
   ],
   "playlist": [
     "d99da0b934e38cc5",
@@ -2759,7 +2922,10 @@
     "9e13b0a0c3f46257",
     "b45961c22c04c403",
     "74f04c0a7c6e5059",
-    "6a517f2e04febb38"
+    "6a517f2e04febb38",
+    "f6a358c2a3a58acf",
+    "a4d2d8ea02ac96a7",
+    "b49612650409c25e"
   ],
   "emailed": [
     "6a94a25c9cbce596",
@@ -2807,6 +2973,9 @@
     "deac1283001f853c",
     "5748a497470a67b6",
     "74f04c0a7c6e5059",
-    "6a517f2e04febb38"
+    "6a517f2e04febb38",
+    "a4d2d8ea02ac96a7",
+    "b49612650409c25e",
+    "f6a358c2a3a58acf"
   ]
 }
