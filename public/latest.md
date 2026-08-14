@@ -1,50 +1,61 @@
-# Podcast Scout — 2026-08-13
+# Podcast Scout — 2026-08-14
 
 ## 🎧 In Your Queue Today
 
-### 1. The a16z Show: Garry Tan on Taste, Agents and Founder Ambition
-**Score:** 86/100 | **Listen Fully** | low confidence
-**Duration:** 52 min
+### 1. Retailgentic: Physical AI Hits the Sales Floor: FrontlineIQ CEO & Co-Founder Ben Rodier
+**Score:** 92/100 | **Listen Fully** | low confidence
+**Duration:** 54 min
 
-Garry Tan, President and CEO of Y Combinator, explores how AI is fundamentally reshaping the startup playbook and the economics of company building. He discusses the emergence of 'agentic companies' where small teams leverage AI to achieve unprecedented scale, challenging traditional SaaS models and organizational bureaucracy. Tan shares lessons from his two decades in Silicon Valley, emphasizing the pursuit of 'earnest obsessions' over fleeting trends. The conversation delves into the future of consumer AI, the concept of 'harness wars,' and the potential for a slower-than-expected AI adoption, providing strategic foresight for product leaders on building the next generation of intelligent products.
-
-**Key Ideas:**
-- AI enables 'agentic companies' where small teams leverage AI agents to achieve massive scale, fundamentally changing organizational structures and the economics of company building.
-- Strategic product development should focus on 'earnest obsessions' rather than chasing 'hot' trends, a lesson drawn from decades of Silicon Valley experience.
-- The future of AI involves 'harness wars' and a potentially slower adoption curve than anticipated, requiring product leaders to consider long-term strategic implications for consumer AI.
-
-[Listen →](https://a16z.simplecast.com/episodes/garry-tan-on-taste-agents-and-founder-ambition-5Wi5biPg)
-
-
-### 2. The Tim Ferriss Show: #879: How to Reinvent Yourself and Make Bold Moves — Decisive Stories from Matthew McConaughey, Steve Young, Samin Nosrat, and More
-**Score:** 82/100 | **Listen Fully** | low confidence
-**Duration:** 61 min
-
-This Tim Ferriss Show compilation explores the theme of reinvention and making bold career moves through the decisive stories of various high-achieving individuals. It features Matthew McConaughey's strategic pivot from romantic comedies, Steve Young's identity shift, Lori Gottlieb's multi-career path, Samin Nosrat's choice to leave a successful business for writing, and Martine Rothblatt's entrepreneurial journey in starting a pharmaceutical company. The episode provides diverse perspectives on shedding old identities, navigating uncertainty, and committing to new professional chapters, offering transferable lessons on strategic career management and risk-taking.
+This episode features Ben Rodier, CEO & Co-Founder of FrontlineIQ, discussing the application of physical AI on the sales floor. Rodier shares his journey and insights into building an AI sales coach for in-store personnel in sectors like furniture and apparel. Key takeaways include the "Rule of 30," an inflection point where AI coaching significantly boosts sales performance, and the "crocodile chart" illustrating this ROI. The discussion covers a "trust-first" approach to AI implementation, leveraging voice-mode role-play, and positioning AI tools as profit centers rather than cost centers. Rodier also touches on his past experience inventing retail-media ads and the challenges of humanless AI, exemplified by McDonald's failed drive-through experiment.
 
 **Key Ideas:**
-- Strategic career pivots require bold decisions and a willingness to shed old identities.
-- High-stakes reinvention often involves navigating uncertainty and long-term commitment.
-- Lessons from diverse successful individuals can inform personal and professional strategic choices.
+- Physical AI coaching for frontline sales drives measurable ROI, exemplified by the "Rule of 30" and "crocodile chart."
+- A "trust-first" sequence (data, AI role-play, privacy-compliant listening) is crucial for successful AI adoption in human-centric roles.
+- AI tools can be positioned as profit centers by directly linking practice to increased sales performance.
 
-### 3. Future Commerce: Enter Through the Gift Shop: Inside MoMA's Retail Journey
-**Score:** 80/100 | **Listen Fully** | low confidence
-**Duration:** 29 min
+[Listen →](https://share.transistor.fm/s/2aee8482)
 
-This episode delves into MoMA's innovative retail strategy, featuring Chief Retail Officer Jesse Goldstine. It explores how MoMA has transformed its gift shop model from a mere souvenir outlet into a significant revenue driver and brand extension, reaching millions beyond its physical visitors through thoughtfully designed products like apparel and home goods. Goldstine explains the meticulous process of ensuring every product aligns with MoMA's artistic mission and design principles. A key strategic focus is the institution's approach to integrating AI partnerships while safeguarding the integrity of human craft and artistic expression. This discussion offers valuable insights into scaling a brand through product, navigating the complexities of modern retail, and making strategic decisions about technology adoption in a creative context, making it highly relevant for senior product leaders interested in eCommerce, brand strategy, and AI ethics.
+
+### 2. The SaaS Podcast: Featherless AI: When Your Weekend Experiment Makes More Than Your Startup
+**Score:** 89/100 | **Listen Fully** | low confidence
+**Duration:** 48 min
+
+Eugene Cheah, founder of Featherless AI, shares the story of pivoting his startup after a side experiment, offering access to open-source AI models, quickly out-earned his original product. He details crucial lessons including the importance of letting experiments guide strategy, avoiding attachment to one's own technology, and the strategic advantage of flat monthly pricing over per-token billing for enterprise AI. Cheah also explains how simplifying the homepage improved conversion and how targeting less-contested open-source models led to rapid growth, reaching multiple seven figures in ARR within a year and securing a Series A.
 
 **Key Ideas:**
-- Strategic inversion of the museum retail model for brand extension and revenue growth.
-- Integrating product craft and brand alignment across a diverse retail catalog.
-- Navigating AI partnerships while preserving human creativity and ethical considerations in design.
+- Strategic pivot based on customer demand and experiment results, not initial product vision.
+- Innovative AI pricing models (flat rate) to overcome procurement hurdles.
+- GTM and product messaging strategies for emerging AI technologies.
 
-[Listen →](https://www.futurecommerce.com/podcasts/enter-through-the-gift-shop-inside-momas-retail-journey)
+### 3. The a16z Show: The Two Ways to Sell AI: Lighthouse or Landgrab?
+**Score:** 87/100 | **Listen Fully** | low confidence
+**Duration:** 45 min
 
+This episode from a16z explores two distinct go-to-market (GTM) strategies for AI startups: 'Lighthouse' (securing a few marquee customers to validate and unlock an industry) and 'Landgrab' (rapidly expanding across a broad market where ROI is clear). Featuring a16z partners and an experienced sales leader, the discussion delves into how founders can choose the right strategy, the role of social proof versus quantitative ROI, and the unique opportunities presented by the current AI adoption surge. It also provides tactical advice on POCs, pricing, ACV, building early sales teams, and the importance of execution over excessive GTM planning.
+
+**Key Ideas:**
+- 'Lighthouse' vs. 'Landgrab' GTM framework for AI products.
+- Strategic considerations for pricing, POCs, and sales team building in AI.
+- Leveraging the current AI market dynamics for rapid growth.
+
+[Listen →](https://a16z.simplecast.com/episodes/the-two-ways-to-sell-ai-lighthouse-or-landgrab-9C2mrr4S)
+
+
+### 4. No Priors: What Chess.com Teaches US About Superhuman Capabilities, with CEO Erik Allebest
+**Score:** 81/100 | **Listen Fully** | low confidence
+**Duration:** 46 min
+
+This episode features Erik Allebest, co-founder and CEO of Chess.com, discussing how a centuries-old game remains popular in the modern digital age. Allebest shares the journey of Chess.com, from its origins as a community-focused platform to its current scale of 10 million daily active users and 250 million registered members. The conversation delves into the role of technology in maintaining chess's cultural relevance, the impact of private equity investments from General Atlantic and CVC on their growth, and critically, how Chess.com is strategically leveraging AI both internally for business operations and externally to enhance its product for the community.
+
+**Key Ideas:**
+- Building and scaling a robust online community around a niche interest can lead to massive user engagement and growth.
+- Strategic AI integration, both for internal business operations and product enhancement, is crucial for evolving and sustaining a digital platform.
+- Private equity investment can significantly accelerate platform growth and strengthen market position.
 
 ## 📌 Also Good — Didn't Fit Today's Queue
 
-- **Y Combinator Startup Podcast: Max Hodak: How Startups Build Speed** (Score 70) — Max Hodak, CEO of Science, discusses how his company, which is developing a retinal implant to restore vision, builds speed and operational efficiency...
-  [Link](https://podcasters.spotify.com/pod/show/ycombinator/episodes/Max-Hodak-How-Startups-Build-Speed-e3n8178)
-- **Think Fast Talk Smart: 313. Hold the Headline: How Curiosity Cuts Through Complexity** (Score 50) — "The dumbest thing you can be is a know-it-all." Curiosity isn't about having all the answers—it's about asking better questions. Journalist and podca...
-  [Link](https://www.fastersmarter.io/313-hold-the-headline-how-curiosity-cuts-through-complexity/)
-- **Decoder: Bose CEO Lila Snyder on the fight for high-quality audio** (Score 50) — My guest today is Lila Snyder, the CEO of Bose. Lila was last on the show about four years ago, and since then she’s dramatically rearchitected the co...
+- **Decoder: Does Google even want to win in AI?** (Score 77) — This episode of Decoder features Hayden Field from The Verge, delving into the critical question of Google's commitment and performance in the AI race...
+- **Y Combinator Startup Podcast: Chelsea Finn: This is the State of the Art in Robotics** (Score 77) — Chelsea Finn, co-founder of Physical Intelligence, discusses the current state and future trajectory of robotics, highlighting the shift towards gener...
+  [Link](https://podcasters.spotify.com/pod/show/ycombinator/episodes/Chelsea-Finn-This-is-the-State-of-the-Art-in-Robotics-e3nc492)
+- **The Real Story: ‘We’ll Wake Up One Day to Find a Different World’: The BRICS+ Shift Is Here | Andy Schectman** (Score 64) — Andy Schectman, CEO of Miles Franklin Precious Metals, discusses the BRICS+ alliance's methodical efforts to build alternative financial infrastructur...
+  [Link](https://podcasters.spotify.com/pod/show/the-good-podcast-co6/episodes/Well-Wake-Up-One-Day-to-Find-a-Different-World-The-BRICS-Shift-Is-Here--Andy-Schectman-e3n9edd)
