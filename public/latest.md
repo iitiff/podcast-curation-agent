@@ -1,28 +1,43 @@
-# Podcast Scout — 2026-08-18
+# Podcast Scout — 2026-08-19
 
 ## 🎧 In Your Queue Today
 
-### 1. The a16z Show: Stripe’s AI Strategy: Build More, Not Less
-**Score:** 82/100 | **Listen Fully** | low confidence
-**Duration:** 55 min
+### 1. Invest Like the Best: Ben Thompson on Big Tech, China, and the AI Boom Running Out of Money - [Invest Like the Best, EP.487]
+**Score:** 84/100 | **Listen Fully** | low confidence
+**Duration:** 76 min
 
-This 55-minute episode features Will Gaybrick, President of Product & Business at Stripe, discussing how AI is fundamentally reshaping Stripe's product development, team organization, and vision for internet commerce. Gaybrick elaborates on Stripe's philosophy of leveraging AI for increased output ("build more, not less"), citing internal coding agents generating thousands of pull requests weekly. The conversation delves into fostering founder-like agency within large organizations, the benefits of smaller, flatter teams, and the anticipated explosion of software creation as development costs decrease. Looking ahead, the episode explores transformative concepts like agentic commerce, the potential obsolescence of checkout pages, the resurgence of micropayments, the role of stablecoins in a global economy, and a future where AI agents autonomously transact with each other.
+Ben Thompson of Stratechery offers a deep strategic analysis of the current tech landscape, covering major players like OpenAI, Nvidia, Apple, Microsoft, Google, and Amazon. He delves into the geopolitical implications of the AI race, particularly concerning China, and draws insightful historical parallels to infrastructure buildouts like 1870s railroads. A key argument is that capital, rather than compute, might be the ultimate binding constraint on the AI boom. This episode provides a macro-level view of market structure, competitive dynamics, and long-term trends shaping the future of technology and global power.
 
 **Key Ideas:**
-- Stripe's "build more, not less" AI strategy, leveraging internal coding agents for massive productivity gains.
-- Future of internet commerce: agentic commerce, disappearing checkouts, micropayments, and AI-to-AI transactions.
-- Organizational design for the AI era: fostering founder-like agency and smaller, flatter teams.
+- Capital as the binding constraint for the AI boom, not just compute.
+- Geopolitical implications of the AI race, especially US-China dynamics.
+- Historical parallels for understanding current tech infrastructure buildouts.
 
-[Listen →](https://a16z.simplecast.com/episodes/stripes-ai-strategy-build-more-not-less-0w7FfhZZ)
+[Listen →](https://colossus.com/episode/winners-losers-ai-era/)
 
+
+### 2. Masters of Scale: What the jobs report isn't telling you about AI & the workforce, with Upwork’s Hayden Brown
+**Score:** 78/100 | **Listen Fully** | low confidence
+**Duration:** 30 min
+
+Hayden Brown, CEO of Upwork, provides a data-driven perspective on AI's real-time impact on the workforce, drawing from Upwork's 18 million freelancers. She reveals which skills are in demand, which are declining, and the surprising trend of businesses bringing humans back after initially shifting work to AI. Brown discusses the gap between AI hype and reality, offering insights into how companies are actually integrating AI and managing workforce changes, including Upwork's own experience with layoffs. This episode offers a ground-level view of AI's economic and talent implications, crucial for product leaders shaping future strategies.
+
+**Key Ideas:**
+- AI's nuanced impact on the workforce: skill shifts and job evolution.
+- The 'boomerang effect': businesses bringing humans back after AI adoption.
+- Bridging the gap between AI hype and real-world implementation challenges.
 
 ## 📌 Also Good — Didn't Fit Today's Queue
 
+- **The a16z Show: How Do You Defend Against AI That Can Hack?** (Score 73) — Joel De La Garza (a16z), Nick Warner (Neo), and Max Pollard (Cotool) explore the evolving landscape of cybersecurity as AI agents become capable of fi...
+  [Link](https://a16z.simplecast.com/episodes/how-do-you-defend-against-ai-that-can-hack-L2M2EmmY)
 - **Masters of Scale: Pioneers of AI:  Why AI conversations are always one-sided** (Score 66) — This episode explores the fundamental challenge of building trust and emotional connection between humans and AI, specifically chatbots. Pulitzer Priz...
+- **The Prof G Pod: China Decode: Microsoft's China Retreat, Remembering Zhu Rongji, and Typhoon Dolphin's Aftermath** (Score 63) — Alice Han and James Kynge dissect Microsoft's strategic retreat from China over the past five years, detailing office closures and job reductions, whi...
 - **The Prof G Pod: The Week: The Half-Trillion-Dollar AI Loop** (Score 62) — This episode of 'The Week' connects several major current events, with a particular focus on 'The Half-Trillion-Dollar AI Loop' involving Nvidia's str...
 - **Think Fast Talk Smart: 315. Quietly Powerful: How Introverts Can Communicate With Confidence & Impact** (Score 50) — “Over time, what works is truly showing up in a way where you actually care, you're actually trying to give value.” In a culture that rewards boldness...
   [Link](https://www.fastersmarter.io/315-quietly-powerful-how-introverts-can-communicate-with-confidence-impact/)
 - **Decoder: It's about ethics in journalism, with Ben Smith** (Score 50) — Today I’m talking to Ben Smith, the editor-in-chief of Semafor. Ben ran BuzzFeed News at the height of the Facebook traffic boom, and even wrote a boo...
+- **文森說書: 救助到底是在自我感動，還是真的能改善另一群人的生活？到非洲生活十一年後得到的經驗 feat. 愛女孩國際關懷協會創辦人 楊怡庭** (Score 50) — 這一集的影片版本：https://youtu.be/19D7DnEQ0To 📌 節目資訊補充｜愛女孩國際關懷協會 Love Binti International 在非洲，許多女孩因為一片衛生棉而失去上學的機會，也有家庭因缺乏乾淨水源而面臨健康風險。 愛女孩自 2015 年起深耕非洲，推動月經健康、...
 - **Chasing Life: Revisiting: Relax, Jealousy is Normal** (Score 50) — No, you’re not petty for feeling jealous. Research shows humans experience this emotion even before they can crawl. CNN chief medical correspondent Dr...
 - **The Real Story: Pastor Lorenzo Sewell on El-Sayed and Election Fraud; FREE FOR ALL FRIDAY** (Score 50) — See omnystudio.com/listener for privacy information....
   [Link](https://omny.fm/shows/the-real-story-with-jeanne-ives/pastor-lorenzo-sewell-on-el-sayed-and-election-fraud-free-for-all-friday)

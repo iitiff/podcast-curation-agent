@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-08-18T05:38:00.504561+00:00",
+  "last_run": "2026-08-19T05:38:35.343841+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -3506,6 +3506,122 @@
       "enclosure_type": "audio/mpeg",
       "enclosure_length": 20080678,
       "curated_at": null
+    },
+    "96cd539df618fce5": {
+      "guid": "96cd539df618fce5",
+      "show_title": "Invest Like the Best",
+      "episode_title": "Ben Thompson on Big Tech, China, and the AI Boom Running Out of Money - [Invest Like the Best, EP.487]",
+      "published": "2026-08-18T08:00:00Z",
+      "processed_at": "2026-08-19T05:38:35.303810Z",
+      "score": 84.0,
+      "classification": "Listen Fully",
+      "classification_reason": "Featuring Ben Thompson, a top-tier strategic thinker, this episode provides deep, macro-level analysis of Big Tech, AI, and geopolitical dynamics (China), which is highly relevant for a senior PM's strategic growth. The score of 84 is well above the 'Listen Fully' threshold.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/investlikethebest",
+      "summary": "Ben Thompson of Stratechery offers a deep strategic analysis of the current tech landscape, covering major players like OpenAI, Nvidia, Apple, Microsoft, Google, and Amazon. He delves into the geopolitical implications of the AI race, particularly concerning China, and draws insightful historical parallels to infrastructure buildouts like 1870s railroads. A key argument is that capital, rather than compute, might be the ultimate binding constraint on the AI boom. This episode provides a macro-level view of market structure, competitive dynamics, and long-term trends shaping the future of technology and global power.",
+      "key_ideas": [
+        "Capital as the binding constraint for the AI boom, not just compute.",
+        "Geopolitical implications of the AI race, especially US-China dynamics.",
+        "Historical parallels for understanding current tech infrastructure buildouts."
+      ],
+      "episode_url": "https://colossus.com/episode/winners-losers-ai-era/",
+      "duration_seconds": 4576,
+      "enclosure_url": "https://traffic.megaphone.fm/CLS4584299095.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "5b20f6b6ac2d64db": {
+      "guid": "5b20f6b6ac2d64db",
+      "show_title": "Masters of Scale",
+      "episode_title": "What the jobs report isn't telling you about AI & the workforce, with Upwork\u2019s Hayden Brown",
+      "published": "2026-08-18T09:00:00Z",
+      "processed_at": "2026-08-19T05:38:35.303919Z",
+      "score": 78.0,
+      "classification": "Listen Fully",
+      "classification_reason": "The episode offers concrete, data-driven strategic insights from a top-tier guest (Upwork CEO) on AI's real-world impact on the workforce, directly informing product strategy and talent planning for a senior PM. The score of 78 is above the 'Listen Fully' threshold.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/masters-of-scale",
+      "summary": "Hayden Brown, CEO of Upwork, provides a data-driven perspective on AI's real-time impact on the workforce, drawing from Upwork's 18 million freelancers. She reveals which skills are in demand, which are declining, and the surprising trend of businesses bringing humans back after initially shifting work to AI. Brown discusses the gap between AI hype and reality, offering insights into how companies are actually integrating AI and managing workforce changes, including Upwork's own experience with layoffs. This episode offers a ground-level view of AI's economic and talent implications, crucial for product leaders shaping future strategies.",
+      "key_ideas": [
+        "AI's nuanced impact on the workforce: skill shifts and job evolution.",
+        "The 'boomerang effect': businesses bringing humans back after AI adoption.",
+        "Bridging the gap between AI hype and real-world implementation challenges."
+      ],
+      "episode_url": "",
+      "duration_seconds": 1803,
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/d1133919-54c4-42da-a316-4d8863eb8e5a.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 28849632,
+      "curated_at": null
+    },
+    "df1b1df68c3f9647": {
+      "guid": "df1b1df68c3f9647",
+      "show_title": "The a16z Show",
+      "episode_title": "How Do You Defend Against AI That Can Hack?",
+      "published": "2026-08-18T10:00:00Z",
+      "processed_at": "2026-08-19T05:38:35.303947Z",
+      "score": 73.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "This episode addresses a critical and emerging challenge in AI product development (AI security) with credible guests. While highly relevant, the score of 73 is just below the 'Listen Fully' threshold, making it a strong candidate for 'Read Summary Only'.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "summary": "Joel De La Garza (a16z), Nick Warner (Neo), and Max Pollard (Cotool) explore the evolving landscape of cybersecurity as AI agents become capable of finding and exploiting vulnerabilities. They discuss how traditional security assumptions are breaking down, the challenges of balancing AI guardrails with security team effectiveness, and the emerging need for multi-model defense strategies. The conversation highlights new endpoint security problems created by agentic software and how AI capabilities, while creating new attack surfaces, could also provide defenders with a significant advantage. This episode offers critical insights for product leaders building or securing AI systems.",
+      "key_ideas": [
+        "AI agents as both attackers and defenders in cybersecurity.",
+        "Breakdown of traditional security assumptions in an AI-driven world.",
+        "Strategic implications for AI product security, risk management, and defense."
+      ],
+      "episode_url": "https://a16z.simplecast.com/episodes/how-do-you-defend-against-ai-that-can-hack-L2M2EmmY",
+      "duration_seconds": 1320,
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/36fe97e3-b3b1-4dcf-93ac-92f232d3c4c7/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=36fe97e3-b3b1-4dcf-93ac-92f232d3c4c7&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 21134220,
+      "curated_at": null
+    },
+    "ec04fc3f45f2cf8d": {
+      "guid": "ec04fc3f45f2cf8d",
+      "show_title": "The Prof G Pod",
+      "episode_title": "China Decode: Microsoft's China Retreat, Remembering Zhu Rongji, and Typhoon Dolphin's Aftermath",
+      "published": "2026-08-18T08:00:00Z",
+      "processed_at": "2026-08-19T05:38:35.303967Z",
+      "score": 63.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "While the discussion on Microsoft's China strategy and its AI/eCommerce implications is highly relevant, the inclusion of less pertinent topics (Zhu Rongji, Typhoon) dilutes the overall value for the persona. The score of 63 falls into the 'Read Summary Only' category.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "summary": "Alice Han and James Kynge dissect Microsoft's strategic retreat from China over the past five years, detailing office closures and job reductions, while paradoxically continuing to sell Azure and AI services to major Chinese companies like ByteDance and Shein. The discussion explores the drivers behind this nuanced decoupling, its implications for global tech companies, and the irony of Beijing R&D alumni now leading rival AI firms. The episode also briefly touches on the legacy of former Chinese premier Zhu Rongji and the impact of Typhoon Dolphin.",
+      "key_ideas": [
+        "Microsoft's complex 'decoupling' strategy in China: retreat in some areas, continued engagement in others.",
+        "Implications of tech talent migration from foreign R&D centers to local rivals.",
+        "Geopolitical and market access challenges for global tech giants in China."
+      ],
+      "episode_url": "",
+      "duration_seconds": 2336,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP8327273272.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "4b9d504f5fe752be": {
+      "guid": "4b9d504f5fe752be",
+      "show_title": "\u6587\u68ee\u8aaa\u66f8",
+      "episode_title": "\u6551\u52a9\u5230\u5e95\u662f\u5728\u81ea\u6211\u611f\u52d5\uff0c\u9084\u662f\u771f\u7684\u80fd\u6539\u5584\u53e6\u4e00\u7fa4\u4eba\u7684\u751f\u6d3b\uff1f\u5230\u975e\u6d32\u751f\u6d3b\u5341\u4e00\u5e74\u5f8c\u5f97\u5230\u7684\u7d93\u9a57 feat. \u611b\u5973\u5b69\u570b\u969b\u95dc\u61f7\u5354\u6703\u5275\u8fa6\u4eba \u694a\u6021\u5ead",
+      "published": "2026-08-19T03:00:00Z",
+      "processed_at": "2026-08-19T05:38:35.303986Z",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "LLM batch entry missing; metadata fallback",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.buzzsprout.com/1096139.rss",
+      "summary": "\u9019\u4e00\u96c6\u7684\u5f71\u7247\u7248\u672c\uff1ahttps://youtu.be/19D7DnEQ0To \ud83d\udccc \u7bc0\u76ee\u8cc7\u8a0a\u88dc\u5145\uff5c\u611b\u5973\u5b69\u570b\u969b\u95dc\u61f7\u5354\u6703 Love Binti International \u5728\u975e\u6d32\uff0c\u8a31\u591a\u5973\u5b69\u56e0\u70ba\u4e00\u7247\u885b\u751f\u68c9\u800c\u5931\u53bb\u4e0a\u5b78\u7684\u6a5f\u6703\uff0c\u4e5f\u6709\u5bb6\u5ead\u56e0\u7f3a\u4e4f\u4e7e\u6de8\u6c34\u6e90\u800c\u9762\u81e8\u5065\u5eb7\u98a8\u96aa\u3002 \u611b\u5973\u5b69\u81ea 2015 \u5e74\u8d77\u6df1\u8015\u975e\u6d32\uff0c\u63a8\u52d5\u6708\u7d93\u5065\u5eb7\u3001\u751f\u7406\u6559\u80b2\u8207\u6c34\u8cc7\u6e90\u5efa\u8a2d\uff0c\u81f3\u4eca\u5df2\u652f\u6301\u8d85\u904e 15 \u842c\u540d\u5973\u6027\u8207\u5b69\u7ae5\uff0c\u900f\u904e\u4e00\u584a\u5e03\u885b\u751f\u68c9\u8207\u4e00\u53e3\u6c34\u4e95\uff0c\u8b93\u5979\u5011\u91cd\u65b0\u64c1\u6709\u5b78\u7fd2\u8207\u751f\u6d3b\u7684\u9078\u64c7\u6b0a\u3002 \ud83d\udd17 \u524d\u5f80\u975e\u6d32\u7b2c\u4e00\u7dda\uff5c\u6700\u65b0\u884c\u52d5\u8207\u6df1\u5165\u975e\u6d32\u9ad4\u9a57\u8cc7\u8a0a https://www.lovebinti.org/news/202604/100244 \ud83c\udf0d \u8a8d\u8b58\u66f4\u591a\u611b\u5973\u5b69\u2026",
+      "key_ideas": [],
+      "episode_url": "",
+      "duration_seconds": 3274,
+      "enclosure_url": "https://www.buzzsprout.com/1096139/episodes/19664031-feat.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 39426233,
+      "curated_at": null
     }
   },
   "published": [
@@ -3629,7 +3745,12 @@
     "1ef681d55617be30",
     "37603cb340fff951",
     "6c65f936368cf1f6",
-    "26c2040cd14bb883"
+    "26c2040cd14bb883",
+    "96cd539df618fce5",
+    "5b20f6b6ac2d64db",
+    "df1b1df68c3f9647",
+    "ec04fc3f45f2cf8d",
+    "4b9d504f5fe752be"
   ],
   "playlist": [
     "d99da0b934e38cc5",
@@ -3670,7 +3791,9 @@
     "6b1ed41c3e9719e1",
     "f216e98834f13929",
     "8701c90e9fc9ef3e",
-    "37603cb340fff951"
+    "37603cb340fff951",
+    "96cd539df618fce5",
+    "5b20f6b6ac2d64db"
   ],
   "emailed": [
     "6a94a25c9cbce596",
@@ -3741,6 +3864,11 @@
     "1ef681d55617be30",
     "37603cb340fff951",
     "6c65f936368cf1f6",
-    "26c2040cd14bb883"
+    "26c2040cd14bb883",
+    "96cd539df618fce5",
+    "5b20f6b6ac2d64db",
+    "df1b1df68c3f9647",
+    "ec04fc3f45f2cf8d",
+    "4b9d504f5fe752be"
   ]
 }
