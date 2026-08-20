@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-08-19T05:38:35.343841+00:00",
+  "last_run": "2026-08-20T05:38:59.466981+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -3622,6 +3622,150 @@
       "enclosure_type": "audio/mpeg",
       "enclosure_length": 39426233,
       "curated_at": null
+    },
+    "0b21d234ca52a538": {
+      "guid": "0b21d234ca52a538",
+      "show_title": "Future Commerce",
+      "episode_title": "Shopify Earnings Go Wild, and American Retail is OVER.",
+      "published": "2026-08-19T11:00:00Z",
+      "processed_at": "2026-08-20T05:38:59.378830Z",
+      "score": 77.0,
+      "classification": "Listen Fully",
+      "classification_reason": "The episode directly addresses core interests of the persona: eCommerce, retail dynamics, and emerging technology (implied by 'agentic traffic'). The discussion of Shopify earnings, NRF data, and international shopper behavior provides concrete strategic insights, making it highly relevant despite the low transcript confidence.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/hQ2eLzNW",
+      "summary": "This Future Commerce episode analyzes recent Shopify earnings, highlighting a significant surge in 'agentic traffic,' and contrasts this with NRF data indicating cautious consumer behavior in the back-to-school season. The hosts delve into the implications of these market dynamics for American retail, with one host sharing reflections on unique U.S. shopper behaviors observed after time abroad. It offers a strategic look at the evolving eCommerce landscape, market trends, and the potential impact of AI/automation on online retail performance and consumer psychology.",
+      "key_ideas": [
+        "Shopify's strong earnings, driven by a notable increase in 'agentic traffic,' signals the growing influence of AI/automation and evolving eCommerce dynamics.",
+        "A dichotomy exists between cautious U.S. consumer spending (per NRF data) and Shopify's growth, necessitating nuanced product and market strategies.",
+        "Distinct U.S. shopper behaviors, when compared internationally, offer critical insights for product localization and market strategy in the retail sector."
+      ],
+      "episode_url": "https://www.futurecommerce.com/podcasts/shopify-earnings-go-wild-and-american-retail-is-over",
+      "duration_seconds": 3084,
+      "enclosure_url": "https://dts.podtrac.com/redirect.mp3/afp-935226-injected.calisto.simplecastaudio.com/fed613f6-db08-4178-9009-bc6bae8658fc/episodes/be7222e1-f674-4ace-9982-ee38922d2155/audio/128/default.mp3?aid=rss_feed&awCollectionId=fed613f6-db08-4178-9009-bc6bae8658fc&awEpisodeId=be7222e1-f674-4ace-9982-ee38922d2155&feed=hQ2eLzNW",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 49348539,
+      "curated_at": null
+    },
+    "171d1f5ecd96ea14": {
+      "guid": "171d1f5ecd96ea14",
+      "show_title": "The a16z Show",
+      "episode_title": "How Whatnot Built a Global Marketplace",
+      "published": "2026-08-19T10:00:00Z",
+      "processed_at": "2026-08-20T05:38:59.378915Z",
+      "score": 87.0,
+      "classification": "Listen Fully",
+      "classification_reason": "Highly relevant content on marketplace strategy, live commerce, AI integration, and scaling, delivered by a founder with deep operational insights. Directly aligns with the persona's focus areas.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "summary": "This episode features Whatnot co-founder Grant LaFontaine discussing the evolution of their live shopping platform from collectibles to a broad 'digital shopping mall' experience. He explains how Whatnot differentiates itself from traditional e-commerce by focusing on discovery, entertainment, and community, leading to high user engagement (95 minutes/day). The discussion covers enabling small businesses globally, expanding into diverse categories like fashion and food, and leveraging AI to enhance seller efficiency while maintaining human connection. The episode offers strategic insights into building and scaling a modern marketplace, emphasizing community-driven commerce and the role of AI.",
+      "key_ideas": [
+        "Live shopping as a 'digital shopping mall' model, integrating discovery, entertainment, community, and commerce.",
+        "Strategies for scaling a marketplace from niche collectibles to diverse categories and global audiences.",
+        "Leveraging AI to improve seller efficiency while preserving the human element in commerce."
+      ],
+      "episode_url": "https://a16z.simplecast.com/episodes/how-whatnot-built-a-global-marketplace-DoonwHjN",
+      "duration_seconds": 2559,
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/c41c8a47-7d80-4f00-88b2-37e4a98c04c1/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=c41c8a47-7d80-4f00-88b2-37e4a98c04c1&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 40958434,
+      "curated_at": null
+    },
+    "eb0fd9aa1bc3d87f": {
+      "guid": "eb0fd9aa1bc3d87f",
+      "show_title": "The Prof G Pod",
+      "episode_title": "The Truth About the Entrepreneurship Boom, and How to Manage Cash Flow as a Founder",
+      "published": "2026-08-19T08:00:00Z",
+      "processed_at": "2026-08-20T05:38:59.378935Z",
+      "score": 9.0,
+      "classification": "Skip",
+      "classification_reason": "The episode covers multiple disparate topics, including irrelevant personal advice, within a very short duration. The business topics are too generic and likely lack the strategic depth required for a senior PM focused on product strategy, AI, and eCommerce.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "summary": "This episode features Scott Galloway discussing the 'solopreneur boom' and its impact on jobs, offering advice to founders on managing early cash flow challenges, and sharing personal thoughts on discussing complicated family relationships with children. The content spans macroeconomics, startup finance, and personal life advice, delivered in a concise 16-minute format.",
+      "key_ideas": [
+        "Analysis of the solopreneur boom and its economic implications.",
+        "Tactical advice for founders on navigating early-stage cash flow challenges.",
+        "Personal reflections on sensitive family discussions."
+      ],
+      "episode_url": "",
+      "duration_seconds": 960,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP3904623464.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "c7f34d0fe276dba0": {
+      "guid": "c7f34d0fe276dba0",
+      "show_title": "The Real Story",
+      "episode_title": "\u7576\u966a\u4f34\u80fd\u8b70\u50f9\uff1a\u5728Sugar Dating\u7684\u904a\u6232\u898f\u5247\u4e0b\uff0c\u8ab0\u627f\u64d4\u4e86\u98a8\u96aa\uff0c\u8ab0\u53c8\u771f\u6b63\u638c\u63e1\u4e3b\u5c0e\u6b0a\uff1f",
+      "published": "2026-08-19T03:30:00Z",
+      "processed_at": "2026-08-20T05:38:59.378951Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "This episode is entirely focused on the social and ethical dynamics of Sugar Dating, which is completely irrelevant to a Senior PM's professional development in product strategy, AI, or eCommerce. Despite mentioning platforms and algorithms, the context is sociological, not business or product craft.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.soundon.fm/podcasts/c1f1f3c9-8d28-42ad-9f1c-908018b8d9fc.xml",
+      "summary": "This episode delves into the phenomenon of Sugar Dating, exploring its operational mechanics, the motivations of participants (\"Sugar Daddies\" and \"Sugar Babies\"), and the broader societal implications of commodifying intimate relationships. It features a platform user's perspective on agency and a social scholar's analysis of platform responsibilities and the lack of protection for \"Sugar Babies.\" The discussion examines how these contractual relationships differ from traditional arrangements, the risks involved, and how power dynamics shift when intimacy becomes a negotiable commodity. It also touches on the role of platform algorithms and business models in facilitating these interactions.",
+      "key_ideas": [
+        "Analysis of Sugar Dating dynamics, motivations, and risks for participants.",
+        "Sociological perspective on the commodification of intimacy and gender power shifts.",
+        "Discussion of platform responsibilities and algorithmic influence in niche social marketplaces."
+      ],
+      "episode_url": "https://player.soundon.fm/p/c1f1f3c9-8d28-42ad-9f1c-908018b8d9fc/episodes/72f0e7ad-03c3-4f15-84d2-c9834214a9d0",
+      "duration_seconds": 2797,
+      "enclosure_url": "https://rss.soundon.fm/rssf/c1f1f3c9-8d28-42ad-9f1c-908018b8d9fc/feedurl/72f0e7ad-03c3-4f15-84d2-c9834214a9d0/rssFileVip.mp3?timestamp=1787166905906",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 1,
+      "curated_at": null
+    },
+    "9a164628662babc0": {
+      "guid": "9a164628662babc0",
+      "show_title": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "episode_title": "\u3010\u5408\u4f5c\u7279\u8f2f\u3011\u5373\u4f7f\u8f9b\u82e6\u3001\u537b\u9084\u60f3\u518d\u505a\u4e00\u6b21\uff1f\u5f9e\u90a3\u4e9b\u8b93\u4f60\u7518\u9858\u6295\u5165\u7684\u4e8b\uff0c\u627e\u5230\u771f\u6b63\u9069\u5408\u81ea\u5df1\u7684\u8077\u6daf\u65b9\u5411\uff5cFt. Bryan \u5927\u4eba\u5b78",
+      "published": "2026-08-19T22:02:10Z",
+      "processed_at": "2026-08-20T05:38:59.378963Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "This episode offers generic career advice and motivational content, which is too broad and lacks the strategic depth or specific domain focus (AI, eCommerce, product craft) required by a Senior PM looking for career growth and product craft upskilling.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g",
+      "summary": "This episode, featuring Bryan Yao from Da Ren Xue, explores how individuals can identify their true career direction and passion. It challenges the conventional view of passion, defining it as a \"martyrdom spirit\" where one is willing to endure significant hardship but still feels a deep desire to repeat the experience. The discussion frames career progression as an \"infinite game,\" emphasizing continuous adaptation and incremental changes rather than seeking a definitive, static endpoint. It advocates for proactive action to mitigate anxiety in uncertain environments, suggesting a strategy of \"parameter transformation\" by changing one variable at a time. The episode encourages listeners to focus on their internal resources and strengths, rather than external comparisons, to navigate career shifts effectively.",
+      "key_ideas": [
+        "Redefining passion as a willingness to endure hardship for a fulfilling outcome.",
+        "Approaching career development as an \"infinite game\" with continuous adaptation.",
+        "Strategies for managing career anxiety through incremental action and self-focus."
+      ],
+      "episode_url": "https://open.firstory.me/story/cmsww97xr03am01xi8nff5qs4",
+      "duration_seconds": 3302,
+      "enclosure_url": "https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cmsww97xr03am01xi8nff5qs4/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcmsww97xs03an01xidneqcz9h.mp3?v=1786950681830",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "fd02ab214dc5c490": {
+      "guid": "fd02ab214dc5c490",
+      "show_title": "The Tim Ferriss Show",
+      "episode_title": "#880: Relationship Tools That Work \u2014 Esther Perel, Bren\u00e9 Brown, Dr. Sue Johnson, Terry Real, and More on Conflict, Repair, and Lasting Love",
+      "published": "2026-08-19T20:30:00Z",
+      "processed_at": "2026-08-20T05:38:59.378975Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "This episode is entirely dedicated to personal relationship advice, which is completely outside the scope of a Senior PM's professional development goals in product strategy, AI, or eCommerce. Despite featuring highly authoritative guests, their expertise is not applied to relevant professional contexts.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/tim-ferriss-show",
+      "summary": "This episode of The Tim Ferriss Show compiles insights from a panel of renowned experts, including Esther Perel, Bren\u00e9 Brown, and Terry Real, on the critical tools and strategies for maintaining strong, lasting intimate relationships. It addresses common challenges such as conflict, misunderstanding, and the natural evolution of partnerships over time. Key topics covered include the importance of appreciation and clear communication, the concept of a \"plan of kindness\" in marriage, the value of regular check-ins like \"life dinners,\" distinguishing observable facts from personal narratives, and techniques for de-escalating arguments with humor and curiosity. The episode also delves into deeper methods for emotional repair and understanding the underlying needs in a relationship.",
+      "key_ideas": [
+        "Practical communication and repair strategies for intimate relationships.",
+        "Insights from leading psychologists on navigating conflict and fostering connection.",
+        "Frameworks for understanding and evolving long-term partnerships."
+      ],
+      "episode_url": "",
+      "duration_seconds": 3431,
+      "enclosure_url": "https://rss.art19.com/episodes/a147406e-b82d-4f2b-81e4-decf259647ab.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 54899356,
+      "curated_at": null
     }
   },
   "published": [
@@ -3750,7 +3894,9 @@
     "5b20f6b6ac2d64db",
     "df1b1df68c3f9647",
     "ec04fc3f45f2cf8d",
-    "4b9d504f5fe752be"
+    "4b9d504f5fe752be",
+    "0b21d234ca52a538",
+    "171d1f5ecd96ea14"
   ],
   "playlist": [
     "d99da0b934e38cc5",
@@ -3793,7 +3939,9 @@
     "8701c90e9fc9ef3e",
     "37603cb340fff951",
     "96cd539df618fce5",
-    "5b20f6b6ac2d64db"
+    "5b20f6b6ac2d64db",
+    "0b21d234ca52a538",
+    "171d1f5ecd96ea14"
   ],
   "emailed": [
     "6a94a25c9cbce596",
@@ -3869,6 +4017,8 @@
     "5b20f6b6ac2d64db",
     "df1b1df68c3f9647",
     "ec04fc3f45f2cf8d",
-    "4b9d504f5fe752be"
+    "4b9d504f5fe752be",
+    "171d1f5ecd96ea14",
+    "0b21d234ca52a538"
   ]
 }
