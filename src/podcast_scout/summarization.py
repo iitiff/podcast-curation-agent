@@ -18,9 +18,13 @@ from .ranking import (
 log = logging.getLogger(__name__)
 
 # Maximum episodes per batch LLM call.
-# Keeping this low (5) avoids hitting token limits on the free Gemini tier
-# while still cutting API calls by ~5x vs one-call-per-episode.
-_BATCH_SIZE = 5
+#
+# Lowered 5 -> 3 after a production run where 11 of 14 episodes fell back to
+# metadata-only scoring: batches of 5 produced JSON arrays that exceeded the
+# output budget and came back truncated (or empty), so every unmatched episode
+# lost its summary and key ideas. A smaller batch means a shorter response, and
+# a truncation costs 3 episodes instead of 5.
+_BATCH_SIZE = 3
 
 
 async def process_episodes(
@@ -29,7 +33,10 @@ async def process_episodes(
     llm: BaseLLMProvider,
     transcription: BaseTranscriptionProvider,
     max_deep_process: int = 15,
-    token_budget_per_episode: int = 3000,
+    # Raised 3000 -> 5000. Each episode's object carries a 13-field rubric, a
+    # 100-200 word summary, 3 key ideas, implications and several prose fields;
+    # 3000 left no headroom once Gemini's overhead was included.
+    token_budget_per_episode: int = 5000,
     total_token_budget: int = 400_000,
 ) -> list[RankedEpisode]:
     """Stage 1 filter then Stage 2 deep-rank top candidates.
