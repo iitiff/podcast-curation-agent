@@ -389,9 +389,38 @@ CLASSIFICATION:
 - "Read Summary Only" if total >= 50  (email digest only, NOT in RSS feed)
 - "Skip" otherwise
 
+KEY IDEAS — what counts as an insight vs. a topic label:
+A "key idea" is NOT a restatement of the episode's topic, title, or theme. It is a specific,
+non-obvious claim, framework, number, or contrarian take that a {prefs.persona.seniority}
+{prefs.persona.role} — someone who already knows the basics of {prefs.persona.focus} — would
+find genuinely new. Ground every key idea in something the TEXT actually says (a claim, a
+number, a named example) rather than a category label for what the episode is "about".
+
+  BAD (topic label — do not produce this style):
+    "AI agents as both attackers and defenders in cybersecurity."
+    "Strategic implications for AI product security and risk management."
+
+  GOOD (specific, sourced, persona-relevant):
+    "The guest argues patch-cycle security becomes obsolete once attackers automate
+    exploit discovery, forcing a shift to continuous agent-vs-agent defense within 2 years —
+    a budget line most CISOs haven't created yet."
+    "Cites a case where an AI red-team found a zero-day in 40 minutes that a human pentest
+    team missed for 6 months, used to argue AI-assisted offense now outpaces AI-assisted
+    defense by default."
+
+Each key_idea must pass this test: could this sentence be copy-pasted onto a DIFFERENT
+episode about the same broad topic without becoming false? If yes, it's a topic label, not
+an insight — rewrite it or drop it.
+
+If TRANSCRIPT CONFIDENCE is low or the source text is description-only, do not fabricate
+specificity that isn't in the text — return fewer key_ideas (even an empty list) rather than
+disguising a topic label as an insight.
+
 For EACH episode return an object with keys:
   rubric (dict), classification, classification_reason,
-  summary (100-200 words), key_ideas (list of 2-3 strings),
+  summary (100-200 words — what the episode covers, for orientation),
+  key_ideas (list of 0-3 strings — specific, sourced, persona-relevant insights per the
+    definition above; this is NOT a compressed restatement of summary),
   implications, who_should_listen, summary_captures_value ("yes"|"partial"|"no"), listen_nuance
 
 Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
