@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link>https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Aug 2026 05:39:37 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 Aug 2026 12:46:44 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href="https://iitiff.github.io/podcast-curation-agent/listen.xml" rel="self" type="application/rss+xml" />
@@ -35,18 +35,7 @@
       <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785514200270-72a7d09aaff28.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #3 — No Priors: Building an Autonomous Enterprise for Real-World Services with Netic Founder Melisa Tokmak</title>
-      <link />
-      <guid isPermaLink="false">764a97ef74d9b043</guid>
-      <pubDate>Fri, 31 Jul 2026 10:00:00 +0000</pubDate>
-      <ns0:duration>2069</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 93/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 93 &amp;gt;= 75. This episode is highly relevant, offering deep strategic insights into AI product development, business models, and market dynamics from a founder, interviewed by a top-tier host.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Melisa Tokmak, Founder and CEO of Netic, discusses building an autonomous AI platform for essential real-world services like home repairs and pet care. She explains the complexities of automating these workflows, noting that over 70% of Netic&amp;#x27;s customers first interact with AI. The conversation with host Elad Gil delves into Netic&amp;#x27;s strategy of building a scalable product company versus an AI roll-up, why robotics isn&amp;#x27;t a near-term solution for these industries, and how Netic views competition from large frontier AI labs. Tokmak also provides insights into how private equity&amp;#x27;s investment playbook has shifted towards measurable ROI in the AI era and expresses optimism about AI&amp;#x27;s future impact on education.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Applying autonomous AI to complex real-world services, with high AI-first customer interaction (70%).&lt;/li&gt;&lt;li&gt;Strategic choices in building an AI company: scalable product vs. AI roll-up, competitive landscape, and the role of robotics.&lt;/li&gt;&lt;li&gt;Private equity&amp;#x27;s evolving investment criteria in the AI era, focusing on measurable ROI.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can gain insights into building AI-first products for complex service industries, understanding the trade-offs in business model choices (product vs. service/roll-up), and navigating the competitive landscape with large AI labs. The discussion on PE&amp;#x27;s shift provides valuable context for funding and growth strategies in the AI space.&lt;/p&gt;</ns1:encoded>
-      <description>Melisa Tokmak, Founder and CEO of Netic, discusses building an autonomous AI platform for essential real-world services like home repairs and pet care. She explains the complexities of automating these workflows, noting that over 70% of Netic's customers first interact with AI. The conversation with host Elad Gil delves into Netic's strategy of building a scalable product company versus an AI roll-up, why robotics isn't a near-term solution for these industries, and how Netic views competition from large frontier AI labs. Tokmak also provides insights into how private equity's investment playbook has shifted towards measurable ROI in the AI era and expresses optimism about AI's future impact on education.</description>
-      <enclosure url="https://traffic.megaphone.fm/PDP6533459307.mp3" type="audio/mpeg" length="0" />
-      <ns0:image href="https://megaphone.imgix.net/podcasts/db17d1d8-8c79-11f1-9e05-6bb27aab1f6f/image/82d8177a07141efa60a0e14fb8b30b2b.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #4 — Retailgentic: Physical AI Hits the Sales Floor: FrontlineIQ CEO &amp; Co-Founder Ben Rodier</title>
+      <title>🎧 LISTEN #3 — Retailgentic: Physical AI Hits the Sales Floor: FrontlineIQ CEO &amp; Co-Founder Ben Rodier</title>
       <link>https://share.transistor.fm/s/2aee8482</link>
       <guid isPermaLink="false">a3d440bbbe93d68a</guid>
       <pubDate>Fri, 14 Aug 2026 06:22:33 +0000</pubDate>
@@ -57,7 +46,7 @@
       <ns0:image href="https://img.transistorcdn.com/qVH44BbAk7ZDgAAJ_KgdNmCV5VjSgVpJqoNKF95fpSY/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8wMzQ0/YTE3ZjkzZjQyNWRi/NDc0ODIyNDZiYzdj/YWI1ZS5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #5 — The SaaS Podcast: Featherless AI: When Your Weekend Experiment Makes More Than Your Startup</title>
+      <title>🎧 LISTEN #4 — The SaaS Podcast: Featherless AI: When Your Weekend Experiment Makes More Than Your Startup</title>
       <link />
       <guid isPermaLink="false">33363ee29ba50201</guid>
       <pubDate>Fri, 14 Aug 2026 06:22:33 +0000</pubDate>
@@ -68,7 +57,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/a7e9f7cc-046b-11ed-9c6d-13dc01eb807a/image/56aa351592d4af156f6e323fc03f036d.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #6 — Y Combinator Startup Podcast: Patrick Collison: "What If You Succeed?"</title>
+      <title>🎧 LISTEN #5 — Y Combinator Startup Podcast: Patrick Collison: "What If You Succeed?"</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Patrick-Collison-What-If-You-Succeed-e3mtper</link>
       <guid isPermaLink="false">80fe79e11092a5ca</guid>
       <pubDate>Mon, 03 Aug 2026 16:43:22 +0000</pubDate>
@@ -79,7 +68,7 @@
       <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785775023800-6a5cf88653b21.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #7 — Jason &amp; Scot Show: EP344 - How Brooklinen Is Preparing for Agentic Commerce</title>
+      <title>🎧 LISTEN #6 — Jason &amp; Scot Show: EP344 - How Brooklinen Is Preparing for Agentic Commerce</title>
       <link>https://jasonandscot.com/ep344-how-brooklinen-is-preparing-for-agentic-commerce</link>
       <guid isPermaLink="false">d3a4258792221fb5</guid>
       <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
@@ -90,7 +79,7 @@
       <ns0:image href="https://static.libsyn.com/p/assets/b/b/a/a/bbaac30c345ddec7d959afa2a1bf1c87/jass_abbie_HANDBRAKE_AUPHONIC_AUDIO.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #8 — The a16z Show: How Whatnot Built a Global Marketplace</title>
+      <title>🎧 LISTEN #7 — The a16z Show: How Whatnot Built a Global Marketplace</title>
       <link>https://a16z.simplecast.com/episodes/how-whatnot-built-a-global-marketplace-DoonwHjN</link>
       <guid isPermaLink="false">171d1f5ecd96ea14</guid>
       <pubDate>Thu, 20 Aug 2026 05:38:59 +0000</pubDate>
@@ -101,7 +90,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #9 — The a16z Show: The Two Ways to Sell AI: Lighthouse or Landgrab?</title>
+      <title>🎧 LISTEN #8 — The a16z Show: The Two Ways to Sell AI: Lighthouse or Landgrab?</title>
       <link>https://a16z.simplecast.com/episodes/the-two-ways-to-sell-ai-lighthouse-or-landgrab-9C2mrr4S</link>
       <guid isPermaLink="false">b413240f015e4c47</guid>
       <pubDate>Fri, 14 Aug 2026 06:22:33 +0000</pubDate>
@@ -112,7 +101,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #10 — The a16z Show: The CISO Playbook for AI Agents | Datadog</title>
+      <title>🎧 LISTEN #9 — The a16z Show: The CISO Playbook for AI Agents | Datadog</title>
       <link>https://a16z.simplecast.com/episodes/the-ciso-playbook-for-ai-agents-datadog-rhAxFNQK</link>
       <guid isPermaLink="false">74f04c0a7c6e5059</guid>
       <pubDate>Wed, 12 Aug 2026 06:21:39 +0000</pubDate>
@@ -123,7 +112,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #11 — Retailgentic: Baird Managing Director of Internet Research Colin Sebastian: What Wall St. Thinks About Agentic Commerce</title>
+      <title>🎧 LISTEN #10 — Retailgentic: Baird Managing Director of Internet Research Colin Sebastian: What Wall St. Thinks About Agentic Commerce</title>
       <link>https://share.transistor.fm/s/07b550ff</link>
       <guid isPermaLink="false">1e539d4f8a9cda71</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
@@ -134,7 +123,7 @@
       <ns0:image href="https://img.transistorcdn.com/jqWRgTPXdYsHCKeNIdSFyGU-iWUpmBXaZ_cE0akxFpg/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8zOTRi/Zjk1MDBlMDNjNWIx/OGMzZjc2YWRhM2E4/OWZkMy5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #12 — The a16z Show: Garry Tan on Taste, Agents and Founder Ambition</title>
+      <title>🎧 LISTEN #11 — The a16z Show: Garry Tan on Taste, Agents and Founder Ambition</title>
       <link>https://a16z.simplecast.com/episodes/garry-tan-on-taste-agents-and-founder-ambition-5Wi5biPg</link>
       <guid isPermaLink="false">a4d2d8ea02ac96a7</guid>
       <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
@@ -145,7 +134,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #13 — The a16z Show: Ben Horowitz and Travis Kalanick on Building Again</title>
+      <title>🎧 LISTEN #12 — The a16z Show: Ben Horowitz and Travis Kalanick on Building Again</title>
       <link>https://a16z.simplecast.com/episodes/ben-horowitz-and-travis-kalanick-on-building-again-o4RgblCd</link>
       <guid isPermaLink="false">f216e98834f13929</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -156,7 +145,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #14 — Y Combinator Startup Podcast: Garry Tan: Own Your Intelligence</title>
+      <title>🎧 LISTEN #13 — Y Combinator Startup Podcast: Garry Tan: Own Your Intelligence</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Garry-Tan-Own-Your-Intelligence-e3n2rc1</link>
       <guid isPermaLink="false">b595bf30074b66d4</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
@@ -167,7 +156,7 @@
       <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1786044493780-9c6135490eda.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #15 — Invest Like the Best: Ben Thompson on Big Tech, China, and the AI Boom Running Out of Money - [Invest Like the Best, EP.487]</title>
+      <title>🎧 LISTEN #14 — Invest Like the Best: Ben Thompson on Big Tech, China, and the AI Boom Running Out of Money - [Invest Like the Best, EP.487]</title>
       <link>https://colossus.com/episode/winners-losers-ai-era/</link>
       <guid isPermaLink="false">96cd539df618fce5</guid>
       <pubDate>Wed, 19 Aug 2026 05:38:35 +0000</pubDate>
@@ -178,7 +167,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/b0356202-9aa0-11f1-b3c3-6bc8a0cf3d6f/image/772d31a372a483035b6fc678729cae0b.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #16 — Acquired: Disney: The Renaissance and the Empire</title>
+      <title>🎧 LISTEN #15 — Acquired: Disney: The Renaissance and the Empire</title>
       <link>https://www.acquired.fm/episodes/disney-the-renaissance-and-the-empire</link>
       <guid isPermaLink="false">8b71f7516f11d384</guid>
       <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
@@ -189,7 +178,7 @@
       <ns0:image href="https://img.transistorcdn.com/GwI1v26-YH_dXUXm6cxbMAU8_kLZ0TucnptVEAbOElY/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS80ZmU3/ZGE4MTQ3NjAzZGZj/MWU5YzVjYzViNTAw/OTIwYS5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #17 — Y Combinator Startup Podcast: Building the First Data Centers in Space</title>
+      <title>🎧 LISTEN #16 — Y Combinator Startup Podcast: Building the First Data Centers in Space</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Building-the-First-Data-Centers-in-Space-e3n13ek</link>
       <guid isPermaLink="false">578b68829d7f110c</guid>
       <pubDate>Wed, 05 Aug 2026 16:57:31 +0000</pubDate>
@@ -200,7 +189,7 @@
       <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785948783215-3620695ea8356.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #18 — The a16z Show: Stripe’s AI Strategy: Build More, Not Less</title>
+      <title>🎧 LISTEN #17 — The a16z Show: Stripe’s AI Strategy: Build More, Not Less</title>
       <link>https://a16z.simplecast.com/episodes/stripes-ai-strategy-build-more-not-less-0w7FfhZZ</link>
       <guid isPermaLink="false">37603cb340fff951</guid>
       <pubDate>Tue, 18 Aug 2026 05:38:00 +0000</pubDate>
@@ -211,7 +200,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #19 — The Tim Ferriss Show: #879: How to Reinvent Yourself and Make Bold Moves — Decisive Stories from Matthew McConaughey, Steve Young, Samin Nosrat, and More</title>
+      <title>🎧 LISTEN #18 — The Tim Ferriss Show: #879: How to Reinvent Yourself and Make Bold Moves — Decisive Stories from Matthew McConaughey, Steve Young, Samin Nosrat, and More</title>
       <link />
       <guid isPermaLink="false">b49612650409c25e</guid>
       <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
@@ -222,7 +211,7 @@
       <ns0:image href="https://content.production.cdn.art19.com/images/69/10/10/fb/691010fb-625e-4abe-993c-a57228b28dbe/91cb53ae0d5dbb379b9dffecf0a772593891d0d09bbe6d90ee746edbdb79e3ec75584f2ceb8260e9f675a90c05419b9b99842a76905b686f0f51c1a9d3e227ab.jpeg" />
     </item>
     <item>
-      <title>🎧 LISTEN #20 — No Priors: Chasing Trillion-Dollar Companies, Founder Ambition, Token Budgets, and Regulatory Capture with Sarah &amp; Elad</title>
+      <title>🎧 LISTEN #19 — No Priors: Chasing Trillion-Dollar Companies, Founder Ambition, Token Budgets, and Regulatory Capture with Sarah &amp; Elad</title>
       <link />
       <guid isPermaLink="false">2084c15806050019</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
@@ -233,7 +222,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/17b96322-915c-11f1-aad7-53d361bc6996/image/78c924fc0fdf91eca870f6dc07f2dc9e.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #21 — AI + a16z: Inside vLLM: The Engine Powering Open-Source AI</title>
+      <title>🎧 LISTEN #20 — AI + a16z: Inside vLLM: The Engine Powering Open-Source AI</title>
       <link>https://ai-a16z.simplecast.com/episodes/inside-vllm-the-engine-powering-open-source-ai-etgKL1N9</link>
       <guid isPermaLink="false">97db65deb61a4199</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
@@ -244,7 +233,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/89450696-5007-4713-8168-eea085e49626/80ad2223-d8fa-4bb2-9645-8e2c1168a372/3000x3000/ai-a16z-podcast-cover-art-2.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #22 — No Priors: What Chess.com Teaches US About Superhuman Capabilities, with CEO Erik Allebest</title>
+      <title>🎧 LISTEN #21 — No Priors: What Chess.com Teaches US About Superhuman Capabilities, with CEO Erik Allebest</title>
       <link />
       <guid isPermaLink="false">75d00e29f362d3d8</guid>
       <pubDate>Fri, 14 Aug 2026 06:22:33 +0000</pubDate>
@@ -255,7 +244,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/2f8edaf4-9698-11f1-bdc1-eb068382bf86/image/605ec0dcdca0e5b9d65fc2f2c7c98561.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #23 — Jason &amp; Scot Show: E343 - Amazon Q2 2026 Earnings</title>
+      <title>🎧 LISTEN #22 — Jason &amp; Scot Show: E343 - Amazon Q2 2026 Earnings</title>
       <link>https://jasonandscot.com/e343-amazon-q2-2026-earnings</link>
       <guid isPermaLink="false">5666d988adc5e47e</guid>
       <pubDate>Thu, 06 Aug 2026 07:46:05 +0000</pubDate>
@@ -265,7 +254,7 @@
       <enclosure url="https://traffic.libsyn.com/secure/jasshow/jass_amazin_q2_VIDEO_AUPHONIC_AUDIO.mp3?dest-id=325386" type="audio/mpeg" length="49240090" />
     </item>
     <item>
-      <title>🎧 LISTEN #24 — Stratechery: (Preview) Nvidia’s Answer to Capital Constraints, Google’s Attrition and Direction, Q&amp;amp;A on AI Writing, Vision Pro, Vibe Coding</title>
+      <title>🎧 LISTEN #23 — Stratechery: (Preview) Nvidia’s Answer to Capital Constraints, Google’s Attrition and Direction, Q&amp;amp;A on AI Writing, Vision Pro, Vibe Coding</title>
       <link>https://sharptech.fm/member/episode/preview-nvidias-answer-to-capital-constraints-googles-attrition-and-direction-q-a-on-ai-writing-vision-pro-vibe-coding</link>
       <guid isPermaLink="false">d7080093d3afd668</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -276,7 +265,7 @@
       <ns0:image href="https://sharptech.fm/assets/Sharp%20Tech%20-%20Black.png" />
     </item>
     <item>
-      <title>🎧 LISTEN #25 — Future Commerce: Enter Through the Gift Shop: Inside MoMA's Retail Journey</title>
+      <title>🎧 LISTEN #24 — Future Commerce: Enter Through the Gift Shop: Inside MoMA's Retail Journey</title>
       <link>https://www.futurecommerce.com/podcasts/enter-through-the-gift-shop-inside-momas-retail-journey</link>
       <guid isPermaLink="false">f6a358c2a3a58acf</guid>
       <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
@@ -287,7 +276,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/cd284e1c-fc92-4750-a525-204cde38fb9d/3000x3000/e475.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #26 — Y Combinator Startup Podcast: How To Design In The Agent Era</title>
+      <title>🎧 LISTEN #25 — Y Combinator Startup Podcast: How To Design In The Agent Era</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/How-To-Design-In-The-Agent-Era-e3n42jd</link>
       <guid isPermaLink="false">8319abe1935572d1</guid>
       <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
@@ -298,7 +287,7 @@
       <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/23401959/23401959-1715188660604-894894aeaa81c.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #27 — Invest Like the Best: Eric Vishria - A Decade of Lessons Investing in Software &amp; Hardware - [Invest Like the Best, EP.486]</title>
+      <title>🎧 LISTEN #26 — Invest Like the Best: Eric Vishria - A Decade of Lessons Investing in Software &amp; Hardware - [Invest Like the Best, EP.486]</title>
       <link>https://colossus.com/episode/sandcastles-and-silicon/</link>
       <guid isPermaLink="false">6a517f2e04febb38</guid>
       <pubDate>Wed, 12 Aug 2026 06:21:39 +0000</pubDate>
@@ -309,7 +298,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/be6f2778-94f0-11f1-8fc8-5fdf34225c7d/image/c8265322cedbd7f9e8b4d6d8b037c42b.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #28 — Masters of Scale: What the jobs report isn't telling you about AI &amp; the workforce, with Upwork’s Hayden Brown</title>
+      <title>🎧 LISTEN #27 — Masters of Scale: What the jobs report isn't telling you about AI &amp; the workforce, with Upwork’s Hayden Brown</title>
       <link />
       <guid isPermaLink="false">5b20f6b6ac2d64db</guid>
       <pubDate>Wed, 19 Aug 2026 05:38:35 +0000</pubDate>
@@ -320,7 +309,7 @@
       <ns0:image href="https://content.production.cdn.art19.com/images/25/6e/00/d8/256e00d8-aab8-49f6-b90f-4e6b2f7d3828/f641e4845812dd8d9c5bcc700428a9691113504c87b9b63f62a9a06b8c2bc8658701a2a03d1918d41e9332691b322ae5f51fe89a7814b177d8a51587e19e89d9.jpeg" />
     </item>
     <item>
-      <title>🎧 LISTEN #29 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
+      <title>🎧 LISTEN #28 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
       <link>https://www.futurecommerce.com/podcasts/shopify-earnings-go-wild-and-american-retail-is-over</link>
       <guid isPermaLink="false">0b21d234ca52a538</guid>
       <pubDate>Thu, 20 Aug 2026 05:38:59 +0000</pubDate>
@@ -331,7 +320,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/2907bfe0-7dc9-47c1-bb97-51eda5323a7d/3000x3000/e476.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #30 — Y Combinator Startup Podcast: Chelsea Finn: This is the State of the Art in Robotics</title>
+      <title>🎧 LISTEN #29 — Y Combinator Startup Podcast: Chelsea Finn: This is the State of the Art in Robotics</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Chelsea-Finn-This-is-the-State-of-the-Art-in-Robotics-e3nc492</link>
       <guid isPermaLink="false">8701c90e9fc9ef3e</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -341,7 +330,7 @@
       <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/124178146/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-13%2F429782123-44100-2-cab930f0a7ef2.mp3" type="audio/mpeg" length="55962226" />
     </item>
     <item>
-      <title>🎧 LISTEN #31 — AI + a16z: How AI Is Rewriting the Rules of Cybersecurity | Truffle Security &amp; Socket</title>
+      <title>🎧 LISTEN #30 — AI + a16z: How AI Is Rewriting the Rules of Cybersecurity | Truffle Security &amp; Socket</title>
       <link>https://ai-a16z.simplecast.com/episodes/the-reality-of-ai-powered-cyberattacks-truffle-security-socket-f9XcoAFq</link>
       <guid isPermaLink="false">9e13b0a0c3f46257</guid>
       <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
@@ -352,7 +341,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/89450696-5007-4713-8168-eea085e49626/80ad2223-d8fa-4bb2-9645-8e2c1168a372/3000x3000/ai-a16z-podcast-cover-art-2.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #32 — The a16z Show: OpenAI's Joshua Achiam: Did We Already Reach AGI?</title>
+      <title>🎧 LISTEN #31 — The a16z Show: OpenAI's Joshua Achiam: Did We Already Reach AGI?</title>
       <link>https://a16z.simplecast.com/episodes/openais-joshua-achiam-did-we-already-reach-agi-kjP0kXD4</link>
       <guid isPermaLink="false">8c452eea0cceee70</guid>
       <pubDate>Tue, 04 Aug 2026 14:56:48 +0000</pubDate>
@@ -363,7 +352,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #33 — Invest Like the Best: Gavin Baker - AI Market Jitters - [Invest Like the Best, EP.485]</title>
+      <title>🎧 LISTEN #32 — Invest Like the Best: Gavin Baker - AI Market Jitters - [Invest Like the Best, EP.485]</title>
       <link />
       <guid isPermaLink="false">d817b7c154c23109</guid>
       <pubDate>Tue, 04 Aug 2026 08:00:00 +0000</pubDate>
@@ -374,7 +363,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/c8fca7de-8f77-11f1-ae96-ab857574605f/image/e34471e6c9b4af0375abbd710ff0fa11.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #34 — Lenny's Podcast: OpenAI’s Head of Design: This is the best time in history to be a designer | Ian Silber</title>
+      <title>🎧 LISTEN #33 — Lenny's Podcast: OpenAI’s Head of Design: This is the best time in history to be a designer | Ian Silber</title>
       <link>https://www.lennysnewsletter.com/p/openais-head-of-design-this-is-the</link>
       <guid isPermaLink="false">6b1ed41c3e9719e1</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -385,7 +374,7 @@
       <ns0:image href="https://substackcdn.com/feed/podcast/10845/post/209801560/9b2eb1d2408773ba174dfa7943a59083.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #35 — Jason &amp; Scot Show: EP342 - The End of the Attention Economy, and What Retail Does Next with Mitch Joel</title>
+      <title>🎧 LISTEN #34 — Jason &amp; Scot Show: EP342 - The End of the Attention Economy, and What Retail Does Next with Mitch Joel</title>
       <link>https://jasonandscot.com/ep342-the-end-of-the-attention-economy-and-what-retail-does-next-with-mitch-joel</link>
       <guid isPermaLink="false">c9f7bc8824d30cc4</guid>
       <pubDate>Thu, 06 Aug 2026 07:46:05 +0000</pubDate>
@@ -393,6 +382,17 @@
       <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 75/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 31 Jul 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Explores a compelling strategic thesis on the &amp;#x27;intimacy economy&amp;#x27; and its profound implications for retail and AI-driven customer experiences. The discussion covers critical topics like AI&amp;#x27;s role in curation, agentic shopping, and internal vs. customer-facing AI deployment, offering forward-looking insights highly relevant for product strategy and craft at a senior level. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Recorded live from NRF Nexus, this episode features a discussion with keynote speaker Mitch Joel, who posits that the &amp;#x27;attention economy&amp;#x27; is over, giving way to an &amp;#x27;intimacy economy&amp;#x27; where brands must deliver highly personalized customer experiences. The conversation explores how digital commerce has disrupted serendipity and discovery, and how AI can scale curation to become a competitive advantage. It delves into the practicalities of agentic shopping, whether consumers truly desire it, and the current deployment of AI in companies, often prioritizing internal productivity over direct customer interaction. The episode concludes with a nuanced discussion on trust in AI, particularly in scenarios where AI improves experience but disclosure might be counterproductive.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The shift from an &amp;#x27;attention economy&amp;#x27; to an &amp;#x27;intimacy economy&amp;#x27; in retail, emphasizing hyper-personalized customer experiences.&lt;/li&gt;&lt;li&gt;AI&amp;#x27;s role in restoring serendipity and discovery through scalable curation, and the implications of agentic shopping.&lt;/li&gt;&lt;li&gt;Strategic considerations for AI deployment in companies, balancing internal productivity with customer-facing applications and the challenge of trust.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;a href="https://jasonandscot.com/ep342-the-end-of-the-attention-economy-and-what-retail-does-next-with-mitch-joel"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>Recorded live from NRF Nexus, this episode features a discussion with keynote speaker Mitch Joel, who posits that the 'attention economy' is over, giving way to an 'intimacy economy' where brands must deliver highly personalized customer experiences. The conversation explores how digital commerce has disrupted serendipity and discovery, and how AI can scale curation to become a competitive advantage. It delves into the practicalities of agentic shopping, whether consumers truly desire it, and the current deployment of AI in companies, often prioritizing internal productivity over direct customer interaction. The episode concludes with a nuanced discussion on trust in AI, particularly in scenarios where AI improves experience but disclosure might be counterproductive.</description>
       <enclosure url="https://traffic.libsyn.com/secure/jasshow/jass_mitch_VIDEO_AUPHONIC_AUDIO.mp3?dest-id=325386" type="audio/mpeg" length="41629112" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #35 — The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman</title>
+      <link>https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH</link>
+      <guid isPermaLink="false">fec39220a6b65ef0</guid>
+      <pubDate>Fri, 21 Aug 2026 12:46:44 +0000</pubDate>
+      <itunes:duration>1515</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 61/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 21 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Directly addresses a critical and emerging challenge for Senior PMs: integrating AI agents securely within the enterprise, with insights from a leading tech company&amp;#x27;s CISO. High relevance to AI and product strategy.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This a16z episode features Joel De La Garza and Aaron Zollman, Deputy CISO at Microsoft Gaming, discussing how security teams can manage AI agents in the enterprise. They share Microsoft&amp;#x27;s experience with OpenClaw, detailing the journey from initial ban to safe implementation. The discussion covers the impact of agents on identity, permissions, containerization, and monitoring, highlighting how AI is transforming the CISO&amp;#x27;s role from gatekeeper to enabler. They also explore AI&amp;#x27;s potential in vulnerability patching and the persistence of traditional security challenges amidst new AI threats.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategies for securely integrating AI agents into enterprise environments, drawing from Microsoft&amp;#x27;s experience.&lt;/li&gt;&lt;li&gt;The evolving role of CISO and security teams in an AI-driven world, shifting from &amp;#x27;no&amp;#x27; to &amp;#x27;safe enablement&amp;#x27;.&lt;/li&gt;&lt;li&gt;Challenges and opportunities for AI in identity, permissions, containerization, and vulnerability management.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Crucial for Senior PMs building AI products or integrating AI into existing platforms, offering a strategic perspective on security considerations, risk management, and the operational shifts required for AI adoption at scale.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This a16z episode features Joel De La Garza and Aaron Zollman, Deputy CISO at Microsoft Gaming, discussing how security teams can manage AI agents in the enterprise. They share Microsoft's experience with OpenClaw, detailing the journey from initial ban to safe implementation. The discussion covers the impact of agents on identity, permissions, containerization, and monitoring, highlighting how AI is transforming the CISO's role from gatekeeper to enabler. They also explore AI's potential in vulnerability patching and the persistence of traditional security challenges amidst new AI threats.</description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/c9e8f5d5-86c0-4e2d-98c4-2133fcb293ea/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=c9e8f5d5-86c0-4e2d-98c4-2133fcb293ea&amp;feed=JGE3yC0V" type="audio/mpeg" length="24247180" />
+      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
   </channel>
 </rss>

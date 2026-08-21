@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-08-21T05:39:37.618994+00:00",
+  "last_run": "2026-08-21T12:46:44.683141+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -4014,6 +4014,102 @@
       "enclosure_type": "audio/mpeg",
       "enclosure_length": 0,
       "curated_at": null
+    },
+    "96b0a5d28fa4d6e9": {
+      "guid": "96b0a5d28fa4d6e9",
+      "show_title": "Stratechery",
+      "episode_title": "(Preview) The App Store in the Shadow of AI, Offensive and Defensive Cybersecurity, Q&amp;A on Financial Planning, AI Writing, American Sports",
+      "published": "2026-08-21T08:59:38Z",
+      "processed_at": "2026-08-21T12:46:39.776380Z",
+      "score": 58.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "The episode touches on highly relevant topics like AI's impact on tech giants and cybersecurity, but the 'preview' format and low transcript confidence suggest a potentially fragmented discussion. The 'Q&A on Financial Planning' and 'American Sports' segments dilute the focus for this persona.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://sharptech.fm/feed/podcast",
+      "summary": "This Stratechery preview episode covers a range of topics, starting with Apple's position in the AI era, suggesting that even major tech news can feel minor against the backdrop of AI's rapid growth. It delves into OpenAI's decision to pause internet model training and the evolving landscape of cybersecurity, highlighting how AI exacerbates existing challenges and creates new dynamics for both offensive and defensive actors. The discussion also touches on potential AI use cases, the benefits of market bubbles, and the impact of AI on careers like financial planning and the writing process. The episode concludes with a brief digression on American sports.",
+      "key_ideas": [
+        "AI's transformative impact overshadows traditional tech news, forcing re-evaluation of established players like Apple.",
+        "AI is fundamentally reshaping cybersecurity, creating new incentives and challenges for both 'black hat' and 'white hat' actors.",
+        "The pervasive influence of AI extends to career paths (e.g., financial planning, writing) and necessitates strategic adaptation."
+      ],
+      "episode_url": "https://sharptech.fm/member/episode/preview-the-app-store-in-the-shadow-of-ai-offensive-and-defensive-cybersecurity-q-a-on-financial-planning-ai-writing-american-sports",
+      "duration_seconds": 1251,
+      "enclosure_url": "https://sharptech.fm/assets/sharptech0288_preview.mp3?access_token=WtLvUDEHgB7rE4MbAfmDVT",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 20525064,
+      "curated_at": null
+    },
+    "fec39220a6b65ef0": {
+      "guid": "fec39220a6b65ef0",
+      "show_title": "The a16z Show",
+      "episode_title": "How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman",
+      "published": "2026-08-21T11:40:08Z",
+      "processed_at": "2026-08-21T12:46:39.776463Z",
+      "score": 61.0,
+      "classification": "Listen Fully",
+      "classification_reason": "Directly addresses a critical and emerging challenge for Senior PMs: integrating AI agents securely within the enterprise, with insights from a leading tech company's CISO. High relevance to AI and product strategy.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "summary": "This a16z episode features Joel De La Garza and Aaron Zollman, Deputy CISO at Microsoft Gaming, discussing how security teams can manage AI agents in the enterprise. They share Microsoft's experience with OpenClaw, detailing the journey from initial ban to safe implementation. The discussion covers the impact of agents on identity, permissions, containerization, and monitoring, highlighting how AI is transforming the CISO's role from gatekeeper to enabler. They also explore AI's potential in vulnerability patching and the persistence of traditional security challenges amidst new AI threats.",
+      "key_ideas": [
+        "Strategies for securely integrating AI agents into enterprise environments, drawing from Microsoft's experience.",
+        "The evolving role of CISO and security teams in an AI-driven world, shifting from 'no' to 'safe enablement'.",
+        "Challenges and opportunities for AI in identity, permissions, containerization, and vulnerability management."
+      ],
+      "episode_url": "https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH",
+      "duration_seconds": 1515,
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/c9e8f5d5-86c0-4e2d-98c4-2133fcb293ea/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=c9e8f5d5-86c0-4e2d-98c4-2133fcb293ea&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 24247180,
+      "curated_at": null
+    },
+    "182b5d1b7f0311ca": {
+      "guid": "182b5d1b7f0311ca",
+      "show_title": "The Prof G Pod",
+      "episode_title": "The Week: The Right Turns Against the Rich",
+      "published": "2026-08-21T08:00:00Z",
+      "processed_at": "2026-08-21T12:46:39.776484Z",
+      "score": 2.0,
+      "classification": "Skip",
+      "classification_reason": "The episode covers broad political and economic topics with limited direct relevance to a Senior PM's strategic focus on product strategy, AI, and eCommerce. The 'stronger relationships' segment is generic soft skills.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "summary": "This episode of The Prof G Pod, 'The Week: The Right Turns Against the Rich,' features George Hahn connecting current events. Topics include California's potential billionaire tax, Tucker Carlson's populist economics, and China's infrastructure strategy's implications for the AI race. Additionally, Scott shares insights on improving relationships by not keeping score. The discussion touches on economic policy, political trends, and a brief mention of AI's geopolitical context, alongside a segment on interpersonal dynamics.",
+      "key_ideas": [
+        "California's potential billionaire wealth tax and its economic implications.",
+        "China's infrastructure strategy and its potential advantage in the AI race.",
+        "The role of not 'keeping score' in strengthening relationships."
+      ],
+      "episode_url": "",
+      "duration_seconds": 1133,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP2324990402.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "825b9748bcdafffd": {
+      "guid": "825b9748bcdafffd",
+      "show_title": "Chasing Life",
+      "episode_title": "Revisiting: Why You're Breathing Wrong, and How to Fix It",
+      "published": "2026-08-21T08:00:00Z",
+      "processed_at": "2026-08-21T12:46:39.776497Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode's topic on breathing techniques for health is entirely irrelevant to the persona's focus on product strategy, AI, emerging technology, and eCommerce. It offers no strategic insights or actionable advice for a Senior PM in these areas.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WMHY6124370245",
+      "summary": "This episode revisits a discussion with journalist James Nestor on the science of breathing, based on his book 'Breath: The New Science of a Lost Art'. It explores how dysfunctional breathing can contribute to various health issues like chronic disease, anxiety, ADHD, and even facial structure. The conversation emphasizes that most people breathe incorrectly but can improve their health through simple changes to their breathing patterns. The episode aims to highlight the immediate health benefits of proper breathing techniques.",
+      "key_ideas": [
+        "Dysfunctional breathing can impact overall health, including chronic diseases and mental well-being.",
+        "Most individuals breathe incorrectly, but these patterns can be corrected.",
+        "Simple breathing adjustments can lead to immediate health improvements."
+      ],
+      "episode_url": "",
+      "duration_seconds": 1816,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/swap.fm/track/2nzGkisFXQswLYT5s325/traffic.megaphone.fm/WMHY8122999261.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
     }
   },
   "published": [
@@ -4155,7 +4251,9 @@
     "78f81dd13928d5e8",
     "a6802df76f1dd364",
     "269f12471a7dbfad",
-    "588795767772f7b8"
+    "588795767772f7b8",
+    "fec39220a6b65ef0",
+    "96b0a5d28fa4d6e9"
   ],
   "playlist": [
     "d99da0b934e38cc5",
@@ -4200,7 +4298,8 @@
     "96cd539df618fce5",
     "5b20f6b6ac2d64db",
     "0b21d234ca52a538",
-    "171d1f5ecd96ea14"
+    "171d1f5ecd96ea14",
+    "fec39220a6b65ef0"
   ],
   "emailed": [
     "6a94a25c9cbce596",
@@ -4289,6 +4388,8 @@
     "78f81dd13928d5e8",
     "a6802df76f1dd364",
     "269f12471a7dbfad",
-    "588795767772f7b8"
+    "588795767772f7b8",
+    "fec39220a6b65ef0",
+    "96b0a5d28fa4d6e9"
   ]
 }

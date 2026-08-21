@@ -1,5 +1,21 @@
 # Podcast Scout — 2026-08-21
 
+## 🎧 In Your Queue Today
+
+### 1. The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman
+**Score:** 61/100 | **Listen Fully** | low confidence
+**Duration:** 25 min
+
+This a16z episode features Joel De La Garza and Aaron Zollman, Deputy CISO at Microsoft Gaming, discussing how security teams can manage AI agents in the enterprise. They share Microsoft's experience with OpenClaw, detailing the journey from initial ban to safe implementation. The discussion covers the impact of agents on identity, permissions, containerization, and monitoring, highlighting how AI is transforming the CISO's role from gatekeeper to enabler. They also explore AI's potential in vulnerability patching and the persistence of traditional security challenges amidst new AI threats.
+
+**Key Ideas:**
+- Strategies for securely integrating AI agents into enterprise environments, drawing from Microsoft's experience.
+- The evolving role of CISO and security teams in an AI-driven world, shifting from 'no' to 'safe enablement'.
+- Challenges and opportunities for AI in identity, permissions, containerization, and vulnerability management.
+
+[Listen →](https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH)
+
+
 ## 📌 Also Good — Didn't Fit Today's Queue
 
 - **The a16z Show: How Do You Defend Against AI That Can Hack?** (Score 73) — Joel De La Garza (a16z), Nick Warner (Neo), and Max Pollard (Cotool) explore the evolving landscape of cybersecurity as AI agents become capable of fi...
@@ -7,6 +23,8 @@
 - **The Real Story: ‘Generational Bear Market’ Ahead: Investors Have Forgotten What a Real Crash Feels Like | Ted Oakley** (Score 67) — Ted Oakley, Managing Partner of Oxbow Advisors, warns of an impending 'generational bear market' with potential equity declines of 35-45%, drawing par...
   [Link](https://podcasters.spotify.com/pod/show/the-good-podcast-co6/episodes/Generational-Bear-Market-Ahead-Investors-Have-Forgotten-What-a-Real-Crash-Feels-Like--Ted-Oakley-e3nkpfg)
 - **The Prof G Pod: China Decode: Microsoft's China Retreat, Remembering Zhu Rongji, and Typhoon Dolphin's Aftermath** (Score 63) — Alice Han and James Kynge dissect Microsoft's strategic retreat from China over the past five years, detailing office closures and job reductions, whi...
+- **Stratechery: (Preview) The App Store in the Shadow of AI, Offensive and Defensive Cybersecurity, Q&amp;A on Financial Planning, AI Writing, American Sports** (Score 58) — This Stratechery preview episode covers a range of topics, starting with Apple's position in the AI era, suggesting that even major tech news can feel...
+  [Link](https://sharptech.fm/member/episode/preview-the-app-store-in-the-shadow-of-ai-offensive-and-defensive-cybersecurity-q-a-on-financial-planning-ai-writing-american-sports)
 - **No Priors: From Restoring Sight to Reimagining the Brain, with Max Hodak** (Score 50) — Max Hodak, co-founder and CEO of Science Corporation, joins Sarah Guo to discuss the future of vision, brain-computer interfaces, and the human experi...
 - **Retailgentic: 700 Stores, 10 Million Shoppers, $3M Raised: Cooklist CEO & Co-Founder Daniel Vitiello** (Score 50) — This one is a build deep dive. Daniel has spent eight years on the same problem, and the answer has changed shape three times along the way: a consume...
   [Link](https://share.transistor.fm/s/8ddaf2be)
@@ -23,3 +41,21 @@
   [Link](https://a16z.simplecast.com/episodes/how-global-networks-are-reshaping-startup-success-YCGysOkP)
 - **The Prof G Pod: Who Will Power the 21st Century? — with Hannah Ritchie** (Score 50) — Hannah Ritchie, deputy editor of Our World in Data, joins Scott Galloway to examine the new global energy race. They discuss whether AI’s power demand...
 - **文森說書: 救助到底是在自我感動，還是真的能改善另一群人的生活？到非洲生活十一年後得到的經驗 feat. 愛女孩國際關懷協會創辦人 楊怡庭** (Score 50) — 這一集的影片版本：https://youtu.be/19D7DnEQ0To 📌 節目資訊補充｜愛女孩國際關懷協會 Love Binti International 在非洲，許多女孩因為一片衛生棉而失去上學的機會，也有家庭因缺乏乾淨水源而面臨健康風險。 愛女孩自 2015 年起深耕非洲，推動月經健康、...
+
+## 📊 Weekly Synthesis
+
+**Major themes:**
+- The pervasive and transformative impact of AI across industries, from cybersecurity to retail and finance.
+- The evolving geopolitical landscape, particularly concerning US-China relations, AI, and technology leadership.
+- The challenges and opportunities for established businesses and startups in adapting to rapid technological shifts and economic uncertainties.
+
+**Weak signal:** The 'borderless founder' concept, where entrepreneurs leverage global networks and insights with Silicon Valley's speed and capital, suggests a shift in startup formation and global talent distribution.
+
+**Overhyped:** The idea that traditional cybersecurity measures and assumptions are sufficient to defend against advanced AI-driven threats. Multiple episodes highlight how AI agents are already exploiting vulnerabilities, rendering old approaches obsolete.
+
+**Retailer implications:** Retailers face significant opportunities and challenges from AI. Conversational shopping assistants and AI-driven personalized experiences are emerging as critical tools for customer engagement and sales (Cooklist, Jason & Scot Show). However, they also need to prepare for an onslaught of AI-written content (Barnes & Noble) and consider how AI agents might impact their D2C operations (Steve Madden). The 'App Store in the Shadow of AI' suggests that even major platforms might feel minor against AI's growth, implying retailers need to think beyond existing platforms for AI integration.
+
+**Product ideas:**
+- An AI agent management platform for enterprises, offering secure deployment, monitoring, and guardrail enforcement for internal AI tools.
+- A 'conversational shopping assistant as a service' for grocers and other retailers, enabling personalized, AI-driven shopping experiences directly on their sites.
+- An AI-powered content verification and filtering tool for publishers and retailers to manage the influx of AI-generated text and ensure content quality.
