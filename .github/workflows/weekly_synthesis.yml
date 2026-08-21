@@ -2,21 +2,33 @@ name: Weekly Synthesis
 
 on:
   schedule:
-    # Run every Friday at 06:00 UTC
+    # Friday 06:00 UTC. Change to '0 6 * * 1' for Monday.
     - cron: '0 6 * * 5'
   workflow_dispatch:
+
+# Without these the git push and Pages deploy both fail.
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   synthesis:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'   # pyproject requires >=3.12
 
       - name: Install uv
         run: curl -LsSf https://astral.sh/uv/install.sh | sh && echo "$HOME/.cargo/bin" >> $GITHUB_PATH
@@ -27,6 +39,7 @@ jobs:
       - name: Run scout with synthesis
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           PODCAST_INDEX_KEY: ${{ secrets.PODCAST_INDEX_KEY }}
           PODCAST_INDEX_SECRET: ${{ secrets.PODCAST_INDEX_SECRET }}
           WEB_SEARCH_API_KEY: ${{ secrets.WEB_SEARCH_API_KEY }}
@@ -35,6 +48,8 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           SMTP_TO: ${{ secrets.SMTP_TO }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          SMTP_USE_TLS: ${{ secrets.SMTP_USE_TLS }}
           PAGES_BASE_URL: ${{ secrets.PAGES_BASE_URL }}
         run: uv run podcast-scout run --synthesis
 
@@ -42,9 +57,11 @@ jobs:
         run: |
           git config user.name "podcast-scout[bot]"
           git config user.email "podcast-scout[bot]@users.noreply.github.com"
-          git add data/ public/ || true
+          git add data/ || true
+          git add -f public/ || true
           git diff --cached --quiet || git commit -m "chore: weekly synthesis state update [skip ci]"
-          git push
+          git pull --rebase origin main
+          git push origin main
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -54,5 +71,6 @@ jobs:
         with:
           path: public/
 
-      - name: Deploy to GitHub Pages
+      - id: deploy
+        name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
