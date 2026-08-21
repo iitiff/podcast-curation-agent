@@ -409,6 +409,19 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
         )
         tokens_used = resp.input_tokens + resp.output_tokens
         entries = _parse_llm_json_array(resp.content)
+        # A short array means the response was truncated mid-JSON. Every
+        # unmatched episode below silently degrades to the metadata floor
+        # (50.0, no summary, no key ideas), so make the cause explicit rather
+        # than emitting N separate "batch entry missing" lines that look like
+        # N unrelated problems.
+        if len(entries) < len(items):
+            log.warning(
+                "Stage 2 returned %d entries for %d episodes — response was "
+                "TRUNCATED. %d episode(s) will fall back to metadata-only "
+                "scoring. Consider lowering _BATCH_SIZE or raising "
+                "token_budget_per_episode.",
+                len(entries), len(items), len(items) - len(entries),
+            )
     except Exception as exc:
         log.warning("Batch Stage 2 LLM call failed: %s — falling back to metadata for all", exc)
         entries = []
