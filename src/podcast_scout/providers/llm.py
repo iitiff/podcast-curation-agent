@@ -72,6 +72,59 @@ class GitHubModelsProvider(BaseLLMProvider):
         )
 
 
+
+def _extract_gemini_text(data: dict[str, Any], max_tokens: int) -> str:
+    """Pull the generated text out of a Gemini generateContent response.
+
+    Deliberately strict. The previous implementation did
+    `data["candidates"][0]["content"]["parts"][0]["text"]`, which had two
+    failure modes that both surfaced as silent quality loss rather than errors:
+
+      1. When thinking consumes the whole budget the API returns
+         finishReason=MAX_TOKENS with NO parts at all. That raised a bare
+         `IndexError: list index out of range`, which the batch ranker caught
+         and turned into metadata-only scoring for every episode -- no
+         indication that thinking tokens were the cause.
+      2. Gemini may split output across MULTIPLE parts. Reading only parts[0]
+         silently truncated the JSON array mid-way.
+
+    This joins all parts and raises a message naming finishReason and the
+    thoughts/prompt token counts, so the next failure is diagnosable from the
+    log alone.
+    """
+    usage = data.get("usageMetadata", {})
+    candidates = data.get("candidates") or []
+    if not candidates:
+        raise RuntimeError(
+            f"Gemini returned no candidates "
+            f"(promptFeedback={data.get('promptFeedback')})"
+        )
+
+    candidate = candidates[0]
+    finish_reason = candidate.get("finishReason")
+    parts = (candidate.get("content") or {}).get("parts") or []
+    text = "".join(p.get("text", "") for p in parts)
+
+    if not text:
+        raise RuntimeError(
+            f"Gemini returned empty text (finishReason={finish_reason}, "
+            f"maxOutputTokens={max_tokens}, "
+            f"thoughtsTokens={usage.get('thoughtsTokenCount')}, "
+            f"promptTokens={usage.get('promptTokenCount')}). "
+            f"If finishReason is MAX_TOKENS the budget was consumed before any "
+            f"output was produced -- check thinkingConfig."
+        )
+    if finish_reason == "MAX_TOKENS":
+        log.warning(
+            "Gemini hit MAX_TOKENS (maxOutputTokens=%s, thoughtsTokens=%s) — the "
+            "response is TRUNCATED; downstream parsing will recover only the "
+            "entries that made it.",
+            max_tokens, usage.get("thoughtsTokenCount"),
+        )
+    return text
+
+
+
 class GeminiProvider(BaseLLMProvider):
     """Google Gemini API provider — the primary (and currently only) LLM."""
 
@@ -100,6 +153,21 @@ class GeminiProvider(BaseLLMProvider):
             "generationConfig": {
                 "maxOutputTokens": max_tokens,
                 "temperature": 0.3,
+                # CRITICAL: disable thinking.
+                #
+                # gemini-2.5-flash defaults to *dynamic thinking*, and thinking
+                # tokens are billed against maxOutputTokens. When
+                # thoughts + output exceed that cap the API returns
+                # finishReason=MAX_TOKENS with an EMPTY text part -- the JSON
+                # array we asked for never arrives at all.
+                #
+                # Observed in production: a 5-episode batch came back with only
+                # 2 objects (truncated) or none (empty), and every unmatched
+                # episode silently fell through to metadata-only scoring at the
+                # 50.0 floor with no summary and no key ideas.
+                # https://ai.google.dev/gemini-api/docs/thinking  (2.5 Flash:
+                # thinkingBudget 0 disables thinking)
+                "thinkingConfig": {"thinkingBudget": 0},
             },
         }
         if system_instruction:
@@ -111,8 +179,9 @@ class GeminiProvider(BaseLLMProvider):
             resp.raise_for_status()
             data = resp.json()
 
-        text = data["candidates"][0]["content"]["parts"][0]["text"]
         usage = data.get("usageMetadata", {})
+        text = _extract_gemini_text(data, max_tokens)
+
         return LLMResponse(
             content=text,
             input_tokens=usage.get("promptTokenCount", 0),
