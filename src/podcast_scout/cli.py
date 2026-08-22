@@ -636,6 +636,18 @@ async def _run_pipeline(
     # also meant the same episode reappeared in every daily digest until it won
     # a slot or aged out of the lookback window. Filtering here decouples the
     # two: keep competing for the playlist, but get emailed once.
+    #
+    # IMPORTANT: a failure here must NOT be silently swallowed. Everything
+    # above this point (feeds, Pages site, state) has already been written
+    # successfully, so we don't want an SMTP error to erase that work — but we
+    # also don't want the run to report overall success while the digest never
+    # actually reached an inbox. `email_error` is surfaced to the caller
+    # (`run()` below) which fails the process with a non-zero exit code AFTER
+    # everything else has been persisted, so CI goes red instead of quietly
+    # staying green. See PR fixing "weekly email didn't send" (Aug 2026): the
+    # workflow reported success and the site updated, but send_digest() had
+    # raised and the exception was only ever printed to the console.
+    email_error: str | None = None
     smtp = _smtp_from_env()
     if smtp:
         already_emailed = state.emailed_guids()
@@ -671,11 +683,15 @@ async def _run_pipeline(
                         f"from this digest.[/dim]"
                     )
             except Exception as exc:
-                console.print(f"[red]Email failed: {exc}[/red]")
+                email_error = str(exc)
+                console.print(f"[bold red]Email failed: {exc}[/bold red]")
     else:
         console.print("[yellow]SMTP not configured — skipping email.[/yellow]")
 
     _print_summary_table(rss_queue, email_only)
+    # Not persisted to latest.json (already written above) — this is only for
+    # the CLI's own exit-code decision in run().
+    latest_json["email_error"] = email_error
     return latest_json
 
 
@@ -736,6 +752,19 @@ def run(synthesis: bool, dry_run: bool, lookback: int | None) -> None:
     result = asyncio.run(_run_pipeline(settings, run_synthesis=synthesis, dry_run=dry_run))
     queued = result.get("queued", 0) if isinstance(result, dict) else len(result)
     console.print(f"[bold green]Done. {queued} episodes queued.[/bold green]")
+
+    # Everything (feeds, site, state) is already written and persisted at this
+    # point regardless of email outcome — see the comment above the email
+    # section in _run_pipeline. We exit non-zero ONLY here, after all of that
+    # has landed, so a failed send is loud (CI goes red, `::error::` shows up
+    # in the Actions log) instead of a swallowed exception leaving a green
+    # checkmark with nothing in anyone's inbox.
+    if isinstance(result, dict) and result.get("email_error"):
+        console.print(
+            f"[bold red]Email digest failed to send: {result['email_error']}[/bold red]"
+        )
+        print(f"::error::Email digest failed to send: {result['email_error']}")
+        raise SystemExit(1)
 
 
 @main.command()
