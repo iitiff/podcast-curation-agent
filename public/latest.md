@@ -1,61 +1,28 @@
-# Podcast Scout — 2026-08-21
+# Podcast Scout — 2026-08-24
 
 ## 🎧 In Your Queue Today
 
-### 1. The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman
-**Score:** 61/100 | **Listen Fully** | low confidence
-**Duration:** 25 min
+### 1. The a16z Show: Martin Casado on Where the Value Is Going in AI
+**Score:** 84/100 | **Listen Fully** | low confidence
+**Duration:** 42 min
 
-This a16z episode features Joel De La Garza and Aaron Zollman, Deputy CISO at Microsoft Gaming, discussing how security teams can manage AI agents in the enterprise. They share Microsoft's experience with OpenClaw, detailing the journey from initial ban to safe implementation. The discussion covers the impact of agents on identity, permissions, containerization, and monitoring, highlighting how AI is transforming the CISO's role from gatekeeper to enabler. They also explore AI's potential in vulnerability patching and the persistence of traditional security challenges amidst new AI threats.
+Martin Casado, a prominent figure in venture capital, discusses the evolving landscape of AI, focusing on where value is currently accumulating. He explores how the AI cycle differs from previous tech waves, particularly in its demand for scale-up capital and the tight relationship between capital, innovation, and growth. The conversation delves into the potential dominance of frontier labs versus the rise of open-source and specialist models, and the increasing value capture by AI applications. Key topics include model routing, AI economics, founder-market fit, and the potential for significant wealth creation in this era.
 
 **Key Ideas:**
-- Strategies for securely integrating AI agents into enterprise environments, drawing from Microsoft's experience.
-- The evolving role of CISO and security teams in an AI-driven world, shifting from 'no' to 'safe enablement'.
-- Challenges and opportunities for AI in identity, permissions, containerization, and vulnerability management.
+- AI has transformed venture capital into a 'scale-up capital game,' where small teams can effectively deploy extraordinary amounts of money, indicating a shift in the traditional startup funding model.
+- The relationship between capital, innovation, and growth in the current AI cycle is unprecedentedly tight, suggesting that access to significant funding is more critical than ever for driving product development and market penetration.
+- Applications are increasingly capturing more value in the AI ecosystem, challenging the initial assumption that frontier labs would dominate the market, which implies a strategic shift for product builders towards leveraging foundational models rather than solely building them.
 
-[Listen →](https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH)
+[Listen →](https://a16z.simplecast.com/episodes/martin-casado-on-where-the-value-is-going-in-ai-750ULKGM)
 
 
 ## 📌 Also Good — Didn't Fit Today's Queue
 
-- **The a16z Show: How Do You Defend Against AI That Can Hack?** (Score 73) — Joel De La Garza (a16z), Nick Warner (Neo), and Max Pollard (Cotool) explore the evolving landscape of cybersecurity as AI agents become capable of fi...
-  [Link](https://a16z.simplecast.com/episodes/how-do-you-defend-against-ai-that-can-hack-L2M2EmmY)
-- **The Real Story: ‘Generational Bear Market’ Ahead: Investors Have Forgotten What a Real Crash Feels Like | Ted Oakley** (Score 67) — Ted Oakley, Managing Partner of Oxbow Advisors, warns of an impending 'generational bear market' with potential equity declines of 35-45%, drawing par...
-  [Link](https://podcasters.spotify.com/pod/show/the-good-podcast-co6/episodes/Generational-Bear-Market-Ahead-Investors-Have-Forgotten-What-a-Real-Crash-Feels-Like--Ted-Oakley-e3nkpfg)
-- **The Prof G Pod: China Decode: Microsoft's China Retreat, Remembering Zhu Rongji, and Typhoon Dolphin's Aftermath** (Score 63) — Alice Han and James Kynge dissect Microsoft's strategic retreat from China over the past five years, detailing office closures and job reductions, whi...
+- **科技浪: EP151 - NVIDIA 的 CUDA 護城河消失中，但老黃已經想到下一步了？AI 輔助的個人化 mRNA 癌症療法來了！** (Score 62) — This episode of 'Tech Wave' discusses NVIDIA's strategic positioning in the AI landscape, particularly the potential erosion of its CUDA moat and how ...
+  [Link](https://open.firstory.me/story/cmt6n8k1q1cjx01x6frrx4l2j)
 - **Stratechery: (Preview) The App Store in the Shadow of AI, Offensive and Defensive Cybersecurity, Q&amp;A on Financial Planning, AI Writing, American Sports** (Score 58) — This Stratechery preview episode covers a range of topics, starting with Apple's position in the AI era, suggesting that even major tech news can feel...
   [Link](https://sharptech.fm/member/episode/preview-the-app-store-in-the-shadow-of-ai-offensive-and-defensive-cybersecurity-q-a-on-financial-planning-ai-writing-american-sports)
-- **No Priors: From Restoring Sight to Reimagining the Brain, with Max Hodak** (Score 50) — Max Hodak, co-founder and CEO of Science Corporation, joins Sarah Guo to discuss the future of vision, brain-computer interfaces, and the human experi...
-- **Retailgentic: 700 Stores, 10 Million Shoppers, $3M Raised: Cooklist CEO & Co-Founder Daniel Vitiello** (Score 50) — This one is a build deep dive. Daniel has spent eight years on the same problem, and the answer has changed shape three times along the way: a consume...
-  [Link](https://share.transistor.fm/s/8ddaf2be)
-- **Sharp China: Wang Yi Visits South Korea; Remembering Zhu Rongji; US-China Ahead of Xi’s Visit; How China Monitors Foreigners** (Score 50) — On today’s show Andrew and Bill with Wang Yi’s visit to South Korea this week, including the fortunate timing for the PRC in the wake of President Tru...
-  [Link](https://sharpchina.fm/member/episode/wang-yi-visits-south-korea-remembering-zhu-rongji-us-china-ahead-of-xis-visit-how-china-monitors-foreigners)
-- **Think Fast Talk Smart: 316. The Persuasion Equation: Grab Attention & Make Your Message Meaningful** (Score 50) — “The tools of communication have changed, the human brain has not.” In a world of endless content and shrinking attention spans, getting your message ...
-  [Link](https://www.fastersmarter.io/316-the-persuasion-equation-grab-attention-make-your-message-meaningful/)
-- **Decoder: Welcome to the AI crisis in math** (Score 50) — My guest today is Robert Hart, The Verge’s London-based AI reporter. Robert recently wrote a fantastic story for us about the debate raging inside the...
-- **Jason & Scot Show: EP345 - Agentic Commerce, TikTok Shop & Tariffs with Steve Madden's Josh Krepon** (Score 50) — Recorded live from NRF Nexus, Jason and Scot sit down with Josh Krepon, President of U.S. D2C and Global Digital at Steve Madden. Josh shares his path...
-  [Link](https://jasonandscot.com/ep345-agentic-commerce-tiktok-shop-amp-tariffs-with-steve-maddens-josh-krepon)
-- **Masters of Scale: How Barnes & Noble made a comeback, with CEO James Daunt** (Score 50) — CEO James Daunt has now rescued two iconic bookstore chains: Barnes & Noble and Waterstones. He joins host Jeff Berman to discuss the turnarounds, plu...
-- **The SaaS Podcast: Enterprise Sales With No Product: Landing a Big Four Customer** (Score 50) — Two founders. Two engineers. No product. Christian Lund closed one of the Big Four accounting firms as Templafy's first customer before the software e...
-- **The a16z Show: How Global Networks Are Reshaping Startup Success** (Score 50) — Elena Burger is joined by a16z’s Angela Strange and Gabriel Vasquez to discuss the rise of the "borderless founder": entrepreneurs who bring the netwo...
-  [Link](https://a16z.simplecast.com/episodes/how-global-networks-are-reshaping-startup-success-YCGysOkP)
-- **The Prof G Pod: Who Will Power the 21st Century? — with Hannah Ritchie** (Score 50) — Hannah Ritchie, deputy editor of Our World in Data, joins Scott Galloway to examine the new global energy race. They discuss whether AI’s power demand...
-- **文森說書: 救助到底是在自我感動，還是真的能改善另一群人的生活？到非洲生活十一年後得到的經驗 feat. 愛女孩國際關懷協會創辦人 楊怡庭** (Score 50) — 這一集的影片版本：https://youtu.be/19D7DnEQ0To 📌 節目資訊補充｜愛女孩國際關懷協會 Love Binti International 在非洲，許多女孩因為一片衛生棉而失去上學的機會，也有家庭因缺乏乾淨水源而面臨健康風險。 愛女孩自 2015 年起深耕非洲，推動月經健康、...
-
-## 📊 Weekly Synthesis
-
-**Major themes:**
-- The pervasive and transformative impact of AI across industries, from cybersecurity to retail and finance.
-- The evolving geopolitical landscape, particularly concerning US-China relations, AI, and technology leadership.
-- The challenges and opportunities for established businesses and startups in adapting to rapid technological shifts and economic uncertainties.
-
-**Weak signal:** The 'borderless founder' concept, where entrepreneurs leverage global networks and insights with Silicon Valley's speed and capital, suggests a shift in startup formation and global talent distribution.
-
-**Overhyped:** The idea that traditional cybersecurity measures and assumptions are sufficient to defend against advanced AI-driven threats. Multiple episodes highlight how AI agents are already exploiting vulnerabilities, rendering old approaches obsolete.
-
-**Retailer implications:** Retailers face significant opportunities and challenges from AI. Conversational shopping assistants and AI-driven personalized experiences are emerging as critical tools for customer engagement and sales (Cooklist, Jason & Scot Show). However, they also need to prepare for an onslaught of AI-written content (Barnes & Noble) and consider how AI agents might impact their D2C operations (Steve Madden). The 'App Store in the Shadow of AI' suggests that even major platforms might feel minor against AI's growth, implying retailers need to think beyond existing platforms for AI integration.
-
-**Product ideas:**
-- An AI agent management platform for enterprises, offering secure deployment, monitoring, and guardrail enforcement for internal AI tools.
-- A 'conversational shopping assistant as a service' for grocers and other retailers, enabling personalized, AI-driven shopping experiences directly on their sites.
-- An AI-powered content verification and filtering tool for publishers and retailers to manage the influx of AI-generated text and ensure content quality.
+- **Lenny's Podcast: How to close $100K+ enterprise deals, step by step | Jen Abel** (Score 52) — This episode features Jen Abel, co-founder of JJellyfish and GM of enterprise sales at State Affairs, detailing a comprehensive, 15-step enterprise sa...
+  [Link](https://www.lennysnewsletter.com/p/how-to-close-100k-1m-deals-step-by)
+- **下一本讀什麼: EP.640 《高薪賽道》讀後心得：談薪水可以是一件很健康的事？ ft.科技工作講  抹布** (Score 31) — This episode features an interview with Moboo, host of 'Tech Work Talk' and author of 'The Wealth Track,' discussing his book and the often-taboo topi...
+  [Link](https://open.firstory.me/story/cmt2ialmn0lqh01uqft2085ky)

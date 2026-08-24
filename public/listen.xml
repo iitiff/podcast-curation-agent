@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link>https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Aug 2026 12:46:44 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Aug 2026 05:44:38 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href="https://iitiff.github.io/podcast-curation-agent/listen.xml" rel="self" type="application/rss+xml" />
@@ -24,18 +24,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #2 — Y Combinator Startup Podcast: Jeff Dean: The 1% Rule for Building in AI</title>
-      <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jeff-Dean-The-1-Rule-for-Building-in-AI-e3mq28a</link>
-      <guid isPermaLink="false">9a498473d4309a7e</guid>
-      <pubDate>Sat, 01 Aug 2026 14:00:00 +0000</pubDate>
-      <ns0:duration>3426</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 94/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Jeff Dean, Google&amp;#x27;s Chief Scientist, provides unparalleled strategic insights into AI, infrastructure, and innovation at scale, directly addressing the persona&amp;#x27;s focus on AI and emerging technology, and product strategy. The content is highly novel, actionable, and backed by concrete examples from Google&amp;#x27;s history.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Google&amp;#x27;s Chief Scientist, Jeff Dean, discusses strategic thought experiments behind Google&amp;#x27;s foundational successes (search index, TPU for speech recognition). He delves into the &amp;#x27;1% Rule for Building in AI,&amp;#x27; the future of inference hardware specialization, and how small teams can still achieve significant wins. This episode is highly relevant for a senior PM focused on AI and emerging technology, offering deep strategic insights into large-scale technical decisions, infrastructure, and innovation from a leading expert.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategic &amp;#x27;napkin calculations&amp;#x27; for massive scale infrastructure (e.g., Google Search, TPU).&lt;/li&gt;&lt;li&gt;The &amp;#x27;1% Rule&amp;#x27; for building in AI and future of inference hardware.&lt;/li&gt;&lt;li&gt;Principles for innovation and how small teams can still make a big impact.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Offers a strategic blueprint for approaching large-scale technical challenges in AI, understanding infrastructure evolution, and fostering innovation within product teams. Provides a high-level perspective on AI product strategy and technological foresight.&lt;/p&gt;&lt;p&gt;&lt;a href="https://podcasters.spotify.com/pod/show/ycombinator/episodes/Jeff-Dean-The-1-Rule-for-Building-in-AI-e3mq28a"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
-      <description>Google's Chief Scientist, Jeff Dean, discusses strategic thought experiments behind Google's foundational successes (search index, TPU for speech recognition). He delves into the '1% Rule for Building in AI,' the future of inference hardware specialization, and how small teams can still achieve significant wins. This episode is highly relevant for a senior PM focused on AI and emerging technology, offering deep strategic insights into large-scale technical decisions, infrastructure, and innovation from a leading expert.</description>
-      <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123586250/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-31%2F428976415-44100-2-4750afd8ab692.mp3" type="audio/mpeg" length="54829556" />
-      <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785514200270-72a7d09aaff28.jpg" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #3 — Retailgentic: Physical AI Hits the Sales Floor: FrontlineIQ CEO &amp; Co-Founder Ben Rodier</title>
+      <title>🎧 LISTEN #2 — Retailgentic: Physical AI Hits the Sales Floor: FrontlineIQ CEO &amp; Co-Founder Ben Rodier</title>
       <link>https://share.transistor.fm/s/2aee8482</link>
       <guid isPermaLink="false">a3d440bbbe93d68a</guid>
       <pubDate>Fri, 14 Aug 2026 06:22:33 +0000</pubDate>
@@ -46,7 +35,7 @@
       <ns0:image href="https://img.transistorcdn.com/qVH44BbAk7ZDgAAJ_KgdNmCV5VjSgVpJqoNKF95fpSY/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8wMzQ0/YTE3ZjkzZjQyNWRi/NDc0ODIyNDZiYzdj/YWI1ZS5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #4 — The SaaS Podcast: Featherless AI: When Your Weekend Experiment Makes More Than Your Startup</title>
+      <title>🎧 LISTEN #3 — The SaaS Podcast: Featherless AI: When Your Weekend Experiment Makes More Than Your Startup</title>
       <link />
       <guid isPermaLink="false">33363ee29ba50201</guid>
       <pubDate>Fri, 14 Aug 2026 06:22:33 +0000</pubDate>
@@ -57,7 +46,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/a7e9f7cc-046b-11ed-9c6d-13dc01eb807a/image/56aa351592d4af156f6e323fc03f036d.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #5 — Y Combinator Startup Podcast: Patrick Collison: "What If You Succeed?"</title>
+      <title>🎧 LISTEN #4 — Y Combinator Startup Podcast: Patrick Collison: "What If You Succeed?"</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Patrick-Collison-What-If-You-Succeed-e3mtper</link>
       <guid isPermaLink="false">80fe79e11092a5ca</guid>
       <pubDate>Mon, 03 Aug 2026 16:43:22 +0000</pubDate>
@@ -68,7 +57,7 @@
       <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1785775023800-6a5cf88653b21.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #6 — Jason &amp; Scot Show: EP344 - How Brooklinen Is Preparing for Agentic Commerce</title>
+      <title>🎧 LISTEN #5 — Jason &amp; Scot Show: EP344 - How Brooklinen Is Preparing for Agentic Commerce</title>
       <link>https://jasonandscot.com/ep344-how-brooklinen-is-preparing-for-agentic-commerce</link>
       <guid isPermaLink="false">d3a4258792221fb5</guid>
       <pubDate>Mon, 10 Aug 2026 06:18:13 +0000</pubDate>
@@ -79,7 +68,7 @@
       <ns0:image href="https://static.libsyn.com/p/assets/b/b/a/a/bbaac30c345ddec7d959afa2a1bf1c87/jass_abbie_HANDBRAKE_AUPHONIC_AUDIO.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #7 — The a16z Show: How Whatnot Built a Global Marketplace</title>
+      <title>🎧 LISTEN #6 — The a16z Show: How Whatnot Built a Global Marketplace</title>
       <link>https://a16z.simplecast.com/episodes/how-whatnot-built-a-global-marketplace-DoonwHjN</link>
       <guid isPermaLink="false">171d1f5ecd96ea14</guid>
       <pubDate>Thu, 20 Aug 2026 05:38:59 +0000</pubDate>
@@ -90,7 +79,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #8 — The a16z Show: The Two Ways to Sell AI: Lighthouse or Landgrab?</title>
+      <title>🎧 LISTEN #7 — The a16z Show: The Two Ways to Sell AI: Lighthouse or Landgrab?</title>
       <link>https://a16z.simplecast.com/episodes/the-two-ways-to-sell-ai-lighthouse-or-landgrab-9C2mrr4S</link>
       <guid isPermaLink="false">b413240f015e4c47</guid>
       <pubDate>Fri, 14 Aug 2026 06:22:33 +0000</pubDate>
@@ -101,7 +90,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #9 — The a16z Show: The CISO Playbook for AI Agents | Datadog</title>
+      <title>🎧 LISTEN #8 — The a16z Show: The CISO Playbook for AI Agents | Datadog</title>
       <link>https://a16z.simplecast.com/episodes/the-ciso-playbook-for-ai-agents-datadog-rhAxFNQK</link>
       <guid isPermaLink="false">74f04c0a7c6e5059</guid>
       <pubDate>Wed, 12 Aug 2026 06:21:39 +0000</pubDate>
@@ -112,7 +101,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #10 — Retailgentic: Baird Managing Director of Internet Research Colin Sebastian: What Wall St. Thinks About Agentic Commerce</title>
+      <title>🎧 LISTEN #9 — Retailgentic: Baird Managing Director of Internet Research Colin Sebastian: What Wall St. Thinks About Agentic Commerce</title>
       <link>https://share.transistor.fm/s/07b550ff</link>
       <guid isPermaLink="false">1e539d4f8a9cda71</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
@@ -123,7 +112,7 @@
       <ns0:image href="https://img.transistorcdn.com/jqWRgTPXdYsHCKeNIdSFyGU-iWUpmBXaZ_cE0akxFpg/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8zOTRi/Zjk1MDBlMDNjNWIx/OGMzZjc2YWRhM2E4/OWZkMy5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #11 — The a16z Show: Garry Tan on Taste, Agents and Founder Ambition</title>
+      <title>🎧 LISTEN #10 — The a16z Show: Garry Tan on Taste, Agents and Founder Ambition</title>
       <link>https://a16z.simplecast.com/episodes/garry-tan-on-taste-agents-and-founder-ambition-5Wi5biPg</link>
       <guid isPermaLink="false">a4d2d8ea02ac96a7</guid>
       <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
@@ -134,7 +123,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #12 — The a16z Show: Ben Horowitz and Travis Kalanick on Building Again</title>
+      <title>🎧 LISTEN #11 — The a16z Show: Ben Horowitz and Travis Kalanick on Building Again</title>
       <link>https://a16z.simplecast.com/episodes/ben-horowitz-and-travis-kalanick-on-building-again-o4RgblCd</link>
       <guid isPermaLink="false">f216e98834f13929</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -145,7 +134,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #13 — Y Combinator Startup Podcast: Garry Tan: Own Your Intelligence</title>
+      <title>🎧 LISTEN #12 — Y Combinator Startup Podcast: Garry Tan: Own Your Intelligence</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Garry-Tan-Own-Your-Intelligence-e3n2rc1</link>
       <guid isPermaLink="false">b595bf30074b66d4</guid>
       <pubDate>Fri, 07 Aug 2026 06:14:33 +0000</pubDate>
@@ -154,6 +143,17 @@
       <description>YC President &amp; CEO Garry Tan discusses the advent of 'personal AGI' and its impact on the future of startups, predicting smaller, more powerful teams. He advocates for founders to 'own their intelligence' by leveraging AI agents on personal infrastructure to compound knowledge and dramatically enhance building capabilities. The episode likely shares practical tools and workflows, offering a strategic vision for how AI will transform productivity, product development, and the competitive landscape for new ventures.</description>
       <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/123874113/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-6%2F429363789-44100-2-e2c4dd8914daf.mp3" type="audio/mpeg" length="40445073" />
       <ns0:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/23401959/23401959-1786044493780-9c6135490eda.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #13 — The a16z Show: Martin Casado on Where the Value Is Going in AI</title>
+      <link>https://a16z.simplecast.com/episodes/martin-casado-on-where-the-value-is-going-in-ai-750ULKGM</link>
+      <guid isPermaLink="false">a1253136c035cb50</guid>
+      <pubDate>Mon, 24 Aug 2026 05:44:38 +0000</pubDate>
+      <itunes:duration>2521</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 84/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 22 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode directly addresses the core strategic focus of the persona: where value accrues in AI, the unique dynamics of this technology cycle, and the interplay between capital, innovation, and growth. Martin Casado is a highly authoritative guest, and the discussion covers high-level market structure and product strategy in AI.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Martin Casado, a prominent figure in venture capital, discusses the evolving landscape of AI, focusing on where value is currently accumulating. He explores how the AI cycle differs from previous tech waves, particularly in its demand for scale-up capital and the tight relationship between capital, innovation, and growth. The conversation delves into the potential dominance of frontier labs versus the rise of open-source and specialist models, and the increasing value capture by AI applications. Key topics include model routing, AI economics, founder-market fit, and the potential for significant wealth creation in this era.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI has transformed venture capital into a &amp;#x27;scale-up capital game,&amp;#x27; where small teams can effectively deploy extraordinary amounts of money, indicating a shift in the traditional startup funding model.&lt;/li&gt;&lt;li&gt;The relationship between capital, innovation, and growth in the current AI cycle is unprecedentedly tight, suggesting that access to significant funding is more critical than ever for driving product development and market penetration.&lt;/li&gt;&lt;li&gt;Applications are increasingly capturing more value in the AI ecosystem, challenging the initial assumption that frontier labs would dominate the market, which implies a strategic shift for product builders towards leveraging foundational models rather than solely building them.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This episode has significant implications for a senior PM. It provides a strategic framework for understanding the AI market structure, informing decisions on where to invest product development efforts (e.g., building applications vs. foundational models), how to approach funding and growth, and anticipating market shifts. It helps in assessing competitive landscapes and identifying opportunities for value capture.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/martin-casado-on-where-the-value-is-going-in-ai-750ULKGM"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Martin Casado, a prominent figure in venture capital, discusses the evolving landscape of AI, focusing on where value is currently accumulating. He explores how the AI cycle differs from previous tech waves, particularly in its demand for scale-up capital and the tight relationship between capital, innovation, and growth. The conversation delves into the potential dominance of frontier labs versus the rise of open-source and specialist models, and the increasing value capture by AI applications. Key topics include model routing, AI economics, founder-market fit, and the potential for significant wealth creation in this era.</description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/0f74143d-54d1-41fc-bb21-edb7d10bf376/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=0f74143d-54d1-41fc-bb21-edb7d10bf376&amp;feed=JGE3yC0V" type="audio/mpeg" length="40339026" />
+      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
       <title>🎧 LISTEN #14 — Invest Like the Best: Ben Thompson on Big Tech, China, and the AI Boom Running Out of Money - [Invest Like the Best, EP.487]</title>
@@ -388,11 +388,11 @@
       <link>https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH</link>
       <guid isPermaLink="false">fec39220a6b65ef0</guid>
       <pubDate>Fri, 21 Aug 2026 12:46:44 +0000</pubDate>
-      <itunes:duration>1515</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 61/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 21 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Directly addresses a critical and emerging challenge for Senior PMs: integrating AI agents securely within the enterprise, with insights from a leading tech company&amp;#x27;s CISO. High relevance to AI and product strategy.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This a16z episode features Joel De La Garza and Aaron Zollman, Deputy CISO at Microsoft Gaming, discussing how security teams can manage AI agents in the enterprise. They share Microsoft&amp;#x27;s experience with OpenClaw, detailing the journey from initial ban to safe implementation. The discussion covers the impact of agents on identity, permissions, containerization, and monitoring, highlighting how AI is transforming the CISO&amp;#x27;s role from gatekeeper to enabler. They also explore AI&amp;#x27;s potential in vulnerability patching and the persistence of traditional security challenges amidst new AI threats.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategies for securely integrating AI agents into enterprise environments, drawing from Microsoft&amp;#x27;s experience.&lt;/li&gt;&lt;li&gt;The evolving role of CISO and security teams in an AI-driven world, shifting from &amp;#x27;no&amp;#x27; to &amp;#x27;safe enablement&amp;#x27;.&lt;/li&gt;&lt;li&gt;Challenges and opportunities for AI in identity, permissions, containerization, and vulnerability management.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Crucial for Senior PMs building AI products or integrating AI into existing platforms, offering a strategic perspective on security considerations, risk management, and the operational shifts required for AI adoption at scale.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>1515</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 61/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 21 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Directly addresses a critical and emerging challenge for Senior PMs: integrating AI agents securely within the enterprise, with insights from a leading tech company&amp;#x27;s CISO. High relevance to AI and product strategy.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This a16z episode features Joel De La Garza and Aaron Zollman, Deputy CISO at Microsoft Gaming, discussing how security teams can manage AI agents in the enterprise. They share Microsoft&amp;#x27;s experience with OpenClaw, detailing the journey from initial ban to safe implementation. The discussion covers the impact of agents on identity, permissions, containerization, and monitoring, highlighting how AI is transforming the CISO&amp;#x27;s role from gatekeeper to enabler. They also explore AI&amp;#x27;s potential in vulnerability patching and the persistence of traditional security challenges amidst new AI threats.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategies for securely integrating AI agents into enterprise environments, drawing from Microsoft&amp;#x27;s experience.&lt;/li&gt;&lt;li&gt;The evolving role of CISO and security teams in an AI-driven world, shifting from &amp;#x27;no&amp;#x27; to &amp;#x27;safe enablement&amp;#x27;.&lt;/li&gt;&lt;li&gt;Challenges and opportunities for AI in identity, permissions, containerization, and vulnerability management.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Crucial for Senior PMs building AI products or integrating AI into existing platforms, offering a strategic perspective on security considerations, risk management, and the operational shifts required for AI adoption at scale.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>This a16z episode features Joel De La Garza and Aaron Zollman, Deputy CISO at Microsoft Gaming, discussing how security teams can manage AI agents in the enterprise. They share Microsoft's experience with OpenClaw, detailing the journey from initial ban to safe implementation. The discussion covers the impact of agents on identity, permissions, containerization, and monitoring, highlighting how AI is transforming the CISO's role from gatekeeper to enabler. They also explore AI's potential in vulnerability patching and the persistence of traditional security challenges amidst new AI threats.</description>
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/c9e8f5d5-86c0-4e2d-98c4-2133fcb293ea/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=c9e8f5d5-86c0-4e2d-98c4-2133fcb293ea&amp;feed=JGE3yC0V" type="audio/mpeg" length="24247180" />
-      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+      <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
   </channel>
 </rss>

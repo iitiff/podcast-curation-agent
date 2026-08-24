@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-08-21T12:46:44.683141+00:00",
+  "last_run": "2026-08-24T05:44:38.163569+00:00",
   "processed": {
     "88610221f5aa0101": {
       "guid": "88610221f5aa0101",
@@ -4110,6 +4110,162 @@
       "enclosure_type": "audio/mpeg",
       "enclosure_length": 0,
       "curated_at": null
+    },
+    "5907e9b8c5f0c934": {
+      "guid": "5907e9b8c5f0c934",
+      "show_title": "Lenny's Podcast",
+      "episode_title": "How to close $100K+ enterprise deals, step by step | Jen Abel",
+      "published": "2026-08-23T12:31:43Z",
+      "processed_at": "2026-08-24T05:44:38.043375Z",
+      "score": 52.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "The episode offers tactical insights into enterprise sales, which can be tangentially useful for a Senior PM in understanding the sales cycle and customer acquisition. However, the primary focus is on sales execution rather than product strategy, AI, or eCommerce, making it less directly relevant for a 'Listen Fully' classification. The low transcript confidence also limits the ability to extract highly specific, strategic insights.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://api.substack.com/feed/podcast/10845.rss",
+      "summary": "This episode features Jen Abel, co-founder of JJellyfish and GM of enterprise sales at State Affairs, detailing a comprehensive, 15-step enterprise sales cycle. It challenges the conventional five-stage CRM pipeline as merely a forecasting tool, presenting a more granular process for closing $100K+ deals. Topics covered include strategies for landing initial executive meetings using a 'pincer model,' crafting compelling introductory messages, maximizing intelligence gathering during intro calls, structuring two-to-three-day pilots, and navigating complex pricing, procurement, and negotiation phases to secure the final signature. The discussion aims to provide a step-by-step playbook for practitioners in enterprise sales.",
+      "key_ideas": [
+        "The standard five-stage CRM pipeline is primarily a forecasting tool, not an operational sales process; a true enterprise sales cycle involves closer to 15 distinct steps.",
+        "The 'pincer model' is an effective strategy for securing initial executive meetings by simultaneously engaging both the executive and N-minus-one levels.",
+        "A two-to-three-day pilot structure can be used to jointly define success with a client, with the decision to charge for longer pilots depending on specific deal dynamics and value proposition."
+      ],
+      "episode_url": "https://www.lennysnewsletter.com/p/how-to-close-100k-1m-deals-step-by",
+      "duration_seconds": 5097,
+      "enclosure_url": "https://pscrb.fm/rss/p/api.substack.com/feed/podcast/211488420/7df0a97cc37a6e391091a046a0020be4.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "a1253136c035cb50": {
+      "guid": "a1253136c035cb50",
+      "show_title": "The a16z Show",
+      "episode_title": "Martin Casado on Where the Value Is Going in AI",
+      "published": "2026-08-22T10:00:00Z",
+      "processed_at": "2026-08-24T05:44:38.043460Z",
+      "score": 84.0,
+      "classification": "Listen Fully",
+      "classification_reason": "This episode directly addresses the core strategic focus of the persona: where value accrues in AI, the unique dynamics of this technology cycle, and the interplay between capital, innovation, and growth. Martin Casado is a highly authoritative guest, and the discussion covers high-level market structure and product strategy in AI.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "summary": "Martin Casado, a prominent figure in venture capital, discusses the evolving landscape of AI, focusing on where value is currently accumulating. He explores how the AI cycle differs from previous tech waves, particularly in its demand for scale-up capital and the tight relationship between capital, innovation, and growth. The conversation delves into the potential dominance of frontier labs versus the rise of open-source and specialist models, and the increasing value capture by AI applications. Key topics include model routing, AI economics, founder-market fit, and the potential for significant wealth creation in this era.",
+      "key_ideas": [
+        "AI has transformed venture capital into a 'scale-up capital game,' where small teams can effectively deploy extraordinary amounts of money, indicating a shift in the traditional startup funding model.",
+        "The relationship between capital, innovation, and growth in the current AI cycle is unprecedentedly tight, suggesting that access to significant funding is more critical than ever for driving product development and market penetration.",
+        "Applications are increasingly capturing more value in the AI ecosystem, challenging the initial assumption that frontier labs would dominate the market, which implies a strategic shift for product builders towards leveraging foundational models rather than solely building them."
+      ],
+      "episode_url": "https://a16z.simplecast.com/episodes/martin-casado-on-where-the-value-is-going-in-ai-750ULKGM",
+      "duration_seconds": 2521,
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/0f74143d-54d1-41fc-bb21-edb7d10bf376/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=0f74143d-54d1-41fc-bb21-edb7d10bf376&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 40339026,
+      "curated_at": null
+    },
+    "fcccb28a83a10782": {
+      "guid": "fcccb28a83a10782",
+      "show_title": "Founders",
+      "episode_title": "#430 How to Write Ads That Sell",
+      "published": "2026-08-23T14:22:00Z",
+      "processed_at": "2026-08-24T05:44:38.043477Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode focuses on historical advertising principles and personal work ethic, which is too generic and not strategically relevant to a senior PM focused on AI, product strategy, or eCommerce at a deep level. The low transcript confidence and lack of specific business cases further reduce its value.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/DSLLC6297708582",
+      "summary": "This episode delves into the advertising principles of Claude Hopkins, considered a pioneer in copywriting, drawing lessons from his autobiography 'My Life In Advertising' and his book 'Scientific Advertising'. The host shares insights gleaned from these works, covering topics such as the importance of exceptional effort, learning from experience over theory, cultivating a love for work, and the necessity of a good product as its own best salesman. It also touches on the importance of understanding public opinion rather than personal preferences in advertising.",
+      "key_ideas": [],
+      "episode_url": "",
+      "duration_seconds": 3810,
+      "enclosure_url": "https://traffic.megaphone.fm/DSLLC4560025340.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "3000a301055edf19": {
+      "guid": "3000a301055edf19",
+      "show_title": "The Prof G Pod",
+      "episode_title": "No Mercy / No Malice: I Disagree",
+      "published": "2026-08-22T08:11:00Z",
+      "processed_at": "2026-08-24T05:44:38.043489Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode description is extremely sparse, indicating it's an audio excerpt from a book titled 'I DISAGREE'. Without any further context, it's impossible to ascertain its relevance to product strategy, AI, or eCommerce, and it's highly likely to be generic or motivational content, making it irrelevant for this persona.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "summary": "This 8-minute episode is an audio excerpt from the book 'I DISAGREE' by Jessica Tarlov, read by the author. No further details about the content or specific topics covered are provided in the description.",
+      "key_ideas": [],
+      "episode_url": "",
+      "duration_seconds": 450,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP2029468753.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "7b193cb92acc7d9a": {
+      "guid": "7b193cb92acc7d9a",
+      "show_title": "\u79d1\u6280\u6d6a",
+      "episode_title": "EP151 - NVIDIA \u7684 CUDA \u8b77\u57ce\u6cb3\u6d88\u5931\u4e2d\uff0c\u4f46\u8001\u9ec3\u5df2\u7d93\u60f3\u5230\u4e0b\u4e00\u6b65\u4e86\uff1fAI \u8f14\u52a9\u7684\u500b\u4eba\u5316 mRNA \u764c\u75c7\u7642\u6cd5\u4f86\u4e86\uff01",
+      "published": "2026-08-24T04:02:22Z",
+      "processed_at": "2026-08-24T05:44:38.043500Z",
+      "score": 62.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "The episode covers highly relevant topics like NVIDIA's strategic moves in AI and the future of AI in healthcare, which align perfectly with the persona's interests. However, the low transcript confidence and lack of named expert guests reduce its overall score, making it better suited for a summary review rather than a full listen.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/cm3o5681s06e801v3fxpjehwb",
+      "summary": "This episode of 'Tech Wave' discusses NVIDIA's strategic positioning in the AI landscape, particularly the potential erosion of its CUDA moat and how CEO Jensen Huang might be planning for the next phase. It delves into the concept of an 'AI Factory' as NVIDIA's new competitive advantage, exploring capital moats and the assetization of AI factories. The episode also shifts to discuss the emerging field of AI-assisted personalized mRNA cancer therapy, highlighting a significant application of AI in healthcare. It touches upon the challenges and potential for success in these advanced technological domains.",
+      "key_ideas": [
+        "NVIDIA's long-term strategy involves shifting from a CUDA-based software moat to an 'AI Factory' model, where the integration of hardware and software for AI training and inference becomes the primary competitive advantage, potentially assetizing AI infrastructure.",
+        "AI-assisted personalized mRNA cancer therapies are emerging as a significant application of AI in healthcare, suggesting a future where AI plays a crucial role in developing highly targeted medical treatments.",
+        "The discussion implies that while NVIDIA's CUDA dominance might face challenges from open-source alternatives, their next 'moat' will be built on the comprehensive ecosystem and infrastructure required to run large-scale AI operations, rather than just the software layer."
+      ],
+      "episode_url": "https://open.firstory.me/story/cmt6n8k1q1cjx01x6frrx4l2j",
+      "duration_seconds": 4435,
+      "enclosure_url": "https://m.cdn.firstory.me/track/cm3o5681s06e801v3fxpjehwb/cmt6n8k1q1cjx01x6frrx4l2j/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcm3o5681s06e801v3fxpjehwb%2Fcmt6n8k1q1cjy01x66uuubm2d.mp3?v=1787540235903",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "526bec91afa152f9": {
+      "guid": "526bec91afa152f9",
+      "show_title": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
+      "episode_title": "EP.640 \u300a\u9ad8\u85aa\u8cfd\u9053\u300b\u8b80\u5f8c\u5fc3\u5f97\uff1a\u8ac7\u85aa\u6c34\u53ef\u4ee5\u662f\u4e00\u4ef6\u5f88\u5065\u5eb7\u7684\u4e8b\uff1f ft.\u79d1\u6280\u5de5\u4f5c\u8b1b  \u62b9\u5e03",
+      "published": "2026-08-23T10:02:07Z",
+      "processed_at": "2026-08-24T05:44:38.043510Z",
+      "score": 31.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "The episode discusses career growth, salary negotiation, and wealth accumulation in the tech industry, which is relevant to a Senior PM's career growth focus. The guest is an experienced tech manager and podcast host, adding authority. However, the low transcript confidence and the somewhat generic nature of 'talking about salary' prevent it from being a 'Listen Fully' recommendation.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/cl39lz2ky01co01ugaba7gr9y",
+      "summary": "This episode features an interview with Moboo, host of 'Tech Work Talk' and author of 'The Wealth Track,' discussing his book and the often-taboo topic of salary and wealth in Taiwan's tech industry. Moboo, a 16-year veteran in tech foreign management with significant accumulated assets, addresses common criticisms and misconceptions about high salaries in tech. The conversation emphasizes that discussing salary can be a healthy and necessary part of career development, especially in an environment where income disparities are significant. It aims to demystify wealth accumulation and career progression within the tech sector.",
+      "key_ideas": [
+        "The guest, Moboo, argues that openly discussing salary is a 'healthy' practice for career growth, challenging the cultural reluctance in Taiwan to address income disparities, particularly in the highly concentrated tech sector.",
+        "The episode highlights that significant wealth accumulation (guest achieved over NT$100 million by age 40) is achievable through strategic career choices and management roles in foreign tech companies, suggesting a specific 'wealth track' within the industry.",
+        "The discussion implicitly suggests that understanding and navigating salary negotiations and career progression in tech requires confronting societal biases and internalizing the value of one's skills, rather than avoiding the topic."
+      ],
+      "episode_url": "https://open.firstory.me/story/cmt2ialmn0lqh01uqft2085ky",
+      "duration_seconds": 1971,
+      "enclosure_url": "https://m.cdn.firstory.me/track/cl39lz2ky01co01ugaba7gr9y/cmt2ialmn0lqh01uqft2085ky/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcl39lz2ky01co01ugaba7gr9y%2Fcmt2ialmn0lqi01uq1dcb026o.mp3?v=1787289994766",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "91b5390dcd71963f": {
+      "guid": "91b5390dcd71963f",
+      "show_title": "\u5468\u6155\u59ff\u653e\u5fc3\u8aaa",
+      "episode_title": "\u3010\u5341\u5206\u9418\u5fc3\u7406\u5b78\u3011\u539f\u4f86\u6211\u4e0d\u662f\u767d\u76ee\u6216\u7c97\u5fc3\uff01\u5468\u6155\u59ff\u7684 ADHD \u78ba\u8a3a\u8207\u81ea\u6211\u548c\u89e3\u4e4b\u8def",
+      "published": "2026-08-23T22:02:09Z",
+      "processed_at": "2026-08-24T05:44:38.043518Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode focuses on personal psychological well-being and ADHD diagnosis, which is entirely unrelated to product strategy, AI, emerging technology, or eCommerce. It's a generic self-help topic with no strategic value for a Senior PM.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feed.firstory.me/rss/user/clysov3kl04yv01yi23cwbp3g",
+      "summary": "This episode features psychologist Chou Mu-Tzu sharing her personal journey of being diagnosed with adult ADHD. It discusses how individuals with ADHD, particularly non-typical cases like women, often develop compensatory strategies to fit into societal expectations, leading to significant internal struggles and self-blame. The episode aims to help listeners understand ADHD as a neurological difference rather than a character flaw, encouraging self-acceptance and seeking appropriate support. It covers topics like reframing 'carelessness,' understanding the internal cost of high-functioning ADHD, the dual nature of hyperfocus, and overcoming shame associated with the condition.",
+      "key_ideas": [],
+      "episode_url": "https://open.firstory.me/story/cmsqz8vfx05l201u8dny4bnmr",
+      "duration_seconds": 1891,
+      "enclosure_url": "https://m.cdn.firstory.me/track/clysov3kl04yv01yi23cwbp3g/cmsqz8vfx05l201u8dny4bnmr/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fclysov3kl04yv01yi23cwbp3g%2Fcmsqz8vfx05l301u8dqyfg8rp.mp3?v=1786592887816",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
     }
   },
   "published": [
@@ -4253,7 +4409,11 @@
     "269f12471a7dbfad",
     "588795767772f7b8",
     "fec39220a6b65ef0",
-    "96b0a5d28fa4d6e9"
+    "96b0a5d28fa4d6e9",
+    "a1253136c035cb50",
+    "7b193cb92acc7d9a",
+    "5907e9b8c5f0c934",
+    "526bec91afa152f9"
   ],
   "playlist": [
     "d99da0b934e38cc5",
@@ -4299,7 +4459,8 @@
     "5b20f6b6ac2d64db",
     "0b21d234ca52a538",
     "171d1f5ecd96ea14",
-    "fec39220a6b65ef0"
+    "fec39220a6b65ef0",
+    "a1253136c035cb50"
   ],
   "emailed": [
     "6a94a25c9cbce596",
@@ -4390,6 +4551,10 @@
     "269f12471a7dbfad",
     "588795767772f7b8",
     "fec39220a6b65ef0",
-    "96b0a5d28fa4d6e9"
+    "96b0a5d28fa4d6e9",
+    "a1253136c035cb50",
+    "7b193cb92acc7d9a",
+    "5907e9b8c5f0c934",
+    "526bec91afa152f9"
   ]
 }
