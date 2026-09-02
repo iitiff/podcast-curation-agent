@@ -1,38 +1,27 @@
-# Podcast Scout — 2026-09-01
+# Podcast Scout — 2026-09-02
 
 ## 🎧 In Your Queue Today
 
-### 1. Masters of Scale: When AI agents do your shopping, everything changes, with Shopify’s Jess Hertz
-**Score:** 84/100 | **Listen Fully** | low confidence
-**Duration:** 30 min
+### 1. The a16z Show: Why a16z Launched the Machine Age Fund | Jen Kha
+**Score:** 71/100 | **Listen Fully** | low confidence
+**Duration:** 25 min
 
-This episode explores how AI agents are transforming the eCommerce landscape, moving beyond traditional search result dominance by large brands. Shopify COO Jess Hertz discusses the company's data insights into this agentic shopping revolution and how Shopify is building the necessary infrastructure for AI-driven product discovery and purchase. The conversation also touches on Shopify's approach to AI token spending and its strategic commitment to leading in this new era of online shopping, given its significant market share.
-
-**Key Ideas:**
-- AI agents are shifting eCommerce power from brands that can buy top search results to those optimized for AI-driven discoverability and purchase, requiring a fundamental change in product strategy.
-- Shopify's internal policy allows engineers to spend freely on AI tokens, indicating a strategic prioritization of AI development over immediate ROI concerns, suggesting a 'win the future or die trying' approach.
-- The emergence of AI agents necessitates new infrastructure layers for products to be discoverable and purchasable by AI, implying a significant platform-level shift for eCommerce providers.
-
-### 2. Invest Like the Best: Sarah Guo - What the 250 People Building AI Believe - [Invest Like the Best, EP.489]
-**Score:** 82/100 | **Listen Fully** | low confidence
-**Duration:** 60 min
-
-This episode features Sarah Guo, founder of Conviction, a venture firm focused on AI-native companies. The discussion delves into the perspectives of the individuals at the forefront of AI development, exploring their motivations, challenges, and the potential for scientific acceleration and robotic integration into daily life. Sarah Guo emphasizes her belief that no single company will dominate the future of AI, offering insights into what this fragmented future means for founders, investors, and those allocating resources in the rapidly evolving AI landscape.
+This episode features Jen Kha, Managing Partner at a16z, discussing the firm's new Machine Age Fund. The fund focuses on investing in the physical infrastructure powering AI, including chips, networking, memory, cooling, and data centers. The discussion explores why hardware, after decades of software dominance, is becoming a critical investment area again due to the immense demands of AI. It covers the global race for AI adoption, the specific needs of hardware startups beyond capital, challenges like the backlash against data centers, and the return of experienced systems builders to entrepreneurship to construct this new generation of infrastructure.
 
 **Key Ideas:**
-- The consensus among leading AI builders suggests a future where no single company will own AI, implying a decentralized ecosystem with opportunities for many players rather than a winner-take-all scenario.
-- Some of the field's best researchers are grappling with their sense of purpose, indicating ethical and societal considerations are becoming central to AI development, which impacts product roadmaps and public perception.
-- The conversation explores the proximity to genuine acceleration in scientific discovery through AI, suggesting specific areas where AI is poised to deliver transformative breakthroughs beyond current applications.
+- AI demand is pushing existing physical infrastructure to its limits, making hardware and the physical computing stack investable again after decades of software focus.
+- The global race for AI adoption necessitates a rethinking of the entire computing stack from first principles, creating opportunities for hardware founders.
+- Experienced systems builders are returning to entrepreneurship to address the infrastructure gap, indicating a significant shift in the talent landscape for AI's foundational layers.
 
-[Listen →](https://colossus.com/episode/no-priors-just-conviction/)
+[Listen →](https://a16z.simplecast.com/episodes/why-a16z-launched-the-machine-age-fund-jen-kha-MopZc0wl)
 
 
 ## 📌 Also Good — Didn't Fit Today's Queue
 
 - **Lenny's Podcast: AI’s third era: the rise of persistent AI coworkers | Tara Seshan (OpenAI’s product lead)** (Score 71) — This episode features Tara Seshan, OpenAI's product lead for Codex and ChatGPT Work, discussing the evolving landscape of AI. Key themes include the s...
   [Link](https://www.lennysnewsletter.com/p/ais-third-era-the-rise-of-persistent)
-- **The a16z Show: Why a16z Launched the Machine Age Fund | Jen Kha** (Score 71) — This episode features Jen Kha, Managing Partner at a16z, discussing the firm's new Machine Age Fund. The fund focuses on investing in the physical inf...
-  [Link](https://a16z.simplecast.com/episodes/why-a16z-launched-the-machine-age-fund-jen-kha-MopZc0wl)
+- **The a16z Show: Daniel Litt: The Mathematician's Guide to AI** (Score 67) — This episode features Lisha Li and Daniel Litt, an Assistant Professor of Mathematics, discussing the advancements of AI in mathematics. They explore ...
+  [Link](https://a16z.simplecast.com/episodes/daniel-litt-the-mathematicians-guide-to-ai-TyLaUSzk)
 - **Founders: #431 How Henry Singleton Worked** (Score 67) — This episode delves into the business philosophy and capital allocation strategies of Henry Singleton, the founder of Teledyne Corporation, drawing in...
 - **科技浪: EP152 - OpenAI 自研晶片 Jalapeño 真的有點猛** (Score 56) — This episode discusses OpenAI's rumored custom AI chip, codenamed 'Jalapeño,' exploring its potential capabilities and implications for the AI hardwar...
   [Link](https://open.firstory.me/story/cmtglzapq21jf01u9bz6s4nyf)

@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link>https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Sep 2026 09:54:48 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 09:26:19 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href="https://iitiff.github.io/podcast-curation-agent/listen.xml" rel="self" type="application/rss+xml" />
@@ -57,18 +57,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #5 — The a16z Show: The CISO Playbook for AI Agents | Datadog</title>
-      <link>https://a16z.simplecast.com/episodes/the-ciso-playbook-for-ai-agents-datadog-rhAxFNQK</link>
-      <guid isPermaLink="false">74f04c0a7c6e5059</guid>
-      <pubDate>Wed, 12 Aug 2026 06:21:39 +0000</pubDate>
-      <ns0:duration>1374</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 87/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 11 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode is highly relevant, actionable, and strategic, directly addressing AI and emerging technology from a security and product development perspective. The guest is a genuine expert, and the content provides concrete examples from a leading tech company.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Emilio Escobar, CISO at Datadog, discusses the strategic playbook for securing an organization where AI is pervasive, with thousands of engineers using coding agents. Datadog&amp;#x27;s approach involves embracing AI early and building robust security infrastructure rather than blocking tools. The conversation covers how AI redefines traditional security assumptions around data permissions, credentials, and software supply chains. Specific solutions like role-based MCP servers, ephemeral credentials, and an internal AI &amp;#x27;judge&amp;#x27; are highlighted. The episode emphasizes the need for security teams to proactively innovate and collaborate with developers, focusing on managing AI vulnerabilities rather than fearing AI &amp;#x27;escaping&amp;#x27;.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Proactive AI security strategy: embrace and build, don&amp;#x27;t block.&lt;/li&gt;&lt;li&gt;AI&amp;#x27;s impact on traditional security assumptions (data, credentials, supply chain).&lt;/li&gt;&lt;li&gt;Practical solutions: AI &amp;#x27;judge&amp;#x27;, role-based MCP, ephemeral credentials.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;For a Senior PM, this episode offers critical insights into the security implications of integrating AI into products and organizational workflows. It provides a strategic framework for thinking about AI governance, risk management, and fostering collaboration between product/engineering and security teams, which is crucial for successful AI product development.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/the-ciso-playbook-for-ai-agents-datadog-rhAxFNQK"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
-      <description>Emilio Escobar, CISO at Datadog, discusses the strategic playbook for securing an organization where AI is pervasive, with thousands of engineers using coding agents. Datadog's approach involves embracing AI early and building robust security infrastructure rather than blocking tools. The conversation covers how AI redefines traditional security assumptions around data permissions, credentials, and software supply chains. Specific solutions like role-based MCP servers, ephemeral credentials, and an internal AI 'judge' are highlighted. The episode emphasizes the need for security teams to proactively innovate and collaborate with developers, focusing on managing AI vulnerabilities rather than fearing AI 'escaping'.</description>
-      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/7ea50811-6563-4656-abeb-05535ef9cfd6/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=7ea50811-6563-4656-abeb-05535ef9cfd6&amp;feed=JGE3yC0V" type="audio/mpeg" length="21995627" />
-      <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #6 — Retailgentic: Caila Schwartz, Head of Agentic Commerce Salesforce is Back! Holiday 2026, State of Ecommerce, Plus... “The Caila Five”</title>
+      <title>🎧 LISTEN #5 — Retailgentic: Caila Schwartz, Head of Agentic Commerce Salesforce is Back! Holiday 2026, State of Ecommerce, Plus... “The Caila Five”</title>
       <link>https://share.transistor.fm/s/336b7f59</link>
       <guid isPermaLink="false">ad76fb0385d330c3</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -79,7 +68,7 @@
       <ns0:image href="https://img.transistorcdn.com/e_1lxBL9ya2xK_7BOHTZlkxR2eM7Y_4tmItNVG8FS7w/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8zM2Zm/ZTkzMDM0NzE3YmIx/OWRkNGNiNDc0MGVk/NzgyYS5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #7 — The a16z Show: Garry Tan on Taste, Agents and Founder Ambition</title>
+      <title>🎧 LISTEN #6 — The a16z Show: Garry Tan on Taste, Agents and Founder Ambition</title>
       <link>https://a16z.simplecast.com/episodes/garry-tan-on-taste-agents-and-founder-ambition-5Wi5biPg</link>
       <guid isPermaLink="false">a4d2d8ea02ac96a7</guid>
       <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
@@ -90,7 +79,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #8 — The a16z Show: Ben Horowitz and Travis Kalanick on Building Again</title>
+      <title>🎧 LISTEN #7 — The a16z Show: Ben Horowitz and Travis Kalanick on Building Again</title>
       <link>https://a16z.simplecast.com/episodes/ben-horowitz-and-travis-kalanick-on-building-again-o4RgblCd</link>
       <guid isPermaLink="false">f216e98834f13929</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -101,18 +90,18 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #9 — Masters of Scale: When AI agents do your shopping, everything changes, with Shopify’s Jess Hertz</title>
+      <title>🎧 LISTEN #8 — Masters of Scale: When AI agents do your shopping, everything changes, with Shopify’s Jess Hertz</title>
       <link />
       <guid isPermaLink="false">11179961c407c957</guid>
       <pubDate>Tue, 01 Sep 2026 09:54:48 +0000</pubDate>
-      <itunes:duration>1792</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 84/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 01 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode directly addresses the strategic implications of AI agents in eCommerce, a core focus area, with a high-authority guest from Shopify. The insights on discoverability and infrastructure for AI-driven shopping are highly relevant for a Senior PM.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode explores how AI agents are transforming the eCommerce landscape, moving beyond traditional search result dominance by large brands. Shopify COO Jess Hertz discusses the company&amp;#x27;s data insights into this agentic shopping revolution and how Shopify is building the necessary infrastructure for AI-driven product discovery and purchase. The conversation also touches on Shopify&amp;#x27;s approach to AI token spending and its strategic commitment to leading in this new era of online shopping, given its significant market share.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI agents are shifting eCommerce power from brands that can buy top search results to those optimized for AI-driven discoverability and purchase, requiring a fundamental change in product strategy.&lt;/li&gt;&lt;li&gt;Shopify&amp;#x27;s internal policy allows engineers to spend freely on AI tokens, indicating a strategic prioritization of AI development over immediate ROI concerns, suggesting a &amp;#x27;win the future or die trying&amp;#x27; approach.&lt;/li&gt;&lt;li&gt;The emergence of AI agents necessitates new infrastructure layers for products to be discoverable and purchasable by AI, implying a significant platform-level shift for eCommerce providers.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs in eCommerce need to re-evaluate product discoverability strategies, invest in AI-compatible infrastructure, and understand the shift from human-centric search to agent-centric purchasing. This also suggests a need to explore new business models and partnerships within the AI agent ecosystem.&lt;/p&gt;</content:encoded>
+      <ns0:duration>1792</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 84/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 01 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode directly addresses the strategic implications of AI agents in eCommerce, a core focus area, with a high-authority guest from Shopify. The insights on discoverability and infrastructure for AI-driven shopping are highly relevant for a Senior PM.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode explores how AI agents are transforming the eCommerce landscape, moving beyond traditional search result dominance by large brands. Shopify COO Jess Hertz discusses the company&amp;#x27;s data insights into this agentic shopping revolution and how Shopify is building the necessary infrastructure for AI-driven product discovery and purchase. The conversation also touches on Shopify&amp;#x27;s approach to AI token spending and its strategic commitment to leading in this new era of online shopping, given its significant market share.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI agents are shifting eCommerce power from brands that can buy top search results to those optimized for AI-driven discoverability and purchase, requiring a fundamental change in product strategy.&lt;/li&gt;&lt;li&gt;Shopify&amp;#x27;s internal policy allows engineers to spend freely on AI tokens, indicating a strategic prioritization of AI development over immediate ROI concerns, suggesting a &amp;#x27;win the future or die trying&amp;#x27; approach.&lt;/li&gt;&lt;li&gt;The emergence of AI agents necessitates new infrastructure layers for products to be discoverable and purchasable by AI, implying a significant platform-level shift for eCommerce providers.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs in eCommerce need to re-evaluate product discoverability strategies, invest in AI-compatible infrastructure, and understand the shift from human-centric search to agent-centric purchasing. This also suggests a need to explore new business models and partnerships within the AI agent ecosystem.&lt;/p&gt;</ns1:encoded>
       <description>This episode explores how AI agents are transforming the eCommerce landscape, moving beyond traditional search result dominance by large brands. Shopify COO Jess Hertz discusses the company's data insights into this agentic shopping revolution and how Shopify is building the necessary infrastructure for AI-driven product discovery and purchase. The conversation also touches on Shopify's approach to AI token spending and its strategic commitment to leading in this new era of online shopping, given its significant market share.</description>
       <enclosure url="https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/0b5723a9-4414-4d9e-948c-de58dfd44f1d.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="28686628" />
-      <itunes:image href="https://content.production.cdn.art19.com/images/e3/47/16/58/e3471658-cc29-4bfa-b50c-8e42b37836d9/afdb07ad8c3898330329e916c9a12f985bd4bfc6e6e923253fabb1eef5bc932e04eeb901e84ee657775932be72a74d689ff50c40e1a0ad74ca12b24410c6d9b6.jpeg" />
+      <ns0:image href="https://content.production.cdn.art19.com/images/e3/47/16/58/e3471658-cc29-4bfa-b50c-8e42b37836d9/afdb07ad8c3898330329e916c9a12f985bd4bfc6e6e923253fabb1eef5bc932e04eeb901e84ee657775932be72a74d689ff50c40e1a0ad74ca12b24410c6d9b6.jpeg" />
     </item>
     <item>
-      <title>🎧 LISTEN #10 — The a16z Show: Martin Casado on Where the Value Is Going in AI</title>
+      <title>🎧 LISTEN #9 — The a16z Show: Martin Casado on Where the Value Is Going in AI</title>
       <link>https://a16z.simplecast.com/episodes/martin-casado-on-where-the-value-is-going-in-ai-750ULKGM</link>
       <guid isPermaLink="false">a1253136c035cb50</guid>
       <pubDate>Mon, 24 Aug 2026 05:44:38 +0000</pubDate>
@@ -123,7 +112,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #11 — Invest Like the Best: Ben Thompson on Big Tech, China, and the AI Boom Running Out of Money - [Invest Like the Best, EP.487]</title>
+      <title>🎧 LISTEN #10 — Invest Like the Best: Ben Thompson on Big Tech, China, and the AI Boom Running Out of Money - [Invest Like the Best, EP.487]</title>
       <link>https://colossus.com/episode/winners-losers-ai-era/</link>
       <guid isPermaLink="false">96cd539df618fce5</guid>
       <pubDate>Wed, 19 Aug 2026 05:38:35 +0000</pubDate>
@@ -134,18 +123,18 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/b0356202-9aa0-11f1-b3c3-6bc8a0cf3d6f/image/772d31a372a483035b6fc678729cae0b.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #12 — Invest Like the Best: Sarah Guo - What the 250 People Building AI Believe - [Invest Like the Best, EP.489]</title>
+      <title>🎧 LISTEN #11 — Invest Like the Best: Sarah Guo - What the 250 People Building AI Believe - [Invest Like the Best, EP.489]</title>
       <link>https://colossus.com/episode/no-priors-just-conviction/</link>
       <guid isPermaLink="false">36bddff449c65084</guid>
       <pubDate>Tue, 01 Sep 2026 09:54:48 +0000</pubDate>
-      <itunes:duration>3586</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 01 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features a highly authoritative guest in AI venture capital, focusing on the beliefs of those actively building AI and the strategic implications for the future of the field. This directly aligns with the persona&amp;#x27;s interest in AI and emerging technology.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Sarah Guo, founder of Conviction, a venture firm focused on AI-native companies. The discussion delves into the perspectives of the individuals at the forefront of AI development, exploring their motivations, challenges, and the potential for scientific acceleration and robotic integration into daily life. Sarah Guo emphasizes her belief that no single company will dominate the future of AI, offering insights into what this fragmented future means for founders, investors, and those allocating resources in the rapidly evolving AI landscape.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The consensus among leading AI builders suggests a future where no single company will own AI, implying a decentralized ecosystem with opportunities for many players rather than a winner-take-all scenario.&lt;/li&gt;&lt;li&gt;Some of the field&amp;#x27;s best researchers are grappling with their sense of purpose, indicating ethical and societal considerations are becoming central to AI development, which impacts product roadmaps and public perception.&lt;/li&gt;&lt;li&gt;The conversation explores the proximity to genuine acceleration in scientific discovery through AI, suggesting specific areas where AI is poised to deliver transformative breakthroughs beyond current applications.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs should consider a multi-vendor or open-source strategy for AI integration, anticipate ethical considerations in product design, and identify specific scientific or industry domains ripe for AI-driven disruption. Understanding the motivations of AI builders can inform partnership and talent strategies.&lt;/p&gt;&lt;p&gt;&lt;a href="https://colossus.com/episode/no-priors-just-conviction/"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>3586</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 01 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features a highly authoritative guest in AI venture capital, focusing on the beliefs of those actively building AI and the strategic implications for the future of the field. This directly aligns with the persona&amp;#x27;s interest in AI and emerging technology.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Sarah Guo, founder of Conviction, a venture firm focused on AI-native companies. The discussion delves into the perspectives of the individuals at the forefront of AI development, exploring their motivations, challenges, and the potential for scientific acceleration and robotic integration into daily life. Sarah Guo emphasizes her belief that no single company will dominate the future of AI, offering insights into what this fragmented future means for founders, investors, and those allocating resources in the rapidly evolving AI landscape.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The consensus among leading AI builders suggests a future where no single company will own AI, implying a decentralized ecosystem with opportunities for many players rather than a winner-take-all scenario.&lt;/li&gt;&lt;li&gt;Some of the field&amp;#x27;s best researchers are grappling with their sense of purpose, indicating ethical and societal considerations are becoming central to AI development, which impacts product roadmaps and public perception.&lt;/li&gt;&lt;li&gt;The conversation explores the proximity to genuine acceleration in scientific discovery through AI, suggesting specific areas where AI is poised to deliver transformative breakthroughs beyond current applications.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs should consider a multi-vendor or open-source strategy for AI integration, anticipate ethical considerations in product design, and identify specific scientific or industry domains ripe for AI-driven disruption. Understanding the motivations of AI builders can inform partnership and talent strategies.&lt;/p&gt;&lt;p&gt;&lt;a href="https://colossus.com/episode/no-priors-just-conviction/"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>This episode features Sarah Guo, founder of Conviction, a venture firm focused on AI-native companies. The discussion delves into the perspectives of the individuals at the forefront of AI development, exploring their motivations, challenges, and the potential for scientific acceleration and robotic integration into daily life. Sarah Guo emphasizes her belief that no single company will dominate the future of AI, offering insights into what this fragmented future means for founders, investors, and those allocating resources in the rapidly evolving AI landscape.</description>
       <enclosure url="https://traffic.megaphone.fm/CLS7890997457.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/987a3d0c-a547-11f1-907d-e7244a2569a6/image/7b2b20ba891203fe3f555eba291827ff.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+      <ns0:image href="https://megaphone.imgix.net/podcasts/987a3d0c-a547-11f1-907d-e7244a2569a6/image/7b2b20ba891203fe3f555eba291827ff.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #13 — The a16z Show: Why 1,200 AI Agents Started Working Together | Ryan Greenblatt</title>
+      <title>🎧 LISTEN #12 — The a16z Show: Why 1,200 AI Agents Started Working Together | Ryan Greenblatt</title>
       <link>https://a16z.simplecast.com/episodes/why-1-200-ai-agents-started-working-together-ryan-greenblatt-i7A557W2</link>
       <guid isPermaLink="false">047986e7f27da6ed</guid>
       <pubDate>Mon, 31 Aug 2026 11:32:20 +0000</pubDate>
@@ -156,7 +145,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #14 — Jason &amp; Scot Show: EP346 - Victoria's Secret &amp; Co. EVP Digital, Brian Seewald</title>
+      <title>🎧 LISTEN #13 — Jason &amp; Scot Show: EP346 - Victoria's Secret &amp; Co. EVP Digital, Brian Seewald</title>
       <link>https://jasonandscot.com/ep346-victorias-secret-co-evp-digital-brian-seewald</link>
       <guid isPermaLink="false">32c4f4a15b04b916</guid>
       <pubDate>Fri, 28 Aug 2026 17:18:31 +0000</pubDate>
@@ -167,7 +156,7 @@
       <ns0:image href="https://static.libsyn.com/p/assets/b/8/c/3/b8c3446d74f5776516c3140a3186d450/JASS_346_Brian_AUDIO_AUPHONIC_AUDIO_1.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #15 — The a16z Show: Stripe’s AI Strategy: Build More, Not Less</title>
+      <title>🎧 LISTEN #14 — The a16z Show: Stripe’s AI Strategy: Build More, Not Less</title>
       <link>https://a16z.simplecast.com/episodes/stripes-ai-strategy-build-more-not-less-0w7FfhZZ</link>
       <guid isPermaLink="false">37603cb340fff951</guid>
       <pubDate>Tue, 18 Aug 2026 05:38:00 +0000</pubDate>
@@ -178,7 +167,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #16 — The Tim Ferriss Show: #879: How to Reinvent Yourself and Make Bold Moves — Decisive Stories from Matthew McConaughey, Steve Young, Samin Nosrat, and More</title>
+      <title>🎧 LISTEN #15 — The Tim Ferriss Show: #879: How to Reinvent Yourself and Make Bold Moves — Decisive Stories from Matthew McConaughey, Steve Young, Samin Nosrat, and More</title>
       <link />
       <guid isPermaLink="false">b49612650409c25e</guid>
       <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
@@ -189,7 +178,7 @@
       <ns0:image href="https://content.production.cdn.art19.com/images/69/10/10/fb/691010fb-625e-4abe-993c-a57228b28dbe/91cb53ae0d5dbb379b9dffecf0a772593891d0d09bbe6d90ee746edbdb79e3ec75584f2ceb8260e9f675a90c05419b9b99842a76905b686f0f51c1a9d3e227ab.jpeg" />
     </item>
     <item>
-      <title>🎧 LISTEN #17 — No Priors: Rethinking Legacy Data Infrastructure with Eon Co-Founders Ofir Ehrlich and Gonen Stein</title>
+      <title>🎧 LISTEN #16 — No Priors: Rethinking Legacy Data Infrastructure with Eon Co-Founders Ofir Ehrlich and Gonen Stein</title>
       <link />
       <guid isPermaLink="false">77d082fa9aeeb244</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -200,7 +189,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/dc36d7b4-a1cb-11f1-a66e-afd86ce968a2/image/14007c74e6b09456b85f85da756966ab.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #18 — No Priors: What Chess.com Teaches US About Superhuman Capabilities, with CEO Erik Allebest</title>
+      <title>🎧 LISTEN #17 — No Priors: What Chess.com Teaches US About Superhuman Capabilities, with CEO Erik Allebest</title>
       <link />
       <guid isPermaLink="false">75d00e29f362d3d8</guid>
       <pubDate>Fri, 14 Aug 2026 06:22:33 +0000</pubDate>
@@ -211,7 +200,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/2f8edaf4-9698-11f1-bdc1-eb068382bf86/image/605ec0dcdca0e5b9d65fc2f2c7c98561.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #19 — Stratechery: (Preview) Nvidia’s Answer to Capital Constraints, Google’s Attrition and Direction, Q&amp;amp;A on AI Writing, Vision Pro, Vibe Coding</title>
+      <title>🎧 LISTEN #18 — Stratechery: (Preview) Nvidia’s Answer to Capital Constraints, Google’s Attrition and Direction, Q&amp;amp;A on AI Writing, Vision Pro, Vibe Coding</title>
       <link>https://sharptech.fm/member/episode/preview-nvidias-answer-to-capital-constraints-googles-attrition-and-direction-q-a-on-ai-writing-vision-pro-vibe-coding</link>
       <guid isPermaLink="false">d7080093d3afd668</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -222,7 +211,7 @@
       <ns0:image href="https://sharptech.fm/assets/Sharp%20Tech%20-%20Black.png" />
     </item>
     <item>
-      <title>🎧 LISTEN #20 — Future Commerce: Enter Through the Gift Shop: Inside MoMA's Retail Journey</title>
+      <title>🎧 LISTEN #19 — Future Commerce: Enter Through the Gift Shop: Inside MoMA's Retail Journey</title>
       <link>https://www.futurecommerce.com/podcasts/enter-through-the-gift-shop-inside-momas-retail-journey</link>
       <guid isPermaLink="false">f6a358c2a3a58acf</guid>
       <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
@@ -233,7 +222,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/cd284e1c-fc92-4750-a525-204cde38fb9d/3000x3000/e475.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #21 — The a16z Show: Gavin Baker: Why AI Demand Is Outrunning Compute Supply</title>
+      <title>🎧 LISTEN #20 — The a16z Show: Gavin Baker: Why AI Demand Is Outrunning Compute Supply</title>
       <link>https://a16z.simplecast.com/episodes/gavin-baker-why-ai-demand-is-outrunning-compute-supply-z97oFoOG</link>
       <guid isPermaLink="false">f284e233a2220052</guid>
       <pubDate>Mon, 31 Aug 2026 11:32:20 +0000</pubDate>
@@ -244,18 +233,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #22 — Invest Like the Best: Eric Vishria - A Decade of Lessons Investing in Software &amp; Hardware - [Invest Like the Best, EP.486]</title>
-      <link>https://colossus.com/episode/sandcastles-and-silicon/</link>
-      <guid isPermaLink="false">6a517f2e04febb38</guid>
-      <pubDate>Wed, 12 Aug 2026 06:21:39 +0000</pubDate>
-      <ns0:duration>3954</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 79/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 11 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features a highly authoritative guest discussing strategic lessons from software/cloud history, applying them to AI, and analyzing changing investment criteria. This directly supports the persona&amp;#x27;s focus on product strategy, AI, and career growth at a strategic level.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Eric Vishria, a General Partner at Benchmark, shares insights from his extensive career in software and cloud investing. The discussion delves into historical market shifts, drawing parallels between the rise of AWS and the current landscape of AI. Vishria explores what he&amp;#x27;s learned from investing in companies like Fireworks, Sierra, and Cerebras, and how the criteria for success have evolved for both founders and investors. This episode offers a macro-level view of technology markets, providing strategic context for understanding current trends and future directions in AI and software.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Lessons from AWS&amp;#x27;s rise are applicable to understanding the AI market.&lt;/li&gt;&lt;li&gt;Changing criteria for successful founders and investors in tech.&lt;/li&gt;&lt;li&gt;Strategic insights from a decade of investing in software and hardware.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This episode provides a valuable historical lens for understanding current market dynamics in AI and software. The Senior PM can gain insights into long-term strategic thinking, market structure, and the evolving landscape of innovation and investment, which can inform product strategy and career trajectory.&lt;/p&gt;&lt;p&gt;&lt;a href="https://colossus.com/episode/sandcastles-and-silicon/"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
-      <description>Eric Vishria, a General Partner at Benchmark, shares insights from his extensive career in software and cloud investing. The discussion delves into historical market shifts, drawing parallels between the rise of AWS and the current landscape of AI. Vishria explores what he's learned from investing in companies like Fireworks, Sierra, and Cerebras, and how the criteria for success have evolved for both founders and investors. This episode offers a macro-level view of technology markets, providing strategic context for understanding current trends and future directions in AI and software.</description>
-      <enclosure url="https://traffic.megaphone.fm/CLS6500696931.mp3" type="audio/mpeg" length="0" />
-      <ns0:image href="https://megaphone.imgix.net/podcasts/be6f2778-94f0-11f1-8fc8-5fdf34225c7d/image/c8265322cedbd7f9e8b4d6d8b037c42b.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #23 — Masters of Scale: What the jobs report isn't telling you about AI &amp; the workforce, with Upwork’s Hayden Brown</title>
+      <title>🎧 LISTEN #21 — Masters of Scale: What the jobs report isn't telling you about AI &amp; the workforce, with Upwork’s Hayden Brown</title>
       <link />
       <guid isPermaLink="false">5b20f6b6ac2d64db</guid>
       <pubDate>Wed, 19 Aug 2026 05:38:35 +0000</pubDate>
@@ -266,7 +244,7 @@
       <ns0:image href="https://content.production.cdn.art19.com/images/25/6e/00/d8/256e00d8-aab8-49f6-b90f-4e6b2f7d3828/f641e4845812dd8d9c5bcc700428a9691113504c87b9b63f62a9a06b8c2bc8658701a2a03d1918d41e9332691b322ae5f51fe89a7814b177d8a51587e19e89d9.jpeg" />
     </item>
     <item>
-      <title>🎧 LISTEN #24 — The a16z Show: Inside Cursor: The Anatomy of a Generational Startup</title>
+      <title>🎧 LISTEN #22 — The a16z Show: Inside Cursor: The Anatomy of a Generational Startup</title>
       <link>https://a16z.simplecast.com/episodes/inside-cursor-the-anatomy-of-a-generational-startup-eVZ_egyp</link>
       <guid isPermaLink="false">407e0f9486b719c0</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -277,7 +255,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #25 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
+      <title>🎧 LISTEN #23 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
       <link>https://www.futurecommerce.com/podcasts/shopify-earnings-go-wild-and-american-retail-is-over</link>
       <guid isPermaLink="false">0b21d234ca52a538</guid>
       <pubDate>Thu, 20 Aug 2026 05:38:59 +0000</pubDate>
@@ -288,7 +266,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/2907bfe0-7dc9-47c1-bb97-51eda5323a7d/3000x3000/e476.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #26 — Y Combinator Startup Podcast: Chelsea Finn: This is the State of the Art in Robotics</title>
+      <title>🎧 LISTEN #24 — Y Combinator Startup Podcast: Chelsea Finn: This is the State of the Art in Robotics</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Chelsea-Finn-This-is-the-State-of-the-Art-in-Robotics-e3nc492</link>
       <guid isPermaLink="false">8701c90e9fc9ef3e</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -298,7 +276,7 @@
       <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/124178146/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-13%2F429782123-44100-2-cab930f0a7ef2.mp3" type="audio/mpeg" length="55962226" />
     </item>
     <item>
-      <title>🎧 LISTEN #27 — The a16z Show: The New Economics of AI | Martin Casado &amp; Steven Sinofsky</title>
+      <title>🎧 LISTEN #25 — The a16z Show: The New Economics of AI | Martin Casado &amp; Steven Sinofsky</title>
       <link>https://a16z.simplecast.com/episodes/the-new-economics-of-ai-martin-casado-steven-sinofsky-6Xew5iHr</link>
       <guid isPermaLink="false">cbe05433738f0730</guid>
       <pubDate>Wed, 26 Aug 2026 05:41:42 +0000</pubDate>
@@ -309,7 +287,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #28 — Lenny's Podcast: OpenAI’s Head of Design: This is the best time in history to be a designer | Ian Silber</title>
+      <title>🎧 LISTEN #26 — Lenny's Podcast: OpenAI’s Head of Design: This is the best time in history to be a designer | Ian Silber</title>
       <link>https://www.lennysnewsletter.com/p/openais-head-of-design-this-is-the</link>
       <guid isPermaLink="false">6b1ed41c3e9719e1</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -320,7 +298,7 @@
       <ns0:image href="https://substackcdn.com/feed/podcast/10845/post/209801560/9b2eb1d2408773ba174dfa7943a59083.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #29 — Invest Like the Best: Neil Movva - Making AI 10x Cheaper - [Invest Like the Best, EP.488]</title>
+      <title>🎧 LISTEN #27 — Invest Like the Best: Neil Movva - Making AI 10x Cheaper - [Invest Like the Best, EP.488]</title>
       <link>https://colossus.com/episode/from-transistor-to-token/</link>
       <guid isPermaLink="false">f67b42f995da17d7</guid>
       <pubDate>Wed, 26 Aug 2026 05:41:42 +0000</pubDate>
@@ -331,7 +309,17 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/d56fad4c-876e-11f1-9151-5f1834daf707/image/de9954428adab72e672734106004bdcb.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #30 — Masters of Scale: Ford's Jim Farley on beating China, and the storm nobody sees coming</title>
+      <title>🎧 LISTEN #28 — The a16z Show: Why a16z Launched the Machine Age Fund | Jen Kha</title>
+      <link>https://a16z.simplecast.com/episodes/why-a16z-launched-the-machine-age-fund-jen-kha-MopZc0wl</link>
+      <guid isPermaLink="false">327e18aa486bb4df</guid>
+      <pubDate>Wed, 02 Sep 2026 09:26:19 +0000</pubDate>
+      <itunes:duration>1477</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 71/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 30 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 71 is above 50. The episode discusses the strategic shift in AI infrastructure investment, which is highly relevant to understanding the foundational layer of AI and its implications for product strategy and emerging technology. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Jen Kha, Managing Partner at a16z, discussing the firm&amp;#x27;s new Machine Age Fund. The fund focuses on investing in the physical infrastructure powering AI, including chips, networking, memory, cooling, and data centers. The discussion explores why hardware, after decades of software dominance, is becoming a critical investment area again due to the immense demands of AI. It covers the global race for AI adoption, the specific needs of hardware startups beyond capital, challenges like the backlash against data centers, and the return of experienced systems builders to entrepreneurship to construct this new generation of infrastructure.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI demand is pushing existing physical infrastructure to its limits, making hardware and the physical computing stack investable again after decades of software focus.&lt;/li&gt;&lt;li&gt;The global race for AI adoption necessitates a rethinking of the entire computing stack from first principles, creating opportunities for hardware founders.&lt;/li&gt;&lt;li&gt;Experienced systems builders are returning to entrepreneurship to address the infrastructure gap, indicating a significant shift in the talent landscape for AI&amp;#x27;s foundational layers.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/why-a16z-launched-the-machine-age-fund-jen-kha-MopZc0wl"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode features Jen Kha, Managing Partner at a16z, discussing the firm's new Machine Age Fund. The fund focuses on investing in the physical infrastructure powering AI, including chips, networking, memory, cooling, and data centers. The discussion explores why hardware, after decades of software dominance, is becoming a critical investment area again due to the immense demands of AI. It covers the global race for AI adoption, the specific needs of hardware startups beyond capital, challenges like the backlash against data centers, and the return of experienced systems builders to entrepreneurship to construct this new generation of infrastructure.</description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/68d49c98-05bc-4eec-a525-c6fdb554f130/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=68d49c98-05bc-4eec-a525-c6fdb554f130&amp;feed=JGE3yC0V" type="audio/mpeg" length="23647405" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #29 — Masters of Scale: Ford's Jim Farley on beating China, and the storm nobody sees coming</title>
       <link />
       <guid isPermaLink="false">4a4a9d335184e1b5</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -341,7 +329,7 @@
       <enclosure url="https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/04ee6ef3-eb7e-44e1-bdc2-3ababe411b89.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="27259715" />
     </item>
     <item>
-      <title>🎧 LISTEN #31 — The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman</title>
+      <title>🎧 LISTEN #30 — The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman</title>
       <link>https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH</link>
       <guid isPermaLink="false">fec39220a6b65ef0</guid>
       <pubDate>Fri, 21 Aug 2026 12:46:44 +0000</pubDate>

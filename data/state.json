@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-09-01T09:54:48.835064+00:00",
+  "last_run": "2026-09-02T09:26:19.935951+00:00",
   "processed": {
     "8c452eea0cceee70": {
       "guid": "8c452eea0cceee70",
@@ -4626,6 +4626,70 @@
       "enclosure_type": "audio/mpeg",
       "enclosure_length": 0,
       "curated_at": null
+    },
+    "1d0af0776079c42a": {
+      "guid": "1d0af0776079c42a",
+      "show_title": "The a16z Show",
+      "episode_title": "Daniel Litt: The Mathematician's Guide to AI",
+      "published": "2026-09-01T10:00:00Z",
+      "processed_at": "2026-09-02T09:26:19.895525Z",
+      "score": 67.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "The episode touches on AI's capabilities and limitations in a domain (mathematics) that offers analogies for product development, and discusses the broader implications of AI on intellectual work. While relevant, the low transcript confidence and academic focus slightly reduce its direct actionability for a Senior PM in product strategy, making a summary review more efficient.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "summary": "This episode features Lisha Li and Daniel Litt, an Assistant Professor of Mathematics, discussing the advancements of AI in mathematics. They explore what current frontier models can achieve, such as autonomously solving complex problems like the Erd\u0151s unit distance problem, and where they fall short, particularly in areas like intuition, theory building, and identifying key questions. The conversation also delves into how AI is transforming mathematical research, the potential for distorted academic incentives due to AI-generated papers, and the critical question of how to ensure humans continue to develop their thinking skills as AI takes on more intellectual tasks.",
+      "key_ideas": [
+        "AI models can autonomously solve complex mathematical problems (e.g., Erd\u0151s unit distance problem) by grinding calculations and combining known techniques, but lack human intuition and the ability to formulate new theoretical frameworks.",
+        "The proliferation of AI-generated academic papers could distort research incentives, potentially leading to a focus on quantity over quality or genuine intellectual breakthroughs.",
+        "A key challenge for human intellectual development in the age of advanced AI is ensuring that researchers use AI to deepen their thinking rather than outsourcing the fundamental work of critical thought."
+      ],
+      "episode_url": "https://a16z.simplecast.com/episodes/daniel-litt-the-mathematicians-guide-to-ai-TyLaUSzk",
+      "duration_seconds": 3829,
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/c0772156-b98e-43c5-b01b-5cd54df1a9a5/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=c0772156-b98e-43c5-b01b-5cd54df1a9a5&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 61272930,
+      "curated_at": null
+    },
+    "836a5a02fbf7d6e5": {
+      "guid": "836a5a02fbf7d6e5",
+      "show_title": "The Prof G Pod",
+      "episode_title": "The Relationship Habit That Makes You Unhappy + Living Far From Aging Parents",
+      "published": "2026-09-02T08:00:00Z",
+      "processed_at": "2026-09-02T09:26:19.895607Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode focuses on personal relationships and family dynamics, which are entirely irrelevant to a Senior PM's career growth in product strategy, AI, or eCommerce. The content is generic life advice, not strategic insight.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.megaphone.fm/WWO6655869236",
+      "summary": "This episode revisits listener questions about personal relationships. Scott Galloway discusses his approach to his relationship with his father, advises a listener on balancing city living with aging parents, and reflects on how friendships evolve with changes in wealth and fame. The content is primarily personal advice and reflections on life choices.",
+      "key_ideas": [],
+      "episode_url": "",
+      "duration_seconds": 1032,
+      "enclosure_url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pscrb.fm/rss/p/mgln.ai/e/257/traffic.megaphone.fm/VMP8208657657.mp3",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 0,
+      "curated_at": null
+    },
+    "3ed3e24eb0611d57": {
+      "guid": "3ed3e24eb0611d57",
+      "show_title": "The Real Story",
+      "episode_title": "\u4eca\u5929\u4f86\u6572\u5a49\uff5c\u51b0\u6cb3\u5d29\u3001\u9ed1\u8272\u6d2a\u6c34\u5f9e\u5929\u964d\uff0c\u5c3c\u6cca\u723e\u5c71\u6d2a\u662f\u5929\u707d\u6216\u4eba\u798d\uff1f\u5f9e\u8de8\u570b\u9810\u8b66\u5230\u6551\u707d\u6709\u54ea\u4e9b\u722d\u8b70\uff1f",
+      "published": "2026-09-01T10:08:38Z",
+      "processed_at": "2026-09-02T09:26:19.895627Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode focuses on a specific natural disaster and geopolitical issues related to disaster relief, which is entirely outside the persona's strategic focus on product strategy, AI, and eCommerce. The content is not relevant for career growth in product management.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.soundon.fm/podcasts/c1f1f3c9-8d28-42ad-9f1c-908018b8d9fc.xml",
+      "summary": "This episode discusses a massive flood disaster that occurred in the mountainous border region between Nepal and China on August 26th, resulting in over a thousand deaths and nearly 5,000 missing persons. It explores whether the collapse of high-altitude glaciers was a natural phenomenon or exacerbated by global warming, and delves into the controversies surrounding disaster prevention strategies. The episode highlights the challenges of cross-border early warning systems, particularly the reluctance of China and India to share real-time meteorological and disaster information with Nepal due to border strategic military considerations, which has hindered disaster relief efforts and complicated the issue with human-made factors.",
+      "key_ideas": [],
+      "episode_url": "https://player.soundon.fm/p/c1f1f3c9-8d28-42ad-9f1c-908018b8d9fc/episodes/a74e4ef1-e404-488f-8560-8c497cfcb475",
+      "duration_seconds": 811,
+      "enclosure_url": "https://rss.soundon.fm/rssf/c1f1f3c9-8d28-42ad-9f1c-908018b8d9fc/feedurl/a74e4ef1-e404-488f-8560-8c497cfcb475/rssFileVip.mp3?timestamp=1788289783941",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 1,
+      "curated_at": null
     }
   },
   "published": [
@@ -4808,7 +4872,8 @@
     "a8b4648c026c03e2",
     "11179961c407c957",
     "36bddff449c65084",
-    "de38d77d24fa6570"
+    "de38d77d24fa6570",
+    "1d0af0776079c42a"
   ],
   "playlist": [
     "d99da0b934e38cc5",
@@ -4866,7 +4931,8 @@
     "047986e7f27da6ed",
     "f284e233a2220052",
     "11179961c407c957",
-    "36bddff449c65084"
+    "36bddff449c65084",
+    "327e18aa486bb4df"
   ],
   "emailed": [
     "6a94a25c9cbce596",
@@ -4996,6 +5062,7 @@
     "a8b4648c026c03e2",
     "11179961c407c957",
     "36bddff449c65084",
-    "de38d77d24fa6570"
+    "de38d77d24fa6570",
+    "1d0af0776079c42a"
   ]
 }
