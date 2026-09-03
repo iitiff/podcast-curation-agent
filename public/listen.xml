@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link>https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Sep 2026 09:26:19 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 09:36:46 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href="https://iitiff.github.io/podcast-curation-agent/listen.xml" rel="self" type="application/rss+xml" />
@@ -68,18 +68,7 @@
       <ns0:image href="https://img.transistorcdn.com/e_1lxBL9ya2xK_7BOHTZlkxR2eM7Y_4tmItNVG8FS7w/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8zM2Zm/ZTkzMDM0NzE3YmIx/OWRkNGNiNDc0MGVk/NzgyYS5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #6 — The a16z Show: Garry Tan on Taste, Agents and Founder Ambition</title>
-      <link>https://a16z.simplecast.com/episodes/garry-tan-on-taste-agents-and-founder-ambition-5Wi5biPg</link>
-      <guid isPermaLink="false">a4d2d8ea02ac96a7</guid>
-      <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
-      <ns0:duration>3123</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 86/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 12 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode features a top-tier guest (Garry Tan) discussing highly relevant and strategic topics like AI&amp;#x27;s impact on company building, the rise of &amp;#x27;agentic companies,&amp;#x27; and the future of SaaS. It offers concrete insights into AI product strategy and organizational design, directly aligning with the persona&amp;#x27;s focus on AI, product craft, and career growth at a strategic level.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Garry Tan, President and CEO of Y Combinator, explores how AI is fundamentally reshaping the startup playbook and the economics of company building. He discusses the emergence of &amp;#x27;agentic companies&amp;#x27; where small teams leverage AI to achieve unprecedented scale, challenging traditional SaaS models and organizational bureaucracy. Tan shares lessons from his two decades in Silicon Valley, emphasizing the pursuit of &amp;#x27;earnest obsessions&amp;#x27; over fleeting trends. The conversation delves into the future of consumer AI, the concept of &amp;#x27;harness wars,&amp;#x27; and the potential for a slower-than-expected AI adoption, providing strategic foresight for product leaders on building the next generation of intelligent products.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI enables &amp;#x27;agentic companies&amp;#x27; where small teams leverage AI agents to achieve massive scale, fundamentally changing organizational structures and the economics of company building.&lt;/li&gt;&lt;li&gt;Strategic product development should focus on &amp;#x27;earnest obsessions&amp;#x27; rather than chasing &amp;#x27;hot&amp;#x27; trends, a lesson drawn from decades of Silicon Valley experience.&lt;/li&gt;&lt;li&gt;The future of AI involves &amp;#x27;harness wars&amp;#x27; and a potentially slower adoption curve than anticipated, requiring product leaders to consider long-term strategic implications for consumer AI.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This episode provides a strategic roadmap for senior PMs to rethink product development, organizational design, and market entry in the age of AI. It challenges conventional wisdom on SaaS and team scaling, offering a forward-looking perspective on how AI agents will redefine competitive advantage and product craft.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/garry-tan-on-taste-agents-and-founder-ambition-5Wi5biPg"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
-      <description>Garry Tan, President and CEO of Y Combinator, explores how AI is fundamentally reshaping the startup playbook and the economics of company building. He discusses the emergence of 'agentic companies' where small teams leverage AI to achieve unprecedented scale, challenging traditional SaaS models and organizational bureaucracy. Tan shares lessons from his two decades in Silicon Valley, emphasizing the pursuit of 'earnest obsessions' over fleeting trends. The conversation delves into the future of consumer AI, the concept of 'harness wars,' and the potential for a slower-than-expected AI adoption, providing strategic foresight for product leaders on building the next generation of intelligent products.</description>
-      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/cab51e91-62c3-4d8f-bf0b-93bfdf079f56/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=cab51e91-62c3-4d8f-bf0b-93bfdf079f56&amp;feed=JGE3yC0V" type="audio/mpeg" length="49971731" />
-      <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #7 — The a16z Show: Ben Horowitz and Travis Kalanick on Building Again</title>
+      <title>🎧 LISTEN #6 — The a16z Show: Ben Horowitz and Travis Kalanick on Building Again</title>
       <link>https://a16z.simplecast.com/episodes/ben-horowitz-and-travis-kalanick-on-building-again-o4RgblCd</link>
       <guid isPermaLink="false">f216e98834f13929</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -88,6 +77,17 @@
       <description>This episode features a candid conversation between Ben Horowitz, Travis Kalanick, and Erik Torenberg, discussing entrepreneurship, company building, and the future of AI. Kalanick shares pivotal moments from Uber's history, including scaling challenges and strategic decisions like not acquiring Lyft, alongside his evolution as a founder. The discussion extends to Atoms' vision for industrial AI, emphasizing the shift of software into the physical world and the immense opportunities in transforming sectors like food production, mining, and manufacturing. For a Senior PM, this offers invaluable first-hand lessons on product craft at scale, strategic decision-making in hyper-growth environments, and a forward-looking perspective on AI's role in the next industrial revolution.</description>
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/121c3a09-4be1-4ba9-a3b7-52aa4c4e3c1f/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=121c3a09-4be1-4ba9-a3b7-52aa4c4e3c1f&amp;feed=JGE3yC0V" type="audio/mpeg" length="32275340" />
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #7 — Retailgentic: Behavior Beats Identity: FERMÀT Co-Founder &amp; CEO Rishabh Jain</title>
+      <link>https://share.transistor.fm/s/2bb419f2</link>
+      <guid isPermaLink="false">2db9644a04f5845e</guid>
+      <pubDate>Thu, 03 Sep 2026 09:36:46 +0000</pubDate>
+      <itunes:duration>2644</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 84/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 03 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode offers concrete, strategic insights into AI-driven personalization in e-commerce, directly relevant to the persona&amp;#x27;s focus areas, with specific data points and a strong guest authority implied by the co-founder role.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode delves into the evolving landscape of e-commerce personalization, specifically focusing on FERMÀT&amp;#x27;s AI-native platform. It highlights a shift from identity-based personalization to behavior-based personalization, arguing that this approach yields significantly better conversion rates, even for anonymous visitors. The discussion covers how AI agents can detect, recommend, and generate new site experiences in real-time, contrasting this with traditional, slower methods. The co-founder also shares insights on the limitations of the &amp;#x27;one-to-one&amp;#x27; marketing dream and the strategic implications for incumbent personalization platforms, alongside candid advice on company building.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;FERMÀT&amp;#x27;s data indicates that behavior-based personalization, even for incognito visitors, can achieve approximately a 20% conversion lift compared to identity and past purchase-based methods.&lt;/li&gt;&lt;li&gt;The &amp;#x27;one-to-one&amp;#x27; marketer&amp;#x27;s dream is a &amp;#x27;lack of imagination&amp;#x27; because a single individual acts as different shoppers across platforms like Instagram, Google, and ChatGPT, necessitating a &amp;#x27;many-to-one&amp;#x27; personalization approach.&lt;/li&gt;&lt;li&gt;AI agents trained on commerce can continuously monitor every session, recommend changes, and generate new site experiences, replacing the slow, human-intensive process of analyzing session recordings and implementing changes months later.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs in e-commerce should re-evaluate their personalization strategies, considering a shift towards behavior-driven AI platforms. This could unlock significant conversion improvements and necessitate a re-thinking of how customer data (especially anonymous data from ad clicks) is leveraged. The discussion on agentic commerce also implies a future where dynamic, AI-generated site experiences become the norm, requiring product teams to adapt their development and iteration cycles.&lt;/p&gt;&lt;p&gt;&lt;a href="https://share.transistor.fm/s/2bb419f2"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode delves into the evolving landscape of e-commerce personalization, specifically focusing on FERMÀT's AI-native platform. It highlights a shift from identity-based personalization to behavior-based personalization, arguing that this approach yields significantly better conversion rates, even for anonymous visitors. The discussion covers how AI agents can detect, recommend, and generate new site experiences in real-time, contrasting this with traditional, slower methods. The co-founder also shares insights on the limitations of the 'one-to-one' marketing dream and the strategic implications for incumbent personalization platforms, alongside candid advice on company building.</description>
+      <enclosure url="https://media.transistor.fm/2bb419f2/43d8b6fa.mp3" type="audio/mpeg" length="42347609" />
+      <itunes:image href="https://img.transistorcdn.com/86cMmNe_3FQhAQEmLbXIzA0PF-bVvGL3vgAjv7WPJ-U/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8wNTZh/NjliZTNmZmY0MjE1/OWUxYTJmZThmN2Ni/OTUyMi5qcGc.jpg" />
     </item>
     <item>
       <title>🎧 LISTEN #8 — Masters of Scale: When AI agents do your shopping, everything changes, with Shopify’s Jess Hertz</title>
@@ -167,18 +167,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #15 — The Tim Ferriss Show: #879: How to Reinvent Yourself and Make Bold Moves — Decisive Stories from Matthew McConaughey, Steve Young, Samin Nosrat, and More</title>
-      <link />
-      <guid isPermaLink="false">b49612650409c25e</guid>
-      <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
-      <ns0:duration>3680</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 12 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This compilation episode offers deep insights into strategic career reinvention and bold decision-making through the compelling, first-hand accounts of highly authoritative guests, including founders and operators. It directly supports the persona&amp;#x27;s focus on career growth and provides transferable lessons on high-stakes strategic pivots, even if not directly in AI or eCommerce product craft.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This Tim Ferriss Show compilation explores the theme of reinvention and making bold career moves through the decisive stories of various high-achieving individuals. It features Matthew McConaughey&amp;#x27;s strategic pivot from romantic comedies, Steve Young&amp;#x27;s identity shift, Lori Gottlieb&amp;#x27;s multi-career path, Samin Nosrat&amp;#x27;s choice to leave a successful business for writing, and Martine Rothblatt&amp;#x27;s entrepreneurial journey in starting a pharmaceutical company. The episode provides diverse perspectives on shedding old identities, navigating uncertainty, and committing to new professional chapters, offering transferable lessons on strategic career management and risk-taking.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategic career pivots require bold decisions and a willingness to shed old identities.&lt;/li&gt;&lt;li&gt;High-stakes reinvention often involves navigating uncertainty and long-term commitment.&lt;/li&gt;&lt;li&gt;Lessons from diverse successful individuals can inform personal and professional strategic choices.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Provides frameworks and inspiration for a Senior PM considering significant career changes, strategic pivots, or entrepreneurial ventures, emphasizing the strategic decision-making process involved in such moves. Martine Rothblatt&amp;#x27;s story, in particular, offers a strong example of entrepreneurial drive and strategic execution in a complex industry.&lt;/p&gt;</ns1:encoded>
-      <description>This Tim Ferriss Show compilation explores the theme of reinvention and making bold career moves through the decisive stories of various high-achieving individuals. It features Matthew McConaughey's strategic pivot from romantic comedies, Steve Young's identity shift, Lori Gottlieb's multi-career path, Samin Nosrat's choice to leave a successful business for writing, and Martine Rothblatt's entrepreneurial journey in starting a pharmaceutical company. The episode provides diverse perspectives on shedding old identities, navigating uncertainty, and committing to new professional chapters, offering transferable lessons on strategic career management and risk-taking.</description>
-      <enclosure url="https://rss.art19.com/episodes/9eacccbb-545a-4944-81c8-d1c9a0efd805.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="58883761" />
-      <ns0:image href="https://content.production.cdn.art19.com/images/69/10/10/fb/691010fb-625e-4abe-993c-a57228b28dbe/91cb53ae0d5dbb379b9dffecf0a772593891d0d09bbe6d90ee746edbdb79e3ec75584f2ceb8260e9f675a90c05419b9b99842a76905b686f0f51c1a9d3e227ab.jpeg" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #16 — No Priors: Rethinking Legacy Data Infrastructure with Eon Co-Founders Ofir Ehrlich and Gonen Stein</title>
+      <title>🎧 LISTEN #15 — No Priors: Rethinking Legacy Data Infrastructure with Eon Co-Founders Ofir Ehrlich and Gonen Stein</title>
       <link />
       <guid isPermaLink="false">77d082fa9aeeb244</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -189,7 +178,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/dc36d7b4-a1cb-11f1-a66e-afd86ce968a2/image/14007c74e6b09456b85f85da756966ab.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #17 — No Priors: What Chess.com Teaches US About Superhuman Capabilities, with CEO Erik Allebest</title>
+      <title>🎧 LISTEN #16 — No Priors: What Chess.com Teaches US About Superhuman Capabilities, with CEO Erik Allebest</title>
       <link />
       <guid isPermaLink="false">75d00e29f362d3d8</guid>
       <pubDate>Fri, 14 Aug 2026 06:22:33 +0000</pubDate>
@@ -200,7 +189,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/2f8edaf4-9698-11f1-bdc1-eb068382bf86/image/605ec0dcdca0e5b9d65fc2f2c7c98561.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #18 — Stratechery: (Preview) Nvidia’s Answer to Capital Constraints, Google’s Attrition and Direction, Q&amp;amp;A on AI Writing, Vision Pro, Vibe Coding</title>
+      <title>🎧 LISTEN #17 — Stratechery: (Preview) Nvidia’s Answer to Capital Constraints, Google’s Attrition and Direction, Q&amp;amp;A on AI Writing, Vision Pro, Vibe Coding</title>
       <link>https://sharptech.fm/member/episode/preview-nvidias-answer-to-capital-constraints-googles-attrition-and-direction-q-a-on-ai-writing-vision-pro-vibe-coding</link>
       <guid isPermaLink="false">d7080093d3afd668</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -211,18 +200,7 @@
       <ns0:image href="https://sharptech.fm/assets/Sharp%20Tech%20-%20Black.png" />
     </item>
     <item>
-      <title>🎧 LISTEN #19 — Future Commerce: Enter Through the Gift Shop: Inside MoMA's Retail Journey</title>
-      <link>https://www.futurecommerce.com/podcasts/enter-through-the-gift-shop-inside-momas-retail-journey</link>
-      <guid isPermaLink="false">f6a358c2a3a58acf</guid>
-      <pubDate>Thu, 13 Aug 2026 06:23:42 +0000</pubDate>
-      <ns0:duration>1727</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 80/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 12 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features a high-authority guest discussing strategic retail innovation, brand extension, and the critical intersection of AI with human craft, directly addressing the persona&amp;#x27;s core interests in eCommerce, product strategy, and AI. Despite low transcript confidence, the description strongly indicates high strategic value.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode delves into MoMA&amp;#x27;s innovative retail strategy, featuring Chief Retail Officer Jesse Goldstine. It explores how MoMA has transformed its gift shop model from a mere souvenir outlet into a significant revenue driver and brand extension, reaching millions beyond its physical visitors through thoughtfully designed products like apparel and home goods. Goldstine explains the meticulous process of ensuring every product aligns with MoMA&amp;#x27;s artistic mission and design principles. A key strategic focus is the institution&amp;#x27;s approach to integrating AI partnerships while safeguarding the integrity of human craft and artistic expression. This discussion offers valuable insights into scaling a brand through product, navigating the complexities of modern retail, and making strategic decisions about technology adoption in a creative context, making it highly relevant for senior product leaders interested in eCommerce, brand strategy, and AI ethics.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Strategic inversion of the museum retail model for brand extension and revenue growth.&lt;/li&gt;&lt;li&gt;Integrating product craft and brand alignment across a diverse retail catalog.&lt;/li&gt;&lt;li&gt;Navigating AI partnerships while preserving human creativity and ethical considerations in design.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Senior PMs can apply lessons on brand-aligned product development, scaling retail operations beyond physical presence, and the strategic framework for evaluating AI integration in creative or brand-sensitive environments. It provides a case study for balancing commercial success with core mission and values.&lt;/p&gt;&lt;p&gt;&lt;a href="https://www.futurecommerce.com/podcasts/enter-through-the-gift-shop-inside-momas-retail-journey"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
-      <description>This episode delves into MoMA's innovative retail strategy, featuring Chief Retail Officer Jesse Goldstine. It explores how MoMA has transformed its gift shop model from a mere souvenir outlet into a significant revenue driver and brand extension, reaching millions beyond its physical visitors through thoughtfully designed products like apparel and home goods. Goldstine explains the meticulous process of ensuring every product aligns with MoMA's artistic mission and design principles. A key strategic focus is the institution's approach to integrating AI partnerships while safeguarding the integrity of human craft and artistic expression. This discussion offers valuable insights into scaling a brand through product, navigating the complexities of modern retail, and making strategic decisions about technology adoption in a creative context, making it highly relevant for senior product leaders interested in eCommerce, brand strategy, and AI ethics.</description>
-      <enclosure url="https://dts.podtrac.com/redirect.mp3/afp-935226-injected.calisto.simplecastaudio.com/fed613f6-db08-4178-9009-bc6bae8658fc/episodes/db341cec-37dd-401f-b941-6355e092f0d7/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=fed613f6-db08-4178-9009-bc6bae8658fc&amp;awEpisodeId=db341cec-37dd-401f-b941-6355e092f0d7&amp;feed=hQ2eLzNW" type="audio/mpeg" length="27647271" />
-      <ns0:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/cd284e1c-fc92-4750-a525-204cde38fb9d/3000x3000/e475.jpg?aid=rss_feed" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #20 — The a16z Show: Gavin Baker: Why AI Demand Is Outrunning Compute Supply</title>
+      <title>🎧 LISTEN #18 — The a16z Show: Gavin Baker: Why AI Demand Is Outrunning Compute Supply</title>
       <link>https://a16z.simplecast.com/episodes/gavin-baker-why-ai-demand-is-outrunning-compute-supply-z97oFoOG</link>
       <guid isPermaLink="false">f284e233a2220052</guid>
       <pubDate>Mon, 31 Aug 2026 11:32:20 +0000</pubDate>
@@ -233,7 +211,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #21 — Masters of Scale: What the jobs report isn't telling you about AI &amp; the workforce, with Upwork’s Hayden Brown</title>
+      <title>🎧 LISTEN #19 — Masters of Scale: What the jobs report isn't telling you about AI &amp; the workforce, with Upwork’s Hayden Brown</title>
       <link />
       <guid isPermaLink="false">5b20f6b6ac2d64db</guid>
       <pubDate>Wed, 19 Aug 2026 05:38:35 +0000</pubDate>
@@ -244,7 +222,7 @@
       <ns0:image href="https://content.production.cdn.art19.com/images/25/6e/00/d8/256e00d8-aab8-49f6-b90f-4e6b2f7d3828/f641e4845812dd8d9c5bcc700428a9691113504c87b9b63f62a9a06b8c2bc8658701a2a03d1918d41e9332691b322ae5f51fe89a7814b177d8a51587e19e89d9.jpeg" />
     </item>
     <item>
-      <title>🎧 LISTEN #22 — The a16z Show: Inside Cursor: The Anatomy of a Generational Startup</title>
+      <title>🎧 LISTEN #20 — The a16z Show: Inside Cursor: The Anatomy of a Generational Startup</title>
       <link>https://a16z.simplecast.com/episodes/inside-cursor-the-anatomy-of-a-generational-startup-eVZ_egyp</link>
       <guid isPermaLink="false">407e0f9486b719c0</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -255,7 +233,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #23 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
+      <title>🎧 LISTEN #21 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
       <link>https://www.futurecommerce.com/podcasts/shopify-earnings-go-wild-and-american-retail-is-over</link>
       <guid isPermaLink="false">0b21d234ca52a538</guid>
       <pubDate>Thu, 20 Aug 2026 05:38:59 +0000</pubDate>
@@ -266,7 +244,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/2907bfe0-7dc9-47c1-bb97-51eda5323a7d/3000x3000/e476.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #24 — Y Combinator Startup Podcast: Chelsea Finn: This is the State of the Art in Robotics</title>
+      <title>🎧 LISTEN #22 — Y Combinator Startup Podcast: Chelsea Finn: This is the State of the Art in Robotics</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Chelsea-Finn-This-is-the-State-of-the-Art-in-Robotics-e3nc492</link>
       <guid isPermaLink="false">8701c90e9fc9ef3e</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -276,7 +254,7 @@
       <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/124178146/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-13%2F429782123-44100-2-cab930f0a7ef2.mp3" type="audio/mpeg" length="55962226" />
     </item>
     <item>
-      <title>🎧 LISTEN #25 — The a16z Show: The New Economics of AI | Martin Casado &amp; Steven Sinofsky</title>
+      <title>🎧 LISTEN #23 — The a16z Show: The New Economics of AI | Martin Casado &amp; Steven Sinofsky</title>
       <link>https://a16z.simplecast.com/episodes/the-new-economics-of-ai-martin-casado-steven-sinofsky-6Xew5iHr</link>
       <guid isPermaLink="false">cbe05433738f0730</guid>
       <pubDate>Wed, 26 Aug 2026 05:41:42 +0000</pubDate>
@@ -287,7 +265,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #26 — Lenny's Podcast: OpenAI’s Head of Design: This is the best time in history to be a designer | Ian Silber</title>
+      <title>🎧 LISTEN #24 — Lenny's Podcast: OpenAI’s Head of Design: This is the best time in history to be a designer | Ian Silber</title>
       <link>https://www.lennysnewsletter.com/p/openais-head-of-design-this-is-the</link>
       <guid isPermaLink="false">6b1ed41c3e9719e1</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -298,7 +276,7 @@
       <ns0:image href="https://substackcdn.com/feed/podcast/10845/post/209801560/9b2eb1d2408773ba174dfa7943a59083.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #27 — Invest Like the Best: Neil Movva - Making AI 10x Cheaper - [Invest Like the Best, EP.488]</title>
+      <title>🎧 LISTEN #25 — Invest Like the Best: Neil Movva - Making AI 10x Cheaper - [Invest Like the Best, EP.488]</title>
       <link>https://colossus.com/episode/from-transistor-to-token/</link>
       <guid isPermaLink="false">f67b42f995da17d7</guid>
       <pubDate>Wed, 26 Aug 2026 05:41:42 +0000</pubDate>
@@ -309,17 +287,17 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/d56fad4c-876e-11f1-9151-5f1834daf707/image/de9954428adab72e672734106004bdcb.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #28 — The a16z Show: Why a16z Launched the Machine Age Fund | Jen Kha</title>
+      <title>🎧 LISTEN #26 — The a16z Show: Why a16z Launched the Machine Age Fund | Jen Kha</title>
       <link>https://a16z.simplecast.com/episodes/why-a16z-launched-the-machine-age-fund-jen-kha-MopZc0wl</link>
       <guid isPermaLink="false">327e18aa486bb4df</guid>
       <pubDate>Wed, 02 Sep 2026 09:26:19 +0000</pubDate>
-      <itunes:duration>1477</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 71/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 30 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 71 is above 50. The episode discusses the strategic shift in AI infrastructure investment, which is highly relevant to understanding the foundational layer of AI and its implications for product strategy and emerging technology. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Jen Kha, Managing Partner at a16z, discussing the firm&amp;#x27;s new Machine Age Fund. The fund focuses on investing in the physical infrastructure powering AI, including chips, networking, memory, cooling, and data centers. The discussion explores why hardware, after decades of software dominance, is becoming a critical investment area again due to the immense demands of AI. It covers the global race for AI adoption, the specific needs of hardware startups beyond capital, challenges like the backlash against data centers, and the return of experienced systems builders to entrepreneurship to construct this new generation of infrastructure.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI demand is pushing existing physical infrastructure to its limits, making hardware and the physical computing stack investable again after decades of software focus.&lt;/li&gt;&lt;li&gt;The global race for AI adoption necessitates a rethinking of the entire computing stack from first principles, creating opportunities for hardware founders.&lt;/li&gt;&lt;li&gt;Experienced systems builders are returning to entrepreneurship to address the infrastructure gap, indicating a significant shift in the talent landscape for AI&amp;#x27;s foundational layers.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/why-a16z-launched-the-machine-age-fund-jen-kha-MopZc0wl"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>1477</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 71/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 30 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Total score 71 is above 50. The episode discusses the strategic shift in AI infrastructure investment, which is highly relevant to understanding the foundational layer of AI and its implications for product strategy and emerging technology. (carried over)&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Jen Kha, Managing Partner at a16z, discussing the firm&amp;#x27;s new Machine Age Fund. The fund focuses on investing in the physical infrastructure powering AI, including chips, networking, memory, cooling, and data centers. The discussion explores why hardware, after decades of software dominance, is becoming a critical investment area again due to the immense demands of AI. It covers the global race for AI adoption, the specific needs of hardware startups beyond capital, challenges like the backlash against data centers, and the return of experienced systems builders to entrepreneurship to construct this new generation of infrastructure.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI demand is pushing existing physical infrastructure to its limits, making hardware and the physical computing stack investable again after decades of software focus.&lt;/li&gt;&lt;li&gt;The global race for AI adoption necessitates a rethinking of the entire computing stack from first principles, creating opportunities for hardware founders.&lt;/li&gt;&lt;li&gt;Experienced systems builders are returning to entrepreneurship to address the infrastructure gap, indicating a significant shift in the talent landscape for AI&amp;#x27;s foundational layers.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/why-a16z-launched-the-machine-age-fund-jen-kha-MopZc0wl"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>This episode features Jen Kha, Managing Partner at a16z, discussing the firm's new Machine Age Fund. The fund focuses on investing in the physical infrastructure powering AI, including chips, networking, memory, cooling, and data centers. The discussion explores why hardware, after decades of software dominance, is becoming a critical investment area again due to the immense demands of AI. It covers the global race for AI adoption, the specific needs of hardware startups beyond capital, challenges like the backlash against data centers, and the return of experienced systems builders to entrepreneurship to construct this new generation of infrastructure.</description>
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/68d49c98-05bc-4eec-a525-c6fdb554f130/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=68d49c98-05bc-4eec-a525-c6fdb554f130&amp;feed=JGE3yC0V" type="audio/mpeg" length="23647405" />
     </item>
     <item>
-      <title>🎧 LISTEN #29 — Masters of Scale: Ford's Jim Farley on beating China, and the storm nobody sees coming</title>
+      <title>🎧 LISTEN #27 — Masters of Scale: Ford's Jim Farley on beating China, and the storm nobody sees coming</title>
       <link />
       <guid isPermaLink="false">4a4a9d335184e1b5</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -329,7 +307,7 @@
       <enclosure url="https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/04ee6ef3-eb7e-44e1-bdc2-3ababe411b89.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="27259715" />
     </item>
     <item>
-      <title>🎧 LISTEN #30 — The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman</title>
+      <title>🎧 LISTEN #28 — The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman</title>
       <link>https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH</link>
       <guid isPermaLink="false">fec39220a6b65ef0</guid>
       <pubDate>Fri, 21 Aug 2026 12:46:44 +0000</pubDate>
