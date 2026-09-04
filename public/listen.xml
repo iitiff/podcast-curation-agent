@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link>https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Sep 2026 09:28:29 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2026 10:06:39 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href="https://iitiff.github.io/podcast-curation-agent/listen.xml" rel="self" type="application/rss+xml" />
@@ -94,14 +94,25 @@
       <link>https://a16z.simplecast.com/episodes/the-100b-niches-hiding-inside-payments-aKQoOt7o</link>
       <guid isPermaLink="false">65d1da540ae8d691</guid>
       <pubDate>Fri, 04 Sep 2026 09:28:29 +0000</pubDate>
-      <itunes:duration>3639</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 83/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 03 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;With high-authority guests discussing the evolution of fintech, the nuances of payments, and the strategic underpinnings of Affirm, this episode offers significant strategic value for a Senior PM, despite low transcript confidence.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features a conversation between a16z General Partner Alex Rampell and Affirm Co-Founder and CEO Max Levchin, exploring 25 years of fintech evolution. They discuss the surprising resilience of the card interface, how niche areas within payments can become massive markets, and the foundational ideas behind Affirm, including the realization that installment financing could boost merchant conversion. The conversation also delves into the realities of 0% financing, common misunderstandings about Affirm&amp;#x27;s model, the power of negative customer acquisition cost, and Max Levchin&amp;#x27;s bullish stance on agentic payments over agents making purchasing decisions.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The card interface&amp;#x27;s enduring dominance in payments, despite technological advancements, highlights the inertia and network effects that make displacing established financial infrastructure exceptionally challenging.&lt;/li&gt;&lt;li&gt;Negative customer acquisition cost, achieved when merchants pay to offer a payment solution due to its conversion benefits, represents a powerful and often misunderstood business model advantage in fintech.&lt;/li&gt;&lt;li&gt;Agentic payments, where AI facilitates the payment process itself, are considered more strategically impactful than AI agents choosing what consumers buy, due to the complexities of trust, preference, and liability in purchasing decisions.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This episode provides a deep dive into the strategic dynamics of the payments industry, offering insights into market structure, business model innovation, and the future of agentic commerce. It&amp;#x27;s highly relevant for PMs working on eCommerce, fintech, or AI-driven commerce solutions.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/the-100b-niches-hiding-inside-payments-aKQoOt7o"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>3639</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 83/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 03 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;With high-authority guests discussing the evolution of fintech, the nuances of payments, and the strategic underpinnings of Affirm, this episode offers significant strategic value for a Senior PM, despite low transcript confidence.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features a conversation between a16z General Partner Alex Rampell and Affirm Co-Founder and CEO Max Levchin, exploring 25 years of fintech evolution. They discuss the surprising resilience of the card interface, how niche areas within payments can become massive markets, and the foundational ideas behind Affirm, including the realization that installment financing could boost merchant conversion. The conversation also delves into the realities of 0% financing, common misunderstandings about Affirm&amp;#x27;s model, the power of negative customer acquisition cost, and Max Levchin&amp;#x27;s bullish stance on agentic payments over agents making purchasing decisions.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The card interface&amp;#x27;s enduring dominance in payments, despite technological advancements, highlights the inertia and network effects that make displacing established financial infrastructure exceptionally challenging.&lt;/li&gt;&lt;li&gt;Negative customer acquisition cost, achieved when merchants pay to offer a payment solution due to its conversion benefits, represents a powerful and often misunderstood business model advantage in fintech.&lt;/li&gt;&lt;li&gt;Agentic payments, where AI facilitates the payment process itself, are considered more strategically impactful than AI agents choosing what consumers buy, due to the complexities of trust, preference, and liability in purchasing decisions.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This episode provides a deep dive into the strategic dynamics of the payments industry, offering insights into market structure, business model innovation, and the future of agentic commerce. It&amp;#x27;s highly relevant for PMs working on eCommerce, fintech, or AI-driven commerce solutions.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/the-100b-niches-hiding-inside-payments-aKQoOt7o"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>This episode features a conversation between a16z General Partner Alex Rampell and Affirm Co-Founder and CEO Max Levchin, exploring 25 years of fintech evolution. They discuss the surprising resilience of the card interface, how niche areas within payments can become massive markets, and the foundational ideas behind Affirm, including the realization that installment financing could boost merchant conversion. The conversation also delves into the realities of 0% financing, common misunderstandings about Affirm's model, the power of negative customer acquisition cost, and Max Levchin's bullish stance on agentic payments over agents making purchasing decisions.</description>
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/a13b21a1-e71b-428e-969a-c4fe80db9f9c/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=a13b21a1-e71b-428e-969a-c4fe80db9f9c&amp;feed=JGE3yC0V" type="audio/mpeg" length="58229769" />
+      <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #9 — The a16z Show: Fei Fei Li: The Race to Build World Models For AI</title>
+      <link>https://a16z.simplecast.com/episodes/fei-fei-li-the-race-to-build-world-models-for-ai-tvIN7XfT</link>
+      <guid isPermaLink="false">a92121e85554e7c6</guid>
+      <pubDate>Fri, 04 Sep 2026 10:06:39 +0000</pubDate>
+      <itunes:duration>2676</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 82/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 04 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features a highly authoritative guest discussing cutting-edge AI research (world models) with direct implications for product strategy in AI, robotics, and creative industries. The focus on &amp;#x27;new view prediction&amp;#x27; and the challenges of real-world data are strategically relevant for a Senior PM.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Fei-Fei Li, Justin Johnson, and Ben Mildenhall, co-founders of World Labs, discussing their new world model, Atlas, with a16z General Partner Martin Casado. The core innovation of Atlas is &amp;#x27;new view prediction,&amp;#x27; which integrates generation and 3D reconstruction by predicting how an environment would look from different spatial and temporal perspectives. The conversation delves into the technical underpinnings of Atlas, its current capabilities and limitations, and the critical role of dynamics, editability, and simulation in the evolution of world models. They also explore potential applications in creative fields, architecture, and robotics, highlighting the significant challenge of acquiring sufficient real-world training data for these advanced AI systems.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The &amp;#x27;new view prediction&amp;#x27; primitive, central to Atlas, unifies 3D reconstruction and generation, suggesting a potential foundational shift in how AI models understand and interact with the physical world, moving beyond static scene understanding.&lt;/li&gt;&lt;li&gt;A primary constraint for the advancement of world models and their applications in robotics and creative work is the scarcity of real-world training data, indicating a strategic bottleneck for product development in these areas.&lt;/li&gt;&lt;li&gt;The development of world models necessitates a focus on dynamics, editability, and simulation, implying that future AI product strategies must account for these capabilities to build truly intelligent and adaptable systems.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;For a Senior PM, this episode highlights the strategic importance of investing in AI research that bridges perception and generation, particularly in 3D and spatial intelligence. It underscores the need to consider data acquisition strategies for real-world environments as a critical enabler for advanced AI products in robotics, design, and simulation. The discussion on dynamics and editability suggests that product roadmaps for AI should increasingly incorporate features that allow for interactive and adaptable model outputs, moving beyond static predictions.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/fei-fei-li-the-race-to-build-world-models-for-ai-tvIN7XfT"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>This episode features Fei-Fei Li, Justin Johnson, and Ben Mildenhall, co-founders of World Labs, discussing their new world model, Atlas, with a16z General Partner Martin Casado. The core innovation of Atlas is 'new view prediction,' which integrates generation and 3D reconstruction by predicting how an environment would look from different spatial and temporal perspectives. The conversation delves into the technical underpinnings of Atlas, its current capabilities and limitations, and the critical role of dynamics, editability, and simulation in the evolution of world models. They also explore potential applications in creative fields, architecture, and robotics, highlighting the significant challenge of acquiring sufficient real-world training data for these advanced AI systems.</description>
+      <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/7a8beefc-2d73-42f7-8b7a-d2f15ad0358d/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=7a8beefc-2d73-42f7-8b7a-d2f15ad0358d&amp;feed=JGE3yC0V" type="audio/mpeg" length="42822122" />
       <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #9 — Invest Like the Best: Sarah Guo - What the 250 People Building AI Believe - [Invest Like the Best, EP.489]</title>
+      <title>🎧 LISTEN #10 — Invest Like the Best: Sarah Guo - What the 250 People Building AI Believe - [Invest Like the Best, EP.489]</title>
       <link>https://colossus.com/episode/no-priors-just-conviction/</link>
       <guid isPermaLink="false">36bddff449c65084</guid>
       <pubDate>Tue, 01 Sep 2026 09:54:48 +0000</pubDate>
@@ -112,7 +123,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/987a3d0c-a547-11f1-907d-e7244a2569a6/image/7b2b20ba891203fe3f555eba291827ff.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #10 — The a16z Show: Why 1,200 AI Agents Started Working Together | Ryan Greenblatt</title>
+      <title>🎧 LISTEN #11 — The a16z Show: Why 1,200 AI Agents Started Working Together | Ryan Greenblatt</title>
       <link>https://a16z.simplecast.com/episodes/why-1-200-ai-agents-started-working-together-ryan-greenblatt-i7A557W2</link>
       <guid isPermaLink="false">047986e7f27da6ed</guid>
       <pubDate>Mon, 31 Aug 2026 11:32:20 +0000</pubDate>
@@ -123,7 +134,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #11 — Jason &amp; Scot Show: EP346 - Victoria's Secret &amp; Co. EVP Digital, Brian Seewald</title>
+      <title>🎧 LISTEN #12 — Jason &amp; Scot Show: EP346 - Victoria's Secret &amp; Co. EVP Digital, Brian Seewald</title>
       <link>https://jasonandscot.com/ep346-victorias-secret-co-evp-digital-brian-seewald</link>
       <guid isPermaLink="false">32c4f4a15b04b916</guid>
       <pubDate>Fri, 28 Aug 2026 17:18:31 +0000</pubDate>
@@ -134,7 +145,7 @@
       <ns0:image href="https://static.libsyn.com/p/assets/b/8/c/3/b8c3446d74f5776516c3140a3186d450/JASS_346_Brian_AUDIO_AUPHONIC_AUDIO_1.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #12 — The a16z Show: Stripe’s AI Strategy: Build More, Not Less</title>
+      <title>🎧 LISTEN #13 — The a16z Show: Stripe’s AI Strategy: Build More, Not Less</title>
       <link>https://a16z.simplecast.com/episodes/stripes-ai-strategy-build-more-not-less-0w7FfhZZ</link>
       <guid isPermaLink="false">37603cb340fff951</guid>
       <pubDate>Tue, 18 Aug 2026 05:38:00 +0000</pubDate>
@@ -145,7 +156,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #13 — No Priors: Rethinking Legacy Data Infrastructure with Eon Co-Founders Ofir Ehrlich and Gonen Stein</title>
+      <title>🎧 LISTEN #14 — No Priors: Rethinking Legacy Data Infrastructure with Eon Co-Founders Ofir Ehrlich and Gonen Stein</title>
       <link />
       <guid isPermaLink="false">77d082fa9aeeb244</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -156,18 +167,18 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/dc36d7b4-a1cb-11f1-a66e-afd86ce968a2/image/14007c74e6b09456b85f85da756966ab.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #14 — No Priors: Redefining Chip Architecture with Arm CEO Rene Haas</title>
+      <title>🎧 LISTEN #15 — No Priors: Redefining Chip Architecture with Arm CEO Rene Haas</title>
       <link />
       <guid isPermaLink="false">d17f85e59532be84</guid>
       <pubDate>Fri, 04 Sep 2026 09:28:29 +0000</pubDate>
-      <itunes:duration>2226</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 80/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 03 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features the CEO of Arm discussing critical strategic shifts in chip architecture, AI compute demands, and supply chain dynamics, directly relevant to a senior PM&amp;#x27;s focus on AI and product strategy at a strategic depth.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Rene Haas, CEO of Arm, discussing the company&amp;#x27;s pivotal role in the evolving landscape of computing, particularly with the rise of AI. Haas explains Arm&amp;#x27;s transition from an IP licensing model to producing physical chips like the Arm AGI CPU for Meta, addressing the increasing demands for compute power driven by AI and robotics. The conversation delves into bottlenecks in hardware supply chains, SoftBank&amp;#x27;s strategic investments, the importance of US semiconductor manufacturing independence, and the enduring relevance of CPUs for AI workloads. It offers insights into the strategic positioning of a key player in the global technology ecosystem.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Arm is shifting from a pure IP licensing model to producing physical chips (e.g., Arm AGI CPU for Meta) to meet specific AI compute demands, indicating a vertical integration trend in the semiconductor industry.&lt;/li&gt;&lt;li&gt;The increasing demand for AI compute is creating significant bottlenecks in hardware supply chains, particularly for data center buildouts, suggesting a need for strategic planning around component availability.&lt;/li&gt;&lt;li&gt;CPUs remain crucial for executing AI workloads, even with the rise of specialized accelerators, implying that a balanced approach to compute architecture is necessary for optimal AI product performance and cost efficiency.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This episode provides a high-level view of the strategic shifts in the semiconductor industry driven by AI. For a Senior PM, understanding Arm&amp;#x27;s move into physical chip production and the broader supply chain challenges can inform product roadmaps, partnership strategies, and risk management related to hardware dependencies for AI-driven products. The discussion on CPU relevance for AI workloads challenges the narrative that GPUs are the sole future, prompting consideration of diverse compute architectures.&lt;/p&gt;</content:encoded>
+      <ns0:duration>2226</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 80/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 03 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode features the CEO of Arm discussing critical strategic shifts in chip architecture, AI compute demands, and supply chain dynamics, directly relevant to a senior PM&amp;#x27;s focus on AI and product strategy at a strategic depth.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode features Rene Haas, CEO of Arm, discussing the company&amp;#x27;s pivotal role in the evolving landscape of computing, particularly with the rise of AI. Haas explains Arm&amp;#x27;s transition from an IP licensing model to producing physical chips like the Arm AGI CPU for Meta, addressing the increasing demands for compute power driven by AI and robotics. The conversation delves into bottlenecks in hardware supply chains, SoftBank&amp;#x27;s strategic investments, the importance of US semiconductor manufacturing independence, and the enduring relevance of CPUs for AI workloads. It offers insights into the strategic positioning of a key player in the global technology ecosystem.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Arm is shifting from a pure IP licensing model to producing physical chips (e.g., Arm AGI CPU for Meta) to meet specific AI compute demands, indicating a vertical integration trend in the semiconductor industry.&lt;/li&gt;&lt;li&gt;The increasing demand for AI compute is creating significant bottlenecks in hardware supply chains, particularly for data center buildouts, suggesting a need for strategic planning around component availability.&lt;/li&gt;&lt;li&gt;CPUs remain crucial for executing AI workloads, even with the rise of specialized accelerators, implying that a balanced approach to compute architecture is necessary for optimal AI product performance and cost efficiency.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This episode provides a high-level view of the strategic shifts in the semiconductor industry driven by AI. For a Senior PM, understanding Arm&amp;#x27;s move into physical chip production and the broader supply chain challenges can inform product roadmaps, partnership strategies, and risk management related to hardware dependencies for AI-driven products. The discussion on CPU relevance for AI workloads challenges the narrative that GPUs are the sole future, prompting consideration of diverse compute architectures.&lt;/p&gt;</ns1:encoded>
       <description>This episode features Rene Haas, CEO of Arm, discussing the company's pivotal role in the evolving landscape of computing, particularly with the rise of AI. Haas explains Arm's transition from an IP licensing model to producing physical chips like the Arm AGI CPU for Meta, addressing the increasing demands for compute power driven by AI and robotics. The conversation delves into bottlenecks in hardware supply chains, SoftBank's strategic investments, the importance of US semiconductor manufacturing independence, and the enduring relevance of CPUs for AI workloads. It offers insights into the strategic positioning of a key player in the global technology ecosystem.</description>
       <enclosure url="https://traffic.megaphone.fm/PDP3024512727.mp3" type="audio/mpeg" length="0" />
-      <itunes:image href="https://megaphone.imgix.net/podcasts/8476d0dc-a726-11f1-86e6-bbc25e1787ef/image/59b85abbe413929b3eeb28fd0ea4c5bf.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+      <ns0:image href="https://megaphone.imgix.net/podcasts/8476d0dc-a726-11f1-86e6-bbc25e1787ef/image/59b85abbe413929b3eeb28fd0ea4c5bf.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #15 — Stratechery: (Preview) Nvidia’s Answer to Capital Constraints, Google’s Attrition and Direction, Q&amp;amp;A on AI Writing, Vision Pro, Vibe Coding</title>
+      <title>🎧 LISTEN #16 — Stratechery: (Preview) Nvidia’s Answer to Capital Constraints, Google’s Attrition and Direction, Q&amp;amp;A on AI Writing, Vision Pro, Vibe Coding</title>
       <link>https://sharptech.fm/member/episode/preview-nvidias-answer-to-capital-constraints-googles-attrition-and-direction-q-a-on-ai-writing-vision-pro-vibe-coding</link>
       <guid isPermaLink="false">d7080093d3afd668</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -178,7 +189,7 @@
       <ns0:image href="https://sharptech.fm/assets/Sharp%20Tech%20-%20Black.png" />
     </item>
     <item>
-      <title>🎧 LISTEN #16 — The a16z Show: Gavin Baker: Why AI Demand Is Outrunning Compute Supply</title>
+      <title>🎧 LISTEN #17 — The a16z Show: Gavin Baker: Why AI Demand Is Outrunning Compute Supply</title>
       <link>https://a16z.simplecast.com/episodes/gavin-baker-why-ai-demand-is-outrunning-compute-supply-z97oFoOG</link>
       <guid isPermaLink="false">f284e233a2220052</guid>
       <pubDate>Mon, 31 Aug 2026 11:32:20 +0000</pubDate>
@@ -189,7 +200,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #17 — Masters of Scale: What the jobs report isn't telling you about AI &amp; the workforce, with Upwork’s Hayden Brown</title>
+      <title>🎧 LISTEN #18 — Masters of Scale: What the jobs report isn't telling you about AI &amp; the workforce, with Upwork’s Hayden Brown</title>
       <link />
       <guid isPermaLink="false">5b20f6b6ac2d64db</guid>
       <pubDate>Wed, 19 Aug 2026 05:38:35 +0000</pubDate>
@@ -200,7 +211,7 @@
       <ns0:image href="https://content.production.cdn.art19.com/images/25/6e/00/d8/256e00d8-aab8-49f6-b90f-4e6b2f7d3828/f641e4845812dd8d9c5bcc700428a9691113504c87b9b63f62a9a06b8c2bc8658701a2a03d1918d41e9332691b322ae5f51fe89a7814b177d8a51587e19e89d9.jpeg" />
     </item>
     <item>
-      <title>🎧 LISTEN #18 — The a16z Show: Inside Cursor: The Anatomy of a Generational Startup</title>
+      <title>🎧 LISTEN #19 — The a16z Show: Inside Cursor: The Anatomy of a Generational Startup</title>
       <link>https://a16z.simplecast.com/episodes/inside-cursor-the-anatomy-of-a-generational-startup-eVZ_egyp</link>
       <guid isPermaLink="false">407e0f9486b719c0</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -211,7 +222,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #19 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
+      <title>🎧 LISTEN #20 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
       <link>https://www.futurecommerce.com/podcasts/shopify-earnings-go-wild-and-american-retail-is-over</link>
       <guid isPermaLink="false">0b21d234ca52a538</guid>
       <pubDate>Thu, 20 Aug 2026 05:38:59 +0000</pubDate>
@@ -222,7 +233,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/2907bfe0-7dc9-47c1-bb97-51eda5323a7d/3000x3000/e476.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #20 — Y Combinator Startup Podcast: Chelsea Finn: This is the State of the Art in Robotics</title>
+      <title>🎧 LISTEN #21 — Y Combinator Startup Podcast: Chelsea Finn: This is the State of the Art in Robotics</title>
       <link>https://podcasters.spotify.com/pod/show/ycombinator/episodes/Chelsea-Finn-This-is-the-State-of-the-Art-in-Robotics-e3nc492</link>
       <guid isPermaLink="false">8701c90e9fc9ef3e</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -232,7 +243,7 @@
       <enclosure url="https://anchor.fm/s/8c1524bc/podcast/play/124178146/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-13%2F429782123-44100-2-cab930f0a7ef2.mp3" type="audio/mpeg" length="55962226" />
     </item>
     <item>
-      <title>🎧 LISTEN #21 — The a16z Show: The New Economics of AI | Martin Casado &amp; Steven Sinofsky</title>
+      <title>🎧 LISTEN #22 — The a16z Show: The New Economics of AI | Martin Casado &amp; Steven Sinofsky</title>
       <link>https://a16z.simplecast.com/episodes/the-new-economics-of-ai-martin-casado-steven-sinofsky-6Xew5iHr</link>
       <guid isPermaLink="false">cbe05433738f0730</guid>
       <pubDate>Wed, 26 Aug 2026 05:41:42 +0000</pubDate>
@@ -243,7 +254,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #22 — Lenny's Podcast: OpenAI’s Head of Design: This is the best time in history to be a designer | Ian Silber</title>
+      <title>🎧 LISTEN #23 — Lenny's Podcast: OpenAI’s Head of Design: This is the best time in history to be a designer | Ian Silber</title>
       <link>https://www.lennysnewsletter.com/p/openais-head-of-design-this-is-the</link>
       <guid isPermaLink="false">6b1ed41c3e9719e1</guid>
       <pubDate>Mon, 17 Aug 2026 05:43:08 +0000</pubDate>
@@ -254,7 +265,7 @@
       <ns0:image href="https://substackcdn.com/feed/podcast/10845/post/209801560/9b2eb1d2408773ba174dfa7943a59083.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #23 — Invest Like the Best: Neil Movva - Making AI 10x Cheaper - [Invest Like the Best, EP.488]</title>
+      <title>🎧 LISTEN #24 — Invest Like the Best: Neil Movva - Making AI 10x Cheaper - [Invest Like the Best, EP.488]</title>
       <link>https://colossus.com/episode/from-transistor-to-token/</link>
       <guid isPermaLink="false">f67b42f995da17d7</guid>
       <pubDate>Wed, 26 Aug 2026 05:41:42 +0000</pubDate>
@@ -265,7 +276,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/d56fad4c-876e-11f1-9151-5f1834daf707/image/de9954428adab72e672734106004bdcb.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #24 — The a16z Show: Why a16z Launched the Machine Age Fund | Jen Kha</title>
+      <title>🎧 LISTEN #25 — The a16z Show: Why a16z Launched the Machine Age Fund | Jen Kha</title>
       <link>https://a16z.simplecast.com/episodes/why-a16z-launched-the-machine-age-fund-jen-kha-MopZc0wl</link>
       <guid isPermaLink="false">327e18aa486bb4df</guid>
       <pubDate>Wed, 02 Sep 2026 09:26:19 +0000</pubDate>
@@ -275,7 +286,7 @@
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/68d49c98-05bc-4eec-a525-c6fdb554f130/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=68d49c98-05bc-4eec-a525-c6fdb554f130&amp;feed=JGE3yC0V" type="audio/mpeg" length="23647405" />
     </item>
     <item>
-      <title>🎧 LISTEN #25 — Masters of Scale: Ford's Jim Farley on beating China, and the storm nobody sees coming</title>
+      <title>🎧 LISTEN #26 — Masters of Scale: Ford's Jim Farley on beating China, and the storm nobody sees coming</title>
       <link />
       <guid isPermaLink="false">4a4a9d335184e1b5</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -285,7 +296,7 @@
       <enclosure url="https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/04ee6ef3-eb7e-44e1-bdc2-3ababe411b89.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="27259715" />
     </item>
     <item>
-      <title>🎧 LISTEN #26 — The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman</title>
+      <title>🎧 LISTEN #27 — The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman</title>
       <link>https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH</link>
       <guid isPermaLink="false">fec39220a6b65ef0</guid>
       <pubDate>Fri, 21 Aug 2026 12:46:44 +0000</pubDate>

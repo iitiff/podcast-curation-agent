@@ -2,7 +2,7 @@
   "seen_guids": {},
   "queue": [],
   "scored_episodes": {},
-  "last_run": "2026-09-04T09:28:29.137907+00:00",
+  "last_run": "2026-09-04T10:06:39.532719+00:00",
   "processed": {
     "6a94a25c9cbce596": {
       "guid": "6a94a25c9cbce596",
@@ -5013,6 +5013,50 @@
       "enclosure_type": "audio/mpeg",
       "enclosure_length": 0,
       "curated_at": null
+    },
+    "a92121e85554e7c6": {
+      "guid": "a92121e85554e7c6",
+      "show_title": "The a16z Show",
+      "episode_title": "Fei Fei Li: The Race to Build World Models For AI",
+      "published": "2026-09-04T10:00:00Z",
+      "processed_at": "2026-09-04T10:06:35.117505Z",
+      "score": 82.0,
+      "classification": "Listen Fully",
+      "classification_reason": "The episode features a highly authoritative guest discussing cutting-edge AI research (world models) with direct implications for product strategy in AI, robotics, and creative industries. The focus on 'new view prediction' and the challenges of real-world data are strategically relevant for a Senior PM.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://feeds.simplecast.com/JGE3yC0V",
+      "summary": "This episode features Fei-Fei Li, Justin Johnson, and Ben Mildenhall, co-founders of World Labs, discussing their new world model, Atlas, with a16z General Partner Martin Casado. The core innovation of Atlas is 'new view prediction,' which integrates generation and 3D reconstruction by predicting how an environment would look from different spatial and temporal perspectives. The conversation delves into the technical underpinnings of Atlas, its current capabilities and limitations, and the critical role of dynamics, editability, and simulation in the evolution of world models. They also explore potential applications in creative fields, architecture, and robotics, highlighting the significant challenge of acquiring sufficient real-world training data for these advanced AI systems.",
+      "key_ideas": [
+        "The 'new view prediction' primitive, central to Atlas, unifies 3D reconstruction and generation, suggesting a potential foundational shift in how AI models understand and interact with the physical world, moving beyond static scene understanding.",
+        "A primary constraint for the advancement of world models and their applications in robotics and creative work is the scarcity of real-world training data, indicating a strategic bottleneck for product development in these areas.",
+        "The development of world models necessitates a focus on dynamics, editability, and simulation, implying that future AI product strategies must account for these capabilities to build truly intelligent and adaptable systems."
+      ],
+      "episode_url": "https://a16z.simplecast.com/episodes/fei-fei-li-the-race-to-build-world-models-for-ai-tvIN7XfT",
+      "duration_seconds": 2676,
+      "enclosure_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/7a8beefc-2d73-42f7-8b7a-d2f15ad0358d/audio/128/default.mp3?aid=rss_feed&awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&awEpisodeId=7a8beefc-2d73-42f7-8b7a-d2f15ad0358d&feed=JGE3yC0V",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 42822122,
+      "curated_at": null
+    },
+    "1525f3da93893b29": {
+      "guid": "1525f3da93893b29",
+      "show_title": "The Tim Ferriss Show",
+      "episode_title": "#881: Tales of Overcoming The Odds, and How to Turn Losses Into Wins  \u2014 Tim McGraw, Terry Crews, Dax Shepard, and More",
+      "published": "2026-09-04T10:00:00Z",
+      "processed_at": "2026-09-04T10:06:35.117584Z",
+      "score": 0.0,
+      "classification": "Skip",
+      "classification_reason": "The episode focuses on generic motivational stories of overcoming personal setbacks, which lacks strategic depth and direct relevance to product strategy, AI, or eCommerce for a senior PM. The content is broadly applicable rather than tailored to executive-level decision-making.",
+      "is_outside_feed": false,
+      "source_feed_url": "https://rss.art19.com/tim-ferriss-show",
+      "summary": "This special episode compiles stories from various personalities, including Tim McGraw, Terry Crews, and Dax Shepard, focusing on their experiences with mistakes, failures, and setbacks. It explores how these individuals navigated rejection, career disappointments, and personal challenges, ultimately framing these obstacles as opportunities for growth and learning. The episode aims to provide inspiration and a mindset shift for listeners facing their own professional or personal difficulties, emphasizing resilience and the ability to turn losses into wins.",
+      "key_ideas": [],
+      "episode_url": "",
+      "duration_seconds": 3923,
+      "enclosure_url": "https://rss.art19.com/episodes/c599888a-c9bb-403c-96a9-b1bb87125ccc.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c",
+      "enclosure_type": "audio/mpeg",
+      "enclosure_length": 62769528,
+      "curated_at": null
     }
   },
   "published": [
@@ -5205,7 +5249,8 @@
     "977321b8fe85c8d0",
     "d17f85e59532be84",
     "65d1da540ae8d691",
-    "263d52dac564e2a5"
+    "263d52dac564e2a5",
+    "a92121e85554e7c6"
   ],
   "playlist": [
     "d99da0b934e38cc5",
@@ -5267,7 +5312,8 @@
     "327e18aa486bb4df",
     "2db9644a04f5845e",
     "d17f85e59532be84",
-    "65d1da540ae8d691"
+    "65d1da540ae8d691",
+    "a92121e85554e7c6"
   ],
   "emailed": [
     "6a94a25c9cbce596",
@@ -5407,6 +5453,7 @@
     "977321b8fe85c8d0",
     "65d1da540ae8d691",
     "d17f85e59532be84",
-    "263d52dac564e2a5"
+    "263d52dac564e2a5",
+    "a92121e85554e7c6"
   ]
 }
