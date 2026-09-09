@@ -5,7 +5,7 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link>https://iitiff.github.io/podcast-curation-agent</link>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Sep 2026 09:31:13 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 09:33:47 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href="https://iitiff.github.io/podcast-curation-agent/listen.xml" rel="self" type="application/rss+xml" />
@@ -79,18 +79,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #7 — Invest Like the Best: Ben Thompson on Big Tech, China, and the AI Boom Running Out of Money - [Invest Like the Best, EP.487]</title>
-      <link>https://colossus.com/episode/winners-losers-ai-era/</link>
-      <guid isPermaLink="false">96cd539df618fce5</guid>
-      <pubDate>Wed, 19 Aug 2026 05:38:35 +0000</pubDate>
-      <ns0:duration>4576</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 84/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 18 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Featuring Ben Thompson, a top-tier strategic thinker, this episode provides deep, macro-level analysis of Big Tech, AI, and geopolitical dynamics (China), which is highly relevant for a senior PM&amp;#x27;s strategic growth. The score of 84 is well above the &amp;#x27;Listen Fully&amp;#x27; threshold.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Ben Thompson of Stratechery offers a deep strategic analysis of the current tech landscape, covering major players like OpenAI, Nvidia, Apple, Microsoft, Google, and Amazon. He delves into the geopolitical implications of the AI race, particularly concerning China, and draws insightful historical parallels to infrastructure buildouts like 1870s railroads. A key argument is that capital, rather than compute, might be the ultimate binding constraint on the AI boom. This episode provides a macro-level view of market structure, competitive dynamics, and long-term trends shaping the future of technology and global power.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Capital as the binding constraint for the AI boom, not just compute.&lt;/li&gt;&lt;li&gt;Geopolitical implications of the AI race, especially US-China dynamics.&lt;/li&gt;&lt;li&gt;Historical parallels for understanding current tech infrastructure buildouts.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;This analysis helps senior PMs understand the broader economic and geopolitical forces shaping their product markets, informing long-term strategic planning, competitive analysis, and potential investment areas. It encourages thinking beyond immediate product features to market structure and resource constraints.&lt;/p&gt;&lt;p&gt;&lt;a href="https://colossus.com/episode/winners-losers-ai-era/"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
-      <description>Ben Thompson of Stratechery offers a deep strategic analysis of the current tech landscape, covering major players like OpenAI, Nvidia, Apple, Microsoft, Google, and Amazon. He delves into the geopolitical implications of the AI race, particularly concerning China, and draws insightful historical parallels to infrastructure buildouts like 1870s railroads. A key argument is that capital, rather than compute, might be the ultimate binding constraint on the AI boom. This episode provides a macro-level view of market structure, competitive dynamics, and long-term trends shaping the future of technology and global power.</description>
-      <enclosure url="https://traffic.megaphone.fm/CLS4584299095.mp3" type="audio/mpeg" length="0" />
-      <ns0:image href="https://megaphone.imgix.net/podcasts/b0356202-9aa0-11f1-b3c3-6bc8a0cf3d6f/image/772d31a372a483035b6fc678729cae0b.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #8 — The a16z Show: The $100B Niches Hiding Inside Payments</title>
+      <title>🎧 LISTEN #7 — The a16z Show: The $100B Niches Hiding Inside Payments</title>
       <link>https://a16z.simplecast.com/episodes/the-100b-niches-hiding-inside-payments-aKQoOt7o</link>
       <guid isPermaLink="false">65d1da540ae8d691</guid>
       <pubDate>Fri, 04 Sep 2026 09:28:29 +0000</pubDate>
@@ -101,7 +90,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #9 — The a16z Show: Fei Fei Li: The Race to Build World Models For AI</title>
+      <title>🎧 LISTEN #8 — The a16z Show: Fei Fei Li: The Race to Build World Models For AI</title>
       <link>https://a16z.simplecast.com/episodes/fei-fei-li-the-race-to-build-world-models-for-ai-tvIN7XfT</link>
       <guid isPermaLink="false">a92121e85554e7c6</guid>
       <pubDate>Fri, 04 Sep 2026 10:06:39 +0000</pubDate>
@@ -112,7 +101,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #10 — Invest Like the Best: Sarah Guo - What the 250 People Building AI Believe - [Invest Like the Best, EP.489]</title>
+      <title>🎧 LISTEN #9 — Invest Like the Best: Sarah Guo - What the 250 People Building AI Believe - [Invest Like the Best, EP.489]</title>
       <link>https://colossus.com/episode/no-priors-just-conviction/</link>
       <guid isPermaLink="false">36bddff449c65084</guid>
       <pubDate>Tue, 01 Sep 2026 09:54:48 +0000</pubDate>
@@ -123,7 +112,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/987a3d0c-a547-11f1-907d-e7244a2569a6/image/7b2b20ba891203fe3f555eba291827ff.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #11 — The a16z Show: Why 1,200 AI Agents Started Working Together | Ryan Greenblatt</title>
+      <title>🎧 LISTEN #10 — The a16z Show: Why 1,200 AI Agents Started Working Together | Ryan Greenblatt</title>
       <link>https://a16z.simplecast.com/episodes/why-1-200-ai-agents-started-working-together-ryan-greenblatt-i7A557W2</link>
       <guid isPermaLink="false">047986e7f27da6ed</guid>
       <pubDate>Mon, 31 Aug 2026 11:32:20 +0000</pubDate>
@@ -134,7 +123,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #12 — Jason &amp; Scot Show: EP346 - Victoria's Secret &amp; Co. EVP Digital, Brian Seewald</title>
+      <title>🎧 LISTEN #11 — Jason &amp; Scot Show: EP346 - Victoria's Secret &amp; Co. EVP Digital, Brian Seewald</title>
       <link>https://jasonandscot.com/ep346-victorias-secret-co-evp-digital-brian-seewald</link>
       <guid isPermaLink="false">32c4f4a15b04b916</guid>
       <pubDate>Fri, 28 Aug 2026 17:18:31 +0000</pubDate>
@@ -145,7 +134,7 @@
       <ns0:image href="https://static.libsyn.com/p/assets/b/8/c/3/b8c3446d74f5776516c3140a3186d450/JASS_346_Brian_AUDIO_AUPHONIC_AUDIO_1.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #13 — No Priors: Rethinking Legacy Data Infrastructure with Eon Co-Founders Ofir Ehrlich and Gonen Stein</title>
+      <title>🎧 LISTEN #12 — No Priors: Rethinking Legacy Data Infrastructure with Eon Co-Founders Ofir Ehrlich and Gonen Stein</title>
       <link />
       <guid isPermaLink="false">77d082fa9aeeb244</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -156,7 +145,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/dc36d7b4-a1cb-11f1-a66e-afd86ce968a2/image/14007c74e6b09456b85f85da756966ab.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #14 — No Priors: Redefining Chip Architecture with Arm CEO Rene Haas</title>
+      <title>🎧 LISTEN #13 — No Priors: Redefining Chip Architecture with Arm CEO Rene Haas</title>
       <link />
       <guid isPermaLink="false">d17f85e59532be84</guid>
       <pubDate>Fri, 04 Sep 2026 09:28:29 +0000</pubDate>
@@ -167,7 +156,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/8476d0dc-a726-11f1-86e6-bbc25e1787ef/image/59b85abbe413929b3eeb28fd0ea4c5bf.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #15 — The a16z Show: Gavin Baker: Why AI Demand Is Outrunning Compute Supply</title>
+      <title>🎧 LISTEN #14 — The a16z Show: Gavin Baker: Why AI Demand Is Outrunning Compute Supply</title>
       <link>https://a16z.simplecast.com/episodes/gavin-baker-why-ai-demand-is-outrunning-compute-supply-z97oFoOG</link>
       <guid isPermaLink="false">f284e233a2220052</guid>
       <pubDate>Mon, 31 Aug 2026 11:32:20 +0000</pubDate>
@@ -178,18 +167,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #16 — Masters of Scale: What the jobs report isn't telling you about AI &amp; the workforce, with Upwork’s Hayden Brown</title>
-      <link />
-      <guid isPermaLink="false">5b20f6b6ac2d64db</guid>
-      <pubDate>Wed, 19 Aug 2026 05:38:35 +0000</pubDate>
-      <ns0:duration>1803</ns0:duration>
-      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 78/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 18 Aug 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;The episode offers concrete, data-driven strategic insights from a top-tier guest (Upwork CEO) on AI&amp;#x27;s real-world impact on the workforce, directly informing product strategy and talent planning for a senior PM. The score of 78 is above the &amp;#x27;Listen Fully&amp;#x27; threshold.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Hayden Brown, CEO of Upwork, provides a data-driven perspective on AI&amp;#x27;s real-time impact on the workforce, drawing from Upwork&amp;#x27;s 18 million freelancers. She reveals which skills are in demand, which are declining, and the surprising trend of businesses bringing humans back after initially shifting work to AI. Brown discusses the gap between AI hype and reality, offering insights into how companies are actually integrating AI and managing workforce changes, including Upwork&amp;#x27;s own experience with layoffs. This episode offers a ground-level view of AI&amp;#x27;s economic and talent implications, crucial for product leaders shaping future strategies.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;AI&amp;#x27;s nuanced impact on the workforce: skill shifts and job evolution.&lt;/li&gt;&lt;li&gt;The &amp;#x27;boomerang effect&amp;#x27;: businesses bringing humans back after AI adoption.&lt;/li&gt;&lt;li&gt;Bridging the gap between AI hype and real-world implementation challenges.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Product leaders should consider these workforce shifts when designing AI-powered products, planning talent acquisition, and strategizing internal AI adoption. The &amp;#x27;boomerang effect&amp;#x27; suggests a need for human-in-the-loop or augmented intelligence strategies rather than full automation.&lt;/p&gt;</ns1:encoded>
-      <description>Hayden Brown, CEO of Upwork, provides a data-driven perspective on AI's real-time impact on the workforce, drawing from Upwork's 18 million freelancers. She reveals which skills are in demand, which are declining, and the surprising trend of businesses bringing humans back after initially shifting work to AI. Brown discusses the gap between AI hype and reality, offering insights into how companies are actually integrating AI and managing workforce changes, including Upwork's own experience with layoffs. This episode offers a ground-level view of AI's economic and talent implications, crucial for product leaders shaping future strategies.</description>
-      <enclosure url="https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/d1133919-54c4-42da-a316-4d8863eb8e5a.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="28849632" />
-      <ns0:image href="https://content.production.cdn.art19.com/images/25/6e/00/d8/256e00d8-aab8-49f6-b90f-4e6b2f7d3828/f641e4845812dd8d9c5bcc700428a9691113504c87b9b63f62a9a06b8c2bc8658701a2a03d1918d41e9332691b322ae5f51fe89a7814b177d8a51587e19e89d9.jpeg" />
-    </item>
-    <item>
-      <title>🎧 LISTEN #17 — The a16z Show: Inside Cursor: The Anatomy of a Generational Startup</title>
+      <title>🎧 LISTEN #15 — The a16z Show: Inside Cursor: The Anatomy of a Generational Startup</title>
       <link>https://a16z.simplecast.com/episodes/inside-cursor-the-anatomy-of-a-generational-startup-eVZ_egyp</link>
       <guid isPermaLink="false">407e0f9486b719c0</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -200,7 +178,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #18 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
+      <title>🎧 LISTEN #16 — Future Commerce: Shopify Earnings Go Wild, and American Retail is OVER.</title>
       <link>https://www.futurecommerce.com/podcasts/shopify-earnings-go-wild-and-american-retail-is-over</link>
       <guid isPermaLink="false">0b21d234ca52a538</guid>
       <pubDate>Thu, 20 Aug 2026 05:38:59 +0000</pubDate>
@@ -211,7 +189,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/669e7da3-a95d-442a-9219-a481bb22a755/2907bfe0-7dc9-47c1-bb97-51eda5323a7d/3000x3000/e476.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #19 — The a16z Show: The New Economics of AI | Martin Casado &amp; Steven Sinofsky</title>
+      <title>🎧 LISTEN #17 — The a16z Show: The New Economics of AI | Martin Casado &amp; Steven Sinofsky</title>
       <link>https://a16z.simplecast.com/episodes/the-new-economics-of-ai-martin-casado-steven-sinofsky-6Xew5iHr</link>
       <guid isPermaLink="false">cbe05433738f0730</guid>
       <pubDate>Wed, 26 Aug 2026 05:41:42 +0000</pubDate>
@@ -222,18 +200,18 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #20 — The a16z Show: Can Open Source Keep AI Power From Concentrating?</title>
+      <title>🎧 LISTEN #18 — The a16z Show: Can Open Source Keep AI Power From Concentrating?</title>
       <link>https://a16z.simplecast.com/episodes/can-open-source-keep-ai-power-from-concentrating-SoZe4_xf</link>
       <guid isPermaLink="false">142e5b72f4c13d6b</guid>
       <pubDate>Tue, 08 Sep 2026 09:31:13 +0000</pubDate>
-      <itunes:duration>485</itunes:duration>
-      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 74/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 07 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode directly addresses a critical strategic question for AI product leaders: the concentration of power and the role of open source. It features a high-authority guest (co-author of &amp;#x27;Attention Is All You Need&amp;#x27;) and explores nuanced perspectives on AI&amp;#x27;s future, compute access, and national strategies, all within a concise format.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode from the a16z Show explores whether open source can prevent the concentration of AI power among a few large companies. Featuring Lukasz Kaiser, co-author of &amp;#x27;Attention Is All You Need,&amp;#x27; the discussion posits that current AI concentration might be a temporary feature of the transformer paradigm, with future breakthroughs potentially enabling smaller, more specialized models. The episode also examines why China leads in open-weight models, the need for more open-model startups in the US, the importance of companies owning their own intelligence, and the limitations of openness when compute access remains concentrated.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Lukasz Kaiser argues that the current concentration of AI power, driven by transformers&amp;#x27; demand for vast data and compute, may not be a permanent feature of AI, suggesting future breakthroughs could enable highly capable smaller, specialized models.&lt;/li&gt;&lt;li&gt;The episode highlights China&amp;#x27;s lead in open-weight AI models, prompting a strategic question about the necessity for the US to foster more open-model startups to maintain competitive balance and prevent power concentration.&lt;/li&gt;&lt;li&gt;A key insight is that &amp;#x27;openness alone falls short&amp;#x27; in preventing AI power concentration if access to the underlying compute infrastructure remains highly centralized, implying that compute democratization is as critical as model openness.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Directly relevant for a Senior PM in AI. It provides a strategic framework for understanding market structure, competitive dynamics, and the role of open source in AI. Insights can inform decisions on build vs. buy, platform strategy, and investment in open-source initiatives, as well as understanding national AI strategies.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/can-open-source-keep-ai-power-from-concentrating-SoZe4_xf"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <ns0:duration>485</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 74/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 07 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode directly addresses a critical strategic question for AI product leaders: the concentration of power and the role of open source. It features a high-authority guest (co-author of &amp;#x27;Attention Is All You Need&amp;#x27;) and explores nuanced perspectives on AI&amp;#x27;s future, compute access, and national strategies, all within a concise format.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode from the a16z Show explores whether open source can prevent the concentration of AI power among a few large companies. Featuring Lukasz Kaiser, co-author of &amp;#x27;Attention Is All You Need,&amp;#x27; the discussion posits that current AI concentration might be a temporary feature of the transformer paradigm, with future breakthroughs potentially enabling smaller, more specialized models. The episode also examines why China leads in open-weight models, the need for more open-model startups in the US, the importance of companies owning their own intelligence, and the limitations of openness when compute access remains concentrated.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Lukasz Kaiser argues that the current concentration of AI power, driven by transformers&amp;#x27; demand for vast data and compute, may not be a permanent feature of AI, suggesting future breakthroughs could enable highly capable smaller, specialized models.&lt;/li&gt;&lt;li&gt;The episode highlights China&amp;#x27;s lead in open-weight AI models, prompting a strategic question about the necessity for the US to foster more open-model startups to maintain competitive balance and prevent power concentration.&lt;/li&gt;&lt;li&gt;A key insight is that &amp;#x27;openness alone falls short&amp;#x27; in preventing AI power concentration if access to the underlying compute infrastructure remains highly centralized, implying that compute democratization is as critical as model openness.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Directly relevant for a Senior PM in AI. It provides a strategic framework for understanding market structure, competitive dynamics, and the role of open source in AI. Insights can inform decisions on build vs. buy, platform strategy, and investment in open-source initiatives, as well as understanding national AI strategies.&lt;/p&gt;&lt;p&gt;&lt;a href="https://a16z.simplecast.com/episodes/can-open-source-keep-ai-power-from-concentrating-SoZe4_xf"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
       <description>This episode from the a16z Show explores whether open source can prevent the concentration of AI power among a few large companies. Featuring Lukasz Kaiser, co-author of 'Attention Is All You Need,' the discussion posits that current AI concentration might be a temporary feature of the transformer paradigm, with future breakthroughs potentially enabling smaller, more specialized models. The episode also examines why China leads in open-weight models, the need for more open-model startups in the US, the importance of companies owning their own intelligence, and the limitations of openness when compute access remains concentrated.</description>
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/ad5068cd-5d10-4465-bc38-31449e172e26/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=ad5068cd-5d10-4465-bc38-31449e172e26&amp;feed=JGE3yC0V" type="audio/mpeg" length="7760780" />
-      <itunes:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
+      <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #21 — Invest Like the Best: Neil Movva - Making AI 10x Cheaper - [Invest Like the Best, EP.488]</title>
+      <title>🎧 LISTEN #19 — Invest Like the Best: Neil Movva - Making AI 10x Cheaper - [Invest Like the Best, EP.488]</title>
       <link>https://colossus.com/episode/from-transistor-to-token/</link>
       <guid isPermaLink="false">f67b42f995da17d7</guid>
       <pubDate>Wed, 26 Aug 2026 05:41:42 +0000</pubDate>
@@ -244,7 +222,7 @@
       <ns0:image href="https://megaphone.imgix.net/podcasts/d56fad4c-876e-11f1-9151-5f1834daf707/image/de9954428adab72e672734106004bdcb.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #22 — 科技浪: EP153 - GPT-6 Astra 強到離譜（大部分情況）</title>
+      <title>🎧 LISTEN #20 — 科技浪: EP153 - GPT-6 Astra 強到離譜（大部分情況）</title>
       <link>https://open.firstory.me/story/cmtqnt4wo0rf501y86xs36zbt</link>
       <guid isPermaLink="false">53517b203306548a</guid>
       <pubDate>Mon, 07 Sep 2026 10:06:51 +0000</pubDate>
@@ -255,7 +233,7 @@
       <ns0:image href="https://image.firstory-cdn.me/Avatar/cm3o5681s06e801v3fxpjehwb/1733832011044.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #23 — The a16z Show: Why a16z Launched the Machine Age Fund | Jen Kha</title>
+      <title>🎧 LISTEN #21 — The a16z Show: Why a16z Launched the Machine Age Fund | Jen Kha</title>
       <link>https://a16z.simplecast.com/episodes/why-a16z-launched-the-machine-age-fund-jen-kha-MopZc0wl</link>
       <guid isPermaLink="false">327e18aa486bb4df</guid>
       <pubDate>Wed, 02 Sep 2026 09:26:19 +0000</pubDate>
@@ -265,7 +243,7 @@
       <enclosure url="https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/3f86df7b-51c6-4101-88a2-550dba782de8/episodes/68d49c98-05bc-4eec-a525-c6fdb554f130/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3f86df7b-51c6-4101-88a2-550dba782de8&amp;awEpisodeId=68d49c98-05bc-4eec-a525-c6fdb554f130&amp;feed=JGE3yC0V" type="audio/mpeg" length="23647405" />
     </item>
     <item>
-      <title>🎧 LISTEN #24 — The a16z Show: Your AI Doctor Is Coming | Julie Yoo</title>
+      <title>🎧 LISTEN #22 — The a16z Show: Your AI Doctor Is Coming | Julie Yoo</title>
       <link>https://a16z.simplecast.com/episodes/your-ai-doctor-is-coming-julie-yoo-YEmlPria</link>
       <guid isPermaLink="false">4a59889ae56cd29d</guid>
       <pubDate>Mon, 07 Sep 2026 10:06:51 +0000</pubDate>
@@ -276,7 +254,7 @@
       <ns0:image href="https://image.simplecastcdn.com/images/0d97354a-306b-45f5-bf26-a8d81eef47ec/ed2664df-9371-438e-8baf-dd2ee0fdde87/3000x3000/thea16zshow-podcastcoverart-3000x3000.jpg?aid=rss_feed" />
     </item>
     <item>
-      <title>🎧 LISTEN #25 — Masters of Scale: Ford's Jim Farley on beating China, and the storm nobody sees coming</title>
+      <title>🎧 LISTEN #23 — Masters of Scale: Ford's Jim Farley on beating China, and the storm nobody sees coming</title>
       <link />
       <guid isPermaLink="false">4a4a9d335184e1b5</guid>
       <pubDate>Thu, 27 Aug 2026 16:21:27 +0000</pubDate>
@@ -286,7 +264,7 @@
       <enclosure url="https://dts.podtrac.com/redirect.mp3/prfx.byspotify.com/e/pscrb.fm/rss/p/tracking.swap.fm/track/7G0M4p2bOLP0mP50O3CD/rss.art19.com/episodes/04ee6ef3-eb7e-44e1-bdc2-3ababe411b89.mp3?rss_browser=BAhJIgtDaHJvbWUGOgZFVA%3D%3D--d05363d83ce333c74f32188013892b2863ad051c" type="audio/mpeg" length="27259715" />
     </item>
     <item>
-      <title>🎧 LISTEN #26 — The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman</title>
+      <title>🎧 LISTEN #24 — The a16z Show: How Microsoft Is Securing the Agentic Enterprise | Aaron Zollman</title>
       <link>https://a16z.simplecast.com/episodes/how-microsoft-is-securing-the-agentic-enterprise-aaron-zollman-j7eOe8NH</link>
       <guid isPermaLink="false">fec39220a6b65ef0</guid>
       <pubDate>Fri, 21 Aug 2026 12:46:44 +0000</pubDate>
