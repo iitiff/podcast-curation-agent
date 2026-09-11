@@ -195,18 +195,36 @@ class Settings:
         # OpenRouter / Groq / Together / a self-hosted NIM, change only
         # LLM_FALLBACK_BASE_URL and LLM_FALLBACK_MODEL, no code edits required.
         # Legacy NVIDIA_* names are still honoured for convenience.
-        self.fallback_api_key = _env("LLM_FALLBACK_API_KEY") or _env("NVIDIA_API_KEY")
+        # Provider-named keys are honoured directly. Requiring the generic name
+        # means a correctly-created OPENROUTER_API_KEY secret is silently
+        # ignored while the run reports "no fallback configured" -- the failure
+        # is invisible precisely when the fallback is needed.
+        self.openrouter_api_key = _env("OPENROUTER_API_KEY")
+        self.fallback_api_key = (
+            _env("LLM_FALLBACK_API_KEY")
+            or self.openrouter_api_key
+            or _env("NVIDIA_API_KEY")
+        )
+        # Each provider's key implies its own endpoint, so a key set on its own
+        # works without also having to know the base URL.
+        _implied_base = (
+            "https://openrouter.ai/api/v1"
+            if self.openrouter_api_key and not _env("LLM_FALLBACK_API_KEY")
+            else "https://integrate.api.nvidia.com/v1"
+        )
         self.fallback_base_url = (
             _env("LLM_FALLBACK_BASE_URL")
             or _env("NVIDIA_BASE_URL")
-            or "https://integrate.api.nvidia.com/v1"
+            or _implied_base
         )
         self.fallback_model = (
             _env("LLM_FALLBACK_MODEL")
             or _env("NVIDIA_MODEL")
             or "meta/llama-3.3-70b-instruct"
         )
-        self.fallback_provider_name = _env("LLM_FALLBACK_NAME", "NVIDIA NIM")
+        self.fallback_provider_name = _env("LLM_FALLBACK_NAME") or (
+            "OpenRouter" if "openrouter" in self.fallback_base_url else "NVIDIA NIM"
+        )
 
         self.podcast_index_key = _env("PODCAST_INDEX_KEY")
         self.podcast_index_secret = _env("PODCAST_INDEX_SECRET")

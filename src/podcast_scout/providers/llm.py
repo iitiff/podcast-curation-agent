@@ -303,6 +303,62 @@ class GeminiProvider(BaseLLMProvider):
         )
 
 
+# Substrings that mark a model as unsuitable for the strict JSON-array contract
+# stage2_batch_rank depends on. Embeddings and rerankers do not chat at all;
+# vision and audio variants cost more for no benefit here.
+_NON_CHAT_HINTS = ("embed", "rerank", "vision", "image", "audio", "tts", "whisper", "guard")
+
+
+async def _resolve_live_model(
+    client: httpx.AsyncClient,
+    base_url: str,
+    headers: dict[str, str],
+    current: str,
+) -> str | None:
+    """Pick a live chat model from the endpoint's own /models listing.
+
+    Used when a configured model has been retired. The provider already knows
+    what it serves, so asking beats hardcoding a successor that will itself be
+    retired later.
+
+    Prefers a model from the same family as the one that died -- a Llama pin
+    should become another Llama, not whatever happens to sort first -- and
+    prefers free variants where the provider marks them, since this runs as a
+    zero-cost fallback.
+    """
+    try:
+        listing = await client.get(f"{base_url}/models", headers=headers)
+        if listing.status_code != 200:
+            return None
+        rows = listing.json().get("data", [])
+    except Exception as exc:
+        log.warning("Could not list models at %s: %s", base_url, exc)
+        return None
+
+    ids = [
+        str(r.get("id", "")) for r in rows
+        if isinstance(r, dict) and r.get("id")
+    ]
+    candidates = [
+        i for i in ids
+        if not any(hint in i.lower() for hint in _NON_CHAT_HINTS)
+    ]
+    if not candidates:
+        return None
+
+    family = current.split("/")[-1].split("-")[0].lower()
+
+    def rank(model_id: str) -> tuple[int, int, str]:
+        lowered = model_id.lower()
+        return (
+            0 if family and family in lowered else 1,   # same family first
+            0 if lowered.endswith(":free") else 1,      # then free variants
+            model_id,
+        )
+
+    return sorted(candidates, key=rank)[0]
+
+
 class OpenAICompatibleProvider(BaseLLMProvider):
     """Generic provider for ANY OpenAI-compatible /chat/completions endpoint.
 
@@ -334,6 +390,9 @@ class OpenAICompatibleProvider(BaseLLMProvider):
         self.base_url = base_url.rstrip("/")
         self.model = model
         self.provider_name = provider_name
+        # Re-resolve at most once per provider instance; a second failure means
+        # the problem is not the model id.
+        self._model_resolved = False
 
     async def complete(
         self,
@@ -359,6 +418,26 @@ class OpenAICompatibleProvider(BaseLLMProvider):
             # itself -- a wrong model name, a bad key, a retired endpoint.
             # Without it a dead fallback reads as an unexplained "410 Gone" and
             # the run degrades to metadata scoring with nothing to act on.
+            # A model that has been end-of-lifed is the one failure the caller
+            # can actually recover from unaided: the endpoint is up, the key is
+            # valid, and the replacement is listed at /models. Pinning a model
+            # id is correct for reproducibility right up until the provider
+            # retires it, at which point the pin is just an outage.
+            if resp.status_code in (404, 410) and not self._model_resolved:
+                self._model_resolved = True
+                replacement = await _resolve_live_model(
+                    client, self.base_url, headers, self.model
+                )
+                if replacement:
+                    log.warning(
+                        "%s: model %r is unavailable (%s). Switching to %r for "
+                        "the rest of this run; set LLM_FALLBACK_MODEL to pin it.",
+                        self.provider_name, self.model, resp.status_code, replacement,
+                    )
+                    self.model = replacement
+                    payload["model"] = replacement
+                    resp = await client.post(url, json=payload, headers=headers)
+
             if resp.status_code >= 400:
                 detail = resp.text[:400].replace("\n", " ")
                 hint = ""

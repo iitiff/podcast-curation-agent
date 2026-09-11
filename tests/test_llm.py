@@ -322,3 +322,89 @@ def test_fallback_error_body_is_surfaced():
     # message must not send the reader off to change the base URL.
     assert "Public API Endpoints" in msg
     assert "LLM_FALLBACK_BASE_URL will not help" in msg
+
+
+# ---------------------------------------------------------------------------
+# Model end-of-life. A pinned model id is correct for reproducibility right up
+# until the provider retires it, at which point the pin is just an outage:
+#   "meta/llama-3.3-70b-instruct has reached its end of life on 2026-08-26"
+# ---------------------------------------------------------------------------
+
+_EOL = ('{"status":410,"detail":"The model \'meta/llama-3.3-70b-instruct\' has '
+        'reached its end of life on 2026-08-26T09:00:00Z and is no longer available."}')
+
+
+class _SeqWithModels(_Seq):
+    """_Seq plus a GET /models listing, as a real endpoint offers."""
+
+    def __init__(self, *responses, models=()):
+        super().__init__(*responses)
+        self._models = list(models)
+
+    async def get(self, url, headers=None):
+        rows = [{"id": m} for m in self._models]
+        class _R:
+            status_code = 200
+            text = ""
+            def json(self_inner): return {"data": rows}
+        return _R()
+
+
+def _run_compat(provider, client):
+    import asyncio
+    from unittest.mock import patch
+    with patch("podcast_scout.providers.llm.httpx.AsyncClient", lambda **kw: client):
+        return asyncio.run(provider.complete([LLMMessage(role="user", content="hi")]))
+
+
+def _compat(model="meta/llama-3.3-70b-instruct"):
+    from podcast_scout.providers.llm import OpenAICompatibleProvider
+    return OpenAICompatibleProvider(
+        api_key="k", base_url="https://x.example/v1", model=model, provider_name="Test",
+    )
+
+
+def test_retired_model_is_replaced_from_the_live_listing():
+    provider = _compat()
+    client = _SeqWithModels(
+        (410, _EOL), (200, {"choices": [{"message": {"content": "ok"}}], "usage": {}}),
+        models=["nvidia/embed-qa-4", "meta/llama-4-maverick-instruct", "qwen/qwen3-32b"],
+    )
+    resp = _run_compat(provider, client)
+    assert resp.content == "ok"
+    # Same family as the model that died, not merely first alphabetically.
+    assert provider.model == "meta/llama-4-maverick-instruct"
+    assert client.payloads[1]["model"] == "meta/llama-4-maverick-instruct"
+
+
+def test_embedding_and_rerank_models_are_never_selected():
+    provider = _compat("some/dead-model")
+    client = _SeqWithModels(
+        (404, '{"error":"not found"}'),
+        (200, {"choices": [{"message": {"content": "ok"}}], "usage": {}}),
+        models=["nvidia/rerank-qa", "baai/bge-m3-embed", "mistral/mistral-small-instruct"],
+    )
+    _run_compat(provider, client)
+    assert provider.model == "mistral/mistral-small-instruct"
+
+
+def test_free_variants_are_preferred():
+    provider = _compat("meta/llama-3.3-70b-instruct")
+    client = _SeqWithModels(
+        (410, _EOL), (200, {"choices": [{"message": {"content": "ok"}}], "usage": {}}),
+        models=["meta-llama/llama-4-scout", "meta-llama/llama-4-scout:free"],
+    )
+    _run_compat(provider, client)
+    assert provider.model.endswith(":free"), "a zero-cost fallback should stay zero-cost"
+
+
+def test_resolution_is_attempted_only_once():
+    """A second failure means the model id was never the problem."""
+    provider = _compat()
+    client = _SeqWithModels(
+        (410, _EOL), (410, _EOL), models=["meta/llama-4-maverick-instruct"],
+    )
+    with pytest.raises(RuntimeError):
+        _run_compat(provider, client)
+    assert provider._model_resolved is True
+    assert len(client.payloads) == 2, "must not loop re-resolving"
