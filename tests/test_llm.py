@@ -1,6 +1,7 @@
 """Tests for LLM provider response handling."""
 import pytest
 
+from podcast_scout.providers.base import LLMMessage
 from podcast_scout.providers.llm import GeminiProvider, _extract_gemini_text
 
 # ---------------------------------------------------------------------------
@@ -13,16 +14,6 @@ from podcast_scout.providers.llm import GeminiProvider, _extract_gemini_text
 # batch ranker swallowed into metadata-only scoring -- 11 of 14 episodes in one
 # production run lost their summary and key ideas with no usable log line.
 # ---------------------------------------------------------------------------
-
-def test_thinking_is_disabled_in_payload():
-    """The actual fix: thinking must be off or it eats the output budget."""
-    cfg = GeminiProvider("k", "gemini-2.5-flash")
-    assert cfg.model == "gemini-2.5-flash"
-    # Payload shape is asserted via the source contract below.
-    import inspect
-    src = inspect.getsource(GeminiProvider.complete)
-    assert '"thinkingConfig": {"thinkingBudget": 0}' in src
-
 
 def test_empty_parts_raises_with_diagnostic_detail():
     data = {
@@ -78,3 +69,51 @@ def test_truncated_but_nonempty_still_returns(caplog):
     }
     out = _extract_gemini_text(data, max_tokens=10000)
     assert out.startswith("[{")
+
+
+# ---------------------------------------------------------------------------
+# thinkingConfig is model-generation specific and must be omittable.
+# ---------------------------------------------------------------------------
+
+def _payload(provider):
+    """Build the request payload the provider would POST."""
+    import asyncio
+    from unittest.mock import patch
+
+    captured = {}
+
+    class _Resp:
+        status_code = 200
+        def raise_for_status(self): pass
+        def json(self):
+            return {"candidates": [{"content": {"parts": [{"text": "ok"}]},
+                                    "finishReason": "STOP"}],
+                    "usageMetadata": {}}
+
+    class _Client:
+        async def __aenter__(self): return self
+        async def __aexit__(self, *a): return False
+        async def post(self, url, json=None):
+            captured.update(json)
+            return _Resp()
+
+    with patch("podcast_scout.providers.llm.httpx.AsyncClient", lambda **kw: _Client()):
+        asyncio.run(provider.complete([LLMMessage(role="user", content="hi")]))
+    return captured
+
+
+def test_thinking_budget_sent_by_default():
+    p = GeminiProvider("k", "gemini-3.6-flash")
+    cfg = _payload(p)["generationConfig"]
+    assert cfg["thinkingConfig"] == {"thinkingBudget": 0}
+
+
+def test_thinking_config_omitted_when_none():
+    """A model generation that rejects the field must still be usable."""
+    p = GeminiProvider("k", "gemini-3.6-flash", thinking_budget=None)
+    assert "thinkingConfig" not in _payload(p)["generationConfig"]
+
+
+def test_custom_thinking_budget_is_passed_through():
+    p = GeminiProvider("k", "gemini-3.6-flash", thinking_budget=512)
+    assert _payload(p)["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 512}

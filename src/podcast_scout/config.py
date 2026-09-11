@@ -168,8 +168,19 @@ class Settings:
         # "return ONLY a raw JSON array" contract that stage2_batch_rank parses,
         # plus large context headroom for batched episodes.
         self.gemini_api_key = _env("GEMINI_API_KEY")
-        self.gemini_stage1_model = _env("GEMINI_STAGE1_MODEL", "gemini-2.5-flash")
-        self.gemini_stage2_model = _env("GEMINI_STAGE2_MODEL", "gemini-2.5-flash")
+        # Defaults track a current generally-available Flash model. 2.5 Flash
+        # was two generations stale and carries the tightest free-tier quota of
+        # the family, which is what a first run tends to hit as a 429.
+        self.gemini_stage1_model = _env("GEMINI_STAGE1_MODEL", "gemini-3.6-flash")
+        self.gemini_stage2_model = _env("GEMINI_STAGE2_MODEL", "gemini-3.6-flash")
+
+        # thinkingConfig.thinkingBudget was tuned against 2.5 Flash. "none"
+        # omits the field so a model generation that rejects it can still be
+        # used without a code change.
+        _budget = _env("GEMINI_THINKING_BUDGET", "0").lower()
+        self.gemini_thinking_budget: int | None = (
+            None if _budget in {"none", "off", "default"} else int(_budget)
+        )
 
         # FALLBACK: any OpenAI-compatible endpoint. Defaults target NVIDIA's
         # hosted NIM API (build.nvidia.com). Deliberately generic -- to switch to

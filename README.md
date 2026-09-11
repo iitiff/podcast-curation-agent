@@ -183,7 +183,8 @@ uv run podcast-scout run
 | `LLM_FALLBACK_API_KEY` | No | Any OpenAI-compatible endpoint, used automatically on any primary failure. Configure both to get retry behaviour. |
 | `BRAIN_DIR` | No | Enables the brain and falsifier watch. Unset disables all brain writes. |
 | `BRIEFING_DIR` | No | Where `index.html` / `latest.md` / `latest.json` are written. Defaults to `PUBLIC_DIR`; set it separately to keep the briefing out of what gets published. |
-| `GEMINI_STAGE2_MODEL` | No | Override Gemini model (default: `gemini-2.5-flash`) |
+| `GEMINI_STAGE2_MODEL` | No | Override Gemini model (default: `gemini-3.6-flash`). Free-tier quota is **per model**, so this is the first thing to change on a 429. |
+| `GEMINI_THINKING_BUDGET` | No | Thinking token budget (default `0`, disabled). Set `none` to omit the field for models that reject it. |
 | `PODCAST_INDEX_KEY` | No | [Podcast Index](https://api.podcastindex.org) key for broader discovery |
 | `PODCAST_INDEX_SECRET` | No | Podcast Index secret |
 | `WEB_SEARCH_API_KEY` | No | Brave Search or Serper.dev key for outside-feed discovery |

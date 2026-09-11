@@ -107,7 +107,11 @@ def _make_llm(settings: Settings) -> BaseLLMProvider | None:
     primary_name = secondary_name = ""
 
     if settings.gemini_api_key:
-        primary = GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
+        primary = GeminiProvider(
+            settings.gemini_api_key,
+            settings.gemini_stage2_model,
+            thinking_budget=settings.gemini_thinking_budget,
+        )
         primary_name = f"Gemini ({settings.gemini_stage2_model})"
 
     if settings.fallback_api_key:

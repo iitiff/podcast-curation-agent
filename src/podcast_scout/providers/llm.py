@@ -130,9 +130,19 @@ class GeminiProvider(BaseLLMProvider):
 
     BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 
-    def __init__(self, api_key: str, model: str = "gemini-2.0-flash") -> None:
+    def __init__(
+        self,
+        api_key: str,
+        model: str = "gemini-2.0-flash",
+        thinking_budget: int | None = 0,
+    ) -> None:
         self.api_key = api_key
         self.model = model
+        # None omits thinkingConfig from the payload entirely. The budget below
+        # was tuned against 2.5 Flash; a model generation that does not accept
+        # the field would otherwise reject every request, and there has to be a
+        # way to turn it off without a code change.
+        self.thinking_budget = thinking_budget
 
     async def complete(
         self,
@@ -167,9 +177,15 @@ class GeminiProvider(BaseLLMProvider):
                 # 50.0 floor with no summary and no key ideas.
                 # https://ai.google.dev/gemini-api/docs/thinking  (2.5 Flash:
                 # thinkingBudget 0 disables thinking)
-                "thinkingConfig": {"thinkingBudget": 0},
+                #
+                # Set GEMINI_THINKING_BUDGET=none to omit this field entirely,
+                # for a model generation that does not accept it.
             },
         }
+        if self.thinking_budget is not None:
+            payload["generationConfig"]["thinkingConfig"] = {
+                "thinkingBudget": self.thinking_budget
+            }
         if system_instruction:
             payload["systemInstruction"] = system_instruction
 
