@@ -22,8 +22,8 @@ only destructive one.
 ### 1. Build the instance
 
 ```bash
-python scripts/make_instance.py ../podcast-brain
-cd ../podcast-brain
+python scripts/make_instance.py ../product-leadership-brain
+cd ../product-leadership-brain
 ```
 
 Copies `config/`, `data/state.json`, `data/history/`, `data/feedback.csv`, then
@@ -48,7 +48,7 @@ falsifier in red — those can only ever accumulate confirmation.
 ```bash
 git init && git add -A && git commit -m "Initial private instance"
 # create a PRIVATE repo on GitHub, then:
-git remote add origin git@github.com:<you>/podcast-brain.git
+git remote add origin git@github.com:<you>/product-leadership-brain.git
 git push -u origin main
 ```
 

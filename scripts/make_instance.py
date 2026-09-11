@@ -108,7 +108,7 @@ FEEDS_INDEX_HTML = """\
 """
 
 README = """\
-# Podcast Brain — private instance
+# {instance_name} — private instance
 
 Private half of the split. The engine lives in [{public_repo}]({public_url})
 and is installed as a dependency; this repo holds everything personal.
@@ -298,7 +298,14 @@ def main() -> int:
     for src_rel, dst_rel in PERSONAL_PATHS:
         print(copy_path(REPO_ROOT / src_rel, target / dst_rel))
 
-    fmt = {"public_repo": args.public_repo, "public_url": public_url, "ref": args.ref}
+    fmt = {
+        "public_repo": args.public_repo,
+        "public_url": public_url,
+        "ref": args.ref,
+        # Derived from the target directory so the instance README carries
+        # the repo's real name rather than a hardcoded one.
+        "instance_name": target.name,
+    }
     (target / ".gitignore").write_text(GITIGNORE, encoding="utf-8")
     (target / ".env.example").write_text(ENV_EXAMPLE, encoding="utf-8")
     (target / "README.md").write_text(README.format(**fmt), encoding="utf-8")
