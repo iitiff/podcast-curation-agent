@@ -203,11 +203,14 @@ class GeminiProvider(BaseLLMProvider):
             # surfaces only as universal metadata-only scoring. Retrying once
             # without it costs a single request and converts a total outage
             # into a logged degradation of one setting.
-            if (
-                resp.status_code == 400
-                and "thinkingconfig" in resp.text.lower()
-                and "thinkingConfig" in payload["generationConfig"]
-            ):
+            # Matched on the status alone, not on the field name: a live run
+            # against gemini-3.6-flash returned only "Request contains an
+            # invalid argument" with no mention of thinkingConfig, so a
+            # name-matched retry never fired. The controlled comparison --
+            # llm-doctor probes the same model with the same key and no
+            # thinkingConfig, and gets 200 -- points at this field, so drop it
+            # and retry on any 400 while it is present.
+            if resp.status_code == 400 and "thinkingConfig" in payload["generationConfig"]:
                 log.warning(
                     "%s rejected thinkingConfig; retrying without it. Set "
                     "GEMINI_THINKING_BUDGET=none to skip this retry on every call.",

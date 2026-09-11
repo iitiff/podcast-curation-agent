@@ -180,13 +180,28 @@ def test_thinking_config_rejection_retries_without_it():
     assert "thinkingConfig" not in client.payloads[1]["generationConfig"]
 
 
-def test_unrelated_400_is_not_retried():
+def test_generic_400_still_retries_without_thinking_config():
+    """Google does not always name the field.
+
+    A live gemini-3.6-flash run returned only "Request contains an invalid
+    argument" with no mention of thinkingConfig, so a name-matched retry never
+    fired and every Stage 2 call failed.
+    """
+    body = '{"error":{"code":400,"message":"Request contains an invalid argument."}}'
+    client = _Seq((400, body), (200, _OK))
+    resp = _run(GeminiProvider("k", "m", thinking_budget=0), client)
+    assert resp.content == "ok"
+    assert "thinkingConfig" not in client.payloads[1]["generationConfig"]
+
+
+def test_400_without_thinking_config_is_not_retried():
+    """Nothing left to drop, so a second identical request is pure waste."""
     body = '{"error":{"code":400,"message":"Request payload size exceeds the limit"}}'
     client = _Seq((400, body))
     with pytest.raises(RuntimeError) as exc:
-        _run(GeminiProvider("k", "m", thinking_budget=0), client)
+        _run(GeminiProvider("k", "m", thinking_budget=None), client)
     assert "payload size" in str(exc.value)
-    assert len(client.payloads) == 1, "only thinkingConfig rejections retry"
+    assert len(client.payloads) == 1
 
 
 def test_api_key_is_not_in_the_url():

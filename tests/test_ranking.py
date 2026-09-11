@@ -122,3 +122,45 @@ def test_no_llm_configured_does_not_trip_the_guard():
 def test_empty_run_does_not_trip_the_guard():
     """Nothing discovered is not the same as everything failing."""
     assert _all_degraded({"ai_retail": []}) is False
+
+
+def _attempted_all_degraded(newly_ranked: dict, llm_configured: bool = True) -> bool:
+    """Mirror of the corrected guard: only Stage-2 attempts count."""
+    if not llm_configured:
+        return False
+    fresh = [r for cat in newly_ranked.values() for r in cat]
+    attempted = [
+        r for r in fresh
+        if r.classification_reason not in {"stage1 only", "token budget exhausted"}
+    ]
+    degraded = [r for r in attempted if "metadata fallback" in r.classification_reason]
+    return bool(attempted) and len(degraded) == len(attempted)
+
+
+def test_stage1_filtered_episodes_excluded_from_denominator():
+    """The bug that kept this guard silent through two failed live runs.
+
+    Stage-1 filtering legitimately stops episodes before any LLM call, so
+    counting them made 100% degradation unreachable.
+    """
+    batch = {"ai_retail": [
+        _ranked(_FALLBACK_REASON),
+        _ranked(_FALLBACK_REASON),
+        _ranked("stage1 only", 44.0),
+        _ranked("token budget exhausted", 41.0),
+    ]}
+    assert _attempted_all_degraded(batch) is True
+
+
+def test_guard_still_silent_when_one_stage2_call_succeeded():
+    batch = {"ai_retail": [
+        _ranked(_FALLBACK_REASON),
+        _ranked("Strong relevance to AI retail", 81.0),
+        _ranked("stage1 only", 44.0),
+    ]}
+    assert _attempted_all_degraded(batch) is False
+
+
+def test_guard_silent_when_nothing_reached_stage2():
+    batch = {"ai_retail": [_ranked("stage1 only", 44.0)]}
+    assert _attempted_all_degraded(batch) is False

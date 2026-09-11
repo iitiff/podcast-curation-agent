@@ -478,10 +478,19 @@ async def _run_pipeline(
     # normal and the surviving scores are still worth publishing.
     if llm is not None:
         fresh = [r for cat_ranked in newly_ranked.values() for r in cat_ranked]
-        degraded = [r for r in fresh if "metadata fallback" in r.classification_reason]
-        if fresh and len(degraded) == len(fresh):
+        # Only episodes that actually reached Stage 2 belong in the denominator.
+        # Stage-1 filtering and the token budget both legitimately stop episodes
+        # before any LLM call; counting them made 100% unreachable, which is why
+        # this guard stayed silent through two totally failed live runs.
+        attempted = [
+            r for r in fresh
+            if r.classification_reason not in {"stage1 only", "token budget exhausted"}
+        ]
+        degraded = [r for r in attempted if "metadata fallback" in r.classification_reason]
+        if attempted and len(degraded) == len(attempted):
             console.print(
-                f"\n[red]LLM RUN FAILED: all {len(fresh)} episode(s) fell back to "
+                f"\n[red]LLM RUN FAILED: all {len(attempted)} episode(s) that reached "
+                f"Stage 2 fell back to "
                 f"metadata-only scoring.[/red]\n"
                 "Every score is at the floor, so this run would surface nothing.\n"
                 "[yellow]State was NOT written — the next run will retry these "
