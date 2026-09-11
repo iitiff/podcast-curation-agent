@@ -431,3 +431,63 @@ def test_instruct_model_beats_a_closer_family_match():
     )
     _run_compat(provider, client)
     assert provider.model == "qwen/qwen3-32b-instruct"
+
+
+# ---------------------------------------------------------------------------
+# A model id is not portable between providers. An NVIDIA-style
+# "meta/llama-3.3-70b-instruct" handed to OpenRouter returns
+# 400 "... is not a valid model ID" -- OpenRouter spells it "meta-llama/...".
+# ---------------------------------------------------------------------------
+
+def test_model_error_detection():
+    from podcast_scout.providers.llm import _is_model_error
+    assert _is_model_error(404, "{}") is True
+    assert _is_model_error(410, "end of life") is True
+    assert _is_model_error(400, '"meta/llama-3.3-70b is not a valid model ID"') is True
+    assert _is_model_error(400, '"unknown model"') is True
+    # A genuine request problem must not trigger a model swap.
+    assert _is_model_error(400, '"Request contains an invalid argument."') is False
+    assert _is_model_error(429, "quota exceeded") is False
+    assert _is_model_error(503, "high demand") is False
+
+
+def test_cross_provider_model_id_is_re_resolved():
+    provider = _compat("meta/llama-3.3-70b-instruct")
+    client = _SeqWithModels(
+        (400, '{"error":{"message":"meta/llama-3.3-70b-instruct is not a valid model ID"}}'),
+        (200, {"choices": [{"message": {"content": "ok"}}], "usage": {}}),
+        models=["meta-llama/llama-3.3-70b-instruct", "openai/gpt-4o-mini"],
+    )
+    resp = _run_compat(provider, client)
+    assert resp.content == "ok"
+    assert provider.model == "meta-llama/llama-3.3-70b-instruct"
+
+
+def test_overloaded_model_is_retried(monkeypatch):
+    """503 is the provider being busy, not a bad request."""
+    import podcast_scout.providers.llm as mod
+    slept = []
+
+    async def _fake_sleep(seconds): slept.append(seconds)
+    monkeypatch.setattr(mod.asyncio, "sleep", _fake_sleep)
+
+    body = '{"error":{"code":503,"message":"This model is currently experiencing high demand."}}'
+    client = _Seq((503, body), (200, _OK))
+    resp = _run(GeminiProvider("k", "m", thinking_budget=None), client)
+    assert resp.content == "ok"
+    assert len(slept) == 1
+
+
+def test_persistent_overload_gives_up_for_the_fallback(monkeypatch):
+    """The second provider is standing by; don't burn the run on retries."""
+    import podcast_scout.providers.llm as mod
+
+    async def _fake_sleep(seconds): return None
+    monkeypatch.setattr(mod.asyncio, "sleep", _fake_sleep)
+
+    body = '{"error":{"code":503,"message":"high demand"}}'
+    client = _Seq((503, body), (503, body), (503, body))
+    with pytest.raises(RuntimeError) as exc:
+        _run(GeminiProvider("k", "m", thinking_budget=None), client)
+    assert "503" in str(exc.value)
+    assert len(client.payloads) == 3, "initial attempt plus two retries"

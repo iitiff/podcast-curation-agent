@@ -15,6 +15,11 @@ log = logging.getLogger(__name__)
 # Longer than this and the job is better off failing fast than stalling: a
 # daily run should not sit in sleep() for minutes waiting on a free-tier reset.
 _MAX_RETRY_WAIT = 75.0
+
+# Short and few: an overload clears in seconds, and a daily job should not
+# spend minutes on one batch when the fallback provider is standing by.
+_OVERLOAD_RETRIES = 2
+_OVERLOAD_BACKOFF = 3.0
 _RETRY_DELAY_RE = re.compile(r"retry in ([0-9.]+)s", re.IGNORECASE)
 
 
@@ -258,6 +263,21 @@ class GeminiProvider(BaseLLMProvider):
             # 429 carries the exact wait in its body ("Please retry in 49.8s").
             # Honouring it once turns a rate limit into a slow run instead of a
             # run that silently scores everything at the metadata floor.
+            # 503 is the provider being busy, not a problem with the request.
+            # Gemini returns "This model is currently experiencing high demand.
+            # Spikes in demand are usually temporary." Giving up on the first
+            # one drops an episode's scoring for no reason.
+            for attempt in range(_OVERLOAD_RETRIES):
+                if resp.status_code != 503:
+                    break
+                wait = _OVERLOAD_BACKOFF * (attempt + 1)
+                log.warning(
+                    "%s is overloaded (503); retrying in %.0fs (%d/%d).",
+                    self.model, wait, attempt + 1, _OVERLOAD_RETRIES,
+                )
+                await asyncio.sleep(wait)
+                resp = await client.post(url, json=payload, headers=headers)
+
             if resp.status_code == 429:
                 delay = _retry_delay_seconds(resp.text)
                 # Wait only while waiting might still help. A live run slept
@@ -313,6 +333,30 @@ _NON_CHAT_HINTS = (
     # both start with "meta", and every call then 404'd anyway.
     "code", "coder", "starcoder",
 )
+
+
+def _is_model_error(status: int, body: str) -> bool:
+    """Is this failure about the model id rather than the request?
+
+    404 and 410 are unambiguous. A 400 usually is not -- but providers also use
+    it for an unknown model, and the id is not portable between them: an
+    NVIDIA-style "meta/llama-3.3-70b-instruct" handed to OpenRouter comes back
+    as `400 "... is not a valid model ID"`, since OpenRouter spells the same
+    model "meta-llama/llama-3.3-70b-instruct". Switching providers therefore
+    invalidates the pin, and re-resolving is exactly the right response.
+    """
+    if status in (404, 410):
+        return True
+    if status != 400:
+        return False
+    lowered = body.lower()
+    return any(
+        phrase in lowered
+        for phrase in (
+            "not a valid model", "model not found", "unknown model",
+            "no such model", "invalid model", "end of life",
+        )
+    )
 
 
 async def _resolve_live_model(
@@ -433,7 +477,7 @@ class OpenAICompatibleProvider(BaseLLMProvider):
             # valid, and the replacement is listed at /models. Pinning a model
             # id is correct for reproducibility right up until the provider
             # retires it, at which point the pin is just an outage.
-            if resp.status_code in (404, 410) and not self._model_resolved:
+            if _is_model_error(resp.status_code, resp.text) and not self._model_resolved:
                 self._model_resolved = True
                 replacement = await _resolve_live_model(
                     client, self.base_url, headers, self.model
