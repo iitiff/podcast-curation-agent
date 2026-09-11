@@ -15,6 +15,7 @@ from .schema import (
     BrainPage,
     Company,
     Pattern,
+    Question,
     Source,
     Thesis,
     append_to_section,
@@ -27,15 +28,16 @@ from .schema import (
 
 log = logging.getLogger(__name__)
 
-# Only four entity types to start. Add a type when a real page will not fit in
-# one of these, not in anticipation.
+# Add a type when a real page will not fit in one of these, not in anticipation.
 SUBDIRS: dict[str, str] = {
+    "Question": "questions",
     "Thesis": "theses",
     "Source": "sources",
     "Pattern": "patterns",
     "Company": "companies",
 }
 
+FINDINGS_SECTION = "Findings"
 EVIDENCE_SECTION = "Evidence"
 COUNTER_EVIDENCE_SECTION = "Counter-evidence"
 
@@ -99,6 +101,28 @@ class BrainStore:
             theses.append(thesis)
         return theses
 
+    def load_questions(self, open_only: bool = True) -> list[Question]:
+        questions: list[Question] = []
+        directory = self.dir_for("Question")
+        if not directory.exists():
+            return questions
+        for path in sorted(directory.glob("*.md")):
+            page = self._read_page(path)
+            if page is None:
+                continue
+            meta, body = page
+            if meta.get("type") != "Question":
+                continue
+            try:
+                question = Question(**{**meta, "body": body})
+            except Exception as exc:
+                log.warning("Skipping malformed question %s: %s", path.name, exc)
+                continue
+            if open_only and question.status != "open":
+                continue
+            questions.append(question)
+        return questions
+
     def load_page(self, page_type: str, page_id: str) -> BrainPage | None:
         path = self.path_for(page_type, page_id)
         if not path.exists():
@@ -109,6 +133,7 @@ class BrainStore:
         meta, body = page
         models: dict[str, type[BrainPage]] = {
             "Thesis": Thesis,
+            "Question": Question,
             "Source": Source,
             "Pattern": Pattern,
             "Company": Company,
@@ -163,6 +188,27 @@ class BrainStore:
             return False
         section = EVIDENCE_SECTION if supports else COUNTER_EVIDENCE_SECTION
         new_body = append_to_section(body, section, line)
+        meta["updated_at"] = iso_now()
+        path.write_text(join_frontmatter(meta, new_body), encoding="utf-8")
+        return True
+
+    def append_finding(self, question_id: str, line: str) -> bool:
+        """Append a dated line to a question's Findings. False if absent.
+
+        Idempotent, like append_evidence: a re-run over the same signals must
+        not inflate the record.
+        """
+        path = self.path_for("Question", question_id)
+        if not path.exists():
+            log.warning("Cannot attach finding: no question page %s", question_id)
+            return False
+        page = self._read_page(path)
+        if page is None:
+            return False
+        meta, body = page
+        if line.strip() in body:
+            return False
+        new_body = append_to_section(body, FINDINGS_SECTION, line)
         meta["updated_at"] = iso_now()
         path.write_text(join_frontmatter(meta, new_body), encoding="utf-8")
         return True

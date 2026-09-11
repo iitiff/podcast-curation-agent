@@ -1,10 +1,17 @@
 """Durable brain: markdown entity pages, thesis evidence, and falsifier watch."""
-from .falsifier import FalsifierHit, SignalInput, check_falsifiers
+from .falsifier import (
+    FalsifierHit,
+    QuestionHit,
+    SignalInput,
+    check_falsifiers,
+    check_questions,
+)
 from .schema import (
     BrainPage,
     Company,
     ConfidenceEntry,
     Pattern,
+    Question,
     Source,
     Thesis,
     append_to_section,
@@ -23,11 +30,14 @@ __all__ = [
     "ConfidenceEntry",
     "FalsifierHit",
     "Pattern",
+    "Question",
+    "QuestionHit",
     "SignalInput",
     "Source",
     "Thesis",
     "append_to_section",
     "check_falsifiers",
+    "check_questions",
     "join_frontmatter",
     "slugify",
     "source_id_for",
