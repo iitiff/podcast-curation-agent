@@ -1167,8 +1167,17 @@ def _fallback_doctor(settings: Settings, probe: bool) -> None:
     import httpx
 
     if not settings.fallback_api_key:
-        console.print("\n[dim]No LLM_FALLBACK_API_KEY set — skipping fallback check.[/dim]")
+        console.print(
+            "\n[yellow]No fallback key found.[/yellow] Checked "
+            "LLM_FALLBACK_API_KEY, OPENROUTER_API_KEY (and OPEN_ROUTER_API_KEY, "
+            "OPENROUTER_KEY, OPENROUTER_API, OPENROUTER), NVIDIA_API_KEY. "
+            "A secret only reaches the run if the workflow also forwards it "
+            "under that exact name."
+        )
         return
+
+    if settings.openrouter_key_name:
+        console.print(f"  key source: [green]{settings.openrouter_key_name}[/green]")
 
     base = settings.fallback_base_url.rstrip("/")
     console.print(f"\n[bold]Fallback: {settings.fallback_provider_name} at {base}[/bold]")

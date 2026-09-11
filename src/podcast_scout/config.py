@@ -199,7 +199,20 @@ class Settings:
         # means a correctly-created OPENROUTER_API_KEY secret is silently
         # ignored while the run reports "no fallback configured" -- the failure
         # is invisible precisely when the fallback is needed.
-        self.openrouter_api_key = _env("OPENROUTER_API_KEY")
+        # Several spellings, because the secret is created by hand in a web UI
+        # and "OpenRouter API key" has no single obvious casing. Getting this
+        # wrong is invisible: the run reports "no fallback configured" while a
+        # perfectly good secret sits unread.
+        self.openrouter_key_name = ""
+        self.openrouter_api_key = ""
+        for name in (
+            "OPENROUTER_API_KEY", "OPEN_ROUTER_API_KEY",
+            "OPENROUTER_KEY", "OPENROUTER_API", "OPENROUTER",
+        ):
+            value = _env(name)
+            if value:
+                self.openrouter_key_name, self.openrouter_api_key = name, value
+                break
         # Provider-specific first. Naming a provider's key is a deliberate act
         # that carries its endpoint with it, whereas the generic name is
         # whatever was set last and may still hold a superseded provider --

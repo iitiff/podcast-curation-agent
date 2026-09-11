@@ -211,7 +211,14 @@ jobs:
           PUBLIC_DIR: public
           GEMINI_API_KEY: ${{{{ secrets.GEMINI_API_KEY }}}}
           LLM_FALLBACK_API_KEY: ${{{{ secrets.LLM_FALLBACK_API_KEY }}}}
+          # Forwarded under several spellings: a secret only reaches the run
+          # under the exact name the workflow names, and an unset one is just
+          # an empty string.
           OPENROUTER_API_KEY: ${{{{ secrets.OPENROUTER_API_KEY }}}}
+          OPEN_ROUTER_API_KEY: ${{{{ secrets.OPEN_ROUTER_API_KEY }}}}
+          OPENROUTER_KEY: ${{{{ secrets.OPENROUTER_KEY }}}}
+          OPENROUTER_API: ${{{{ secrets.OPENROUTER_API }}}}
+          OPENROUTER: ${{{{ secrets.OPENROUTER }}}}
           # Model selection lives in repository VARIABLES, not secrets: a model
           # name is not a credential, and keeping it visible and editable
           # matters because Gemini free-tier quota is per-model -- switching
@@ -341,7 +348,14 @@ jobs:
           # The fallback is half of what this command checks; without these it
           # silently reports "no fallback configured" no matter what is set.
           LLM_FALLBACK_API_KEY: ${{{{ secrets.LLM_FALLBACK_API_KEY }}}}
+          # Forwarded under several spellings: a secret only reaches the run
+          # under the exact name the workflow names, and an unset one is just
+          # an empty string.
           OPENROUTER_API_KEY: ${{{{ secrets.OPENROUTER_API_KEY }}}}
+          OPEN_ROUTER_API_KEY: ${{{{ secrets.OPEN_ROUTER_API_KEY }}}}
+          OPENROUTER_KEY: ${{{{ secrets.OPENROUTER_KEY }}}}
+          OPENROUTER_API: ${{{{ secrets.OPENROUTER_API }}}}
+          OPENROUTER: ${{{{ secrets.OPENROUTER }}}}
           LLM_FALLBACK_BASE_URL: ${{{{ vars.LLM_FALLBACK_BASE_URL }}}}
           LLM_FALLBACK_MODEL: ${{{{ vars.LLM_FALLBACK_MODEL }}}}
         run: |
