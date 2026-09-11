@@ -27,6 +27,11 @@ class CategoryFeedConfig:
     description: str = ""
     max_listen_fully: int = 3
     max_read_summary: int = 5
+    # How Stage 2 should decide whether an item belongs in this lane. The feed
+    # `description` is subscriber-facing copy and often too vague to route on
+    # ("Curated AI and retail episodes"), so routing gets its own field and
+    # falls back to the description when unset.
+    routing_hint: str = ""
 
 
 @dataclass
@@ -291,6 +296,7 @@ def _parse_categories(raw: dict[str, Any]) -> dict[str, CategoryFeedConfig]:
             description=val.get("description", ""),
             max_listen_fully=val.get("max_listen_fully", 3),
             max_read_summary=val.get("max_read_summary", 5),
+            routing_hint=val.get("routing_hint", ""),
         )
     return result
 

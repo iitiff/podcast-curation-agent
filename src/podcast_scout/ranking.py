@@ -67,6 +67,10 @@ class RankedEpisode(BaseModel):
     who_should_listen: str = ""
     summary_captures_value: str = ""
     listen_nuance: str = ""
+    # Topical lane chosen by Stage 2. Empty means "no opinion" -- the caller
+    # keeps whatever the show-title mapping decided. Only ever a key the
+    # caller offered, so an unknown value degrades to the show's own lane.
+    assigned_category: str = ""
     transcript_source: str = "none"
     tokens_used: int = 0
 
@@ -87,6 +91,7 @@ class _Stage2LLMOutput(BaseModel):
     who_should_listen: str
     summary_captures_value: str
     listen_nuance: str
+    category: str = ""
 
 
 def _normalize_apostrophes(s: str) -> str:
@@ -382,6 +387,38 @@ WEIGH THE SOURCE CLASS, which each item declares with its credibility:
 """
 
 
+
+def _category_routing_block(prefs: Preferences) -> str:
+    """Ask Stage 2 which topical lane an item belongs in.
+
+    Category is otherwise derived purely from the show title, which cannot
+    express "this particular episode is about X". A show-shaped mapping puts
+    every Lenny's episode in one lane whether it is about hiring or about
+    ranking architecture. This lets a specialist lane be filled by topic while
+    still carrying real audio, which a source-shaped lane (papers, engineering
+    blogs) never can.
+    """
+    if len(prefs.categories) < 2:
+        return ""
+    lines = []
+    for key, cfg in prefs.categories.items():
+        hint = cfg.routing_hint or cfg.description or cfg.title
+        lines.append(f'  - "{key}": {hint}')
+    catalogue = "\n".join(lines)
+    return f"""
+CATEGORY — which lane does this item belong in?
+Return a "category" field on every object, chosen from EXACTLY these keys:
+{catalogue}
+
+Judge the ITEM, not the show it came from: a show that usually sits in one lane
+can publish an episode that plainly belongs in another, and that is the whole
+point of asking. Choose on what the item is substantively about, not on which
+lane sounds most flattering. When an item spans two lanes, pick the one whose
+description covers the majority of its running time. When genuinely unsure,
+return "" and the show's own lane is kept.
+"""
+
+
 def _build_item_block(idx: int, ep: NormalizedEpisode, transcript: TranscriptResult) -> str:
     """One item for the Stage 2 batch prompt.
 
@@ -442,7 +479,7 @@ async def stage2_batch_rank(
 
 You will receive {len(items)} item(s). Score EACH on a 100-point rubric and return a
 JSON ARRAY (one object per item, in the same order). Do NOT wrap in markdown fences.
-{_media_guidance() if mixed_media else ""}
+{_media_guidance() if mixed_media else ""}{_category_routing_block(prefs)}
 SCORING PHILOSOPHY for this persona:
 - Prioritise episodes with concrete strategic insight, real business cases, or named expert guests.
 - Penalise heavily: generic communication/soft-skills content (e.g. "how to give feedback",
@@ -459,7 +496,10 @@ RUBRIC (base points):
 - guest_authority: 0-15  (is the guest a genuine expert or operator, not just a coach?)
 - actionability: 0-15  (does it produce decisions or strategies the listener can act on?)
 - evidence: 0-10  (are claims backed by data, case studies, or first-hand experience?)
-- strategic_importance: 0-10  (does it cover trends or dynamics that matter at the director+ level?)
+- strategic_importance: 0-10  (does it change how someone at {prefs.persona.seniority} scope
+  allocates people, capital or years -- multi-org blast radius, multi-year bets, or problems
+  where the objective itself is still contested? Tactics that a single team ships next sprint
+  score low here no matter how well executed.)
 - learning_per_minute: 0-5  (signal density relative to length — of the episode for a
   podcast, of the text for anything else)
 
@@ -471,7 +511,10 @@ PENALTIES (negative):
   Does NOT apply to a written source: an article, paper or filing IS its own full text,
   so there is nothing missing to discount.)
 - motivational_penalty: 0 to -10  (inspirational/feel-good without strategic substance)
-- relevance_penalty: 0 to -20  (off-topic relative to AI, retail, eCommerce, product strategy)
+- relevance_penalty: 0 to -20  (off-topic relative to THIS persona's stated focus above --
+  judge against that focus, not against a general "tech content" bar. Depth inside the focus
+  is not off-topic: a technical paper or engineering post on a named focus area is squarely
+  on-topic and must not be penalised here for being narrow or academic.)
 
 CLASSIFICATION (the labels are historical and apply to written sources too —
 "Listen Fully" means "worth the full text", not literally audio):
@@ -515,6 +558,8 @@ For EACH episode return an object with keys:
   summary_captures_value ("yes"|"partial"|"no"),
   listen_nuance (what is lost by reading only the summary — for a written source, what
     the full text carries that a précis cannot)
+  category (one of the category keys listed above, or "" if none was listed or you are
+    genuinely unsure)
 
 Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
 
@@ -616,6 +661,7 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
                         data.get("summary_captures_value")
                     ),
                     listen_nuance=_str(data.get("listen_nuance")),
+                    assigned_category=_str(data.get("category")),
                     transcript_source=transcript.source,
                     tokens_used=tokens_used // len(items),
                 )

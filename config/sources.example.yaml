@@ -8,6 +8,7 @@
 # credibility and bias_notes default per source_type when omitted:
 #   earnings-call   high    the only class that can contradict vendor marketing
 #   research-paper  high    strong on mechanism, weak on production reality
+#   engineering-blog high   first-party system description; survivorship-biased
 #   trade-press     medium  access-driven; amplifies whoever gave the interview
 #   vendor          low     pattern source only; discount performance claims
 # ────────────────────────────────────────────────────────────────────

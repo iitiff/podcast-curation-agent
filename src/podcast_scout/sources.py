@@ -45,6 +45,14 @@ CLASS_DEFAULTS: dict[str, tuple[str, str]] = {
         "Peer-reviewed or preprint. Strong on mechanism, weak on whether "
         "anything works at production scale.",
     ),
+    "engineering-blog": (
+        "high",
+        "First-party description of a system its authors actually run. The "
+        "strongest available evidence that something survives production -- "
+        "but it is also recruiting and reputation material, so it reports the "
+        "architecture that worked and rarely the three that did not, and "
+        "omits the scale and cost numbers that would let you check.",
+    ),
     "trade-press": (
         "medium",
         "Access-driven reporting: tends to amplify whoever granted the "

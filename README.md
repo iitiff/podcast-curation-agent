@@ -28,7 +28,8 @@ Subscribe to these RSS feeds in any podcast app (Overcast, Pocket Casts, Castro,
 - **Pluggable LLM** — Gemini primary, with any OpenAI-compatible endpoint as an automatic per-call fallback (defaults to NVIDIA NIM)
 - **Durable brain** — admitted signals become markdown Source pages linked to the Theses they bear on
 - **Falsifier watch** — every active thesis declares what would change your mind; each run tests the day's signals against those falsifiers and leads the brief with whatever argues *against* you
-- **Per-category queues** — episodes are bucketed into `ai_retail`, `startup`, and `personal_growth` so high-volume categories never crowd out others
+- **Per-category queues** — episodes are bucketed into per-lane queues with their own caps and RSS feeds, so high-volume categories never crowd out others
+- **Topic-based routing** — Stage 2 picks the lane per *episode*, not per show, so a specialist queue can be filled from shows that usually sit elsewhere
 - **Weekly synthesis** — cross-episode insight report generated on demand
 - **GitHub Pages output** — per-category RSS feeds (`{slug}.xml`), `listen.xml` / `all.xml`, `index.html` briefing, and `data/latest.json`
 - **Email digest** — HTML email via any SMTP server
@@ -204,7 +205,29 @@ Defines your **persona** (role, focus, seniority), **show priors** (per-show rel
 
 ### `config/shows.yaml`
 
-Overrides display name, **category**, and RSS feed URL for individual shows. The category slug determines which RSS feed a show's episodes appear in (`ai_retail`, `startup`, or `personal_growth`). Add a `canonical_feed_url` here to fix shows that can't be resolved via iTunes search.
+Overrides display name, **default category**, and RSS feed URL for individual shows. The category slug determines which RSS feed a show's episodes appear in. Add a `canonical_feed_url` here to fix shows that can't be resolved via iTunes search.
+
+### How an episode picks its lane
+
+The show mapping above is the *default*, not the verdict. It decides which
+per-category budget scores an episode; Stage 2 then gets the final say on where
+the episode actually lands, judging the item rather than the show it arrived on.
+
+This exists because a show-shaped mapping cannot express "this particular
+episode is about X". Every Lenny's episode goes to one lane whether it is about
+hiring or about ranking architecture — so a specialist queue could only be
+filled by dedicating whole shows to it, and no such show usually exists. Routing
+by topic lets a narrow lane carry real audio; a lane fed only by papers and
+engineering blogs publishes a feed that every podcast client renders as empty,
+because an item with no `<enclosure>` is not a playable episode.
+
+Give each category a `routing_hint` describing what belongs in it. Guardrails:
+
+- Only a key you configured is honoured — an unknown value is ignored.
+- Stage 2 may return `""` to abstain, and the show's own lane stands.
+- With no LLM key, nothing is asked and the show mapping decides alone.
+- The resolved lane is persisted, so an episode that carries over to a later
+  run keeps it instead of snapping back to its show's default.
 
 ### `config/discovery_queries.yaml`
 

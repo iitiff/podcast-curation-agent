@@ -208,6 +208,44 @@ def _build_category_map(config_dir: Path) -> dict[str, str]:
     return mapping
 
 
+def _category_for_record(rec: EpisodeRecord, category_map: dict[str, str]) -> str:
+    """Lane for a carried-over episode, preferring the one already resolved.
+
+    Falls back to the show-title mapping for records written before the lane
+    was persisted, so an existing state.json keeps working unchanged.
+    """
+    return rec.category or _resolve_category(rec.show_title, category_map)
+
+
+def _apply_assigned_categories(
+    newly_ranked: dict[str, list[RankedEpisode]],
+    valid_categories: set[str],
+) -> int:
+    """Move episodes into the lane Stage 2 chose, and report how many moved.
+
+    Lanes are otherwise derived from the show title alone, which cannot express
+    "this particular episode is about X" -- so a specialist lane could only ever
+    be filled by dedicating whole shows to it. Only a key that was actually
+    offered to the model is honoured: an empty, unknown or hallucinated value
+    leaves the show-derived lane untouched.
+    """
+    moved = 0
+    rebucketed: dict[str, list[RankedEpisode]] = {cat: [] for cat in newly_ranked}
+    for origin, ranked in newly_ranked.items():
+        for r in ranked:
+            target = r.assigned_category
+            if target and target != origin and target in valid_categories:
+                r.episode.category = target
+                rebucketed.setdefault(target, []).append(r)
+                moved += 1
+            else:
+                r.episode.category = origin
+                rebucketed[origin].append(r)
+    newly_ranked.clear()
+    newly_ranked.update(rebucketed)
+    return moved
+
+
 def _resolve_category(show_title: str, category_map: dict[str, str]) -> str:
     title_lower = show_title.lower()
     if title_lower in category_map:
@@ -295,7 +333,7 @@ def _load_carryover_candidates(
                 else None
             ),
         )
-        cat = _resolve_category(rec.show_title, category_map)
+        cat = _category_for_record(rec, category_map)
         ep.category = cat
 
         ranked = RankedEpisode(
@@ -371,7 +409,7 @@ def _load_accumulated_this_week(
                 else None
             ),
         )
-        cat = _resolve_category(rec.show_title, category_map)
+        cat = _category_for_record(rec, category_map)
         ep.category = cat
 
         ranked = RankedEpisode(
@@ -528,6 +566,12 @@ async def _run_pipeline(
             category_ranked.sort(key=lambda item: item.score, reverse=True)
         newly_ranked[category] = category_ranked
 
+    # Stage 2 gets the final say on which lane an item belongs in; the show
+    # title only decided which budget scored it.
+    moved = _apply_assigned_categories(newly_ranked, set(active_categories))
+    if moved:
+        console.print(f"  [dim]Re-routed {moved} item(s) by topic[/dim]")
+
     # 5b. Abort if an LLM was configured but every episode still degraded to
     # metadata-only scoring.
     #
@@ -581,6 +625,7 @@ async def _run_pipeline(
                 classification_reason=r.classification_reason,
                 is_outside_feed=False,
                 source_feed_url=r.episode.source_feed_url,
+                category=r.episode.category,
                 # Persist the LLM output and episode metadata. Stage 2 runs
                 # ONCE per episode; without saving these, every later run
                 # rebuilds the episode as an insight-free stub.

@@ -375,3 +375,140 @@ async def test_the_prompt_no_longer_claims_every_item_is_a_podcast():
     # The confidence penalty must not fire on a written source for lacking a
     # transcript -- the text is the source.
     assert "Does NOT apply to a written source" in prompt
+
+
+# ---------------------------------------------------------------------------
+# Topic-based category routing
+# ---------------------------------------------------------------------------
+
+def _routed(guid: str, category: str, assigned: str = "") -> RankedEpisode:
+    return RankedEpisode(
+        episode=_make_ep(guid=guid, category=category),
+        score=80.0,
+        rubric=RubricScore(),
+        classification="Listen Fully",
+        assigned_category=assigned,
+    )
+
+
+def test_routing_moves_episode_into_the_lane_stage2_chose():
+    from podcast_scout.cli import _apply_assigned_categories
+
+    buckets = {"ai_retail": [_routed("a", "ai_retail", "personalization")], "personalization": []}
+    moved = _apply_assigned_categories(buckets, {"ai_retail", "personalization"})
+
+    assert moved == 1
+    assert [r.episode.guid for r in buckets["personalization"]] == ["a"]
+    assert buckets["ai_retail"] == []
+    assert buckets["personalization"][0].episode.category == "personalization"
+
+
+def test_routing_ignores_a_category_that_was_never_offered():
+    """A hallucinated lane must not silently create a feed nobody configured."""
+    from podcast_scout.cli import _apply_assigned_categories
+
+    buckets = {"ai_retail": [_routed("a", "ai_retail", "quantum_basketball")]}
+    moved = _apply_assigned_categories(buckets, {"ai_retail", "personalization"})
+
+    assert moved == 0
+    assert [r.episode.guid for r in buckets["ai_retail"]] == ["a"]
+    assert buckets["ai_retail"][0].episode.category == "ai_retail"
+
+
+def test_routing_leaves_the_show_lane_alone_when_stage2_abstains():
+    """Empty assignment is the metadata-floor path: no LLM, no opinion."""
+    from podcast_scout.cli import _apply_assigned_categories
+
+    buckets = {"startup": [_routed("a", "startup", "")]}
+    moved = _apply_assigned_categories(buckets, {"startup", "personalization"})
+
+    assert moved == 0
+    assert buckets["startup"][0].episode.category == "startup"
+
+
+def test_carryover_keeps_a_routed_lane_instead_of_re_deriving_it():
+    """Without this, a routed episode snaps back to its show's lane tomorrow."""
+    from podcast_scout.cli import _category_for_record
+    from podcast_scout.state import EpisodeRecord
+
+    category_map = {"lenny's podcast": "ai_retail"}
+    routed = EpisodeRecord(guid="a", show_title="Lenny's Podcast", category="personalization")
+    assert _category_for_record(routed, category_map) == "personalization"
+
+
+def test_carryover_falls_back_for_records_written_before_the_field_existed():
+    from podcast_scout.cli import _category_for_record
+    from podcast_scout.state import EpisodeRecord
+
+    category_map = {"lenny's podcast": "ai_retail"}
+    legacy = EpisodeRecord(guid="a", show_title="Lenny's Podcast")
+    assert _category_for_record(legacy, category_map) == "ai_retail"
+
+
+class _RoutingLLM:
+    """Returns a fixed category for every item, so the parse path is exercised."""
+
+    def __init__(self, count: int, category: str) -> None:
+        self.count = count
+        self.category = category
+
+    async def complete(self, messages, max_tokens=4096):
+        from podcast_scout.providers.base import LLMResponse
+
+        body = json.dumps([
+            {
+                "rubric": {"relevance": 25},
+                "classification": "Listen Fully",
+                "classification_reason": "stub",
+                "summary": "stub",
+                "key_ideas": [],
+                "implications": "",
+                "who_should_listen": "",
+                "summary_captures_value": "partial",
+                "listen_nuance": "",
+                "category": self.category,
+            }
+        ] * self.count)
+        return LLMResponse(content=body, input_tokens=1, output_tokens=1)
+
+
+@pytest.mark.asyncio
+async def test_stage2_carries_the_category_back_off_the_wire():
+    ranked = await stage2_batch_rank(
+        [(_make_ep(), _no_transcript())], _make_prefs(), _RoutingLLM(1, "personalization")
+    )
+
+    assert ranked[0].assigned_category == "personalization"
+
+
+@pytest.mark.asyncio
+async def test_the_prompt_offers_only_configured_categories():
+    from podcast_scout.config import CategoryFeedConfig
+
+    prefs = _make_prefs(categories={
+        "personalization": CategoryFeedConfig(
+            slug="personalization", title="P", routing_hint="how a decision gets made"
+        ),
+        "startup": CategoryFeedConfig(slug="startup", title="S", description="founders"),
+    })
+    llm = _CapturingLLM(1)
+    await stage2_batch_rank([(_make_ep(), _no_transcript())], prefs, llm)
+    prompt = llm.prompts[0]
+
+    assert '"personalization": how a decision gets made' in prompt
+    # description is the documented fallback when no routing_hint is set
+    assert '"startup": founders' in prompt
+
+
+@pytest.mark.asyncio
+async def test_no_category_is_asked_for_when_only_one_lane_exists():
+    """A single-lane setup should not pay tokens for a choice it cannot make."""
+    from podcast_scout.config import CategoryFeedConfig
+
+    prefs = _make_prefs(categories={
+        "ai_retail": CategoryFeedConfig(slug="ai-retail", title="A", description="everything"),
+    })
+    llm = _CapturingLLM(1)
+    await stage2_batch_rank([(_make_ep(), _no_transcript())], prefs, llm)
+
+    assert "CATEGORY — which lane" not in llm.prompts[0]
