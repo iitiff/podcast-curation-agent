@@ -362,11 +362,22 @@ class OpenAICompatibleProvider(BaseLLMProvider):
             if resp.status_code >= 400:
                 detail = resp.text[:400].replace("\n", " ")
                 hint = ""
-                if resp.status_code in (404, 410):
+                if resp.status_code in (403, 410) and "nvidia" in self.base_url:
+                    # Do not send people chasing the URL: NVIDIA's endpoint is
+                    # current, and returns 410/403 when the account's org lacks
+                    # the "Public API Endpoints" permission. Personal orgs do
+                    # not get it by default and have to request it.
                     hint = (
-                        f" — {self.base_url} looks retired or wrong. Point "
-                        "LLM_FALLBACK_BASE_URL and LLM_FALLBACK_MODEL at a live "
-                        "OpenAI-compatible endpoint."
+                        " — NVIDIA returns this when the account's organization "
+                        "lacks the 'Public API Endpoints' permission, not "
+                        "because the URL is wrong. Request it for your org; "
+                        "changing LLM_FALLBACK_BASE_URL will not help."
+                    )
+                elif resp.status_code in (404, 410):
+                    hint = (
+                        f" — check LLM_FALLBACK_BASE_URL ({self.base_url}) and "
+                        "LLM_FALLBACK_MODEL point at a live OpenAI-compatible "
+                        "endpoint and a model it serves."
                     )
                 raise RuntimeError(
                     f"{self.provider_name} {resp.status_code} for model "

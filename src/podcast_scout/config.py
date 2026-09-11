@@ -182,12 +182,14 @@ class Settings:
             None if _budget in {"none", "off", "default"} else int(_budget)
         )
 
-        # FALLBACK: any OpenAI-compatible endpoint.
+        # FALLBACK: any OpenAI-compatible endpoint. Defaults target NVIDIA's
+        # hosted NIM API.
         #
-        # WARNING: the NVIDIA NIM default below returned 410 Gone in a live run
-        # on 2026-09-11, the same way GitHub Models did. Treat it as a
-        # placeholder, not a working default: set LLM_FALLBACK_BASE_URL and
-        # LLM_FALLBACK_MODEL to a provider you have verified.
+        # If this returns 410 Gone, the URL is NOT the problem -- the endpoint
+        # is current. NVIDIA returns 410 when the account's organization lacks
+        # the "Public API Endpoints" permission, which personal orgs do not get
+        # by default and must request. A 403 usually means the same thing.
+        # Changing LLM_FALLBACK_BASE_URL will not fix either.
         #
         # Deliberately generic -- to switch to
         # OpenRouter / Groq / Together / a self-hosted NIM, change only

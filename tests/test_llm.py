@@ -309,8 +309,8 @@ def test_fallback_error_body_is_surfaced():
     from podcast_scout.providers.llm import OpenAICompatibleProvider
 
     provider = OpenAICompatibleProvider(
-        api_key="k", base_url="https://dead.example/v1",
-        model="m", provider_name="Test NIM",
+        api_key="k", base_url="https://integrate.api.nvidia.com/v1",
+        model="m", provider_name="NVIDIA NIM",
     )
     client = _Seq((410, '{"error":"endpoint retired"}'))
     with patch("podcast_scout.providers.llm.httpx.AsyncClient", lambda **kw: client), \
@@ -318,4 +318,7 @@ def test_fallback_error_body_is_surfaced():
         asyncio.run(provider.complete([LLMMessage(role="user", content="hi")]))
     msg = str(exc.value)
     assert "410" in msg and "endpoint retired" in msg
-    assert "LLM_FALLBACK_BASE_URL" in msg, "a dead endpoint must name its own fix"
+    # NVIDIA's 410 means a missing org permission, not a wrong URL, so the
+    # message must not send the reader off to change the base URL.
+    assert "Public API Endpoints" in msg
+    assert "LLM_FALLBACK_BASE_URL will not help" in msg
