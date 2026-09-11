@@ -89,6 +89,15 @@ Expect `Hi iitiff/podcast-curation-agent! You've successfully authenticated,
 but GitHub does not provide shell access.` Anything else means the key is not
 attached correctly.
 
+**No terminal?** Generating a keypair needs a local `ssh-keygen`, so if you
+cannot run commands use a fine-grained PAT instead — it is created entirely in
+the browser. Add it as the secret `PAGES_PUSH_TOKEN` on the private repo:
+github.com/settings/personal-access-tokens/new → Resource owner `iitiff` →
+Only select repositories → `podcast-curation-agent` → Repository permissions →
+**Contents: Read and write**. The publish step accepts either credential and
+prefers the deploy key when both are present, so you can switch later without
+a code change.
+
 Why a deploy key and not a personal access token: it is bound to this one
 repository rather than carrying your account-wide identity, and it does not
 expire — a PAT's expiry turns into a red daily run months later. Note that

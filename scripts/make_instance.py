@@ -79,11 +79,17 @@ PUBLIC_DIR=public       # published: *.xml only
 PAGES_BASE_URL=
 
 # ---- Publishing ---------------------------------------------------------
-# SSH deploy key (private half) with write access on the PUBLIC feeds repo.
-# Stored as the PAGES_DEPLOY_KEY secret in Actions, never in this file.
-# A deploy key is bound to that one repository and does not expire, unlike a
-# personal access token which carries account-wide identity and an expiry.
+# Credential the publish step uses to push feeds to the PUBLIC repo. Set ONE,
+# as an Actions secret — never in this file. If both are set the deploy key
+# wins.
+#
+#   PAGES_DEPLOY_KEY  SSH deploy key, private half. Preferred: bound to that
+#                     one repository, never expires. Needs a local ssh-keygen.
+#   PAGES_PUSH_TOKEN  Fine-grained PAT, Contents: read and write on the public
+#                     repo. Created entirely in the browser, but carries
+#                     account-wide identity and expires.
 PAGES_DEPLOY_KEY=
+PAGES_PUSH_TOKEN=
 """
 
 FEEDS_INDEX_HTML = """\
@@ -236,27 +242,37 @@ jobs:
         if: ${{{{ inputs.dry_run != true }}}}
         env:
           PAGES_DEPLOY_KEY: ${{{{ secrets.PAGES_DEPLOY_KEY }}}}
+          PAGES_PUSH_TOKEN: ${{{{ secrets.PAGES_PUSH_TOKEN }}}}
         run: |
           # Only *.xml crosses the boundary. The briefing (scores, rejected
           # items, synthesis) describes how the reader thinks and stays here.
-          if [ -z "$PAGES_DEPLOY_KEY" ]; then
-            echo "PAGES_DEPLOY_KEY unset — skipping publish."; exit 0
-          fi
           if ! ls public/*.xml >/dev/null 2>&1; then
             echo "No feeds generated this run — nothing to publish."; exit 0
           fi
-          mkdir -p ~/.ssh
-          # printf '%s\\n' guarantees the trailing newline. An SSH private key
-          # without one is rejected outright as "invalid format", and pasting a
-          # key into a GitHub secret is the usual way to lose it.
-          printf '%s\\n' "$PAGES_DEPLOY_KEY" > ~/.ssh/pages_key
-          chmod 600 ~/.ssh/pages_key   # ssh refuses a group/world-readable key
-          ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
-          # IdentitiesOnly stops ssh offering any other key it happens to find.
-          export GIT_SSH_COMMAND="ssh -i ~/.ssh/pages_key -o IdentitiesOnly=yes"
-          git clone --depth 1 --branch gh-pages \\
-            "git@github.com:{public_repo}.git" pages \\
-            || git clone --depth 1 "git@github.com:{public_repo}.git" pages
+          # Either credential works. A deploy key is preferred: it is bound to
+          # the one repository and never expires. A PAT is the fallback because
+          # it can be created entirely in the browser, with no local keygen.
+          if [ -n "$PAGES_DEPLOY_KEY" ]; then
+            echo "Publishing over SSH (deploy key)."
+            mkdir -p ~/.ssh
+            # printf '%s\\n' guarantees the trailing newline. An SSH private key
+            # without one is rejected outright as "invalid format", and pasting
+            # a key into a GitHub secret is the usual way to lose it.
+            printf '%s\\n' "$PAGES_DEPLOY_KEY" > ~/.ssh/pages_key
+            chmod 600 ~/.ssh/pages_key  # ssh refuses a group/world-readable key
+            ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+            # IdentitiesOnly stops ssh offering any other key it finds.
+            export GIT_SSH_COMMAND="ssh -i ~/.ssh/pages_key -o IdentitiesOnly=yes"
+            REMOTE="git@github.com:{public_repo}.git"
+          elif [ -n "$PAGES_PUSH_TOKEN" ]; then
+            echo "Publishing over HTTPS (token). Actions masks the token in logs."
+            REMOTE="https://x-access-token:$PAGES_PUSH_TOKEN@github.com/{public_repo}.git"
+          else
+            echo "Neither PAGES_DEPLOY_KEY nor PAGES_PUSH_TOKEN set — skipping publish."
+            exit 0
+          fi
+          git clone --depth 1 --branch gh-pages "$REMOTE" pages \\
+            || git clone --depth 1 "$REMOTE" pages
           cd pages
           git checkout gh-pages 2>/dev/null || git checkout --orphan gh-pages
           # Never `rm -rf *` here: a run that generated no feeds would wipe
