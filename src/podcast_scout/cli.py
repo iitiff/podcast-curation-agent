@@ -32,6 +32,7 @@ from .providers.transcription import CascadeTranscriptionProvider
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
 from .ranking import RankedEpisode, RubricScore, _classify, build_daily_queue, stage1_metadata_score
 from .render import render_briefing, render_markdown
+from .review import generate_monthly_review, write_review
 from .rss import build_category_feed, build_feed
 from .sources import (
     fetch_articles,
@@ -1505,3 +1506,46 @@ def llm_doctor(probe: bool) -> None:
             "configure LLM_FALLBACK_API_KEY with another provider."
         )
         raise SystemExit(2)
+
+
+@brain.command("review")
+@click.option(
+    "--lookback", default=30, type=int, help="Window to review, in days (default 30)"
+)
+@click.option("--period", default="", help="Label for the review (default: YYYY-MM)")
+@click.option("--dry-run", is_flag=True, help="Print the review without writing it")
+def brain_review(lookback: int, period: str, dry_run: bool) -> None:
+    """Monthly "State of My Thinking": review the brain, not the week's feed.
+
+    The weekly synthesis summarises what arrived. This asks what actually
+    changed in what you believe, so it reads open questions and the findings
+    attached to them rather than the ranked queue.
+    """
+    settings = Settings()
+    if settings.brain_dir is None:
+        console.print("[red]BRAIN_DIR is not set.[/red]")
+        raise SystemExit(1)
+
+    llm = _make_llm(settings)
+    if llm is None:
+        console.print(
+            "[red]No LLM configured.[/red] The review is a synthesis over "
+            "accumulated findings; there is no metadata fallback for it."
+        )
+        raise SystemExit(1)
+
+    store = BrainStore(settings.brain_dir)
+    review = asyncio.run(
+        generate_monthly_review(store, llm, lookback_days=lookback, period=period)
+    )
+    if review is None:
+        # Not an error: an empty brain has nothing to review, and a failed LLM
+        # call must not fail a scheduled monthly job that has no retry.
+        console.print("[yellow]No review generated (empty brain or LLM failure).[/yellow]")
+        return
+
+    console.print(review.to_markdown())
+    if dry_run:
+        return
+    path = write_review(store, review)
+    console.print(f"\n[green]Written to {path}[/green]")

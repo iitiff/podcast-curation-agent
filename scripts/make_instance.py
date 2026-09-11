@@ -180,6 +180,11 @@ on:
         required: false
         type: boolean
         default: false
+      synthesis:
+        description: 'Force the weekly cross-episode synthesis'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -249,6 +254,16 @@ jobs:
           ARGS=""
           if [ -n "${{{{ inputs.lookback_days }}}}" ]; then ARGS="$ARGS --lookback ${{{{ inputs.lookback_days }}}}"; fi
           if [ "${{{{ inputs.dry_run }}}}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          # Friday's run also produces the weekly cross-episode synthesis.
+          # Derived from the date rather than matched against the cron string,
+          # so editing the schedule above cannot silently drop the synthesis.
+          # The event_name guard keeps a manual Friday run from getting it
+          # unasked; --synthesis is an explicit dispatch input for that.
+          if [ "${{{{ github.event_name }}}}" = "schedule" ] && [ "$(date -u +%u)" = "5" ]; then
+            ARGS="$ARGS --synthesis"
+          elif [ "${{{{ inputs.synthesis }}}}" = "true" ]; then
+            ARGS="$ARGS --synthesis"
+          fi
           podcast-scout run $ARGS
 
       - name: Commit state, briefing and brain
@@ -384,6 +399,86 @@ jobs:
 """
 
 
+MONTHLY_REVIEW_WORKFLOW = """\
+name: Monthly State of My Thinking
+
+# The daily brief says what arrived and Friday's synthesis says what the week
+# added up to. Neither asks whether anything actually changed in what you
+# believe -- that needs the accumulated brain, not one window of the feed, so
+# it runs on its own cadence over its own inputs.
+on:
+  schedule:
+    - cron: '0 6 1 * *'    # 06:00 UTC on the 1st, after that day's brief
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: 'Window to review (days)'
+        required: false
+        default: '30'
+      dry_run:
+        description: 'Print the review without committing it'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh && echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install engine
+        run: uv pip install --system "podcast-scout @ git+{public_url}@{ref}"
+
+      - name: Review the brain
+        env:
+          CONFIG_DIR: config
+          DATA_DIR: data
+          BRAIN_DIR: brain
+          GEMINI_API_KEY: ${{{{ secrets.GEMINI_API_KEY }}}}
+          LLM_FALLBACK_API_KEY: ${{{{ secrets.LLM_FALLBACK_API_KEY }}}}
+          # Forwarded under several spellings: a secret only reaches the run
+          # under the exact name the workflow names, and an unset one is just
+          # an empty string.
+          OPENROUTER_API_KEY: ${{{{ secrets.OPENROUTER_API_KEY }}}}
+          OPEN_ROUTER_API_KEY: ${{{{ secrets.OPEN_ROUTER_API_KEY }}}}
+          OPENROUTER_KEY: ${{{{ secrets.OPENROUTER_KEY }}}}
+          OPENROUTER_API: ${{{{ secrets.OPENROUTER_API }}}}
+          OPEN_ROUTER_API: ${{{{ secrets.OPEN_ROUTER_API }}}}
+          OPEN_ROUTER_KEY: ${{{{ secrets.OPEN_ROUTER_KEY }}}}
+          OPEN_ROUTER: ${{{{ secrets.OPEN_ROUTER }}}}
+          OPENROUTER: ${{{{ secrets.OPENROUTER }}}}
+          GEMINI_STAGE1_MODEL: ${{{{ vars.GEMINI_STAGE1_MODEL }}}}
+          GEMINI_STAGE2_MODEL: ${{{{ vars.GEMINI_STAGE2_MODEL }}}}
+          LLM_FALLBACK_BASE_URL: ${{{{ vars.LLM_FALLBACK_BASE_URL }}}}
+          LLM_FALLBACK_MODEL: ${{{{ vars.LLM_FALLBACK_MODEL }}}}
+        run: |
+          ARGS="--lookback ${{{{ inputs.lookback_days || '30' }}}}"
+          if [ "${{{{ inputs.dry_run }}}}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          podcast-scout brain review $ARGS
+
+      - name: Commit the review
+        if: ${{{{ inputs.dry_run != true }}}}
+        run: |
+          git config user.name "podcast-scout[bot]"
+          git config user.email "podcast-scout[bot]@users.noreply.github.com"
+          git add brain
+          git diff --cached --quiet || git commit -m "chore: monthly review [skip ci]"
+          git pull --rebase origin "${{{{ github.ref_name }}}}"
+          git push origin "HEAD:${{{{ github.ref_name }}}}"
+"""
+
+
 def copy_path(src: Path, dst: Path) -> str:
     if not src.exists():
         return f"  skip (absent)  {src.relative_to(REPO_ROOT)}"
@@ -436,6 +531,9 @@ def main() -> int:
     workflows.mkdir(parents=True, exist_ok=True)
     (workflows / "daily.yml").write_text(DAILY_WORKFLOW.format(**fmt), encoding="utf-8")
     (workflows / "llm-doctor.yml").write_text(LLM_DOCTOR_WORKFLOW.format(**fmt), encoding="utf-8")
+    (workflows / "monthly-review.yml").write_text(
+        MONTHLY_REVIEW_WORKFLOW.format(**fmt), encoding="utf-8"
+    )
 
     static = target / "static"
     static.mkdir(exist_ok=True)
@@ -452,6 +550,7 @@ def main() -> int:
 
     print("\n  wrote           .gitignore, .env.example, README.md")
     print("  wrote           .github/workflows/daily.yml")
+    print("  wrote           .github/workflows/monthly-review.yml")
     print("  wrote           static/index.html (public feed listing)")
     print("  scaffolded      brain/\n")
     print("Next:")
