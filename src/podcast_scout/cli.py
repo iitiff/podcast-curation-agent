@@ -1316,6 +1316,8 @@ def llm_doctor(probe: bool) -> None:
         )
     console.print(table)
 
+    _fallback_doctor(settings, probe)
+
     if not probe:
         return
 
@@ -1358,8 +1360,6 @@ def llm_doctor(probe: bool) -> None:
                 detail = r.text[:80].replace("\n", " ")
                 probe_table.add_row(model, str(code), f"[red]{detail}[/red]")
     console.print(probe_table)
-
-    _fallback_doctor(settings, probe)
 
     if usable:
         console.print(
