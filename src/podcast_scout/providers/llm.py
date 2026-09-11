@@ -166,6 +166,8 @@ class GeminiProvider(BaseLLMProvider):
         # the field would otherwise reject every request, and there has to be a
         # way to turn it off without a code change.
         self.thinking_budget = thinking_budget
+        # Set once a backoff proves the limit is not per-minute; see complete().
+        self._rate_limited = False
 
     async def complete(
         self,
@@ -258,6 +260,14 @@ class GeminiProvider(BaseLLMProvider):
             # run that silently scores everything at the metadata floor.
             if resp.status_code == 429:
                 delay = _retry_delay_seconds(resp.text)
+                # Wait only while waiting might still help. A live run slept
+                # 60s seven times in a row and got 429 every time: the exhausted
+                # metric was a DAILY allowance, so the per-minute delay the API
+                # suggests can never clear it. Once one full wait fails to
+                # recover, stop paying that cost for the rest of the run and let
+                # the degradation guard report it instead.
+                if self._rate_limited:
+                    delay = None
                 if delay is not None and delay <= _MAX_RETRY_WAIT:
                     log.warning(
                         "%s rate-limited; waiting %.0fs and retrying once "
@@ -266,6 +276,14 @@ class GeminiProvider(BaseLLMProvider):
                     )
                     await asyncio.sleep(delay)
                     resp = await client.post(url, json=payload, headers=headers)
+                    if resp.status_code == 429:
+                        log.warning(
+                            "%s still rate-limited after waiting %.0fs — the "
+                            "exhausted quota is not per-minute. Skipping further "
+                            "waits this run.",
+                            self.model, delay,
+                        )
+                        self._rate_limited = True
 
             if resp.status_code >= 400:
                 detail = resp.text[:600].replace("\n", " ")

@@ -269,3 +269,28 @@ def test_thinking_config_disable_is_sticky_across_calls():
     _run(provider, second)
     assert "thinkingConfig" not in second.payloads[0]["generationConfig"]
     assert len(second.payloads) == 1, "second call must not re-probe"
+
+
+def test_waiting_stops_once_a_backoff_proves_futile(monkeypatch):
+    """A daily cap cannot be waited out a minute at a time.
+
+    A live run slept 60s seven times and was still 429 each time.
+    """
+    import podcast_scout.providers.llm as mod
+    slept = []
+
+    async def _fake_sleep(seconds): slept.append(seconds)
+    monkeypatch.setattr(mod.asyncio, "sleep", _fake_sleep)
+
+    provider = GeminiProvider("k", "m", thinking_budget=None)
+
+    # First call: waits once, still 429 -> marks the run rate-limited.
+    with pytest.raises(RuntimeError):
+        _run(provider, _Seq((429, _429), (429, _429)))
+    assert len(slept) == 1
+    assert provider._rate_limited is True
+
+    # Second call: fails immediately, no further sleeping.
+    with pytest.raises(RuntimeError):
+        _run(provider, _Seq((429, _429)))
+    assert len(slept) == 1, "must not keep waiting once waiting is known futile"
