@@ -1156,6 +1156,88 @@ def brain_status() -> None:
 # llm-doctor — what can this key actually use?
 # ---------------------------------------------------------------------------
 
+def _fallback_doctor(settings: Settings, probe: bool) -> None:
+    """Check the OpenAI-compatible fallback the same way as the primary.
+
+    The fallback is the thing that is supposed to save a run when the primary
+    is rate-limited, so it is the last place a silent misconfiguration should
+    be allowed to hide. A live run retried into an endpoint that returned 410
+    on every call, and nothing had ever checked it.
+    """
+    import httpx
+
+    if not settings.fallback_api_key:
+        console.print("\n[dim]No LLM_FALLBACK_API_KEY set — skipping fallback check.[/dim]")
+        return
+
+    base = settings.fallback_base_url.rstrip("/")
+    console.print(f"\n[bold]Fallback: {settings.fallback_provider_name} at {base}[/bold]")
+    headers = {"Authorization": f"Bearer {settings.fallback_api_key}"}
+
+    try:
+        with httpx.Client(timeout=30.0) as client:
+            listing = client.get(f"{base}/models", headers=headers)
+    except Exception as exc:
+        console.print(f"[red]Could not reach {base}: {exc}[/red]")
+        return
+
+    ids: list[str] = []
+    if listing.status_code == 200:
+        payload = listing.json()
+        rows = payload.get("data", payload if isinstance(payload, list) else [])
+        ids = [str(m.get("id", "")) for m in rows if isinstance(m, dict)]
+        console.print(f"  {len(ids)} model(s) offered by this endpoint")
+        # ":free" is an OpenRouter convention; surfacing it matters because the
+        # whole point of a fallback here is to cost nothing.
+        free = [i for i in ids if i.endswith(":free")]
+        if free:
+            console.print(f"  [green]{len(free)} free-tier model(s)[/green], e.g. "
+                          f"{', '.join(sorted(free)[:6])}")
+    else:
+        console.print(
+            f"  [yellow]{base}/models returned {listing.status_code}[/yellow] — "
+            "not every endpoint exposes a model list; the probe below is the "
+            "real test."
+        )
+
+    if not probe:
+        return
+
+    model = settings.fallback_model
+    console.print(f"  probing configured LLM_FALLBACK_MODEL = [bold]{model}[/bold]")
+    try:
+        with httpx.Client(timeout=60.0) as client:
+            resp = client.post(
+                f"{base}/chat/completions",
+                headers=headers,
+                json={
+                    "model": model,
+                    "messages": [{"role": "user", "content": "Reply with: ok"}],
+                    "max_tokens": 8,
+                },
+            )
+    except Exception as exc:
+        console.print(f"  [red]unreachable: {exc}[/red]")
+        return
+
+    if resp.status_code == 200:
+        console.print("  [green]usable — the fallback will work[/green]")
+        return
+
+    detail = resp.text[:200].replace("\n", " ")
+    console.print(f"  [red]{resp.status_code}: {detail}[/red]")
+    if resp.status_code in (403, 410) and "nvidia" in base:
+        console.print(
+            "  [yellow]NVIDIA returns this when the org lacks the 'Public API "
+            "Endpoints' permission. The URL is not the problem.[/yellow]"
+        )
+    elif ids and model not in ids:
+        console.print(
+            f"  [yellow]{model} is not in this endpoint's model list — "
+            "LLM_FALLBACK_MODEL likely needs to match one of the ids above."
+            "[/yellow]"
+        )
+
 @main.command("llm-doctor")
 @click.option("--probe/--no-probe", default=True,
               help="Send a minimal request to each Flash model to see which respond.")
@@ -1258,6 +1340,8 @@ def llm_doctor(probe: bool) -> None:
                 detail = r.text[:80].replace("\n", " ")
                 probe_table.add_row(model, str(code), f"[red]{detail}[/red]")
     console.print(probe_table)
+
+    _fallback_doctor(settings, probe)
 
     if usable:
         console.print(
