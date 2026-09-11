@@ -33,6 +33,12 @@ from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, Se
 from .ranking import RankedEpisode, RubricScore, _classify, build_daily_queue, stage1_metadata_score
 from .render import render_briefing, render_markdown
 from .rss import build_category_feed, build_feed
+from .sources import (
+    fetch_articles,
+    load_sources,
+    queries_for_questions,
+    sources_for_questions,
+)
 from .state import EpisodeRecord, StateManager
 from .summarization import process_episodes
 from .synthesis import generate_synthesis
@@ -399,6 +405,26 @@ async def _run_pipeline(
     state = StateManager(settings.data_dir)
     run_date = datetime.now(tz=UTC).strftime("%Y-%m-%d")
 
+    # 0. The radar is question-driven; the filter is evergreen.
+    #
+    # Open questions contribute discovery queries and narrow which source
+    # classes get fetched. They never touch the ranking rubric -- that is the
+    # evergreen quality bar and stays exactly as tuned.
+    open_questions: list[object] = []
+    if settings.brain_dir is not None:
+        try:
+            open_questions = list(BrainStore(settings.brain_dir).load_questions(open_only=True))
+        except Exception as exc:
+            log.warning("Could not read questions: %s", exc)
+    if open_questions:
+        extra = queries_for_questions(open_questions)
+        discovery_cfg.static_seeds.extend(
+            {"query": q, "enabled": True, "weight": 1.0} for q in extra
+        )
+        console.print(
+            f"Radar: {len(open_questions)} open question(s) → {len(extra)} extra quer(y/ies)"
+        )
+
     # 1. Discover
     podcast_search = _make_podcast_search(settings)
     web_search = _make_web_search(settings)
@@ -412,6 +438,23 @@ async def _run_pipeline(
         lookback_days=settings.lookback_days,
         shows_cfg=shows_cfg,
     )
+
+    # 1b. Non-podcast sources: trade press, vendor blogs, research, earnings.
+    # Same shape as an episode minus an enclosure and a duration, so they flow
+    # through the identical filter and are judged by the same evergreen rubric.
+    # `is_playable` keeps them out of the audio feeds.
+    sources_cfg = load_sources(settings.config_dir)
+    if open_questions:
+        sources_cfg = sources_for_questions(open_questions, sources_cfg)
+    if sources_cfg.sources:
+        articles = await fetch_articles(sources_cfg, settings.lookback_days)
+        if articles:
+            by_class: dict[str, int] = {}
+            for article in articles:
+                by_class[article.source_type] = by_class.get(article.source_type, 0) + 1
+            summary = ", ".join(f"{n} {cls}" for cls, n in sorted(by_class.items()))
+            console.print(f"Radar: {len(articles)} non-podcast item(s) — {summary}")
+            all_candidates.extend(articles)
 
     # 2. Dedup — only truly new episodes get LLM scoring
     new_episodes, _ = dedup_episodes(all_candidates, state.seen_guids())
