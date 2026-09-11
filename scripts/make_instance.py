@@ -211,6 +211,15 @@ jobs:
           PUBLIC_DIR: public
           GEMINI_API_KEY: ${{{{ secrets.GEMINI_API_KEY }}}}
           LLM_FALLBACK_API_KEY: ${{{{ secrets.LLM_FALLBACK_API_KEY }}}}
+          # Model selection lives in repository VARIABLES, not secrets: a model
+          # name is not a credential, and keeping it visible and editable
+          # matters because Gemini free-tier quota is per-model -- switching
+          # models is the first thing to try on a 429. Unset renders as an
+          # empty string, which the engine treats as "use the default".
+          GEMINI_STAGE1_MODEL: ${{{{ vars.GEMINI_STAGE1_MODEL }}}}
+          GEMINI_STAGE2_MODEL: ${{{{ vars.GEMINI_STAGE2_MODEL }}}}
+          LLM_FALLBACK_BASE_URL: ${{{{ vars.LLM_FALLBACK_BASE_URL }}}}
+          LLM_FALLBACK_MODEL: ${{{{ vars.LLM_FALLBACK_MODEL }}}}
           PODCAST_INDEX_KEY: ${{{{ secrets.PODCAST_INDEX_KEY }}}}
           PODCAST_INDEX_SECRET: ${{{{ secrets.PODCAST_INDEX_SECRET }}}}
           WEB_SEARCH_API_KEY: ${{{{ secrets.WEB_SEARCH_API_KEY }}}}
