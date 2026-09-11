@@ -75,6 +75,44 @@ def _renumber_prior_title(prior: _PriorItem, rank: int) -> None:
     )
 
 
+# ElementTree cannot emit CDATA, so the text is marked with sentinels and the
+# sentinels are swapped for CDATA delimiters after serialisation. Chosen to be
+# something no episode summary could contain.
+_CDATA_OPEN = "\x00CDATA-OPEN\x00"
+_CDATA_CLOSE = "\x00CDATA-CLOSE\x00"
+
+
+def _cdata(text: str) -> str:
+    """Wrap text so _xml_string emits it as a CDATA section.
+
+    Podcast clients are inconsistent about entity-escaped markup in notes:
+    some render &lt;p&gt; as HTML, some print the tags literally. Every real
+    podcast feed uses CDATA here, so this matches what clients are built
+    against rather than what the spec merely permits. "]]>" is split because a
+    CDATA section cannot contain its own terminator.
+    """
+    return _CDATA_OPEN + text.replace("]]>", "]]]]><![CDATA[>") + _CDATA_CLOSE
+
+
+def _plain_text(html_fragment: str) -> str:
+    """Strip tags for the fields Apple specifies as plain text."""
+    text = re.sub(r"<(?:br|/p|/h\d|/li)\s*/?>", "\n", html_fragment)
+    text = re.sub(r"<[^>]+>", "", text)
+    return html.unescape(text).strip()
+
+
+def _subtitle(r: RankedEpisode) -> str:
+    """One line for the episode list, before anything is opened.
+
+    Apple caps itunes:subtitle at 255 characters and treats it as plain text;
+    a longer value is dropped by some clients rather than truncated.
+    """
+    summary = _plain_text(r.summary or r.episode.description)
+    first = re.split(r"(?<=[.!?])\s", summary.replace("\n", " ").strip(), maxsplit=1)[0]
+    line = f"{r.score:.0f}/100 — {first}" if first else f"{r.score:.0f}/100"
+    return line[:252] + "…" if len(line) > 255 else line
+
+
 def _show_notes_html(r: RankedEpisode) -> str:
     lines = [
         f"<p><strong>Score: {r.score:.0f}/100</strong> | "
@@ -146,6 +184,61 @@ class _PriorItem:
         self.xml_element = xml_element
 
 
+# This module declares its namespaces as plain attributes on <rss> and writes
+# tags with a literal prefix ("itunes:duration"). ElementTree does not know
+# those are namespaces, so a parsed feed comes back with expanded {uri}local
+# tags and re-serialises them as ns0:/ns1: -- prefixes nothing declares. The
+# result is not well-formed XML, and it reaches the feed the first time an item
+# survives to a second day. Registering the namespaces instead would make
+# ElementTree emit its own xmlns declarations alongside the literal ones and
+# duplicate the attribute, so the prefixes are restored by hand.
+_NS_PREFIX = {
+    "http://www.itunes.com/dtds/podcast-1.0.dtd": "itunes",
+    "http://purl.org/rss/1.0/modules/content/": "content",
+    "http://www.w3.org/2005/Atom": "atom",
+}
+
+_CONTENT_ENCODED = "{http://purl.org/rss/1.0/modules/content/}encoded"
+_ITUNES_SUMMARY = "{http://www.itunes.com/dtds/podcast-1.0.dtd}summary"
+
+
+def _restore_prefixes(element: Element) -> None:
+    """Rewrite expanded {uri}local tags back to their literal prefixes."""
+    for child in element.iter():
+        if child.tag.startswith("{"):
+            uri, _, local = child.tag[1:].partition("}")
+            prefix = _NS_PREFIX.get(uri)
+            if prefix:
+                child.tag = f"{prefix}:{local}"
+
+
+def _ensure_notes_fields(item_el: Element) -> None:
+    """Give a carried item the notes fields players actually read.
+
+    Called before _restore_prefixes, while tags are still expanded. Without
+    this an item keeps whatever shape it had when first written, so a fix to
+    the notes only reaches the feed as items age out -- three weeks at the
+    current retention.
+    """
+    existing = {child.tag for child in item_el}
+    notes = ""
+    for tag in (_CONTENT_ENCODED, "content:encoded", "description"):
+        found = item_el.find(tag)
+        if found is not None and found.text:
+            notes = found.text
+            break
+    if not notes:
+        return
+    if _ITUNES_SUMMARY not in existing and "itunes:summary" not in existing:
+        SubElement(item_el, "itunes:summary").text = _cdata(notes)
+    # Re-wrap the fields that already exist: they were written before CDATA and
+    # carry entity-escaped markup that some clients print as literal tags.
+    for tag in (_CONTENT_ENCODED, "content:encoded", "description"):
+        found = item_el.find(tag)
+        if found is not None and found.text and not found.text.startswith(_CDATA_OPEN):
+            found.text = _cdata(found.text)
+
+
 def _load_prior_items(
     feed_path: Path,
     state: StateManager,
@@ -188,6 +281,9 @@ def _load_prior_items(
                 m = re.search(r"Score:\s*(\d+(?:\.\d+)?)/100", notes_el.text)
                 if m:
                     score = float(m.group(1))
+
+        _ensure_notes_fields(item_el)
+        _restore_prefixes(item_el)
 
         items.append(_PriorItem(
             guid=guid,
@@ -246,9 +342,15 @@ def _add_new_items(
         SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
         SubElement(item, "pubDate").text = r.episode.published.strftime("%a, %d %b %Y %H:%M:%S +0000")  # noqa: E501  (legacy helper, unused)
         SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
-        notes = SubElement(item, "content:encoded")
-        notes.text = _show_notes_html(r)
-        SubElement(item, "description").text = r.summary or r.episode.description[:300]
+        notes_html = _show_notes_html(r)
+        SubElement(item, "content:encoded").text = _cdata(notes_html)
+        SubElement(item, "description").text = _cdata(notes_html)
+        # itunes:summary is the field Apple Podcasts, Pocket Casts and Overcast
+        # actually read for the notes panel. Without it the summary was in the
+        # feed -- in <description> and <content:encoded> -- but not in the
+        # place most players look, so it never reached the listener.
+        SubElement(item, "itunes:summary").text = _cdata(notes_html)
+        SubElement(item, "itunes:subtitle").text = _subtitle(r)
         if r.episode.enclosure:
             enc = SubElement(item, "enclosure")
             enc.set("url", r.episode.enclosure.url)
@@ -460,4 +562,17 @@ def build_feed(
 
 def _xml_string(rss: Element) -> str:
     indent(rss, space="  ")
-    return '<?xml version="1.0" encoding="UTF-8"?>\n' + tostring(rss, encoding="unicode")
+    xml = tostring(rss, encoding="unicode")
+    # The sentinels went through tostring() as ordinary text, so any markup
+    # between them is entity-escaped. Unescaping it is what turns the escaped
+    # payload back into the raw HTML a CDATA section is supposed to carry.
+    def unwrap(match: re.Match[str]) -> str:
+        return "<![CDATA[" + html.unescape(match.group(1)) + "]]>"
+
+    xml = re.sub(
+        re.escape(_CDATA_OPEN) + r"(.*?)" + re.escape(_CDATA_CLOSE),
+        unwrap,
+        xml,
+        flags=re.DOTALL,
+    )
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + xml
