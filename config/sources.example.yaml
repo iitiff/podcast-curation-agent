@@ -45,5 +45,42 @@ sources:
     enabled: false   # turn on once you want the pattern signal
 
   # ── Earnings ─────────────────────────────────────────────────────
-  # The highest-value class and the hardest to feed: most IR sites have no RSS.
-  # Add a transcript aggregator feed here when you have one.
+  # Not configured as feeds. Most IR sites publish no RSS at all, so earnings
+  # comes from SEC EDGAR instead — see the `edgar:` block below.
+
+
+# ────────────────────────────────────────────────────────────────────
+# Earnings via SEC EDGAR
+#
+# Every US-listed company files quarterly results as an 8-K tagged with item
+# 2.02, "Results of Operations and Financial Condition", and the numbers are in
+# exhibit EX-99.1. EDGAR is therefore the feed that IR sites do not provide.
+#
+# REQUIRED: set SEC_USER_AGENT in the environment to a contact address, e.g.
+#   SEC_USER_AGENT="Your Name (you@example.com)"
+# The SEC refuses undeclared requests and returns a throttle page rather than
+# an error. Unset simply disables this block — nothing is guessed.
+#
+# Earnings runs on a longer window than the daily lookback: a company reports
+# once a quarter, so a 2-day window would surface nothing on all but four days
+# of the year.
+# ────────────────────────────────────────────────────────────────────
+
+edgar:
+  max_filings_per_company: 2
+
+  companies:
+    # Either `ticker` or `cik`. A ticker is resolved against the SEC's own
+    # mapping in one request per run.
+    - name: "Walmart"
+      ticker: WMT
+      tags: [competitive, market]
+
+    - name: "Amazon"
+      ticker: AMZN
+      tags: [competitive, market]
+
+    - name: "Shopify"
+      ticker: SHOP
+      tags: [competitive, market]
+      enabled: false

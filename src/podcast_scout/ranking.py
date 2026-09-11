@@ -337,19 +337,83 @@ def build_daily_queue(
     return rss, email_only, reading
 
 
-def _build_episode_block(idx: int, ep: NormalizedEpisode, transcript: TranscriptResult) -> str:
-    source_text = transcript.text[:2000] if transcript.text else (
-        f"{ep.episode_title}\n\n{ep.description}"
+# Both the transcript and the description path are capped. The description was
+# previously passed whole, which was harmless while every item was a podcast
+# and `description` meant a short RSS blurb -- an earnings exhibit carries
+# thousands of words and would silently blow the batch's token budget.
+_MAX_SOURCE_TEXT = 2500
+
+
+def _media_guidance() -> str:
+    """Extra prompt section, added only when the batch is not all podcasts.
+
+    The rubric's field names are podcast-shaped and stay that way: they are
+    persisted in state, history and latest.json, and renaming them would
+    silently orphan every carried-over score. What changes is how the model is
+    told to read them for a source that has no guest and no runtime. Omitted
+    entirely for an all-podcast batch, so the common case pays no tokens for it.
+    """
+    return """
+THIS BATCH MIXES MEDIA. Each item declares its type. The rubric's names are
+podcast-shaped for historical reasons; read them like this for written sources:
+
+- guest_authority -> AUTHOR authority. For a paper, the authors and institution
+  and whether the work is reproducible. For a filing, it is management speaking
+  under legal constraint. For a vendor post, the named engineer behind it — a
+  post with no named author is a brochure and scores low.
+- learning_per_minute -> signal density per unit of reading, not per minute.
+- Do NOT apply confidence_penalty to a written source for "no transcript". The
+  text IS the source. Apply it only when the text is genuinely a stub.
+- Do NOT penalise a written source for having no guests or no duration.
+
+WEIGH THE SOURCE CLASS, which each item declares with its credibility:
+- earnings-call (high): reported figures are the strongest evidence available
+  here and the only class that can contradict a vendor's claims. Management's
+  framing of those figures is still self-interested — score the numbers, not
+  the adjectives.
+- research-paper (high): strong on mechanism, weak on whether it survives
+  production. A benchmark result is not a deployment.
+- trade-press (medium): access-driven. Tends to amplify whoever granted the
+  interview and rarely revisits a prediction that missed.
+- vendor (low): marketing. Treat every performance claim as unverified unless
+  the item itself contains the method or the data. A vendor post can still
+  score well as a PATTERN — what the vendor believes the market wants — but
+  never as evidence that the thing works.
+"""
+
+
+def _build_item_block(idx: int, ep: NormalizedEpisode, transcript: TranscriptResult) -> str:
+    """One item for the Stage 2 batch prompt.
+
+    Shaped by source type. A paper has no guests and no runtime, and printing
+    "GUESTS: unknown / DURATION: 0 min" on it invites the model to apply a
+    penalty for something that was never missing. Non-podcast items instead
+    declare their class and credibility, which is what should move their score.
+    """
+    source_text = (
+        transcript.text[:_MAX_SOURCE_TEXT]
+        if transcript.text
+        else f"{ep.episode_title}\n\n{ep.description}"[:_MAX_SOURCE_TEXT]
     )
+    if ep.source_type == "podcast":
+        return (
+            f"--- ITEM {idx} (podcast) ---\n"
+            f"SHOW: {ep.show_title}\n"
+            f"TITLE: {ep.episode_title}\n"
+            f"GUESTS: {', '.join(ep.guests) or 'unknown'}\n"
+            f"DURATION: {ep.duration_minutes:.0f} min\n"
+            f"TRANSCRIPT CONFIDENCE: {transcript.confidence}\n"
+            f"TEXT:\n{source_text}\n"
+        )
+    bias = f"\nKNOWN BIAS: {ep.bias_notes}" if ep.bias_notes else ""
     return (
-        f"--- EPISODE {idx} ---\n"
-        f"SHOW: {ep.show_title}\n"
-        f"EPISODE: {ep.episode_title}\n"
-        f"GUESTS: {', '.join(ep.guests) or 'unknown'}\n"
-        f"DURATION: {ep.duration_minutes:.0f} min\n"
-        f"TRANSCRIPT CONFIDENCE: {transcript.confidence}\n"
+        f"--- ITEM {idx} ({ep.source_type}) ---\n"
+        f"PUBLICATION: {ep.show_title}\n"
+        f"TITLE: {ep.episode_title}\n"
+        f"SOURCE CLASS: {ep.source_type} (credibility: {ep.credibility}){bias}\n"
         f"TEXT:\n{source_text}\n"
     )
+
 
 
 async def stage2_batch_rank(
@@ -363,20 +427,22 @@ async def stage2_batch_rank(
         return []
 
     persona_ctx = (
-        f"You are ranking podcasts for a {prefs.persona.seniority} {prefs.persona.role} "
-        f"whose focus is: {prefs.persona.focus}. "
+        f"You are ranking research material for a {prefs.persona.seniority} "
+        f"{prefs.persona.role} whose focus is: {prefs.persona.focus}. "
         f"Preferred depth: {prefs.persona.preferred_depth}."
     )
+    kinds = {ep.source_type for ep, _ in items}
+    mixed_media = kinds != {"podcast"}
 
     episode_blocks = "\n".join(
-        _build_episode_block(i, ep, tr) for i, (ep, tr) in enumerate(items)
+        _build_item_block(i, ep, tr) for i, (ep, tr) in enumerate(items)
     )
 
     system_prompt = f"""{persona_ctx}
 
-You will receive {len(items)} podcast episode(s). Score EACH on a 100-point rubric and return a
-JSON ARRAY (one object per episode, in the same order). Do NOT wrap in markdown fences.
-
+You will receive {len(items)} item(s). Score EACH on a 100-point rubric and return a
+JSON ARRAY (one object per item, in the same order). Do NOT wrap in markdown fences.
+{_media_guidance() if mixed_media else ""}
 SCORING PHILOSOPHY for this persona:
 - Prioritise episodes with concrete strategic insight, real business cases, or named expert guests.
 - Penalise heavily: generic communication/soft-skills content (e.g. "how to give feedback",
@@ -394,19 +460,23 @@ RUBRIC (base points):
 - actionability: 0-15  (does it produce decisions or strategies the listener can act on?)
 - evidence: 0-10  (are claims backed by data, case studies, or first-hand experience?)
 - strategic_importance: 0-10  (does it cover trends or dynamics that matter at the director+ level?)
-- learning_per_minute: 0-5  (signal density relative to episode length)
+- learning_per_minute: 0-5  (signal density relative to length — of the episode for a
+  podcast, of the text for anything else)
 
 PENALTIES (negative):
 - repetition_penalty: 0 to -15  (topic covered in recent episodes of same show)
 - generic_penalty: 0 to -15  (content applies to anyone, not specifically to this persona)
 - weak_evidence_penalty: 0 to -10  (opinion without data or real examples)
-- confidence_penalty: 0 to -15  (scoring based on description only with no transcript)
+- confidence_penalty: 0 to -15  (scoring based on description only with no transcript.
+  Does NOT apply to a written source: an article, paper or filing IS its own full text,
+  so there is nothing missing to discount.)
 - motivational_penalty: 0 to -10  (inspirational/feel-good without strategic substance)
 - relevance_penalty: 0 to -20  (off-topic relative to AI, retail, eCommerce, product strategy)
 
-CLASSIFICATION:
-- "Listen Fully" if total >= 75  (goes into Pocket Casts RSS queue)
-- "Read Summary Only" if total >= 50  (email digest only, NOT in RSS feed)
+CLASSIFICATION (the labels are historical and apply to written sources too —
+"Listen Fully" means "worth the full text", not literally audio):
+- "Listen Fully" if total >= 75
+- "Read Summary Only" if total >= 50
 - "Skip" otherwise
 
 KEY IDEAS — what counts as an insight vs. a topic label:
@@ -441,7 +511,10 @@ For EACH episode return an object with keys:
   summary (100-200 words — what the episode covers, for orientation),
   key_ideas (list of 0-3 strings — specific, sourced, persona-relevant insights per the
     definition above; this is NOT a compressed restatement of summary),
-  implications, who_should_listen, summary_captures_value ("yes"|"partial"|"no"), listen_nuance
+  implications, who_should_listen (who on the team should read or listen to this),
+  summary_captures_value ("yes"|"partial"|"no"),
+  listen_nuance (what is lost by reading only the summary — for a written source, what
+    the full text carries that a précis cannot)
 
 Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
 
