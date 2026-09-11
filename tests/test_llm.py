@@ -93,7 +93,7 @@ def _payload(provider):
     class _Client:
         async def __aenter__(self): return self
         async def __aexit__(self, *a): return False
-        async def post(self, url, json=None):
+        async def post(self, url, json=None, headers=None):
             captured.update(json)
             return _Resp()
 
@@ -117,3 +117,81 @@ def test_thinking_config_omitted_when_none():
 def test_custom_thinking_budget_is_passed_through():
     p = GeminiProvider("k", "gemini-3.6-flash", thinking_budget=512)
     assert _payload(p)["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 512}
+
+
+# ---------------------------------------------------------------------------
+# Error bodies must survive, and thinkingConfig must self-heal.
+#
+# A live run failed with 400 on every Stage 2 call. The log said only
+# "Client error '400 Bad Request'" because raise_for_status() discards the
+# body -- so the field Google was actually objecting to was invisible.
+# ---------------------------------------------------------------------------
+
+class _Seq:
+    """Client returning a scripted sequence of (status, body) responses."""
+
+    def __init__(self, *responses):
+        self.responses = list(responses)
+        self.payloads = []
+
+    async def __aenter__(self): return self
+    async def __aexit__(self, *a): return False
+
+    async def post(self, url, json=None, headers=None):
+        import copy
+        self.payloads.append(copy.deepcopy(json))
+        status, body = self.responses.pop(0)
+
+        class _R:
+            status_code = status
+            text = body if isinstance(body, str) else __import__("json").dumps(body)
+            def json(self_inner):
+                return body if isinstance(body, dict) else {}
+        return _R()
+
+
+_OK = {"candidates": [{"content": {"parts": [{"text": "ok"}]}, "finishReason": "STOP"}],
+       "usageMetadata": {}}
+
+
+def _run(provider, client):
+    import asyncio
+    from unittest.mock import patch
+    with patch("podcast_scout.providers.llm.httpx.AsyncClient", lambda **kw: client):
+        return asyncio.run(provider.complete([LLMMessage(role="user", content="hi")]))
+
+
+def test_error_body_is_surfaced_not_swallowed():
+    body = '{"error":{"code":400,"message":"Unknown name \\"thinkingConfig\\""}}'
+    client = _Seq((400, body), (400, body))
+    with pytest.raises(RuntimeError) as exc:
+        _run(GeminiProvider("k", "m", thinking_budget=None), client)
+    assert "400" in str(exc.value)
+    assert "Unknown name" in str(exc.value), "the API's own message must reach the log"
+
+
+def test_thinking_config_rejection_retries_without_it():
+    """A model that rejects the field must not fail the entire run."""
+    body = '{"error":{"code":400,"message":"Unknown name \\"thinkingConfig\\""}}'
+    client = _Seq((400, body), (200, _OK))
+    resp = _run(GeminiProvider("k", "m", thinking_budget=0), client)
+    assert resp.content == "ok"
+    assert "thinkingConfig" in client.payloads[0]["generationConfig"]
+    assert "thinkingConfig" not in client.payloads[1]["generationConfig"]
+
+
+def test_unrelated_400_is_not_retried():
+    body = '{"error":{"code":400,"message":"Request payload size exceeds the limit"}}'
+    client = _Seq((400, body))
+    with pytest.raises(RuntimeError) as exc:
+        _run(GeminiProvider("k", "m", thinking_budget=0), client)
+    assert "payload size" in str(exc.value)
+    assert len(client.payloads) == 1, "only thinkingConfig rejections retry"
+
+
+def test_api_key_is_not_in_the_url():
+    """httpx puts the URL in every exception message."""
+    client = _Seq((400, '{"error":"boom"}'))
+    with pytest.raises(RuntimeError) as exc:
+        _run(GeminiProvider("SECRET-KEY", "m", thinking_budget=None), client)
+    assert "SECRET-KEY" not in str(exc.value)

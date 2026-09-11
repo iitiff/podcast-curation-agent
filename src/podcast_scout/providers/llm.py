@@ -189,10 +189,44 @@ class GeminiProvider(BaseLLMProvider):
         if system_instruction:
             payload["systemInstruction"] = system_instruction
 
-        url = f"{self.BASE_URL}/{self.model}:generateContent?key={self.api_key}"
+        # Key in a header, not the query string: httpx puts the URL into every
+        # exception message, so a key in the URL lands in any log that records
+        # a failure.
+        url = f"{self.BASE_URL}/{self.model}:generateContent"
+        headers = {"x-goog-api-key": self.api_key}
+
         async with httpx.AsyncClient(timeout=120.0) as client:
-            resp = await client.post(url, json=payload)
-            resp.raise_for_status()
+            resp = await client.post(url, json=payload, headers=headers)
+
+            # One self-heal. thinkingConfig is generation-specific: a model that
+            # rejects the field fails EVERY request for the whole run, which
+            # surfaces only as universal metadata-only scoring. Retrying once
+            # without it costs a single request and converts a total outage
+            # into a logged degradation of one setting.
+            if (
+                resp.status_code == 400
+                and "thinkingconfig" in resp.text.lower()
+                and "thinkingConfig" in payload["generationConfig"]
+            ):
+                log.warning(
+                    "%s rejected thinkingConfig; retrying without it. Set "
+                    "GEMINI_THINKING_BUDGET=none to skip this retry on every call.",
+                    self.model,
+                )
+                del payload["generationConfig"]["thinkingConfig"]
+                resp = await client.post(url, json=payload, headers=headers)
+
+            # A 400 names the offending field in its body -- an unknown name, an
+            # unsupported model, a bad argument. raise_for_status() discards all
+            # of it and leaves only "Client error '400 Bad Request'", which is
+            # how one rejected field becomes an unexplained run of metadata-only
+            # scoring with nothing in the log to act on.
+            if resp.status_code >= 400:
+                detail = resp.text[:600].replace("\n", " ")
+                raise RuntimeError(
+                    f"Gemini {resp.status_code} for model {self.model}: {detail}"
+                )
+
             data = resp.json()
 
         usage = data.get("usageMetadata", {})
