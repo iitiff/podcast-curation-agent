@@ -1,13 +1,18 @@
 """Unit tests for the ranking engine."""
+import json
 from datetime import UTC, datetime
+
+import pytest
 
 from podcast_scout.config import PersonaConfig, Preferences
 from podcast_scout.normalize import NormalizedEpisode
 from podcast_scout.ranking import (
     RankedEpisode,
     RubricScore,
+    _build_item_block,
     build_daily_queue,
     stage1_metadata_score,
+    stage2_batch_rank,
 )
 
 
@@ -245,3 +250,128 @@ def test_listen_minutes_budget_ignores_articles():
 
     assert len(rss) == 1 and rss[0].episode.source_type == "podcast"
     assert len(reading) == 1
+
+
+# -- the rubric must not judge written sources on podcast-shaped fields ------
+
+def _written(source_type="research-paper", **kwargs):
+    return _make_ep(
+        guid=f"g-{source_type}",
+        show_title=kwargs.pop("show", "arXiv"),
+        episode_title="Goal arbitration in agent stacks",
+        description=kwargs.pop(
+            "description", "We formalise arbitration between competing objectives."
+        ),
+        duration_seconds=0,
+        source_type=source_type,
+        **kwargs,
+    )
+
+
+def _no_transcript():
+    from podcast_scout.summarization import TranscriptResult
+
+    return TranscriptResult(text="", confidence="low", source="none")
+
+
+def test_written_sources_declare_class_not_guests_and_duration():
+    """"GUESTS: unknown / DURATION: 0 min" on a paper invites a penalty for
+    something that was never missing."""
+    block = _build_item_block(0, _written(credibility="high"), _no_transcript())
+
+    assert "SOURCE CLASS: research-paper (credibility: high)" in block
+    assert "GUESTS:" not in block
+    assert "DURATION:" not in block
+
+
+def test_podcasts_keep_guests_and_duration():
+    block = _build_item_block(0, _make_ep(guests=["Ben"]), _no_transcript())
+
+    assert "GUESTS: Ben" in block
+    assert "DURATION: 60 min" in block
+    assert "SOURCE CLASS:" not in block
+
+
+def test_known_bias_reaches_the_prompt_for_vendor_material():
+    block = _build_item_block(
+        0,
+        _written(source_type="vendor", credibility="low",
+                 bias_notes="Vendor marketing; discount performance claims."),
+        _no_transcript(),
+    )
+
+    assert "credibility: low" in block
+    assert "KNOWN BIAS: Vendor marketing" in block
+
+
+def test_long_source_text_is_capped():
+    """An earnings exhibit carries thousands of words. The description path was
+    previously uncapped, which was only safe while every item was a podcast."""
+    huge = _written(description="x" * 50_000)
+    block = _build_item_block(0, huge, _no_transcript())
+
+    assert len(block) < 4_000
+
+
+class _CapturingLLM:
+    """Records the prompt it was given and returns a minimal valid response."""
+
+    def __init__(self, count: int) -> None:
+        self.prompts: list[str] = []
+        self.count = count
+
+    async def complete(self, messages, max_tokens=4096):
+        from podcast_scout.providers.base import LLMResponse
+
+        self.prompts.append("\n".join(m.content for m in messages))
+        body = json.dumps([
+            {
+                "rubric": {"relevance": 20},
+                "classification": "Read Summary Only",
+                "classification_reason": "stub",
+                "summary": "stub",
+                "key_ideas": [],
+                "implications": "",
+                "who_should_listen": "",
+                "summary_captures_value": "partial",
+                "listen_nuance": "",
+            }
+            for _ in range(self.count)
+        ])
+        return LLMResponse(content=body, input_tokens=1, output_tokens=1)
+
+
+async def _prompt_for(episodes):
+    llm = _CapturingLLM(len(episodes))
+    await stage2_batch_rank(
+        [(ep, _no_transcript()) for ep in episodes], _make_prefs(), llm
+    )
+    return llm.prompts[0]
+
+
+@pytest.mark.asyncio
+async def test_media_guidance_is_added_when_the_batch_is_not_all_podcasts():
+    prompt = await _prompt_for([_make_ep(), _written(source_type="vendor")])
+
+    assert "THIS BATCH MIXES MEDIA" in prompt
+    # The source-class weighting is the point: vendor claims must be discounted.
+    assert "vendor (low)" in prompt
+    assert "guest_authority -> AUTHOR authority" in prompt
+
+
+@pytest.mark.asyncio
+async def test_media_guidance_is_omitted_for_an_all_podcast_batch():
+    """The common case should not pay tokens for guidance it cannot use."""
+    prompt = await _prompt_for([_make_ep(), _make_ep(guid="g2")])
+
+    assert "THIS BATCH MIXES MEDIA" not in prompt
+
+
+@pytest.mark.asyncio
+async def test_the_prompt_no_longer_claims_every_item_is_a_podcast():
+    prompt = await _prompt_for([_written()])
+
+    assert "podcast episode(s)" not in prompt
+    # The confidence penalty must not fire on a written source for lacking a
+    # transcript -- the text is the source.
+    assert "Does NOT apply to a written source" in prompt

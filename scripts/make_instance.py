@@ -239,6 +239,10 @@ jobs:
           # Episodes per Stage 2 request. The main lever on request count,
           # which is what free-tier Gemini limits (20/minute).
           STAGE2_BATCH_SIZE: ${{{{ vars.STAGE2_BATCH_SIZE }}}}
+          # A contact address the SEC requires in the User-Agent, not a
+          # credential -- so a repository VARIABLE, visible and editable.
+          # Unset disables the earnings adapter rather than 403-looping.
+          SEC_USER_AGENT: ${{{{ vars.SEC_USER_AGENT }}}}
           PODCAST_INDEX_KEY: ${{{{ secrets.PODCAST_INDEX_KEY }}}}
           PODCAST_INDEX_SECRET: ${{{{ secrets.PODCAST_INDEX_SECRET }}}}
           WEB_SEARCH_API_KEY: ${{{{ secrets.WEB_SEARCH_API_KEY }}}}

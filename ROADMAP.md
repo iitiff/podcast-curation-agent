@@ -59,18 +59,39 @@ for earnings calls.
   `max_listen_fully` slots they could never fill, and `rss.py` then dropped
   them for want of an enclosure — publishing an empty feed.
 
+- **Earnings via SEC EDGAR.** The highest-value class. IR sites publish no
+  feed, but every US-listed company files its results as an 8-K tagged item
+  2.02 with the numbers in EX-99.1, so EDGAR is the feed they do not provide.
+- **Rubric generalised off podcast assumptions.** Written sources declare
+  their class and credibility instead of an empty guest list and a zero
+  duration, and the confidence penalty no longer fires on a paper for having
+  no transcript.
+
 ## Next
 
-1. **Earnings transcript adapter.** The highest-value class, and the one with
-   no RSS on most IR sites. Everything else in the radar is already reachable.
-2. **Generalise off podcast assumptions.** The rubric still scores
-   `learning_per_minute` and `listen_nuance`, so a paper is judged on
-   podcast-shaped fields.
+1. **Question-aware weekly synthesis** (Phase 2, below) — the last cadence
+   still regenerating opinions from scratch.
+2. **Corroboration links.** Earnings can now contradict a vendor claim, but
+   nothing yet *pairs* them. The Source pages exist; what is missing is the
+   pass that says "this filing contradicts that vendor post".
 
 Earnings before vendor blogs. A vendor blog asserting that agentic commerce is
 inevitable is a pattern source; a retailer's earnings call reporting that agent
 traffic did not convert is evidence. The design docs are explicit that vendor
 claims require corroboration, and earnings is the only class that provides it.
+
+## Sources
+
+| Class | Trust | Reached via |
+| --- | --- | --- |
+| `earnings-call` | high | SEC EDGAR, 8-K item 2.02 → EX-99.1 |
+| `research-paper` | high | arXiv and other research RSS |
+| `trade-press` | medium | publication RSS |
+| `vendor` | low | vendor blog RSS, off by default |
+
+EDGAR needs `SEC_USER_AGENT` set to a contact address — the SEC refuses
+undeclared requests and answers with a throttle page rather than an error, so
+the adapter disables itself rather than guessing one.
 
 ## Cadences
 

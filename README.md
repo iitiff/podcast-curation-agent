@@ -240,6 +240,33 @@ PAGES_BASE_URL          # e.g. https://iitiff.github.io/podcast-curation-agent
 
 > **GitHub Models is gone.** GitHub retired the product on 2026-07-30; the inference endpoint returns `410 Gone` and there is no replacement. Earlier revisions of this README described it as the free primary LLM — that is no longer true. Configure `GEMINI_API_KEY`, and ideally `LLM_FALLBACK_API_KEY` as well.
 
+### Earnings via SEC EDGAR
+
+The design docs rank earnings highest because it is the only class that can
+contradict vendor marketing. The obstacle was distribution: most IR sites
+publish no feed. EDGAR is the feed they do not provide — every US-listed
+company files quarterly results as an 8-K tagged item 2.02, with the numbers
+in exhibit EX-99.1.
+
+```yaml
+# config/sources.yaml
+edgar:
+  companies:
+    - name: "Walmart"
+      ticker: WMT      # or cik:
+      tags: [competitive, market]
+```
+
+```bash
+export SEC_USER_AGENT="Your Name (you@example.com)"
+```
+
+**`SEC_USER_AGENT` is required.** The SEC refuses requests that do not declare
+a contact address, and answers with a throttle page rather than an error — so
+the adapter disables itself when it is unset rather than inventing one. In the
+instance repo it is a repository *variable*, not a secret: it is a contact
+address, not a credential.
+
 ### Three cadences
 
 | When | What | Command |

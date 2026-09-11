@@ -16,6 +16,7 @@ from rich.table import Table
 from .brain import BrainStore, BrainWriteResult, Question, Thesis, slugify, write_to_brain
 from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
+from .edgar import fetch_earnings
 from .email_digest import SMTPConfig, build_email_html, send_digest
 from .normalize import Enclosure, NormalizedEpisode, clean_snippet, dedup_episodes
 from .providers.base import BaseLLMProvider
@@ -444,18 +445,34 @@ async def _run_pipeline(
     # Same shape as an episode minus an enclosure and a duration, so they flow
     # through the identical filter and are judged by the same evergreen rubric.
     # `is_playable` keeps them out of the audio feeds.
-    sources_cfg = load_sources(settings.config_dir)
+    sources_cfg = load_sources(settings.config_dir, sec_user_agent=settings.sec_user_agent)
     if open_questions:
         sources_cfg = sources_for_questions(open_questions, sources_cfg)
+
+    radar: list[NormalizedEpisode] = []
     if sources_cfg.sources:
-        articles = await fetch_articles(sources_cfg, settings.lookback_days)
-        if articles:
-            by_class: dict[str, int] = {}
-            for article in articles:
-                by_class[article.source_type] = by_class.get(article.source_type, 0) + 1
-            summary = ", ".join(f"{n} {cls}" for cls, n in sorted(by_class.items()))
-            console.print(f"Radar: {len(articles)} non-podcast item(s) — {summary}")
-            all_candidates.extend(articles)
+        radar.extend(await fetch_articles(sources_cfg, settings.lookback_days))
+    if sources_cfg.edgar.companies:
+        if not settings.sec_user_agent.strip():
+            console.print(
+                "[yellow]Earnings skipped: SEC_USER_AGENT is not set.[/yellow] The "
+                "SEC refuses undeclared requests, so the adapter does not guess a "
+                'contact. Set it to e.g. "Your Name (you@example.com)".'
+            )
+        else:
+            # Earnings runs on a longer window than the daily lookback: a company
+            # reports once a quarter, so a 2-day window would surface nothing on
+            # all but four days of the year.
+            radar.extend(
+                await fetch_earnings(sources_cfg.edgar, max(settings.lookback_days, 100))
+            )
+    if radar:
+        by_class: dict[str, int] = {}
+        for item in radar:
+            by_class[item.source_type] = by_class.get(item.source_type, 0) + 1
+        summary = ", ".join(f"{n} {cls}" for cls, n in sorted(by_class.items()))
+        console.print(f"Radar: {len(radar)} non-podcast item(s) — {summary}")
+        all_candidates.extend(radar)
 
     # 2. Dedup — only truly new episodes get LLM scoring
     new_episodes, _ = dedup_episodes(all_candidates, state.seen_guids())

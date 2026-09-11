@@ -21,6 +21,7 @@ from typing import Any
 import httpx
 import yaml
 
+from .edgar import EdgarConfig, parse_edgar_config
 from .feeds import parse_feed_entries
 from .normalize import NormalizedEpisode, utcnow
 
@@ -79,9 +80,13 @@ class ArticleSource:
 @dataclass
 class SourcesConfig:
     sources: list[ArticleSource] = field(default_factory=list)
+    # Earnings does not arrive by RSS -- most IR sites publish no feed at all --
+    # so it is configured as companies rather than URLs and fetched from EDGAR.
+    # See edgar.py.
+    edgar: EdgarConfig = field(default_factory=EdgarConfig)
 
 
-def load_sources(config_dir: Path) -> SourcesConfig:
+def load_sources(config_dir: Path, sec_user_agent: str = "") -> SourcesConfig:
     """Load config/sources.yaml. Absent file means podcasts only, as before."""
     path = config_dir / "sources.yaml"
     if not path.exists():
@@ -101,7 +106,10 @@ def load_sources(config_dir: Path) -> SourcesConfig:
         for item in raw.get("sources", [])
         if item.get("url")
     ]
-    return SourcesConfig(sources=sources)
+    return SourcesConfig(
+        sources=sources,
+        edgar=parse_edgar_config(raw, user_agent=sec_user_agent),
+    )
 
 
 async def fetch_articles(
@@ -242,5 +250,11 @@ def sources_for_questions(
     if not wanted:
         return config
     return SourcesConfig(
-        sources=[s for s in config.sources if s.source_type in wanted]
+        sources=[s for s in config.sources if s.source_type in wanted],
+        # Earnings is a source class like any other: if no open question calls
+        # for it, do not spend the requests. Carried explicitly because it does
+        # not live in the `sources` list the filter above walks.
+        edgar=config.edgar if "earnings-call" in wanted else EdgarConfig(
+            user_agent=config.edgar.user_agent
+        ),
     )

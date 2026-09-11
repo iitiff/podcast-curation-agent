@@ -152,6 +152,11 @@ class Settings:
         # Where the brain (durable markdown entity pages) lives. Empty disables
         # every brain write, so an instance that has not opted in is unaffected.
         self.brain_dir = Path(_env("BRAIN_DIR")) if _env("BRAIN_DIR") else None
+        # The SEC refuses requests that do not declare a contact address, and
+        # returns a throttle page rather than an error, so there is no sensible
+        # default here: an invented address would be both a policy breach and a
+        # silent failure. Unset simply disables the earnings adapter.
+        self.sec_user_agent = _env("SEC_USER_AGENT", "")
 
         # Briefing artifacts (index.html, latest.md, data/latest.json) are
         # written here, separately from public_dir which holds only the RSS XML
