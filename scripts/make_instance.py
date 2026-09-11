@@ -336,6 +336,12 @@ jobs:
       - name: Ask the API what this key can use
         env:
           GEMINI_API_KEY: ${{{{ secrets.GEMINI_API_KEY }}}}
+          GEMINI_STAGE2_MODEL: ${{{{ vars.GEMINI_STAGE2_MODEL }}}}
+          # The fallback is half of what this command checks; without these it
+          # silently reports "no fallback configured" no matter what is set.
+          LLM_FALLBACK_API_KEY: ${{{{ secrets.LLM_FALLBACK_API_KEY }}}}
+          LLM_FALLBACK_BASE_URL: ${{{{ vars.LLM_FALLBACK_BASE_URL }}}}
+          LLM_FALLBACK_MODEL: ${{{{ vars.LLM_FALLBACK_MODEL }}}}
         run: |
           if [ "${{{{ inputs.probe }}}}" = "false" ]; then
             podcast-scout llm-doctor --no-probe
