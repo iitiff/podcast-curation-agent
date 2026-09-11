@@ -303,9 +303,10 @@ def test_waiting_stops_once_a_backoff_proves_futile(monkeypatch):
 # ---------------------------------------------------------------------------
 
 def test_fallback_error_body_is_surfaced():
-    from podcast_scout.providers.llm import OpenAICompatibleProvider
     import asyncio
     from unittest.mock import patch
+
+    from podcast_scout.providers.llm import OpenAICompatibleProvider
 
     provider = OpenAICompatibleProvider(
         api_key="k", base_url="https://dead.example/v1",
