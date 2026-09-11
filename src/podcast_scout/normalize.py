@@ -38,6 +38,23 @@ class NormalizedEpisode(BaseModel):
     is_outside_feed: bool = False
     is_followed_show: bool = False
     category: str = ""
+    # What kind of thing this is. The pipeline was podcast-only, so everything
+    # downstream assumed audio; a trade-press article or a paper is the same
+    # shape minus an enclosure and a duration. Carried here so the brain can
+    # record it and the audio feeds can exclude what is not playable.
+    source_type: str = "podcast"
+    credibility: str = "medium"  # high | medium | low
+    bias_notes: str = ""
+
+    @property
+    def is_playable(self) -> bool:
+        """Does this belong in a podcast feed?
+
+        An item with no enclosure is not an episode: most podcast clients hide
+        it entirely, so publishing an article into an audio feed produces a row
+        that silently does nothing.
+        """
+        return self.source_type == "podcast" and self.enclosure is not None
 
     @property
     def duration_minutes(self) -> float:

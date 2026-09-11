@@ -66,10 +66,16 @@ def _to_source(ranked: RankedEpisode) -> Source:
     return Source(
         id=source_id,
         title=f"{ep.show_title}: {ep.episode_title}",
-        source_type="podcast",
+        # Carried from the item rather than assumed. The radar reaches beyond
+        # podcasts now, and a vendor blog recorded as a podcast would inherit
+        # the wrong credibility and the wrong bias note -- which is precisely
+        # the discount that makes vendor material usable as a pattern source.
+        source_type=ep.source_type,
         origin=ep.episode_url or ep.source_feed_url,
-        credibility="medium",
-        bias_notes=DEFAULT_PODCAST_BIAS,
+        credibility=ep.credibility,
+        bias_notes=ep.bias_notes or (
+            DEFAULT_PODCAST_BIAS if ep.source_type == "podcast" else ""
+        ),
         summary=ranked.summary,
         tags=[t for t in [ep.category] if t],
         visibility="personal",

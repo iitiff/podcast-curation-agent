@@ -1,0 +1,49 @@
+# ────────────────────────────────────────────────────────────────────
+# Non-podcast sources (EXAMPLE) — copy to sources.yaml
+#
+# The radar reaches here; the evergreen filter still judges everything that
+# comes back. Articles carry no audio, so they appear in the briefing and the
+# brain but never in the playable feeds.
+#
+# credibility and bias_notes default per source_type when omitted:
+#   earnings-call   high    the only class that can contradict vendor marketing
+#   research-paper  high    strong on mechanism, weak on production reality
+#   trade-press     medium  access-driven; amplifies whoever gave the interview
+#   vendor          low     pattern source only; discount performance claims
+# ────────────────────────────────────────────────────────────────────
+
+sources:
+  # ── Trade press ──────────────────────────────────────────────────
+  - name: "Modern Retail"
+    url: "https://www.modernretail.co/feed/"
+    source_type: trade-press
+    tags: [retail, ecommerce]
+    max_items_per_run: 5
+
+  - name: "Retail Dive"
+    url: "https://www.retaildive.com/feeds/news/"
+    source_type: trade-press
+    tags: [retail]
+
+  # ── Research ─────────────────────────────────────────────────────
+  # arXiv category feeds. cs.IR is information retrieval and recommender
+  # systems -- the closest thing to a decisioning-architecture firehose.
+  - name: "arXiv cs.IR"
+    url: "http://export.arxiv.org/rss/cs.IR"
+    source_type: research-paper
+    tags: [architecture, research]
+    max_items_per_run: 8
+
+  # ── Vendor ───────────────────────────────────────────────────────
+  # Kept deliberately, and deliberately discounted. Vendor writing is where
+  # a pattern shows up first and where the evidence for it is weakest.
+  - name: "Bloomreach Blog"
+    url: "https://www.bloomreach.com/en/blog/rss.xml"
+    source_type: vendor
+    tags: [personalization, vendor]
+    max_items_per_run: 3
+    enabled: false   # turn on once you want the pattern signal
+
+  # ── Earnings ─────────────────────────────────────────────────────
+  # The highest-value class and the hardest to feed: most IR sites have no RSS.
+  # Add a transcript aggregator feed here when you have one.
