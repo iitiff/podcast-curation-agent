@@ -264,19 +264,31 @@ def build_daily_queue(
     max_read_summary: int = 5,
     max_outside: int = 3,
     max_email_only: int = 10,
-) -> tuple[list[RankedEpisode], list[RankedEpisode]]:
-    """Split ranked episodes into RSS queue and email-only overflow.
+    max_reading: int = 5,
+) -> tuple[list[RankedEpisode], list[RankedEpisode], list[RankedEpisode]]:
+    """Split ranked items into the RSS queue, email-only overflow, and reading.
 
-    Returns (rss_queue, email_only).
-    Only "Listen Fully" episodes go into the RSS/Pocket Casts feed.
-    "Read Summary Only" episodes are always routed to email_only so the
-    listener's podcast app queue stays clean and playable.
-    rss_queue honours max_listen_fully, max_outside caps, and the total
-    listen-time budget (max_minutes). All remaining surfaced episodes go
-    into email_only, capped at max_email_only total entries.
+    Returns (rss_queue, email_only, reading).
+
+    Three tracks, because listening and reading are not interchangeable and
+    must not be funded from one pot:
+
+    * rss_queue    — playable podcast episodes only. Honours max_listen_fully,
+      max_outside, and the listen-time budget (max_minutes).
+    * email_only   — podcast episodes worth a summary but not a listen.
+    * reading      — everything the radar found that is not a podcast
+      (papers, trade press, earnings transcripts), under its own max_reading
+      cap.
+
+    Non-playable items used to fall through the "Listen Fully" path. They
+    cannot be listened to, and rss.py drops them for want of an <enclosure>,
+    so each one silently consumed a listening slot and left the feed short.
+    They also competed with podcasts for max_email_only, and a radar run
+    returning 18 articles could crowd the podcast summaries out entirely.
     """
     rss: list[RankedEpisode] = []
     email_only: list[RankedEpisode] = []
+    reading: list[RankedEpisode] = []
 
     listen_count = 0
     outside_count = 0
@@ -284,6 +296,14 @@ def build_daily_queue(
 
     for r in ranked:
         if r.classification == "Skip":
+            continue
+
+        # Anything without playable audio is a read, whatever the classifier
+        # called it. Its budget is separate in both directions: it can neither
+        # take a listening slot nor be pushed out of the brief by one.
+        if not getattr(r.episode, "is_playable", True):
+            if len(reading) < max_reading:
+                reading.append(r)
             continue
 
         # Read Summary Only → always email, never RSS
@@ -314,7 +334,7 @@ def build_daily_queue(
         if is_outside:
             outside_count += 1
 
-    return rss, email_only
+    return rss, email_only, reading
 
 
 def _build_episode_block(idx: int, ep: NormalizedEpisode, transcript: TranscriptResult) -> str:

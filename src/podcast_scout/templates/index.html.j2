@@ -103,6 +103,29 @@
 {% endfor %}
 {% endif %}
 
+{# Reading is its own section, not more queue entries. A paper cannot fill a
+   listening slot, and letting it try is what left the feed short. #}
+{% if reading %}
+<h2>📄 Reading — From the Radar ({{ reading|length }})</h2>
+<p style="color:#555;font-size:13px;margin:0 0 12px">Non-podcast sources picked up while chasing your open questions.</p>
+{% for r in reading %}
+<div class="ep">
+  <div class="ep-meta">
+    {{ r.episode.show_title }}
+    <span class="badge outside">{{ r.episode.source_type|replace('-', ' ') }}</span>
+    {% if r.episode.credibility %}<span class="score">· {{ r.episode.credibility }} trust</span>{% endif %}
+  </div>
+  <div class="ep-title">
+    {% if r.episode.episode_url %}<a href="{{ r.episode.episode_url }}" style="color:#1a1a1a;text-decoration:none">{{ r.episode.episode_title }}</a>{% else %}{{ r.episode.episode_title }}{% endif %}
+    <span class="score">— {{ r.score|round|int }}/100</span>
+  </div>
+  {% if r.summary %}<div class="ep-summary">{{ r.summary }}</div>{% endif %}
+  {% if r.episode.bias_notes %}<div class="ep-meta" style="font-style:italic">{{ r.episode.bias_notes }}</div>{% endif %}
+  {% if r.episode.episode_url %}<a class="listen-link" href="{{ r.episode.episode_url }}">Read original →</a>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
 {% if synthesis %}
 <h2>📊 Weekly Synthesis</h2>
 <div class="synthesis">
