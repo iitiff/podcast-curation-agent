@@ -1187,6 +1187,15 @@ def _fallback_doctor(settings: Settings, probe: bool) -> None:
         rows = payload.get("data", payload if isinstance(payload, list) else [])
         ids = [str(m.get("id", "")) for m in rows if isinstance(m, dict)]
         console.print(f"  {len(ids)} model(s) offered by this endpoint")
+        # Print candidates, not just a count. When the configured model turns
+        # out to be end-of-lifed, the replacement is already in this list and
+        # the operator should not have to go hunting for it.
+        chat_like = sorted(
+            i for i in ids
+            if any(k in i.lower() for k in ("instruct", "chat", "llama", "qwen", "mistral"))
+        )
+        if chat_like:
+            console.print("  chat-capable candidates: " + ", ".join(chat_like[:12]))
         # ":free" is an OpenRouter convention; surfacing it matters because the
         # whole point of a fallback here is to cost nothing.
         free = [i for i in ids if i.endswith(":free")]
@@ -1226,12 +1235,21 @@ def _fallback_doctor(settings: Settings, probe: bool) -> None:
 
     detail = resp.text[:200].replace("\n", " ")
     console.print(f"  [red]{resp.status_code}: {detail}[/red]")
-    if resp.status_code in (403, 410) and "nvidia" in base:
+    # Only guess when the endpoint has not already said what is wrong. A live
+    # 410 carried "the model has reached its end of life" in its body while
+    # this hint confidently blamed an org permission -- the third wrong
+    # explanation for that status in one session. The body wins.
+    if "end of life" in resp.text.lower() or '"detail"' in resp.text:
         console.print(
-            "  [yellow]NVIDIA returns this when the org lacks the 'Public API "
-            "Endpoints' permission. The URL is not the problem.[/yellow]"
+            "  [yellow]The endpoint explained itself above — take it at its "
+            "word rather than changing the base URL.[/yellow]"
         )
-    elif ids and model not in ids:
+    elif resp.status_code in (403, 410) and "nvidia" in base:
+        console.print(
+            "  [yellow]NVIDIA also returns 403/410 when the org lacks the "
+            "'Public API Endpoints' permission.[/yellow]"
+        )
+    if ids and model not in ids:
         console.print(
             f"  [yellow]{model} is not in this endpoint's model list — "
             "LLM_FALLBACK_MODEL likely needs to match one of the ids above."
