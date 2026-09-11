@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import os
 
 from .config import Preferences
 from .normalize import NormalizedEpisode
@@ -24,7 +25,14 @@ log = logging.getLogger(__name__)
 # output budget and came back truncated (or empty), so every unmatched episode
 # lost its summary and key ideas. A smaller batch means a shorter response, and
 # a truncation costs 3 episodes instead of 5.
-_BATCH_SIZE = 3
+#
+# That truncation was driven by thinking tokens being billed against
+# maxOutputTokens, which no longer applies on a model that omits thinkingConfig
+# -- so the 3 is conservative rather than load-bearing on newer models. It is
+# also the main lever on REQUEST COUNT, which is what free-tier Gemini actually
+# limits (20 requests/minute): 24 episodes is 8 calls at 3 per batch, but only 3
+# calls at 8. Raise it to trade truncation risk for rate-limit headroom.
+_BATCH_SIZE = int(os.getenv("STAGE2_BATCH_SIZE") or 3)
 
 
 async def process_episodes(

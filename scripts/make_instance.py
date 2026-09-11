@@ -220,6 +220,9 @@ jobs:
           GEMINI_STAGE2_MODEL: ${{{{ vars.GEMINI_STAGE2_MODEL }}}}
           LLM_FALLBACK_BASE_URL: ${{{{ vars.LLM_FALLBACK_BASE_URL }}}}
           LLM_FALLBACK_MODEL: ${{{{ vars.LLM_FALLBACK_MODEL }}}}
+          # Episodes per Stage 2 request. The main lever on request count,
+          # which is what free-tier Gemini limits (20/minute).
+          STAGE2_BATCH_SIZE: ${{{{ vars.STAGE2_BATCH_SIZE }}}}
           PODCAST_INDEX_KEY: ${{{{ secrets.PODCAST_INDEX_KEY }}}}
           PODCAST_INDEX_SECRET: ${{{{ secrets.PODCAST_INDEX_SECRET }}}}
           WEB_SEARCH_API_KEY: ${{{{ secrets.WEB_SEARCH_API_KEY }}}}
