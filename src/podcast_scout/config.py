@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass, field
+from importlib import resources
 from pathlib import Path
 from typing import Any
 
@@ -125,12 +126,37 @@ def _env(name: str, default: str = "") -> str:
     return (os.getenv(name) or "").strip() or default
 
 
+def _package_templates_dir() -> Path:
+    """Locate the Jinja templates shipped inside the installed package.
+
+    Resolved via importlib.resources rather than the working-directory-relative
+    "src/podcast_scout/templates". Once the engine is pip-installed as a
+    dependency of a separate instance repo, that relative path does not exist,
+    `templates_dir.exists()` is False, and the briefing silently stops being
+    rendered with no error.
+    """
+    return Path(str(resources.files("podcast_scout").joinpath("templates")))
+
+
 class Settings:
     def __init__(self) -> None:
         self.config_dir = Path(_env("CONFIG_DIR", "config"))
         self.data_dir = Path(_env("DATA_DIR", "data"))
         self.public_dir = Path(_env("PUBLIC_DIR", "public"))
-        self.templates_dir = Path("src/podcast_scout/templates")
+
+        # Where the brain (durable markdown entity pages) lives. Empty disables
+        # every brain write, so an instance that has not opted in is unaffected.
+        self.brain_dir = Path(_env("BRAIN_DIR")) if _env("BRAIN_DIR") else None
+
+        # Briefing artifacts (index.html, latest.md, data/latest.json) are
+        # written here, separately from public_dir which holds only the RSS XML
+        # that gets published. Defaults to public_dir so existing single-repo
+        # deployments behave exactly as before.
+        self.briefing_dir = Path(_env("BRIEFING_DIR")) if _env("BRIEFING_DIR") else self.public_dir
+
+        self.templates_dir = (
+            Path(_env("TEMPLATES_DIR")) if _env("TEMPLATES_DIR") else _package_templates_dir()
+        )
 
         # GITHUB_TOKEN is still read because the workflow uses it for git
         # commit/push, but it is NO LONGER an LLM credential: GitHub Models was

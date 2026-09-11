@@ -80,3 +80,53 @@ def test_fallback_prefers_generic_over_legacy_name(monkeypatch):
     monkeypatch.setenv("LLM_FALLBACK_API_KEY", "generic")
     monkeypatch.setenv("NVIDIA_API_KEY", "legacy")
     assert Settings().fallback_api_key == "generic"
+
+
+# ---------------------------------------------------------------------------
+# Engine/instance split: output directories and packaged templates
+# ---------------------------------------------------------------------------
+
+def test_briefing_dir_defaults_to_public_dir(monkeypatch):
+    """Unset BRIEFING_DIR must behave exactly as before the split."""
+    from podcast_scout.config import Settings
+
+    monkeypatch.delenv("BRIEFING_DIR", raising=False)
+    monkeypatch.setenv("PUBLIC_DIR", "public")
+    assert Settings().briefing_dir == Settings().public_dir
+
+
+def test_briefing_dir_separates_from_public_dir(monkeypatch):
+    """The briefing describes how the reader thinks and must stay unpublished."""
+    from podcast_scout.config import Settings
+
+    monkeypatch.setenv("PUBLIC_DIR", "feeds")
+    monkeypatch.setenv("BRIEFING_DIR", "briefing")
+    settings = Settings()
+    assert settings.public_dir.name == "feeds"
+    assert settings.briefing_dir.name == "briefing"
+    assert settings.public_dir != settings.briefing_dir
+
+
+def test_brain_dir_is_none_unless_set(monkeypatch):
+    """An instance that has not opted into the brain must be unaffected."""
+    from podcast_scout.config import Settings
+
+    monkeypatch.delenv("BRAIN_DIR", raising=False)
+    assert Settings().brain_dir is None
+    monkeypatch.setenv("BRAIN_DIR", "brain")
+    assert Settings().brain_dir is not None
+
+
+def test_templates_resolve_to_an_absolute_packaged_path(monkeypatch):
+    """Templates must resolve via the package, not relative to the cwd.
+
+    A cwd-relative path silently fails once the engine is pip-installed into a
+    separate instance repo: templates_dir.exists() is False and the briefing
+    stops rendering with no error.
+    """
+    from podcast_scout.config import Settings
+
+    monkeypatch.delenv("TEMPLATES_DIR", raising=False)
+    templates = Settings().templates_dir
+    assert templates.is_absolute()
+    assert (templates / "index.html.j2").exists()

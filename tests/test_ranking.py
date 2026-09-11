@@ -4,24 +4,26 @@ from datetime import datetime, timezone
 
 from podcast_scout.normalize import NormalizedEpisode
 from podcast_scout.ranking import RubricScore, stage1_metadata_score
-from podcast_scout.config import Preferences
+from podcast_scout.config import PersonaConfig, Preferences
 
 
 def _make_prefs(**kwargs) -> Preferences:
-    data = {
-        "persona": {"role": "strategy director", "focus": "AI, retail", "seniority": "senior", "preferred_depth": "deep"},
-        "interests": {"ai_strategy": 1.0, "ecommerce": 0.8},
-        "show_priors": {},
-        "guest_watchlist": [],
-        "competitor_watchlist": [],
-        "topic_exclusions": [],
-        "length": {},
-        "classification": {},
-        "output_caps": {},
-        "feed": {},
-    }
-    data.update(kwargs)
-    return Preferences.model_validate(data)
+    """Build a Preferences for tests.
+
+    Preferences is a dataclass (not a pydantic model), so it is constructed
+    directly rather than via model_validate; every field already carries a
+    default_factory, so only the overrides under test need to be supplied.
+    """
+    persona = kwargs.pop(
+        "persona",
+        {
+            "role": "strategy director",
+            "focus": "AI, retail",
+            "seniority": "senior",
+            "preferred_depth": "deep",
+        },
+    )
+    return Preferences(persona=PersonaConfig(**persona), **kwargs)
 
 
 def _make_ep(**kwargs) -> NormalizedEpisode:

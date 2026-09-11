@@ -1,6 +1,6 @@
 """Unit tests for state manager."""
 import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
@@ -10,6 +10,17 @@ from podcast_scout.state import EpisodeRecord, StateManager
 
 def _make_state(tmp_path: Path) -> StateManager:
     return StateManager(tmp_path)
+
+
+def _days_ago(n: int) -> datetime:
+    """A timestamp n days before now.
+
+    Carryover is filtered against a lookback window measured from the current
+    time, so fixtures must be relative. Hardcoded calendar dates pass when
+    written and silently start failing once wall-clock time moves past the
+    window.
+    """
+    return datetime.now(timezone.utc) - timedelta(days=n)
 
 
 def test_seen_guids_empty_initial(tmp_path):
@@ -157,8 +168,8 @@ def test_playlisted_episodes_excluded_from_carryover(tmp_path):
             guid=guid,
             show_title="Test Show",
             episode_title=f"Episode {guid}",
-            published=datetime(2026, 7, 28, tzinfo=timezone.utc),
-            processed_at=datetime(2026, 7, 28, tzinfo=timezone.utc),
+            published=_days_ago(2),
+            processed_at=_days_ago(2),
             score=score,
             classification="Listen Fully",
         ))
@@ -337,8 +348,8 @@ def test_carryover_restores_insights(tmp_path):
         guid="carried",
         show_title="Some Show",
         episode_title="Some Episode",
-        published=datetime(2026, 8, 4, tzinfo=timezone.utc),
-        processed_at=datetime(2026, 8, 4, tzinfo=timezone.utc),
+        published=_days_ago(5),
+        processed_at=_days_ago(5),
         score=68.0,
         classification="Read Summary Only",
         classification_reason="Solid but not top tier.",

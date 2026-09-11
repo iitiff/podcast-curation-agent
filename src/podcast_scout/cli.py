@@ -14,6 +14,7 @@ import yaml
 from rich.console import Console
 from rich.table import Table
 
+from .brain import BrainStore, BrainWriteResult, Thesis, write_to_brain
 from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
@@ -562,6 +563,26 @@ async def _run_pipeline(
         _print_summary_table(rss_queue, email_only)
         return {"queued": len(rss_queue), "email_only": len(email_only), "errors": {}}
 
+    # 8b. Brain: write admitted signals as Source pages and test them against
+    # the falsifiers of every active thesis. Skipped entirely when BRAIN_DIR is
+    # unset, so an instance that has not opted in runs exactly as before.
+    brain_result: BrainWriteResult | None = None
+    if settings.brain_dir is not None:
+        try:
+            brain_result = await write_to_brain(all_surfaced, settings.brain_dir, llm)
+        except Exception as exc:
+            # The brain is additive. A failure here must never cost the reader
+            # their daily brief.
+            log.warning("Brain write failed: %s", exc)
+        else:
+            challenges = len(brain_result.challenges)
+            console.print(
+                f"Brain: {len(brain_result.sources_written)} new source(s), "
+                f"{brain_result.evidence_appended} evidence link(s), "
+                f"[{'yellow' if challenges else 'dim'}]{challenges} challenge(s) "
+                f"to active theses[/]"
+            )
+
     # 9. Write outputs
     settings.public_dir.mkdir(parents=True, exist_ok=True)
     base_url = prefs.feed.base_url or settings.pages_base_url
@@ -591,7 +612,13 @@ async def _run_pipeline(
     (settings.public_dir / "listen.xml").write_text(listen_xml, encoding="utf-8")
     (settings.public_dir / "all.xml").write_text(all_xml, encoding="utf-8")
 
-    data_dir = settings.public_dir / "data"
+    # Briefing artifacts go to briefing_dir, NOT public_dir. public_dir holds
+    # only the RSS XML that is published to GitHub Pages; index.html,
+    # latest.md and latest.json describe how the reader thinks (scores,
+    # rejected items, synthesis) and stay in the private instance repo.
+    # briefing_dir defaults to public_dir, so single-repo setups are unchanged.
+    settings.briefing_dir.mkdir(parents=True, exist_ok=True)
+    data_dir = settings.briefing_dir / "data"
     data_dir.mkdir(exist_ok=True)
     latest_json: dict[str, object] = {
         "run_date": run_date,
@@ -605,17 +632,21 @@ async def _run_pipeline(
     if settings.templates_dir.exists():
         render_briefing(
             templates_dir=settings.templates_dir,
-            output_path=settings.public_dir / "index.html",
+            output_path=settings.briefing_dir / "index.html",
             queued=rss_queue,
             email_only=email_only,
             synthesis=synthesis,
             run_date=run_date,
             feed_url=f"{base_url}/listen.xml" if base_url else "",
             all_feed_url=f"{base_url}/all.xml" if base_url else "",
+            hits=brain_result.hits if brain_result else None,
         )
 
-    md = render_markdown(rss_queue, email_only, synthesis, run_date)
-    (settings.public_dir / "latest.md").write_text(md, encoding="utf-8")
+    md = render_markdown(
+        rss_queue, email_only, synthesis, run_date,
+        hits=brain_result.hits if brain_result else None,
+    )
+    (settings.briefing_dir / "latest.md").write_text(md, encoding="utf-8")
 
     # 10. Mark queued episodes as published in state.
     # Note: add_to_playlist is already called inside build_category_feed for
@@ -656,6 +687,7 @@ async def _run_pipeline(
             html_body = build_email_html(
                 new_queued, new_extra, run_date, feed_url,
                 accumulated_week=accumulated_this_week,
+                challenges=brain_result.challenges if brain_result else None,
             )
             subject = f"Your Podcast Scout — {run_date} ({len(new_queued)} queued)"
             try:
@@ -908,4 +940,171 @@ def rescore(
             f"[dim]Or trigger the workflow manually with lookback_days="
             f"{needed_lookback}. A normal run (lookback "
             f"{settings.lookback_days}) will silently skip anything older.[/dim]"
+        )
+
+
+# ---------------------------------------------------------------------------
+# brain — durable entity pages, theses, and the falsifier watch
+# ---------------------------------------------------------------------------
+
+# Seeded as DRAFTS, deliberately. These are the candidate theses from the OS
+# design docs, not the reader's own beliefs. A thesis nobody wrote by hand is
+# not a belief, and the falsifier watch is only as honest as the falsifier --
+# so each ships with confidence Low and a TODO the reader must resolve.
+_SEED_THESES: list[dict[str, str]] = [
+    {
+        "id": "thesis-personalization-as-decision-system",
+        "title": "Personalization is becoming a decision system",
+        "statement": (
+            "Personalization is becoming a decision system, not a recommendation feature."
+        ),
+        "falsifier": (
+            "Sustained evidence that teams shipping discrete recommendation features "
+            "match the business outcomes of teams that rebuilt around a central "
+            "decision layer, at comparable scale."
+        ),
+    },
+    {
+        "id": "thesis-intent-over-segmentation",
+        "title": "Evolving intent is replacing static segmentation",
+        "statement": (
+            "The fundamental unit of personalization is evolving intent rather than "
+            "static segmentation."
+        ),
+        "falsifier": (
+            "Segment-based systems continuing to win head-to-head tests against "
+            "sequence/intent models once cost and latency are held constant."
+        ),
+    },
+    {
+        "id": "thesis-objectives-constrain-not-micromanage",
+        "title": "Business objectives should constrain, not micromanage",
+        "statement": (
+            "Business objectives should constrain optimization without micromanaging "
+            "customer-level decisions."
+        ),
+        "falsifier": (
+            "Evidence that explicit per-decision business rules outperform "
+            "constrained optimization on both margin and customer retention."
+        ),
+    },
+    {
+        "id": "thesis-agents-collapse-surface-boundaries",
+        "title": "AI agents collapse the search/rec/merch boundary",
+        "statement": (
+            "AI agents may collapse the boundary between search, recommendation, "
+            "merchandising, and marketing."
+        ),
+        "falsifier": (
+            "Agentic surfaces plateauing as a thin routing layer over unchanged "
+            "underlying systems, with no reorganization of the teams behind them."
+        ),
+    },
+]
+
+_THESIS_BODY = """## Reasoning
+
+_TODO: why do you believe this? Write it in your own words before the brain
+starts attaching evidence to it._
+
+## Evidence
+
+## Counter-evidence
+
+## Implications
+
+_TODO: what changes if this is true?_
+
+## Decisions
+
+_TODO: what would you do differently?_
+"""
+
+
+@main.group()
+def brain() -> None:
+    """Manage the durable brain (theses, sources, patterns, companies)."""
+
+
+@brain.command("init")
+@click.option("--seed/--no-seed", default=True, help="Write draft theses to edit.")
+def brain_init(seed: bool) -> None:
+    """Create the brain directory structure at $BRAIN_DIR."""
+    settings = Settings()
+    if settings.brain_dir is None:
+        console.print(
+            "[red]BRAIN_DIR is not set.[/red] Point it at the brain directory, e.g.\n"
+            "  [cyan]BRAIN_DIR=brain podcast-scout brain init[/cyan]"
+        )
+        raise SystemExit(1)
+
+    store = BrainStore(settings.brain_dir)
+    store.ensure_dirs()
+    console.print(f"[green]Brain scaffolded at {settings.brain_dir}[/green]")
+
+    if seed:
+        created = 0
+        for spec in _SEED_THESES:
+            path = store.path_for("Thesis", spec["id"])
+            if path.exists():
+                continue
+            store.save(
+                Thesis(
+                    id=spec["id"],
+                    title=spec["title"],
+                    statement=spec["statement"],
+                    falsifier=spec["falsifier"],
+                    confidence="Low",
+                    status="active",
+                    tags=["draft"],
+                    body=_THESIS_BODY,
+                )
+            )
+            created += 1
+        console.print(f"[green]Seeded {created} draft thesis page(s).[/green]")
+        if created:
+            console.print(
+                "[yellow]These are drafts from the design docs, not your beliefs.[/yellow]\n"
+                "Edit the statement and especially the [bold]falsifier[/bold] of each one — "
+                "the falsifier watch is only as honest as what you write there."
+            )
+
+    index = store.build_index()
+    console.print(f"Indexed {index['count']} page(s) → {settings.brain_dir / 'index.json'}")
+
+
+@brain.command("status")
+def brain_status() -> None:
+    """Show active theses, their confidence, and whether they can be falsified."""
+    settings = Settings()
+    if settings.brain_dir is None:
+        console.print("[red]BRAIN_DIR is not set.[/red]")
+        raise SystemExit(1)
+
+    theses = BrainStore(settings.brain_dir).load_theses(active_only=True)
+    if not theses:
+        console.print("[yellow]No active theses. Run 'podcast-scout brain init'.[/yellow]")
+        return
+
+    table = Table(title=f"Active theses ({len(theses)})")
+    table.add_column("Thesis", style="bold", max_width=44)
+    table.add_column("Confidence")
+    table.add_column("Falsifier?")
+    table.add_column("Updated")
+    for thesis in theses:
+        has_falsifier = bool(thesis.falsifier.strip())
+        table.add_row(
+            thesis.title,
+            thesis.confidence,
+            "[green]yes[/green]" if has_falsifier else "[red]MISSING[/red]",
+            thesis.updated_at.strftime("%Y-%m-%d"),
+        )
+    console.print(table)
+
+    unfalsifiable = [t for t in theses if not t.falsifier.strip()]
+    if unfalsifiable:
+        console.print(
+            f"\n[red]{len(unfalsifiable)} thesis/theses have no falsifier.[/red] "
+            "They can only ever accumulate confirmation — the watch will never "
+            "flag anything against them."
         )
