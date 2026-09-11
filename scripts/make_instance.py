@@ -297,7 +297,18 @@ jobs:
           git clone --depth 1 --branch gh-pages "$REMOTE" pages \\
             || git clone --depth 1 "$REMOTE" pages
           cd pages
-          git checkout gh-pages 2>/dev/null || git checkout --orphan gh-pages
+          if git checkout gh-pages 2>/dev/null; then
+            echo "Publishing onto the existing gh-pages branch."
+          else
+            # Creating gh-pages: the clone above fetched the DEFAULT branch, and
+            # `checkout --orphan` keeps that working tree, so without this the
+            # whole repo -- README, workflows, and any stale briefing files
+            # still committed under public/ -- lands on gh-pages alongside the
+            # feeds. Clear it so the branch holds only what is published.
+            git checkout --orphan gh-pages
+            git rm -rf --cached . >/dev/null 2>&1 || true
+            find . -maxdepth 1 ! -name . ! -name .git -exec rm -rf {{}} +
+          fi
           # Never `rm -rf *` here: a run that generated no feeds would wipe
           # every live feed URL. Copy over the top instead.
           cp ../public/*.xml .
