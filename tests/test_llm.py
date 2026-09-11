@@ -408,3 +408,26 @@ def test_resolution_is_attempted_only_once():
         _run_compat(provider, client)
     assert provider._model_resolved is True
     assert len(client.payloads) == 2, "must not loop re-resolving"
+
+
+def test_code_models_are_never_chosen_as_a_chat_replacement():
+    """A live run picked meta/codellama-70b to replace llama-3.3-70b-instruct
+    purely on the shared 'meta' prefix, then 404'd on every call."""
+    provider = _compat("meta/llama-3.3-70b-instruct")
+    client = _SeqWithModels(
+        (410, _EOL), (200, {"choices": [{"message": {"content": "ok"}}], "usage": {}}),
+        models=["meta/codellama-70b", "meta/llama-4-maverick-instruct"],
+    )
+    _run_compat(provider, client)
+    assert provider.model == "meta/llama-4-maverick-instruct"
+
+
+def test_instruct_model_beats_a_closer_family_match():
+    """Following a rubric prompt matters more than sharing a vendor prefix."""
+    provider = _compat("meta/llama-3.3-70b-instruct")
+    client = _SeqWithModels(
+        (410, _EOL), (200, {"choices": [{"message": {"content": "ok"}}], "usage": {}}),
+        models=["meta/llama-4-base", "qwen/qwen3-32b-instruct"],
+    )
+    _run_compat(provider, client)
+    assert provider.model == "qwen/qwen3-32b-instruct"

@@ -306,7 +306,13 @@ class GeminiProvider(BaseLLMProvider):
 # Substrings that mark a model as unsuitable for the strict JSON-array contract
 # stage2_batch_rank depends on. Embeddings and rerankers do not chat at all;
 # vision and audio variants cost more for no benefit here.
-_NON_CHAT_HINTS = ("embed", "rerank", "vision", "image", "audio", "tts", "whisper", "guard")
+_NON_CHAT_HINTS = (
+    "embed", "rerank", "vision", "image", "audio", "tts", "whisper", "guard",
+    # Code-specialised models answer a rubric prompt poorly. A live run replaced
+    # a retired llama-3.3-70b-instruct with meta/codellama-70b purely because
+    # both start with "meta", and every call then 404'd anyway.
+    "code", "coder", "starcoder",
+)
 
 
 async def _resolve_live_model(
@@ -348,11 +354,15 @@ async def _resolve_live_model(
 
     family = current.split("/")[-1].split("-")[0].lower()
 
-    def rank(model_id: str) -> tuple[int, int, str]:
+    def rank(model_id: str) -> tuple[int, int, int, str]:
         lowered = model_id.lower()
         return (
-            0 if family and family in lowered else 1,   # same family first
-            0 if lowered.endswith(":free") else 1,      # then free variants
+            # General-purpose first. Family resemblance is a weaker signal than
+            # being an instruct/chat model at all: the whole job here is to
+            # follow a rubric prompt and emit a JSON array.
+            0 if ("instruct" in lowered or "chat" in lowered) else 1,
+            0 if family and family in lowered else 1,
+            0 if lowered.endswith(":free") else 1,
             model_id,
         )
 

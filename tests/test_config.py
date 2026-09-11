@@ -129,3 +129,29 @@ def test_templates_resolve_to_an_absolute_packaged_path(monkeypatch):
     templates = Settings().templates_dir
     assert templates.is_absolute()
     assert (templates / "index.html.j2").exists()
+
+
+def test_provider_named_key_wins_over_the_generic_one(monkeypatch):
+    """An OPENROUTER_API_KEY added to replace a broken setup must take effect.
+
+    A live run kept using NVIDIA because a stale LLM_FALLBACK_API_KEY was still
+    set, so the newly added provider key was silently ignored.
+    """
+    from podcast_scout.config import Settings
+
+    monkeypatch.setenv("LLM_FALLBACK_API_KEY", "stale-nvidia")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "new-openrouter")
+    monkeypatch.delenv("LLM_FALLBACK_BASE_URL", raising=False)
+    monkeypatch.delenv("NVIDIA_BASE_URL", raising=False)
+    s = Settings()
+    assert s.fallback_api_key == "new-openrouter"
+    assert "openrouter" in s.fallback_base_url
+    assert s.fallback_provider_name == "OpenRouter"
+
+
+def test_explicit_base_url_still_overrides(monkeypatch):
+    from podcast_scout.config import Settings
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.setenv("LLM_FALLBACK_BASE_URL", "https://custom.example/v1")
+    assert Settings().fallback_base_url == "https://custom.example/v1"

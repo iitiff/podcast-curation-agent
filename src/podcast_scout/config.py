@@ -200,16 +200,21 @@ class Settings:
         # ignored while the run reports "no fallback configured" -- the failure
         # is invisible precisely when the fallback is needed.
         self.openrouter_api_key = _env("OPENROUTER_API_KEY")
+        # Provider-specific first. Naming a provider's key is a deliberate act
+        # that carries its endpoint with it, whereas the generic name is
+        # whatever was set last and may still hold a superseded provider --
+        # which is exactly what happened here: an OPENROUTER_API_KEY added to
+        # replace a broken NVIDIA setup lost to the stale generic key.
         self.fallback_api_key = (
-            _env("LLM_FALLBACK_API_KEY")
-            or self.openrouter_api_key
+            self.openrouter_api_key
+            or _env("LLM_FALLBACK_API_KEY")
             or _env("NVIDIA_API_KEY")
         )
         # Each provider's key implies its own endpoint, so a key set on its own
         # works without also having to know the base URL.
         _implied_base = (
             "https://openrouter.ai/api/v1"
-            if self.openrouter_api_key and not _env("LLM_FALLBACK_API_KEY")
+            if self.openrouter_api_key
             else "https://integrate.api.nvidia.com/v1"
         )
         self.fallback_base_url = (
