@@ -459,6 +459,35 @@ async def _run_pipeline(
             category_ranked.sort(key=lambda item: item.score, reverse=True)
         newly_ranked[category] = category_ranked
 
+    # 5b. Abort if an LLM was configured but every episode still degraded to
+    # metadata-only scoring.
+    #
+    # This check MUST stay above the state write below. Metadata-floor scores
+    # (50.0) cannot reach the 75-point "Listen Fully" threshold, so a fully
+    # degraded run publishes nothing -- but persisting it marks every episode
+    # as seen, so tomorrow they are deduped out and never re-scored. The feed
+    # then stays frozen until someone runs `podcast-scout rescore`. That is the
+    # exact failure described in _make_llm()'s docstring. Failing here leaves
+    # state untouched, so the next run simply retries.
+    #
+    # Partial degradation is not fatal: a few truncated batch entries are
+    # normal and the surviving scores are still worth publishing.
+    if llm is not None:
+        fresh = [r for cat_ranked in newly_ranked.values() for r in cat_ranked]
+        degraded = [r for r in fresh if "metadata fallback" in r.classification_reason]
+        if fresh and len(degraded) == len(fresh):
+            console.print(
+                f"\n[red]LLM RUN FAILED: all {len(fresh)} episode(s) fell back to "
+                f"metadata-only scoring.[/red]\n"
+                "Every score is at the floor, so this run would surface nothing.\n"
+                "[yellow]State was NOT written — the next run will retry these "
+                "episodes.[/yellow]\n"
+                "Check the provider errors above (quota, auth, or rate limit). "
+                "Setting LLM_FALLBACK_API_KEY gives each call a second provider "
+                "to try before giving up."
+            )
+            raise SystemExit(2)
+
     # 6. Persist new scores to state BEFORE carry-over so we don't re-LLM them tomorrow
     from .normalize import utcnow
     for cat_ranked in newly_ranked.values():

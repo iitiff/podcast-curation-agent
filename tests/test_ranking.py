@@ -71,3 +71,54 @@ def test_rubric_total_not_negative():
         generic_penalty=-15, confidence_penalty=-15,
     )
     assert r.total >= 0
+
+
+# ---------------------------------------------------------------------------
+# Total LLM degradation must fail the run BEFORE state is persisted.
+#
+# Metadata-floor scores cannot reach the "Listen Fully" threshold, so a fully
+# degraded run surfaces nothing. Persisting it would mark every episode as
+# seen, deduping them out of tomorrow's run and freezing the feed until
+# someone runs `rescore`.
+# ---------------------------------------------------------------------------
+
+_FALLBACK_REASON = "LLM batch entry missing; metadata fallback"
+
+
+def _ranked(reason: str, score: float = 50.0):
+    from podcast_scout.ranking import RankedEpisode
+
+    return RankedEpisode(
+        episode=_make_ep(), score=score, rubric=RubricScore(),
+        classification="Skip", classification_reason=reason,
+    )
+
+
+def _all_degraded(newly_ranked: dict, llm_configured: bool = True) -> bool:
+    """Mirror of the guard in cli._run_pipeline."""
+    if not llm_configured:
+        return False
+    fresh = [r for cat in newly_ranked.values() for r in cat]
+    degraded = [r for r in fresh if "metadata fallback" in r.classification_reason]
+    return bool(fresh) and len(degraded) == len(fresh)
+
+
+def test_total_degradation_is_detected():
+    assert _all_degraded({"ai_retail": [_ranked(_FALLBACK_REASON)] * 3}) is True
+
+
+def test_partial_degradation_is_not_fatal():
+    """A few truncated entries are normal; surviving scores are still useful."""
+    batch = {"ai_retail": [_ranked(_FALLBACK_REASON), _ranked("Strong relevance", 82.0)]}
+    assert _all_degraded(batch) is False
+
+
+def test_no_llm_configured_does_not_trip_the_guard():
+    """Metadata-only is the expected mode with no LLM, not a failure."""
+    batch = {"ai_retail": [_ranked(_FALLBACK_REASON)] * 2}
+    assert _all_degraded(batch, llm_configured=False) is False
+
+
+def test_empty_run_does_not_trip_the_guard():
+    """Nothing discovered is not the same as everything failing."""
+    assert _all_degraded({"ai_retail": []}) is False
