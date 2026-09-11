@@ -155,3 +155,28 @@ def test_explicit_base_url_still_overrides(monkeypatch):
     monkeypatch.setenv("OPENROUTER_API_KEY", "k")
     monkeypatch.setenv("LLM_FALLBACK_BASE_URL", "https://custom.example/v1")
     assert Settings().fallback_base_url == "https://custom.example/v1"
+
+
+def test_openrouter_key_matched_by_name_shape(monkeypatch):
+    """Enumerating spellings failed three times before the real secret name
+    (OPEN_ROUTER_API) was known. Match the shape instead."""
+    from podcast_scout.config import Settings
+
+    for name in ("LLM_FALLBACK_API_KEY", "NVIDIA_API_KEY", "LLM_FALLBACK_BASE_URL"):
+        monkeypatch.delenv(name, raising=False)
+    for variant in ("OPEN_ROUTER_API", "OPENROUTER_API_KEY", "OpenRouter_Key", "OPEN_ROUTER"):
+        monkeypatch.setenv(variant, "k")
+        s = Settings()
+        assert s.fallback_api_key == "k", f"{variant} must be recognised"
+        assert "openrouter" in s.fallback_base_url
+        monkeypatch.delenv(variant, raising=False)
+
+
+def test_unrelated_vars_are_not_mistaken_for_a_key(monkeypatch):
+    from podcast_scout.config import Settings
+
+    for name in ("LLM_FALLBACK_API_KEY", "NVIDIA_API_KEY"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("ROUTER_CONFIG", "x")
+    monkeypatch.setenv("OPEN_FILES", "y")
+    assert Settings().fallback_api_key == ""

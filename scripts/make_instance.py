@@ -218,6 +218,9 @@ jobs:
           OPEN_ROUTER_API_KEY: ${{{{ secrets.OPEN_ROUTER_API_KEY }}}}
           OPENROUTER_KEY: ${{{{ secrets.OPENROUTER_KEY }}}}
           OPENROUTER_API: ${{{{ secrets.OPENROUTER_API }}}}
+          OPEN_ROUTER_API: ${{{{ secrets.OPEN_ROUTER_API }}}}
+          OPEN_ROUTER_KEY: ${{{{ secrets.OPEN_ROUTER_KEY }}}}
+          OPEN_ROUTER: ${{{{ secrets.OPEN_ROUTER }}}}
           OPENROUTER: ${{{{ secrets.OPENROUTER }}}}
           # Model selection lives in repository VARIABLES, not secrets: a model
           # name is not a credential, and keeping it visible and editable
@@ -355,6 +358,9 @@ jobs:
           OPEN_ROUTER_API_KEY: ${{{{ secrets.OPEN_ROUTER_API_KEY }}}}
           OPENROUTER_KEY: ${{{{ secrets.OPENROUTER_KEY }}}}
           OPENROUTER_API: ${{{{ secrets.OPENROUTER_API }}}}
+          OPEN_ROUTER_API: ${{{{ secrets.OPEN_ROUTER_API }}}}
+          OPEN_ROUTER_KEY: ${{{{ secrets.OPEN_ROUTER_KEY }}}}
+          OPEN_ROUTER: ${{{{ secrets.OPEN_ROUTER }}}}
           OPENROUTER: ${{{{ secrets.OPENROUTER }}}}
           LLM_FALLBACK_BASE_URL: ${{{{ vars.LLM_FALLBACK_BASE_URL }}}}
           LLM_FALLBACK_MODEL: ${{{{ vars.LLM_FALLBACK_MODEL }}}}

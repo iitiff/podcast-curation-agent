@@ -203,15 +203,18 @@ class Settings:
         # and "OpenRouter API key" has no single obvious casing. Getting this
         # wrong is invisible: the run reports "no fallback configured" while a
         # perfectly good secret sits unread.
+        # Match by shape rather than an enumerated list. Guessing the exact
+        # casing failed three times in a row -- OPENROUTER_API_KEY,
+        # OPEN_ROUTER_API_KEY and OPENROUTER_API were all wired before the
+        # actual secret turned out to be OPEN_ROUTER_API. Any variable whose
+        # name contains "openrouter" or "open_router" and holds a value counts,
+        # so no further spelling can be missed.
         self.openrouter_key_name = ""
         self.openrouter_api_key = ""
-        for name in (
-            "OPENROUTER_API_KEY", "OPEN_ROUTER_API_KEY",
-            "OPENROUTER_KEY", "OPENROUTER_API", "OPENROUTER",
-        ):
-            value = _env(name)
-            if value:
-                self.openrouter_key_name, self.openrouter_api_key = name, value
+        for name in sorted(os.environ):
+            flat = name.upper().replace("_", "")
+            if "OPENROUTER" in flat and _env(name):
+                self.openrouter_key_name, self.openrouter_api_key = name, _env(name)
                 break
         # Provider-specific first. Naming a provider's key is a deliberate act
         # that carries its endpoint with it, whereas the generic name is
