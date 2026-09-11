@@ -61,9 +61,39 @@ Copy from this repo's existing Actions secrets:
 `GEMINI_API_KEY`, `LLM_FALLBACK_API_KEY`, `PODCAST_INDEX_KEY`,
 `PODCAST_INDEX_SECRET`, `WEB_SEARCH_API_KEY`, `SMTP_*`, `PAGES_BASE_URL`.
 
-Then add one new secret, `PAGES_PUSH_TOKEN`: a fine-grained PAT scoped to
-**only this public repo** with `Contents: read and write`. It lets the private
-run push feeds here. Nothing else needs it.
+Then add one new secret, `PAGES_DEPLOY_KEY`, so the private run can push feeds
+into this repo.
+
+Generate the keypair **on your own machine** — the private half must never be
+pasted into a chat, an issue, or anywhere but the secret:
+
+```bash
+ssh-keygen -t ed25519 -C "podcast-scout pages publish" -f ~/.ssh/podcast_pages_key -N ""
+```
+
+1. **Public half** (`~/.ssh/podcast_pages_key.pub`) → this repo →
+   Settings → Deploy keys → Add deploy key. Title it `podcast-scout publish`
+   and **tick "Allow write access"**.
+2. **Private half** (`~/.ssh/podcast_pages_key`) → the private repo →
+   Settings → Secrets and variables → Actions → New repository secret,
+   named `PAGES_DEPLOY_KEY`. Paste the whole file, `-----BEGIN` through
+   `-----END` inclusive.
+
+Verify before relying on it:
+
+```bash
+ssh -i ~/.ssh/podcast_pages_key -o IdentitiesOnly=yes -T git@github.com
+```
+
+Expect `Hi iitiff/podcast-curation-agent! You've successfully authenticated,
+but GitHub does not provide shell access.` Anything else means the key is not
+attached correctly.
+
+Why a deploy key and not a personal access token: it is bound to this one
+repository rather than carrying your account-wide identity, and it does not
+expire — a PAT's expiry turns into a red daily run months later. Note that
+GitHub allows a given key to be a deploy key on only one repository, so
+generate a fresh one rather than reusing an existing key.
 
 ### 5. Point GitHub Pages at a branch
 
