@@ -86,6 +86,7 @@ claims require corroboration, and earnings is the only class that provides it.
 | --- | --- | --- |
 | `earnings-call` | high | SEC EDGAR, 8-K item 2.02 → EX-99.1 |
 | `research-paper` | high | arXiv and other research RSS |
+| `engineering-blog` | high | first-party engineering blog RSS |
 | `trade-press` | medium | publication RSS |
 | `vendor` | low | vendor blog RSS, off by default |
 
