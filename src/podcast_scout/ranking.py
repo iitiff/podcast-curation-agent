@@ -132,7 +132,7 @@ def _parse_llm_json(raw: str) -> dict[str, Any]:
         except json.JSONDecodeError:
             pass
     try:
-        import json_repair  # type: ignore
+        import json_repair
         repaired: dict[str, Any] = json_repair.loads(text)
         return repaired
     except Exception:
@@ -166,7 +166,7 @@ def _parse_llm_json_array(raw: str) -> list[Any]:
         except json.JSONDecodeError:
             pass
     try:
-        import json_repair  # type: ignore
+        import json_repair
         repaired: list[Any] = json_repair.loads(text)
         if isinstance(repaired, list):
             return repaired

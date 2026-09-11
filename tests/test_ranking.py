@@ -1,10 +1,9 @@
 """Unit tests for the ranking engine."""
-import pytest
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
+from podcast_scout.config import PersonaConfig, Preferences
 from podcast_scout.normalize import NormalizedEpisode
 from podcast_scout.ranking import RubricScore, stage1_metadata_score
-from podcast_scout.config import PersonaConfig, Preferences
 
 
 def _make_prefs(**kwargs) -> Preferences:
@@ -34,7 +33,7 @@ def _make_ep(**kwargs) -> NormalizedEpisode:
         "show_title": "Test Show",
         "episode_title": "Episode About AI Strategy",
         "description": "Deep dive into AI strategy for retailers",
-        "published": datetime(2025, 1, 15, tzinfo=timezone.utc),
+        "published": datetime(2025, 1, 15, tzinfo=UTC),
         "duration_seconds": 3600,
     }
     base.update(kwargs)

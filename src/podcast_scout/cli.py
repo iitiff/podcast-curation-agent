@@ -5,7 +5,6 @@ import asyncio
 import json
 import logging
 import os
-import re
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
@@ -20,6 +19,7 @@ from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
 from .normalize import Enclosure, NormalizedEpisode, clean_snippet, dedup_episodes
 from .providers.base import BaseLLMProvider
+
 # NOTE: GitHubModelsProvider is intentionally NOT imported — GitHub Models was
 # permanently retired 2026-07-30 (returns 410 Gone). See _make_llm() below.
 from .providers.llm import (
@@ -461,7 +461,7 @@ async def _run_pipeline(
 
     # 6. Persist new scores to state BEFORE carry-over so we don't re-LLM them tomorrow
     from .normalize import utcnow
-    for category, cat_ranked in newly_ranked.items():
+    for cat_ranked in newly_ranked.values():
         for r in cat_ranked:
             state.mark_processed(EpisodeRecord(
                 guid=r.episode.guid,

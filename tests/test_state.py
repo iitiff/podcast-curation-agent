@@ -1,9 +1,6 @@
 """Unit tests for state manager."""
-import tempfile
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
-
-import pytest
 
 from podcast_scout.state import EpisodeRecord, StateManager
 
@@ -20,7 +17,7 @@ def _days_ago(n: int) -> datetime:
     written and silently start failing once wall-clock time moves past the
     window.
     """
-    return datetime.now(timezone.utc) - timedelta(days=n)
+    return datetime.now(UTC) - timedelta(days=n)
 
 
 def test_seen_guids_empty_initial(tmp_path):
@@ -34,8 +31,8 @@ def test_mark_processed_and_seen(tmp_path):
         guid="guid-1",
         show_title="Test Show",
         episode_title="Ep 1",
-        published=datetime(2025, 1, 1, tzinfo=timezone.utc),
-        processed_at=datetime(2025, 1, 2, tzinfo=timezone.utc),
+        published=datetime(2025, 1, 1, tzinfo=UTC),
+        processed_at=datetime(2025, 1, 2, tzinfo=UTC),
         score=75.0,
         classification="Listen Fully",
     )
@@ -49,8 +46,8 @@ def test_state_persists_after_save_load(tmp_path):
         guid="guid-persist",
         show_title="Show",
         episode_title="Ep",
-        published=datetime(2025, 1, 1, tzinfo=timezone.utc),
-        processed_at=datetime(2025, 1, 2, tzinfo=timezone.utc),
+        published=datetime(2025, 1, 1, tzinfo=UTC),
+        processed_at=datetime(2025, 1, 2, tzinfo=UTC),
         score=80.0,
         classification="Read Summary Only",
     )
@@ -209,8 +206,8 @@ def _rec(guid, score, classification="Read Summary Only", processed_day=4):
         guid=guid,
         show_title="Show",
         episode_title=f"Ep {guid}",
-        published=datetime(2026, 8, processed_day, tzinfo=timezone.utc),
-        processed_at=datetime(2026, 8, processed_day, tzinfo=timezone.utc),
+        published=datetime(2026, 8, processed_day, tzinfo=UTC),
+        processed_at=datetime(2026, 8, processed_day, tzinfo=UTC),
         score=score,
         classification=classification,
     )
@@ -296,8 +293,8 @@ def test_episode_record_persists_llm_insights(tmp_path):
         guid="rich",
         show_title="The a16z Show",
         episode_title="OpenAI's Joshua Achiam",
-        published=datetime(2026, 8, 5, tzinfo=timezone.utc),
-        processed_at=datetime(2026, 8, 5, tzinfo=timezone.utc),
+        published=datetime(2026, 8, 5, tzinfo=UTC),
+        processed_at=datetime(2026, 8, 5, tzinfo=UTC),
         score=77.0,
         classification="Listen Fully",
         classification_reason="High relevance to AI/emerging tech.",

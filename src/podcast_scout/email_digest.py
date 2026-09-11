@@ -208,7 +208,8 @@ def send_digest(
     # (non-breaking space) pasted from a rich-text editor into SMTP_TO or
     # SMTP_USER fails the compat32 BytesGenerator that both as_bytes() and
     # send_message() use internally — even when switching to send_message().
-    _clean = lambda s: s.encode("ascii", "ignore").decode("ascii").strip()
+    def _clean(s: str) -> str:
+        return s.encode("ascii", "ignore").decode("ascii").strip()
 
     msg = MIMEMultipart("alternative")
     # Encode subject as RFC 2047 UTF-8 so emoji and non-ASCII don't crash

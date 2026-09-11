@@ -3,7 +3,6 @@ import pytest
 
 from podcast_scout.providers.llm import GeminiProvider, _extract_gemini_text
 
-
 # ---------------------------------------------------------------------------
 # Gemini response extraction.
 #

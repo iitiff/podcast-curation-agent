@@ -16,7 +16,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import re
-from datetime import datetime, timezone, timedelta
+from datetime import UTC, datetime, timedelta
 
 import httpx
 
@@ -78,7 +78,7 @@ async def _fetch_followed_show_via_podcast_index(
         for r in hits:
             # Use the published_timestamp from Podcast Index if available
             if r.published_timestamp:
-                pub = datetime.fromtimestamp(r.published_timestamp, tz=timezone.utc)
+                pub = datetime.fromtimestamp(r.published_timestamp, tz=UTC)
             else:
                 pub = utcnow()
             if pub < cutoff:

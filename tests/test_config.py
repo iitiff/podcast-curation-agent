@@ -3,7 +3,6 @@ import pytest
 
 from podcast_scout.config import Settings, _env
 
-
 # ---------------------------------------------------------------------------
 # _env() strips surrounding whitespace.
 #
