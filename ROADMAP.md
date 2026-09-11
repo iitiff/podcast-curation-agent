@@ -47,33 +47,50 @@ for earnings calls.
 - **Unplanned but load-bearing.** CI (did not exist); nine LLM resilience
   fixes; `llm-doctor`; the degradation guard that stops a failed run from
   freezing the feed.
+- **Phase 3 — Question-driven, multi-source radar.** Questions generate
+  discovery queries alongside the evergreen seeds; source classes
+  (`earnings-call`, `research-paper`, `trade-press`, `vendor`) each carry
+  their own credibility and bias notes; the question's tags decide which
+  classes are reached for.
+- **Three cadences.** Daily brief, weekly synthesis on Fridays, monthly
+  *State of My Thinking* over the brain (`podcast-scout brain review`).
+- **Separate reading and listening budgets.** Non-podcast items get their own
+  `max_reading` cap and their own Stage-2 allowance. Previously they consumed
+  `max_listen_fully` slots they could never fill, and `rss.py` then dropped
+  them for want of an enclosure — publishing an empty feed.
 
-## Next — Phase 3: question-driven, multi-source radar
+## Next
 
-Reordered ahead of Phase 2 deliberately. Synthesis over a podcast-only corpus
-is synthesis over the wrong corpus.
-
-1. **Questions generate discovery queries**, alongside the evergreen seeds
-   rather than replacing them.
-2. **Source adapters** — trade press RSS, vendor blogs, research feeds,
-   earnings transcripts — each carrying its own `credibility` and
-   `bias_notes`.
-3. **Question-aware source selection** — the question's tags decide which
-   adapters are reached for.
-4. **Generalise off podcast assumptions** — `source_type` is currently a
-   hardcoded constant; the rubric still scores `learning_per_minute` and
-   `listen_nuance`.
+1. **Earnings transcript adapter.** The highest-value class, and the one with
+   no RSS on most IR sites. Everything else in the radar is already reachable.
+2. **Generalise off podcast assumptions.** The rubric still scores
+   `learning_per_minute` and `listen_nuance`, so a paper is judged on
+   podcast-shaped fields.
 
 Earnings before vendor blogs. A vendor blog asserting that agentic commerce is
 inevitable is a pattern source; a retailer's earnings call reporting that agent
 traffic did not convert is evidence. The design docs are explicit that vendor
 claims require corroboration, and earnings is the only class that provides it.
 
+## Cadences
+
+| When | What | Command |
+| --- | --- | --- |
+| Mon–Fri | Daily brief and feeds | `podcast-scout run` |
+| Fri | Adds the weekly cross-episode synthesis | `podcast-scout run --synthesis` |
+| 1st of the month | *State of My Thinking* over the brain | `podcast-scout brain review` |
+
+The monthly review is the only one that reads the brain rather than a window
+of the feed. The weekly says what the week added up to; the monthly asks
+whether anything actually changed in what you believe, which needs the
+accumulated findings under each open question.
+
 ## Later
 
-- **Phase 2 — Question-aware synthesis.** Weekly synthesis reads open
-  questions instead of regenerating opinions from scratch; proposes updates as
-  pull requests so a person still decides.
+- **Phase 2 — Question-aware synthesis.** The weekly synthesis still
+  regenerates opinions from scratch; it should read the open questions the way
+  the monthly review does, and propose updates as pull requests so a person
+  still decides.
 - **Phase 4 — Judgment gym.** `executive-challenge`,
   `product-strategy-review`, `L7-case-interview` as prompt assets. Cheap, no
   infrastructure.

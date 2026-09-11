@@ -3,7 +3,12 @@ from datetime import UTC, datetime
 
 from podcast_scout.config import PersonaConfig, Preferences
 from podcast_scout.normalize import NormalizedEpisode
-from podcast_scout.ranking import RubricScore, stage1_metadata_score
+from podcast_scout.ranking import (
+    RankedEpisode,
+    RubricScore,
+    build_daily_queue,
+    stage1_metadata_score,
+)
 
 
 def _make_prefs(**kwargs) -> Preferences:
@@ -164,3 +169,79 @@ def test_guard_still_silent_when_one_stage2_call_succeeded():
 def test_guard_silent_when_nothing_reached_stage2():
     batch = {"ai_retail": [_ranked("stage1 only", 44.0)]}
     assert _attempted_all_degraded(batch) is False
+
+
+# -- budget separation: reading must not draw on the listening budget --------
+
+def _queue_item(
+    classification: str,
+    score: float,
+    source_type: str = "podcast",
+    duration: int = 3600,
+    **kwargs,
+) -> RankedEpisode:
+    from podcast_scout.normalize import Enclosure
+
+    enclosure = (
+        Enclosure(url="https://cdn.example.com/a.mp3", mime_type="audio/mpeg", length=1)
+        if source_type == "podcast"
+        else None
+    )
+    ep = _make_ep(
+        guid=f"guid-{score}-{source_type}-{kwargs.pop('n', 0)}",
+        source_type=source_type,
+        duration_seconds=duration,
+        enclosure=enclosure,
+        **kwargs,
+    )
+    return RankedEpisode(
+        episode=ep, score=score, rubric=RubricScore(), classification=classification
+    )
+
+
+def test_articles_never_take_a_listening_slot():
+    """A paper scored "Listen Fully" must not consume max_listen_fully.
+
+    rss.py drops enclosure-less items from the feed, so before the split each
+    one silently shrank the published queue.
+    """
+    items = [
+        _queue_item("Listen Fully", 95.0, source_type="research-paper", duration=0, n=1),
+        _queue_item("Listen Fully", 94.0, source_type="trade-press", duration=0, n=2),
+        _queue_item("Listen Fully", 80.0, n=3),
+        _queue_item("Listen Fully", 78.0, n=4),
+    ]
+    rss, email_only, reading = build_daily_queue(items, max_listen_fully=2)
+
+    assert [r.score for r in rss] == [80.0, 78.0]
+    assert all(r.episode.is_playable for r in rss)
+    assert len(reading) == 2
+    assert not email_only
+
+
+def test_articles_do_not_crowd_out_podcast_summaries():
+    """max_reading is a separate pot from max_email_only."""
+    items = [
+        _queue_item("Listen Fully", 90.0 - i, source_type="research-paper", duration=0, n=i)
+        for i in range(12)
+    ] + [_queue_item("Read Summary Only", 60.0, n=99)]
+
+    _, email_only, reading = build_daily_queue(
+        items, max_reading=3, max_email_only=5
+    )
+
+    assert len(reading) == 3
+    # The podcast summary survives even though 12 articles outscored it.
+    assert [r.episode.guid for r in email_only] == ["guid-60.0-podcast-99"]
+
+
+def test_listen_minutes_budget_ignores_articles():
+    """Zero-duration articles must not be what exhausts the minute budget."""
+    items = [
+        _queue_item("Listen Fully", 99.0, source_type="trade-press", duration=0, n=1),
+        _queue_item("Listen Fully", 70.0, duration=3600, n=2),
+    ]
+    rss, _, reading = build_daily_queue(items, max_minutes=60.0, max_listen_fully=5)
+
+    assert len(rss) == 1 and rss[0].episode.source_type == "podcast"
+    assert len(reading) == 1

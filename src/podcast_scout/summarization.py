@@ -41,6 +41,7 @@ async def process_episodes(
     llm: BaseLLMProvider,
     transcription: BaseTranscriptionProvider,
     max_deep_process: int = 15,
+    max_deep_articles: int = 10,
     # Raised 3000 -> 5000. Each episode's object carries a 13-field rubric, a
     # 100-200 word summary, 3 key ideas, implications and several prose fields;
     # 3000 left no headroom once Gemini's overhead was included.
@@ -58,12 +59,22 @@ async def process_episodes(
         s1 = stage1_metadata_score(ep, prefs)
         s1_results.append((ep, s1))
 
-    # Sort by Stage 1 score, take top candidates for deep processing
+    # Sort by Stage 1 score, take top candidates for deep processing.
+    #
+    # Podcasts and articles draw from separate allowances. Stage 2 is the
+    # scarce resource (free-tier Gemini is capped per day, not per token), and
+    # a radar run returning 18 papers and trade-press items would otherwise
+    # outrank and starve the podcast feed the tool exists to produce.
     s1_results.sort(key=lambda x: x[1].score, reverse=True)
-    deep_candidates = [
-        ep for ep, s1 in s1_results
-        if s1.should_deep_process
-    ][:max_deep_process]
+    eligible = [ep for ep, s1 in s1_results if s1.should_deep_process]
+    podcasts = [ep for ep in eligible if ep.source_type == "podcast"]
+    articles = [ep for ep in eligible if ep.source_type != "podcast"]
+    # Re-sorted into one list so batching still groups the highest scorers
+    # together; the caps above are what keeps the two tracks independent.
+    chosen = {
+        ep.guid for ep in podcasts[:max_deep_process] + articles[:max_deep_articles]
+    }
+    deep_candidates = [ep for ep in eligible if ep.guid in chosen]
 
     deep_guids = {ep.guid for ep in deep_candidates}
     ranked: list[RankedEpisode] = []

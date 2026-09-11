@@ -58,6 +58,11 @@ class OutputCapsConfig:
     max_read_summary: int = 5
     max_outside_feed: int = 3
     max_total_surfaced: int = 10
+    # Non-podcast radar items (papers, trade press, earnings transcripts) get
+    # their own allowance rather than sharing the podcast caps above. Kept
+    # deliberately small: the radar answers open questions, it does not become
+    # the brief.
+    max_reading: int = 5
 
 
 @dataclass
@@ -316,6 +321,7 @@ def load_preferences(config_dir: Path) -> Preferences:
             boundary_override_max=cls.get("boundary_override_max", 5.0),
         ),
         output_caps=OutputCapsConfig(
+            max_reading=caps.get("max_reading", 5),
             max_listen_fully=caps.get("max_listen_fully", 3),
             max_read_summary=caps.get("max_read_summary", 5),
             max_outside_feed=caps.get("max_outside_feed", 3),

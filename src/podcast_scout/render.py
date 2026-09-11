@@ -29,12 +29,14 @@ def render_briefing(
     all_feed_url: str = "",
     hits: list[FalsifierHit] | None = None,
     question_hits: list[QuestionHit] | None = None,
+    reading: list[RankedEpisode] | None = None,
 ) -> None:
     env = _build_env(templates_dir)
     tmpl = env.get_template("index.html.j2")
     html = tmpl.render(
         queued=queued,
         email_only=email_only,
+        reading=reading or [],
         synthesis=synthesis,
         run_date=run_date,
         feed_url=feed_url,
@@ -54,6 +56,7 @@ def render_markdown(
     run_date: str,
     hits: list[FalsifierHit] | None = None,
     question_hits: list[QuestionHit] | None = None,
+    reading: list[RankedEpisode] | None = None,
 ) -> str:
     lines = [f"# Podcast Scout — {run_date}\n"]
 
@@ -106,6 +109,25 @@ def render_markdown(
             lines.append(f"- **{ep.show_title}: {ep.episode_title}** (Score {r.score:.0f}) — {(r.summary or ep.description)[:150]}...")
             if ep.episode_url:
                 lines.append(f"  [Link]({ep.episode_url})")
+        lines.append("")
+
+    # The reading track sits below the queue and above the synthesis. It is
+    # deliberately a separate section rather than more entries in the queue:
+    # papers and trade press answer open questions, and mixing them into a
+    # listening queue is what let them take slots they could never fill.
+    if reading:
+        lines.append("## 📄 Reading — from the radar\n")
+        for r in reading:
+            ep = r.episode
+            label = ep.source_type.replace("-", " ")
+            trust = f", {ep.credibility} trust" if ep.credibility else ""
+            lines.append(f"- **{ep.episode_title}** ({label}{trust}) — {ep.show_title}")
+            if r.summary:
+                lines.append(f"  {r.summary[:200]}")
+            if ep.bias_notes:
+                lines.append(f"  _{ep.bias_notes}_")
+            if ep.episode_url:
+                lines.append(f"  [Read →]({ep.episode_url})")
         lines.append("")
 
     if synthesis:

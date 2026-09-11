@@ -59,6 +59,10 @@ output_caps:
   max_read_summary: 5
   max_outside_feed: 3
   max_total_surfaced: 10
+  # Non-podcast radar items (papers, trade press, earnings transcripts) are
+  # budgeted separately from the caps above: they can neither take a listening
+  # slot they could never fill, nor push podcast summaries out of the brief.
+  max_reading: 5
 
 # Shows you follow, and how much to trust each by default (0.0–1.0).
 # Substring match against the show title; 0.5 is the default for anything absent.

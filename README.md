@@ -115,6 +115,8 @@ believe, and what would change my mind".
 export BRAIN_DIR=brain
 podcast-scout brain init      # scaffold + seed draft theses
 podcast-scout brain status    # confidence and falsifier coverage
+podcast-scout brain ask "..." # add an open question
+podcast-scout brain review    # monthly "State of My Thinking"
 ```
 
 Each Thesis page carries a **falsifier**: the evidence that would change your
@@ -238,9 +240,19 @@ PAGES_BASE_URL          # e.g. https://iitiff.github.io/podcast-curation-agent
 
 > **GitHub Models is gone.** GitHub retired the product on 2026-07-30; the inference endpoint returns `410 Gone` and there is no replacement. Earlier revisions of this README described it as the free primary LLM — that is no longer true. Configure `GEMINI_API_KEY`, and ideally `LLM_FALLBACK_API_KEY` as well.
 
-### Weekly synthesis
+### Three cadences
 
-Run with `podcast-scout run --synthesis`. Generates a cross-episode insight report appended to the briefing; schedule it from the instance repo.
+| When | What | Command |
+| --- | --- | --- |
+| Mon–Fri | Daily brief and feeds | `podcast-scout run` |
+| Fri | Adds the weekly cross-episode synthesis | `podcast-scout run --synthesis` |
+| 1st of the month | *State of My Thinking* over the brain | `podcast-scout brain review` |
+
+All three are scheduled from the instance repo; `make_instance.py` writes the
+workflows. The weekly is a synthesis of what arrived. The monthly is the only
+one that reads the **brain** rather than a window of the feed: it takes each
+open question with the findings attached to it and asks whether the evidence
+actually moved, which is a question a week of episodes cannot answer.
 
 ---
 
