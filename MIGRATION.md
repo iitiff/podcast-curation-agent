@@ -104,29 +104,40 @@ expire — a PAT's expiry turns into a red daily run months later. Note that
 GitHub allows a given key to be a deploy key on only one repository, so
 generate a fresh one rather than reusing an existing key.
 
-### 5. Point GitHub Pages at a branch
+### 5. Verify a green run
 
-The private repo pushes feeds to this repo's `gh-pages` branch instead of
-uploading a Pages artifact.
+Run the private repo's workflow manually (`workflow_dispatch`).
+
+**First with `dry run = true`.** This ranks and prints without writing files,
+sending email, or publishing, so it proves config and secrets load correctly
+with nothing at stake. Confirm:
+
+- [ ] the run completes green
+- [ ] the log does NOT show "No GEMINI_API_KEY ... metadata-only ranking"
+- [ ] episodes are discovered and scored
+
+**Then for real** (`dry run = false`). Confirm:
+
+- [ ] `public/*.xml` was pushed to this repo's `gh-pages` branch
+- [ ] the email digest arrived
+- [ ] `data/state.json` and `brain/` were committed in the private repo
+- [ ] `briefing/index.html` exists **in the private repo only**
+
+### 6. Point GitHub Pages at a branch
+
+Do this AFTER step 5, not before: `gh-pages` does not exist until the first
+real run creates it, and the Pages source dropdown only lists branches that
+already exist.
 
 **Settings → Pages → Source: Deploy from a branch → `gh-pages` / root.**
 
 Feed URLs do not change (`…github.io/podcast-curation-agent/ai-retail.xml`), so
 FeedBurner and existing subscribers are unaffected.
 
-### 6. Verify a green run
+Until this switch, the live feeds are still served by the old Actions-artifact
+deploy from `main`, so nothing breaks in the gap.
 
-Run the private repo's workflow manually (`workflow_dispatch`), first with
-**dry run = true**, then for real. Confirm:
-
-- [ ] the run completes green
-- [ ] `public/*.xml` was pushed to this repo's `gh-pages`
-- [ ] the live feed URLs still resolve and show recent episodes
-- [ ] the email digest arrived
-- [ ] `data/state.json` and `brain/` were committed in the private repo
-- [ ] `briefing/index.html` exists **in the private repo only**
-
-### 7. Cut over this repo (destructive — only after step 6)
+### 7. Cut over this repo (destructive — only after steps 5 and 6)
 
 ```bash
 git rm -r --cached config/preferences.yaml config/shows.yaml \
