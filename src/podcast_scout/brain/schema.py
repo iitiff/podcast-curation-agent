@@ -169,6 +169,23 @@ class Source(BrainPage):
     summary: str = ""
 
 
+class Question(BrainPage):
+    """An open question you are tracking.
+
+    A lighter primitive than Thesis, and for most people a more honest one. A
+    thesis asks you to commit to a belief and author a falsifier for it; a
+    question asks only what you want to know. Both direct the watch at
+    something, but a question carries no maintenance debt -- and an unmaintained
+    thesis is worse than none, because it accumulates supporting evidence and
+    starts to look like rigor.
+    """
+
+    type: str = "Question"
+    question: str = ""
+    why: str = ""
+    status: str = "open"  # open | answered | parked
+
+
 class Pattern(BrainPage):
     type: str = "Pattern"
     domain: str = ""

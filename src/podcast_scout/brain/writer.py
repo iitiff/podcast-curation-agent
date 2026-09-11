@@ -8,7 +8,13 @@ from pydantic import BaseModel, Field
 
 from ..providers.base import BaseLLMProvider
 from ..ranking import RankedEpisode
-from .falsifier import FalsifierHit, SignalInput, check_falsifiers
+from .falsifier import (
+    FalsifierHit,
+    QuestionHit,
+    SignalInput,
+    check_falsifiers,
+    check_questions,
+)
 from .schema import Source
 from .store import BrainStore, source_id_for
 
@@ -26,11 +32,17 @@ DEFAULT_PODCAST_BIAS = (
 class BrainWriteResult(BaseModel):
     sources_written: list[str] = Field(default_factory=list)
     hits: list[FalsifierHit] = Field(default_factory=list)
+    question_hits: list[QuestionHit] = Field(default_factory=list)
     evidence_appended: int = 0
+    findings_appended: int = 0
 
     @property
     def challenges(self) -> list[FalsifierHit]:
         return [h for h in self.hits if h.is_challenge]
+
+    @property
+    def notable_questions(self) -> list[QuestionHit]:
+        return [h for h in self.question_hits if h.is_notable]
 
 
 def _to_source(ranked: RankedEpisode) -> Source:
@@ -104,9 +116,27 @@ async def write_to_brain(
             )
         )
 
+    # Questions and theses are independent: a brain may run on either, both, or
+    # neither. Neither is required for Sources to be written.
+    questions = store.load_questions(open_only=True)
+    if questions:
+        result.question_hits = await check_questions(questions, signals, llm)
+        for qhit in result.question_hits:
+            if qhit.strength == "weak":
+                continue
+            rel = source_paths.get(qhit.signal_id)
+            link = f"../sources/{rel.name}" if rel else ""
+            line = (
+                f"- {qhit.signal_id[:10]} — [{qhit.signal_title}]({link}) — "
+                f"{qhit.takeaway} _({qhit.relation}, {qhit.strength})_"
+            )
+            if store.append_finding(qhit.question_id, line):
+                result.findings_appended += 1
+
     theses = store.load_theses(active_only=True)
     if not theses:
-        log.info("No active theses in brain; skipping falsifier check.")
+        if not questions:
+            log.info("No open questions or active theses; skipping the watch.")
         store.build_index()
         return result
 

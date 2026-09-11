@@ -13,7 +13,7 @@ import yaml
 from rich.console import Console
 from rich.table import Table
 
-from .brain import BrainStore, BrainWriteResult, Thesis, write_to_brain
+from .brain import BrainStore, BrainWriteResult, Question, Thesis, slugify, write_to_brain
 from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
@@ -621,6 +621,7 @@ async def _run_pipeline(
             console.print(
                 f"Brain: {len(brain_result.sources_written)} new source(s), "
                 f"{brain_result.evidence_appended} evidence link(s), "
+                f"{brain_result.findings_appended} finding(s), "
                 f"[{'yellow' if challenges else 'dim'}]{challenges} challenge(s) "
                 f"to active theses[/]"
             )
@@ -682,11 +683,13 @@ async def _run_pipeline(
             feed_url=f"{base_url}/listen.xml" if base_url else "",
             all_feed_url=f"{base_url}/all.xml" if base_url else "",
             hits=brain_result.hits if brain_result else None,
+            question_hits=brain_result.question_hits if brain_result else None,
         )
 
     md = render_markdown(
         rss_queue, email_only, synthesis, run_date,
         hits=brain_result.hits if brain_result else None,
+        question_hits=brain_result.question_hits if brain_result else None,
     )
     (settings.briefing_dir / "latest.md").write_text(md, encoding="utf-8")
 
@@ -1115,6 +1118,49 @@ def brain_init(seed: bool) -> None:
     console.print(f"Indexed {index['count']} page(s) → {settings.brain_dir / 'index.json'}")
 
 
+@brain.command("ask")
+@click.argument("question")
+@click.option("--why", default="", help="Why you are tracking it (given to the watch as context).")
+def brain_ask(question: str, why: str) -> None:
+    """Track an open QUESTION. Lighter than a thesis: no belief to defend.
+
+    Every run tests the day's signals against open questions and leads the
+    brief with anything that bears on one -- preferring what complicates the
+    question over what answers it.
+    """
+    settings = Settings()
+    if settings.brain_dir is None:
+        console.print("[red]BRAIN_DIR is not set.[/red]")
+        raise SystemExit(1)
+
+    store = BrainStore(settings.brain_dir)
+    store.ensure_dirs()
+    page_id = f"q-{slugify(question, 50)}"
+    if store.path_for("Question", page_id).exists():
+        console.print(f"[yellow]Already tracking:[/yellow] {page_id}")
+        return
+
+    store.save(
+        Question(
+            id=page_id,
+            title=question,
+            question=question,
+            why=why,
+            status="open",
+            body=(
+                "## Why I'm tracking this\n\n"
+                f"{why or '_TODO: what would you do differently once you knew?_'}\n\n"
+                "## Findings\n\n"
+                "_Appended automatically as signals bear on this question._\n\n"
+                "## Current answer\n\n"
+                "_TODO: your working answer, rewritten as findings accumulate._\n"
+            ),
+        )
+    )
+    store.build_index()
+    console.print(f"[green]Tracking:[/green] {question}\n  {store.path_for('Question', page_id)}")
+
+
 @brain.command("status")
 def brain_status() -> None:
     """Show active theses, their confidence, and whether they can be falsified."""
@@ -1123,9 +1169,26 @@ def brain_status() -> None:
         console.print("[red]BRAIN_DIR is not set.[/red]")
         raise SystemExit(1)
 
-    theses = BrainStore(settings.brain_dir).load_theses(active_only=True)
+    store = BrainStore(settings.brain_dir)
+
+    questions = store.load_questions(open_only=True)
+    if questions:
+        qtable = Table(title=f"Open questions ({len(questions)})")
+        qtable.add_column("Question", style="bold", max_width=58)
+        qtable.add_column("Findings", justify="right")
+        qtable.add_column("Updated")
+        for q in questions:
+            found = q.body.count("\n- ") if "## Findings" in q.body else 0
+            qtable.add_row(q.question or q.title, str(found), q.updated_at.strftime("%Y-%m-%d"))
+        console.print(qtable)
+
+    theses = store.load_theses(active_only=True)
     if not theses:
-        console.print("[yellow]No active theses. Run 'podcast-scout brain init'.[/yellow]")
+        if not questions:
+            console.print(
+                "[yellow]Nothing tracked.[/yellow] Add a question with\n"
+                "  [cyan]podcast-scout brain ask \"...\"[/cyan]"
+            )
         return
 
     table = Table(title=f"Active theses ({len(theses)})")

@@ -51,6 +51,17 @@
 {% endfor %}
 {% endif %}
 
+{% if question_hits %}
+<h2 style="color:#1d4ed8">❓ Bearing on Your Open Questions ({{ question_hits|length }})</h2>
+{% for hit in question_hits %}
+<div style="padding:10px 12px;border-left:3px solid #2563eb;background:#eff6ff;margin-bottom:8px">
+  <div style="font-size:14px;font-weight:600;color:#1e40af">{{ hit.question_title }}</div>
+  <div style="font-size:13px;color:#444;margin-top:4px">{{ hit.takeaway }}</div>
+  <div style="font-size:12px;color:#777;margin-top:4px">via {{ hit.signal_title }} · {{ hit.relation }} · {{ hit.strength }}</div>
+</div>
+{% endfor %}
+{% endif %}
+
 {% if queued %}
 <h2>🎧 In Your Queue Today ({{ queued|length }} episodes)</h2>
 {% for r in queued %}

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from .brain import FalsifierHit
+from .brain import FalsifierHit, QuestionHit
 from .ranking import RankedEpisode
 from .synthesis import WeeklySynthesis
 
@@ -28,6 +28,7 @@ def render_briefing(
     feed_url: str = "",
     all_feed_url: str = "",
     hits: list[FalsifierHit] | None = None,
+    question_hits: list[QuestionHit] | None = None,
 ) -> None:
     env = _build_env(templates_dir)
     tmpl = env.get_template("index.html.j2")
@@ -39,6 +40,7 @@ def render_briefing(
         feed_url=feed_url,
         all_feed_url=all_feed_url,
         challenges=[h for h in (hits or []) if h.is_challenge],
+        question_hits=[h for h in (question_hits or []) if h.is_notable],
         generated_at=datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
     )
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -51,6 +53,7 @@ def render_markdown(
     synthesis: WeeklySynthesis | None,
     run_date: str,
     hits: list[FalsifierHit] | None = None,
+    question_hits: list[QuestionHit] | None = None,
 ) -> str:
     lines = [f"# Podcast Scout — {run_date}\n"]
 
@@ -64,6 +67,18 @@ def render_markdown(
         for hit in challenges:
             lines.append(f"- **{hit.thesis_title}** — {hit.reasoning}")
             lines.append(f"  ↳ via _{hit.signal_title}_ ({hit.strength})")
+        lines.append("")
+
+    notable = [h for h in (question_hits or []) if h.is_notable]
+    if notable:
+        lines.append("## ❓ Bearing on your open questions\n")
+        for qhit in notable:
+            # Distinct name from the falsifier loop above: the two carry
+            # different types, and reusing `hit` makes the second one
+            # unverifiable.
+            marker = "⚠︎" if qhit.relation == "complicates" else "→"
+            lines.append(f"- {marker} **{qhit.question_title}** — {qhit.takeaway}")
+            lines.append(f"  ↳ via _{qhit.signal_title}_ ({qhit.relation}, {qhit.strength})")
         lines.append("")
 
     if queued:

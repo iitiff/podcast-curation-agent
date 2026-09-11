@@ -320,3 +320,102 @@ async def test_no_theses_still_writes_sources(tmp_path):
     result = await write_to_brain([_ranked()], tmp_path, _StubLLM([]))
     assert len(result.sources_written) == 1
     assert result.hits == []
+
+
+# ---------------------------------------------------------------------------
+# Questions. A lighter primitive than Thesis: no belief to defend, no
+# falsifier to author, so it carries no maintenance debt.
+# ---------------------------------------------------------------------------
+
+from podcast_scout.brain import Question  # noqa: E402
+from podcast_scout.brain.falsifier import check_questions  # noqa: E402
+
+
+def _question(store, qid="q-nba-next", status="open"):
+    q = Question(
+        id=qid, title="What comes after next-best-action?",
+        question="What comes after next-best-action?",
+        why="NBA is the default decisioning frame; I want to see it superseded.",
+        status=status,
+        body="## Why I'm tracking this\n\nX\n\n## Findings\n\n## Current answer\n",
+    )
+    store.save(q)
+    return q
+
+
+def test_open_questions_load_and_closed_ones_do_not(tmp_path):
+    store = BrainStore(tmp_path)
+    store.ensure_dirs()
+    _question(store, "q-open")
+    _question(store, "q-answered", status="answered")
+    assert {q.id for q in store.load_questions(open_only=True)} == {"q-open"}
+    assert len(store.load_questions(open_only=False)) == 2
+
+
+def test_findings_append_and_are_idempotent(tmp_path):
+    store = BrainStore(tmp_path)
+    store.ensure_dirs()
+    _question(store)
+    assert store.append_finding("q-nba-next", "- a finding") is True
+    assert store.append_finding("q-nba-next", "- a finding") is False
+    text = store.path_for("Question", "q-nba-next").read_text()
+    assert text.count("- a finding") == 1
+    assert "- a finding" in text.split("## Findings")[1]
+
+
+def test_finding_on_unknown_question_returns_false(tmp_path):
+    store = BrainStore(tmp_path)
+    store.ensure_dirs()
+    assert store.append_finding("nope", "- x") is False
+
+
+@pytest.mark.asyncio
+async def test_question_hit_is_returned():
+    qs = [Question(id="q-1", title="Q", question="Q?")]
+    llm = _StubLLM([
+        {"question_id": "q-1", "signal_id": "sig-1", "relation": "complicates",
+         "strength": "moderate", "takeaway": "Shows the obvious answer fails at scale."}
+    ])
+    hits = await check_questions(qs, [_signal()], llm)
+    assert len(hits) == 1 and hits[0].relation == "complicates"
+
+
+@pytest.mark.asyncio
+async def test_complications_sort_first_and_are_always_notable():
+    """A signal that makes a question harder is the easiest to skim past."""
+    qs = [Question(id="q-1", title="Q"), Question(id="q-2", title="R")]
+    llm = _StubLLM([
+        {"question_id": "q-1", "signal_id": "sig-1", "relation": "answers", "strength": "strong"},
+        {"question_id": "q-2", "signal_id": "sig-1", "relation": "complicates", "strength": "weak"},
+    ])
+    hits = await check_questions(qs, [_signal()], llm)
+    assert [h.relation for h in hits] == ["complicates", "answers"]
+    # A weak complication still earns a place in the brief.
+    assert hits[0].is_notable is True
+
+
+@pytest.mark.asyncio
+async def test_invented_question_ids_are_dropped():
+    qs = [Question(id="q-1", title="Q")]
+    llm = _StubLLM([
+        {"question_id": "NOPE", "signal_id": "sig-1", "relation": "answers"},
+        {"question_id": "q-1", "signal_id": "sig-1", "relation": "sideways"},
+    ])
+    assert await check_questions(qs, [_signal()], llm) == []
+
+
+@pytest.mark.asyncio
+async def test_questions_work_without_any_thesis(tmp_path):
+    """The two mechanisms are independent; either alone must function."""
+    store = BrainStore(tmp_path)
+    store.ensure_dirs()
+    _question(store)
+    source_id = "2026-09-11-no-priors-agentic-checkout"
+    llm = _StubLLM([
+        {"question_id": "q-nba-next", "signal_id": source_id, "relation": "extends",
+         "strength": "strong", "takeaway": "Reframes NBA as an arbitration problem."}
+    ])
+    result = await write_to_brain([_ranked()], tmp_path, llm)
+    assert result.findings_appended == 1
+    assert result.hits == [], "no theses configured"
+    assert "arbitration" in store.path_for("Question", "q-nba-next").read_text()
