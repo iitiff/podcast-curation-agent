@@ -5,7 +5,6 @@ import asyncio
 import json
 import logging
 import os
-import re
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
@@ -14,11 +13,13 @@ import yaml
 from rich.console import Console
 from rich.table import Table
 
+from .brain import BrainStore, BrainWriteResult, Thesis, write_to_brain
 from .config import Settings, load_discovery, load_preferences, load_show_config
 from .discovery import discover_episodes
 from .email_digest import SMTPConfig, build_email_html, send_digest
 from .normalize import Enclosure, NormalizedEpisode, clean_snippet, dedup_episodes
 from .providers.base import BaseLLMProvider
+
 # NOTE: GitHubModelsProvider is intentionally NOT imported — GitHub Models was
 # permanently retired 2026-07-30 (returns 410 Gone). See _make_llm() below.
 from .providers.llm import (
@@ -106,7 +107,11 @@ def _make_llm(settings: Settings) -> BaseLLMProvider | None:
     primary_name = secondary_name = ""
 
     if settings.gemini_api_key:
-        primary = GeminiProvider(settings.gemini_api_key, settings.gemini_stage2_model)
+        primary = GeminiProvider(
+            settings.gemini_api_key,
+            settings.gemini_stage2_model,
+            thinking_budget=settings.gemini_thinking_budget,
+        )
         primary_name = f"Gemini ({settings.gemini_stage2_model})"
 
     if settings.fallback_api_key:
@@ -458,9 +463,47 @@ async def _run_pipeline(
             category_ranked.sort(key=lambda item: item.score, reverse=True)
         newly_ranked[category] = category_ranked
 
+    # 5b. Abort if an LLM was configured but every episode still degraded to
+    # metadata-only scoring.
+    #
+    # This check MUST stay above the state write below. Metadata-floor scores
+    # (50.0) cannot reach the 75-point "Listen Fully" threshold, so a fully
+    # degraded run publishes nothing -- but persisting it marks every episode
+    # as seen, so tomorrow they are deduped out and never re-scored. The feed
+    # then stays frozen until someone runs `podcast-scout rescore`. That is the
+    # exact failure described in _make_llm()'s docstring. Failing here leaves
+    # state untouched, so the next run simply retries.
+    #
+    # Partial degradation is not fatal: a few truncated batch entries are
+    # normal and the surviving scores are still worth publishing.
+    if llm is not None:
+        fresh = [r for cat_ranked in newly_ranked.values() for r in cat_ranked]
+        # Only episodes that actually reached Stage 2 belong in the denominator.
+        # Stage-1 filtering and the token budget both legitimately stop episodes
+        # before any LLM call; counting them made 100% unreachable, which is why
+        # this guard stayed silent through two totally failed live runs.
+        attempted = [
+            r for r in fresh
+            if r.classification_reason not in {"stage1 only", "token budget exhausted"}
+        ]
+        degraded = [r for r in attempted if "metadata fallback" in r.classification_reason]
+        if attempted and len(degraded) == len(attempted):
+            console.print(
+                f"\n[red]LLM RUN FAILED: all {len(attempted)} episode(s) that reached "
+                f"Stage 2 fell back to "
+                f"metadata-only scoring.[/red]\n"
+                "Every score is at the floor, so this run would surface nothing.\n"
+                "[yellow]State was NOT written — the next run will retry these "
+                "episodes.[/yellow]\n"
+                "Check the provider errors above (quota, auth, or rate limit). "
+                "Setting LLM_FALLBACK_API_KEY gives each call a second provider "
+                "to try before giving up."
+            )
+            raise SystemExit(2)
+
     # 6. Persist new scores to state BEFORE carry-over so we don't re-LLM them tomorrow
     from .normalize import utcnow
-    for category, cat_ranked in newly_ranked.items():
+    for cat_ranked in newly_ranked.values():
         for r in cat_ranked:
             state.mark_processed(EpisodeRecord(
                 guid=r.episode.guid,
@@ -562,6 +605,26 @@ async def _run_pipeline(
         _print_summary_table(rss_queue, email_only)
         return {"queued": len(rss_queue), "email_only": len(email_only), "errors": {}}
 
+    # 8b. Brain: write admitted signals as Source pages and test them against
+    # the falsifiers of every active thesis. Skipped entirely when BRAIN_DIR is
+    # unset, so an instance that has not opted in runs exactly as before.
+    brain_result: BrainWriteResult | None = None
+    if settings.brain_dir is not None:
+        try:
+            brain_result = await write_to_brain(all_surfaced, settings.brain_dir, llm)
+        except Exception as exc:
+            # The brain is additive. A failure here must never cost the reader
+            # their daily brief.
+            log.warning("Brain write failed: %s", exc)
+        else:
+            challenges = len(brain_result.challenges)
+            console.print(
+                f"Brain: {len(brain_result.sources_written)} new source(s), "
+                f"{brain_result.evidence_appended} evidence link(s), "
+                f"[{'yellow' if challenges else 'dim'}]{challenges} challenge(s) "
+                f"to active theses[/]"
+            )
+
     # 9. Write outputs
     settings.public_dir.mkdir(parents=True, exist_ok=True)
     base_url = prefs.feed.base_url or settings.pages_base_url
@@ -591,7 +654,13 @@ async def _run_pipeline(
     (settings.public_dir / "listen.xml").write_text(listen_xml, encoding="utf-8")
     (settings.public_dir / "all.xml").write_text(all_xml, encoding="utf-8")
 
-    data_dir = settings.public_dir / "data"
+    # Briefing artifacts go to briefing_dir, NOT public_dir. public_dir holds
+    # only the RSS XML that is published to GitHub Pages; index.html,
+    # latest.md and latest.json describe how the reader thinks (scores,
+    # rejected items, synthesis) and stay in the private instance repo.
+    # briefing_dir defaults to public_dir, so single-repo setups are unchanged.
+    settings.briefing_dir.mkdir(parents=True, exist_ok=True)
+    data_dir = settings.briefing_dir / "data"
     data_dir.mkdir(exist_ok=True)
     latest_json: dict[str, object] = {
         "run_date": run_date,
@@ -605,17 +674,21 @@ async def _run_pipeline(
     if settings.templates_dir.exists():
         render_briefing(
             templates_dir=settings.templates_dir,
-            output_path=settings.public_dir / "index.html",
+            output_path=settings.briefing_dir / "index.html",
             queued=rss_queue,
             email_only=email_only,
             synthesis=synthesis,
             run_date=run_date,
             feed_url=f"{base_url}/listen.xml" if base_url else "",
             all_feed_url=f"{base_url}/all.xml" if base_url else "",
+            hits=brain_result.hits if brain_result else None,
         )
 
-    md = render_markdown(rss_queue, email_only, synthesis, run_date)
-    (settings.public_dir / "latest.md").write_text(md, encoding="utf-8")
+    md = render_markdown(
+        rss_queue, email_only, synthesis, run_date,
+        hits=brain_result.hits if brain_result else None,
+    )
+    (settings.briefing_dir / "latest.md").write_text(md, encoding="utf-8")
 
     # 10. Mark queued episodes as published in state.
     # Note: add_to_playlist is already called inside build_category_feed for
@@ -656,6 +729,7 @@ async def _run_pipeline(
             html_body = build_email_html(
                 new_queued, new_extra, run_date, feed_url,
                 accumulated_week=accumulated_this_week,
+                challenges=brain_result.challenges if brain_result else None,
             )
             subject = f"Your Podcast Scout — {run_date} ({len(new_queued)} queued)"
             try:
@@ -909,3 +983,402 @@ def rescore(
             f"{needed_lookback}. A normal run (lookback "
             f"{settings.lookback_days}) will silently skip anything older.[/dim]"
         )
+
+
+# ---------------------------------------------------------------------------
+# brain — durable entity pages, theses, and the falsifier watch
+# ---------------------------------------------------------------------------
+
+# Seeded as DRAFTS, deliberately. These are the candidate theses from the OS
+# design docs, not the reader's own beliefs. A thesis nobody wrote by hand is
+# not a belief, and the falsifier watch is only as honest as the falsifier --
+# so each ships with confidence Low and a TODO the reader must resolve.
+_SEED_THESES: list[dict[str, str]] = [
+    {
+        "id": "thesis-personalization-as-decision-system",
+        "title": "Personalization is becoming a decision system",
+        "statement": (
+            "Personalization is becoming a decision system, not a recommendation feature."
+        ),
+        "falsifier": (
+            "Sustained evidence that teams shipping discrete recommendation features "
+            "match the business outcomes of teams that rebuilt around a central "
+            "decision layer, at comparable scale."
+        ),
+    },
+    {
+        "id": "thesis-intent-over-segmentation",
+        "title": "Evolving intent is replacing static segmentation",
+        "statement": (
+            "The fundamental unit of personalization is evolving intent rather than "
+            "static segmentation."
+        ),
+        "falsifier": (
+            "Segment-based systems continuing to win head-to-head tests against "
+            "sequence/intent models once cost and latency are held constant."
+        ),
+    },
+    {
+        "id": "thesis-objectives-constrain-not-micromanage",
+        "title": "Business objectives should constrain, not micromanage",
+        "statement": (
+            "Business objectives should constrain optimization without micromanaging "
+            "customer-level decisions."
+        ),
+        "falsifier": (
+            "Evidence that explicit per-decision business rules outperform "
+            "constrained optimization on both margin and customer retention."
+        ),
+    },
+    {
+        "id": "thesis-agents-collapse-surface-boundaries",
+        "title": "AI agents collapse the search/rec/merch boundary",
+        "statement": (
+            "AI agents may collapse the boundary between search, recommendation, "
+            "merchandising, and marketing."
+        ),
+        "falsifier": (
+            "Agentic surfaces plateauing as a thin routing layer over unchanged "
+            "underlying systems, with no reorganization of the teams behind them."
+        ),
+    },
+]
+
+_THESIS_BODY = """## Reasoning
+
+_TODO: why do you believe this? Write it in your own words before the brain
+starts attaching evidence to it._
+
+## Evidence
+
+## Counter-evidence
+
+## Implications
+
+_TODO: what changes if this is true?_
+
+## Decisions
+
+_TODO: what would you do differently?_
+"""
+
+
+@main.group()
+def brain() -> None:
+    """Manage the durable brain (theses, sources, patterns, companies)."""
+
+
+@brain.command("init")
+@click.option("--seed/--no-seed", default=True, help="Write draft theses to edit.")
+def brain_init(seed: bool) -> None:
+    """Create the brain directory structure at $BRAIN_DIR."""
+    settings = Settings()
+    if settings.brain_dir is None:
+        console.print(
+            "[red]BRAIN_DIR is not set.[/red] Point it at the brain directory, e.g.\n"
+            "  [cyan]BRAIN_DIR=brain podcast-scout brain init[/cyan]"
+        )
+        raise SystemExit(1)
+
+    store = BrainStore(settings.brain_dir)
+    store.ensure_dirs()
+    console.print(f"[green]Brain scaffolded at {settings.brain_dir}[/green]")
+
+    if seed:
+        created = 0
+        for spec in _SEED_THESES:
+            path = store.path_for("Thesis", spec["id"])
+            if path.exists():
+                continue
+            store.save(
+                Thesis(
+                    id=spec["id"],
+                    title=spec["title"],
+                    statement=spec["statement"],
+                    falsifier=spec["falsifier"],
+                    confidence="Low",
+                    status="active",
+                    tags=["draft"],
+                    body=_THESIS_BODY,
+                )
+            )
+            created += 1
+        console.print(f"[green]Seeded {created} draft thesis page(s).[/green]")
+        if created:
+            console.print(
+                "[yellow]These are drafts from the design docs, not your beliefs.[/yellow]\n"
+                "Edit the statement and especially the [bold]falsifier[/bold] of each one — "
+                "the falsifier watch is only as honest as what you write there."
+            )
+
+    index = store.build_index()
+    console.print(f"Indexed {index['count']} page(s) → {settings.brain_dir / 'index.json'}")
+
+
+@brain.command("status")
+def brain_status() -> None:
+    """Show active theses, their confidence, and whether they can be falsified."""
+    settings = Settings()
+    if settings.brain_dir is None:
+        console.print("[red]BRAIN_DIR is not set.[/red]")
+        raise SystemExit(1)
+
+    theses = BrainStore(settings.brain_dir).load_theses(active_only=True)
+    if not theses:
+        console.print("[yellow]No active theses. Run 'podcast-scout brain init'.[/yellow]")
+        return
+
+    table = Table(title=f"Active theses ({len(theses)})")
+    table.add_column("Thesis", style="bold", max_width=44)
+    table.add_column("Confidence")
+    table.add_column("Falsifier?")
+    table.add_column("Updated")
+    for thesis in theses:
+        has_falsifier = bool(thesis.falsifier.strip())
+        table.add_row(
+            thesis.title,
+            thesis.confidence,
+            "[green]yes[/green]" if has_falsifier else "[red]MISSING[/red]",
+            thesis.updated_at.strftime("%Y-%m-%d"),
+        )
+    console.print(table)
+
+    unfalsifiable = [t for t in theses if not t.falsifier.strip()]
+    if unfalsifiable:
+        console.print(
+            f"\n[red]{len(unfalsifiable)} thesis/theses have no falsifier.[/red] "
+            "They can only ever accumulate confirmation — the watch will never "
+            "flag anything against them."
+        )
+
+
+# ---------------------------------------------------------------------------
+# llm-doctor — what can this key actually use?
+# ---------------------------------------------------------------------------
+
+def _fallback_doctor(settings: Settings, probe: bool) -> None:
+    """Check the OpenAI-compatible fallback the same way as the primary.
+
+    The fallback is the thing that is supposed to save a run when the primary
+    is rate-limited, so it is the last place a silent misconfiguration should
+    be allowed to hide. A live run retried into an endpoint that returned 410
+    on every call, and nothing had ever checked it.
+    """
+    import httpx
+
+    if not settings.fallback_api_key:
+        console.print(
+            "\n[yellow]No fallback key found.[/yellow] Checked "
+            "LLM_FALLBACK_API_KEY, OPENROUTER_API_KEY (and OPEN_ROUTER_API_KEY, "
+            "OPENROUTER_KEY, OPENROUTER_API, OPENROUTER), NVIDIA_API_KEY. "
+            "A secret only reaches the run if the workflow also forwards it "
+            "under that exact name."
+        )
+        return
+
+    if settings.openrouter_key_name:
+        console.print(f"  key source: [green]{settings.openrouter_key_name}[/green]")
+
+    base = settings.fallback_base_url.rstrip("/")
+    console.print(f"\n[bold]Fallback: {settings.fallback_provider_name} at {base}[/bold]")
+    headers = {"Authorization": f"Bearer {settings.fallback_api_key}"}
+
+    try:
+        with httpx.Client(timeout=30.0) as client:
+            listing = client.get(f"{base}/models", headers=headers)
+    except Exception as exc:
+        console.print(f"[red]Could not reach {base}: {exc}[/red]")
+        return
+
+    ids: list[str] = []
+    if listing.status_code == 200:
+        payload = listing.json()
+        rows = payload.get("data", payload if isinstance(payload, list) else [])
+        ids = [str(m.get("id", "")) for m in rows if isinstance(m, dict)]
+        console.print(f"  {len(ids)} model(s) offered by this endpoint")
+        # Print candidates, not just a count. When the configured model turns
+        # out to be end-of-lifed, the replacement is already in this list and
+        # the operator should not have to go hunting for it.
+        chat_like = sorted(
+            i for i in ids
+            if any(k in i.lower() for k in ("instruct", "chat", "llama", "qwen", "mistral"))
+        )
+        if chat_like:
+            console.print("  chat-capable candidates: " + ", ".join(chat_like[:12]))
+        # ":free" is an OpenRouter convention; surfacing it matters because the
+        # whole point of a fallback here is to cost nothing.
+        free = [i for i in ids if i.endswith(":free")]
+        if free:
+            console.print(f"  [green]{len(free)} free-tier model(s)[/green], e.g. "
+                          f"{', '.join(sorted(free)[:6])}")
+    else:
+        console.print(
+            f"  [yellow]{base}/models returned {listing.status_code}[/yellow] — "
+            "not every endpoint exposes a model list; the probe below is the "
+            "real test."
+        )
+
+    if not probe:
+        return
+
+    model = settings.fallback_model
+    console.print(f"  probing configured LLM_FALLBACK_MODEL = [bold]{model}[/bold]")
+    try:
+        with httpx.Client(timeout=60.0) as client:
+            resp = client.post(
+                f"{base}/chat/completions",
+                headers=headers,
+                json={
+                    "model": model,
+                    "messages": [{"role": "user", "content": "Reply with: ok"}],
+                    "max_tokens": 8,
+                },
+            )
+    except Exception as exc:
+        console.print(f"  [red]unreachable: {exc}[/red]")
+        return
+
+    if resp.status_code == 200:
+        console.print("  [green]usable — the fallback will work[/green]")
+        return
+
+    detail = resp.text[:200].replace("\n", " ")
+    console.print(f"  [red]{resp.status_code}: {detail}[/red]")
+    # Only guess when the endpoint has not already said what is wrong. A live
+    # 410 carried "the model has reached its end of life" in its body while
+    # this hint confidently blamed an org permission -- the third wrong
+    # explanation for that status in one session. The body wins.
+    if "end of life" in resp.text.lower() or '"detail"' in resp.text:
+        console.print(
+            "  [yellow]The endpoint explained itself above — take it at its "
+            "word rather than changing the base URL.[/yellow]"
+        )
+    elif resp.status_code in (403, 410) and "nvidia" in base:
+        console.print(
+            "  [yellow]NVIDIA also returns 403/410 when the org lacks the "
+            "'Public API Endpoints' permission.[/yellow]"
+        )
+    if ids and model not in ids:
+        console.print(
+            f"  [yellow]{model} is not in this endpoint's model list — "
+            "LLM_FALLBACK_MODEL likely needs to match one of the ids above."
+            "[/yellow]"
+        )
+
+@main.command("llm-doctor")
+@click.option("--probe/--no-probe", default=True,
+              help="Send a minimal request to each Flash model to see which respond.")
+def llm_doctor(probe: bool) -> None:
+    """List Gemini models this API key can use, and which actually answer.
+
+    Reading Google's docs tells you which models exist; it does not tell you
+    which ones *your* project can call or has quota for. A 429 on the first
+    request of a run is indistinguishable from a bad model choice unless you
+    ask the API directly.
+
+    Prints no credential: the key travels in a header, never in a URL, so it
+    cannot leak through a logged request line.
+    """
+    import httpx
+
+    settings = Settings()
+    if not settings.gemini_api_key:
+        console.print("[red]GEMINI_API_KEY is not set.[/red]")
+        raise SystemExit(1)
+
+    headers = {"x-goog-api-key": settings.gemini_api_key}
+    base = "https://generativelanguage.googleapis.com/v1beta"
+
+    try:
+        with httpx.Client(timeout=30.0) as client:
+            resp = client.get(f"{base}/models", headers=headers, params={"pageSize": 200})
+    except Exception as exc:
+        console.print(f"[red]Could not reach the Gemini API: {exc}[/red]")
+        raise SystemExit(1) from exc
+
+    if resp.status_code != 200:
+        console.print(
+            f"[red]models.list returned {resp.status_code}.[/red]\n"
+            f"{resp.text[:400]}\n"
+            "401/403 means the key is invalid or the Generative Language API is "
+            "not enabled on its project. 429 means the project has no quota."
+        )
+        raise SystemExit(1)
+
+    models = [
+        m for m in resp.json().get("models", [])
+        if "generateContent" in m.get("supportedGenerationMethods", [])
+    ]
+    if not models:
+        console.print("[red]No models on this key support generateContent.[/red]")
+        raise SystemExit(1)
+
+    table = Table(title=f"generateContent models visible to this key ({len(models)})")
+    table.add_column("model id", style="bold")
+    table.add_column("input tokens", justify="right")
+    table.add_column("output tokens", justify="right")
+    for m in sorted(models, key=lambda m: str(m.get("name", "")), reverse=True):
+        table.add_row(
+            str(m.get("name", "")).removeprefix("models/"),
+            str(m.get("inputTokenLimit", "?")),
+            str(m.get("outputTokenLimit", "?")),
+        )
+    console.print(table)
+
+    _fallback_doctor(settings, probe)
+
+    if not probe:
+        return
+
+    # Visibility is not usability. A model can be listed and still 429 because
+    # the project has no quota for it -- which is the failure this command
+    # exists to tell apart from a wrong model name.
+    flash = [
+        str(m["name"]).removeprefix("models/")
+        for m in models
+        if "flash" in str(m.get("name", "")).lower()
+        and "preview" not in str(m.get("name", "")).lower()
+    ]
+    console.print(f"\n[bold]Probing {len(flash)} non-preview Flash model(s)[/bold]")
+
+    probe_table = Table()
+    probe_table.add_column("model id", style="bold")
+    probe_table.add_column("status")
+    probe_table.add_column("verdict")
+    usable: list[str] = []
+    with httpx.Client(timeout=60.0) as client:
+        for model in flash:
+            payload = {
+                "contents": [{"role": "user", "parts": [{"text": "Reply with: ok"}]}],
+                "generationConfig": {"maxOutputTokens": 8, "temperature": 0},
+            }
+            try:
+                r = client.post(
+                    f"{base}/models/{model}:generateContent", headers=headers, json=payload
+                )
+                code = r.status_code
+            except Exception as exc:
+                probe_table.add_row(model, "—", f"[red]unreachable: {exc}[/red]")
+                continue
+            if code == 200:
+                probe_table.add_row(model, "200", "[green]usable[/green]")
+                usable.append(model)
+            elif code == 429:
+                probe_table.add_row(model, "429", "[yellow]no quota / throttled[/yellow]")
+            else:
+                detail = r.text[:80].replace("\n", " ")
+                probe_table.add_row(model, str(code), f"[red]{detail}[/red]")
+    console.print(probe_table)
+
+    if usable:
+        console.print(
+            f"\n[green]Set GEMINI_STAGE2_MODEL to one of:[/green] {', '.join(usable)}"
+        )
+    else:
+        console.print(
+            "\n[red]No Flash model answered.[/red] Every one was throttled or "
+            "refused, so the project itself has no usable quota — a different "
+            "model will not help. Enable billing on the key's project, or "
+            "configure LLM_FALLBACK_API_KEY with another provider."
+        )
+        raise SystemExit(2)

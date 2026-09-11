@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass, field
+from importlib import resources
 from pathlib import Path
 from typing import Any
 
@@ -125,12 +126,37 @@ def _env(name: str, default: str = "") -> str:
     return (os.getenv(name) or "").strip() or default
 
 
+def _package_templates_dir() -> Path:
+    """Locate the Jinja templates shipped inside the installed package.
+
+    Resolved via importlib.resources rather than the working-directory-relative
+    "src/podcast_scout/templates". Once the engine is pip-installed as a
+    dependency of a separate instance repo, that relative path does not exist,
+    `templates_dir.exists()` is False, and the briefing silently stops being
+    rendered with no error.
+    """
+    return Path(str(resources.files("podcast_scout").joinpath("templates")))
+
+
 class Settings:
     def __init__(self) -> None:
         self.config_dir = Path(_env("CONFIG_DIR", "config"))
         self.data_dir = Path(_env("DATA_DIR", "data"))
         self.public_dir = Path(_env("PUBLIC_DIR", "public"))
-        self.templates_dir = Path("src/podcast_scout/templates")
+
+        # Where the brain (durable markdown entity pages) lives. Empty disables
+        # every brain write, so an instance that has not opted in is unaffected.
+        self.brain_dir = Path(_env("BRAIN_DIR")) if _env("BRAIN_DIR") else None
+
+        # Briefing artifacts (index.html, latest.md, data/latest.json) are
+        # written here, separately from public_dir which holds only the RSS XML
+        # that gets published. Defaults to public_dir so existing single-repo
+        # deployments behave exactly as before.
+        self.briefing_dir = Path(_env("BRIEFING_DIR")) if _env("BRIEFING_DIR") else self.public_dir
+
+        self.templates_dir = (
+            Path(_env("TEMPLATES_DIR")) if _env("TEMPLATES_DIR") else _package_templates_dir()
+        )
 
         # GITHUB_TOKEN is still read because the workflow uses it for git
         # commit/push, but it is NO LONGER an LLM credential: GitHub Models was
@@ -142,26 +168,84 @@ class Settings:
         # "return ONLY a raw JSON array" contract that stage2_batch_rank parses,
         # plus large context headroom for batched episodes.
         self.gemini_api_key = _env("GEMINI_API_KEY")
-        self.gemini_stage1_model = _env("GEMINI_STAGE1_MODEL", "gemini-2.5-flash")
-        self.gemini_stage2_model = _env("GEMINI_STAGE2_MODEL", "gemini-2.5-flash")
+        # Defaults track a current generally-available Flash model. 2.5 Flash
+        # was two generations stale and carries the tightest free-tier quota of
+        # the family, which is what a first run tends to hit as a 429.
+        self.gemini_stage1_model = _env("GEMINI_STAGE1_MODEL", "gemini-3.6-flash")
+        self.gemini_stage2_model = _env("GEMINI_STAGE2_MODEL", "gemini-3.6-flash")
+
+        # thinkingConfig.thinkingBudget was tuned against 2.5 Flash. "none"
+        # omits the field so a model generation that rejects it can still be
+        # used without a code change.
+        _budget = _env("GEMINI_THINKING_BUDGET", "0").lower()
+        self.gemini_thinking_budget: int | None = (
+            None if _budget in {"none", "off", "default"} else int(_budget)
+        )
 
         # FALLBACK: any OpenAI-compatible endpoint. Defaults target NVIDIA's
-        # hosted NIM API (build.nvidia.com). Deliberately generic -- to switch to
+        # hosted NIM API.
+        #
+        # If this returns 410 Gone, the URL is NOT the problem -- the endpoint
+        # is current. NVIDIA returns 410 when the account's organization lacks
+        # the "Public API Endpoints" permission, which personal orgs do not get
+        # by default and must request. A 403 usually means the same thing.
+        # Changing LLM_FALLBACK_BASE_URL will not fix either.
+        #
+        # Deliberately generic -- to switch to
         # OpenRouter / Groq / Together / a self-hosted NIM, change only
         # LLM_FALLBACK_BASE_URL and LLM_FALLBACK_MODEL, no code edits required.
         # Legacy NVIDIA_* names are still honoured for convenience.
-        self.fallback_api_key = _env("LLM_FALLBACK_API_KEY") or _env("NVIDIA_API_KEY")
+        # Provider-named keys are honoured directly. Requiring the generic name
+        # means a correctly-created OPENROUTER_API_KEY secret is silently
+        # ignored while the run reports "no fallback configured" -- the failure
+        # is invisible precisely when the fallback is needed.
+        # Several spellings, because the secret is created by hand in a web UI
+        # and "OpenRouter API key" has no single obvious casing. Getting this
+        # wrong is invisible: the run reports "no fallback configured" while a
+        # perfectly good secret sits unread.
+        # Match by shape rather than an enumerated list. Guessing the exact
+        # casing failed three times in a row -- OPENROUTER_API_KEY,
+        # OPEN_ROUTER_API_KEY and OPENROUTER_API were all wired before the
+        # actual secret turned out to be OPEN_ROUTER_API. Any variable whose
+        # name contains "openrouter" or "open_router" and holds a value counts,
+        # so no further spelling can be missed.
+        self.openrouter_key_name = ""
+        self.openrouter_api_key = ""
+        for name in sorted(os.environ):
+            flat = name.upper().replace("_", "")
+            if "OPENROUTER" in flat and _env(name):
+                self.openrouter_key_name, self.openrouter_api_key = name, _env(name)
+                break
+        # Provider-specific first. Naming a provider's key is a deliberate act
+        # that carries its endpoint with it, whereas the generic name is
+        # whatever was set last and may still hold a superseded provider --
+        # which is exactly what happened here: an OPENROUTER_API_KEY added to
+        # replace a broken NVIDIA setup lost to the stale generic key.
+        self.fallback_api_key = (
+            self.openrouter_api_key
+            or _env("LLM_FALLBACK_API_KEY")
+            or _env("NVIDIA_API_KEY")
+        )
+        # Each provider's key implies its own endpoint, so a key set on its own
+        # works without also having to know the base URL.
+        _implied_base = (
+            "https://openrouter.ai/api/v1"
+            if self.openrouter_api_key
+            else "https://integrate.api.nvidia.com/v1"
+        )
         self.fallback_base_url = (
             _env("LLM_FALLBACK_BASE_URL")
             or _env("NVIDIA_BASE_URL")
-            or "https://integrate.api.nvidia.com/v1"
+            or _implied_base
         )
         self.fallback_model = (
             _env("LLM_FALLBACK_MODEL")
             or _env("NVIDIA_MODEL")
             or "meta/llama-3.3-70b-instruct"
         )
-        self.fallback_provider_name = _env("LLM_FALLBACK_NAME", "NVIDIA NIM")
+        self.fallback_provider_name = _env("LLM_FALLBACK_NAME") or (
+            "OpenRouter" if "openrouter" in self.fallback_base_url else "NVIDIA NIM"
+        )
 
         self.podcast_index_key = _env("PODCAST_INDEX_KEY")
         self.podcast_index_secret = _env("PODCAST_INDEX_SECRET")

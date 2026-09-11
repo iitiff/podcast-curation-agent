@@ -1,6 +1,7 @@
 """Daily email digest sender via SMTP."""
 from __future__ import annotations
 
+import html
 import logging
 import smtplib
 from email.header import Header
@@ -8,6 +9,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import NamedTuple
 
+from .brain import FalsifierHit
 from .normalize import strip_html
 from .ranking import RankedEpisode
 
@@ -101,13 +103,36 @@ def build_email_html(
     run_date: str,
     feed_url: str = "",
     accumulated_week: list[RankedEpisode] | None = None,
+    challenges: list[FalsifierHit] | None = None,
 ) -> str:
     """Build the full HTML email body.
 
     accumulated_week: episodes that scored well this week but never won a
     category-feed playlist slot. Only included on Friday synthesis runs.
+
+    challenges: signals that cut against an active thesis. Rendered first,
+    above the queue, because the ranked queue is by construction agreeable and
+    the disagreement is the part worth the reader's attention.
     """
     sections: list[str] = []
+
+    if challenges:
+        rows = "".join(
+            f"""
+<tr><td style='padding:10px 12px;border-left:3px solid #d97706;background:#fffbeb'>
+<div style='font-size:14px;font-weight:600;color:#92400e'>{html.escape(hit.thesis_title)}</div>
+<div style='font-size:13px;color:#444;margin-top:4px'>{html.escape(hit.reasoning)}</div>
+<div style='font-size:12px;color:#777;margin-top:4px'>via {html.escape(hit.signal_title)}
+&middot; {html.escape(hit.strength)}</div>
+</td></tr>"""
+            for hit in challenges
+        )
+        sections.append(f"""
+<h2 style='font-size:18px;margin:24px 0 8px;color:#92400e'>&#9889; Challenges to Your Theses
+({len(challenges)})</h2>
+<p style='color:#555;font-size:13px;margin:0 0 12px'>New evidence that cuts against something
+you currently believe.</p>
+<table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
 
     if queued:
         rows = ""
@@ -183,7 +208,8 @@ def send_digest(
     # (non-breaking space) pasted from a rich-text editor into SMTP_TO or
     # SMTP_USER fails the compat32 BytesGenerator that both as_bytes() and
     # send_message() use internally — even when switching to send_message().
-    _clean = lambda s: s.encode("ascii", "ignore").decode("ascii").strip()
+    def _clean(s: str) -> str:
+        return s.encode("ascii", "ignore").decode("ascii").strip()
 
     msg = MIMEMultipart("alternative")
     # Encode subject as RFC 2047 UTF-8 so emoji and non-ASCII don't crash

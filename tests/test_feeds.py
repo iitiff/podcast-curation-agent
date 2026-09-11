@@ -1,10 +1,9 @@
 """Unit tests for feed parsing."""
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from xml.etree.ElementTree import fromstring
 
 from podcast_scout.feeds import parse_feed_entries
 from podcast_scout.rss import _PriorItem, _renumber_prior_title
-
 
 SAMPLE_RSS = """
 <?xml version="1.0" encoding="UTF-8"?>
@@ -35,14 +34,14 @@ SAMPLE_RSS = """
 
 
 def test_parse_filters_old_episodes():
-    cutoff = datetime(2025, 1, 1, tzinfo=timezone.utc)
+    cutoff = datetime(2025, 1, 1, tzinfo=UTC)
     eps = parse_feed_entries(SAMPLE_RSS, "https://feeds.example.com", "Test Podcast", cutoff)
     assert len(eps) == 1
     assert eps[0].episode_title == "Episode 1: AI Deep Dive"
 
 
 def test_parse_enclosure():
-    cutoff = datetime(2024, 1, 1, tzinfo=timezone.utc)
+    cutoff = datetime(2024, 1, 1, tzinfo=UTC)
     eps = parse_feed_entries(SAMPLE_RSS, "https://feeds.example.com", "Test Podcast", cutoff)
     ep = eps[0]
     assert ep.enclosure is not None
@@ -51,7 +50,7 @@ def test_parse_enclosure():
 
 
 def test_parse_duration_from_itunes():
-    cutoff = datetime(2024, 1, 1, tzinfo=timezone.utc)
+    cutoff = datetime(2024, 1, 1, tzinfo=UTC)
     eps = parse_feed_entries(SAMPLE_RSS, "https://feeds.example.com", "Test Podcast", cutoff)
     assert eps[0].duration_minutes == 60.0
 
@@ -69,7 +68,7 @@ def _prior(title: str) -> _PriorItem:
     el.find("title").text = title
     return _PriorItem(
         guid="g",
-        pub_date=datetime(2026, 8, 1, tzinfo=timezone.utc),
+        pub_date=datetime(2026, 8, 1, tzinfo=UTC),
         score=77.0,
         classification="Listen Fully",
         xml_element=el,
@@ -113,7 +112,7 @@ def test_renumber_handles_missing_title_element():
     el = fromstring("<item><guid>g</guid></item>")
     p = _PriorItem(
         guid="g",
-        pub_date=datetime(2026, 8, 1, tzinfo=timezone.utc),
+        pub_date=datetime(2026, 8, 1, tzinfo=UTC),
         score=77.0,
         classification="Listen Fully",
         xml_element=el,

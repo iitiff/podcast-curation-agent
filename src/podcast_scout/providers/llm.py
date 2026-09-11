@@ -1,7 +1,9 @@
 """LLM provider implementations."""
 from __future__ import annotations
 
+import asyncio
 import logging
+import re
 from typing import Any
 
 import httpx
@@ -9,6 +11,32 @@ import httpx
 from .base import BaseLLMProvider, LLMMessage, LLMResponse
 
 log = logging.getLogger(__name__)
+
+# Longer than this and the job is better off failing fast than stalling: a
+# daily run should not sit in sleep() for minutes waiting on a free-tier reset.
+_MAX_RETRY_WAIT = 75.0
+
+# Short and few: an overload clears in seconds, and a daily job should not
+# spend minutes on one batch when the fallback provider is standing by.
+_OVERLOAD_RETRIES = 2
+_OVERLOAD_BACKOFF = 3.0
+_RETRY_DELAY_RE = re.compile(r"retry in ([0-9.]+)s", re.IGNORECASE)
+
+
+def _retry_delay_seconds(body: str) -> float | None:
+    """Pull the retry delay out of a Gemini 429 body.
+
+    The message reads "Please retry in 49.83645608s". Google knows exactly when
+    the window resets, so using its number beats guessing an exponential
+    backoff that is either too short to help or far too long.
+    """
+    match = _RETRY_DELAY_RE.search(body)
+    if not match:
+        return None
+    try:
+        return float(match.group(1))
+    except ValueError:
+        return None
 
 
 class GitHubModelsProvider(BaseLLMProvider):
@@ -130,9 +158,21 @@ class GeminiProvider(BaseLLMProvider):
 
     BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 
-    def __init__(self, api_key: str, model: str = "gemini-2.0-flash") -> None:
+    def __init__(
+        self,
+        api_key: str,
+        model: str = "gemini-2.0-flash",
+        thinking_budget: int | None = 0,
+    ) -> None:
         self.api_key = api_key
         self.model = model
+        # None omits thinkingConfig from the payload entirely. The budget below
+        # was tuned against 2.5 Flash; a model generation that does not accept
+        # the field would otherwise reject every request, and there has to be a
+        # way to turn it off without a code change.
+        self.thinking_budget = thinking_budget
+        # Set once a backoff proves the limit is not per-minute; see complete().
+        self._rate_limited = False
 
     async def complete(
         self,
@@ -167,16 +207,110 @@ class GeminiProvider(BaseLLMProvider):
                 # 50.0 floor with no summary and no key ideas.
                 # https://ai.google.dev/gemini-api/docs/thinking  (2.5 Flash:
                 # thinkingBudget 0 disables thinking)
-                "thinkingConfig": {"thinkingBudget": 0},
+                #
+                # Set GEMINI_THINKING_BUDGET=none to omit this field entirely,
+                # for a model generation that does not accept it.
             },
         }
+        if self.thinking_budget is not None:
+            payload["generationConfig"]["thinkingConfig"] = {
+                "thinkingBudget": self.thinking_budget
+            }
         if system_instruction:
             payload["systemInstruction"] = system_instruction
 
-        url = f"{self.BASE_URL}/{self.model}:generateContent?key={self.api_key}"
+        # Key in a header, not the query string: httpx puts the URL into every
+        # exception message, so a key in the URL lands in any log that records
+        # a failure.
+        url = f"{self.BASE_URL}/{self.model}:generateContent"
+        headers = {"x-goog-api-key": self.api_key}
+
         async with httpx.AsyncClient(timeout=120.0) as client:
-            resp = await client.post(url, json=payload)
-            resp.raise_for_status()
+            resp = await client.post(url, json=payload, headers=headers)
+
+            # One self-heal. thinkingConfig is generation-specific: a model that
+            # rejects the field fails EVERY request for the whole run, which
+            # surfaces only as universal metadata-only scoring. Retrying once
+            # without it costs a single request and converts a total outage
+            # into a logged degradation of one setting.
+            # Matched on the status alone, not on the field name: a live run
+            # against gemini-3.6-flash returned only "Request contains an
+            # invalid argument" with no mention of thinkingConfig, so a
+            # name-matched retry never fired. The controlled comparison --
+            # llm-doctor probes the same model with the same key and no
+            # thinkingConfig, and gets 200 -- points at this field, so drop it
+            # and retry on any 400 while it is present.
+            if resp.status_code == 400 and "thinkingConfig" in payload["generationConfig"]:
+                log.warning(
+                    "%s rejected thinkingConfig; retrying without it and "
+                    "omitting it for the rest of this run.",
+                    self.model,
+                )
+                del payload["generationConfig"]["thinkingConfig"]
+                # Sticky. Without this every single call costs two requests --
+                # one rejected, one retried -- which halves the effective rate
+                # limit. Free-tier Gemini allows 20 requests/minute, so paying
+                # the probe twice per batch is the difference between a run
+                # that completes and one that 429s halfway through.
+                self.thinking_budget = None
+                resp = await client.post(url, json=payload, headers=headers)
+
+            # A 400 names the offending field in its body -- an unknown name, an
+            # unsupported model, a bad argument. raise_for_status() discards all
+            # of it and leaves only "Client error '400 Bad Request'", which is
+            # how one rejected field becomes an unexplained run of metadata-only
+            # scoring with nothing in the log to act on.
+            # 429 carries the exact wait in its body ("Please retry in 49.8s").
+            # Honouring it once turns a rate limit into a slow run instead of a
+            # run that silently scores everything at the metadata floor.
+            # 503 is the provider being busy, not a problem with the request.
+            # Gemini returns "This model is currently experiencing high demand.
+            # Spikes in demand are usually temporary." Giving up on the first
+            # one drops an episode's scoring for no reason.
+            for attempt in range(_OVERLOAD_RETRIES):
+                if resp.status_code != 503:
+                    break
+                wait = _OVERLOAD_BACKOFF * (attempt + 1)
+                log.warning(
+                    "%s is overloaded (503); retrying in %.0fs (%d/%d).",
+                    self.model, wait, attempt + 1, _OVERLOAD_RETRIES,
+                )
+                await asyncio.sleep(wait)
+                resp = await client.post(url, json=payload, headers=headers)
+
+            if resp.status_code == 429:
+                delay = _retry_delay_seconds(resp.text)
+                # Wait only while waiting might still help. A live run slept
+                # 60s seven times in a row and got 429 every time: the exhausted
+                # metric was a DAILY allowance, so the per-minute delay the API
+                # suggests can never clear it. Once one full wait fails to
+                # recover, stop paying that cost for the rest of the run and let
+                # the degradation guard report it instead.
+                if self._rate_limited:
+                    delay = None
+                if delay is not None and delay <= _MAX_RETRY_WAIT:
+                    log.warning(
+                        "%s rate-limited; waiting %.0fs and retrying once "
+                        "(the API supplied this delay).",
+                        self.model, delay,
+                    )
+                    await asyncio.sleep(delay)
+                    resp = await client.post(url, json=payload, headers=headers)
+                    if resp.status_code == 429:
+                        log.warning(
+                            "%s still rate-limited after waiting %.0fs — the "
+                            "exhausted quota is not per-minute. Skipping further "
+                            "waits this run.",
+                            self.model, delay,
+                        )
+                        self._rate_limited = True
+
+            if resp.status_code >= 400:
+                detail = resp.text[:600].replace("\n", " ")
+                raise RuntimeError(
+                    f"Gemini {resp.status_code} for model {self.model}: {detail}"
+                )
+
             data = resp.json()
 
         usage = data.get("usageMetadata", {})
@@ -187,6 +321,96 @@ class GeminiProvider(BaseLLMProvider):
             input_tokens=usage.get("promptTokenCount", 0),
             output_tokens=usage.get("candidatesTokenCount", 0),
         )
+
+
+# Substrings that mark a model as unsuitable for the strict JSON-array contract
+# stage2_batch_rank depends on. Embeddings and rerankers do not chat at all;
+# vision and audio variants cost more for no benefit here.
+_NON_CHAT_HINTS = (
+    "embed", "rerank", "vision", "image", "audio", "tts", "whisper", "guard",
+    # Code-specialised models answer a rubric prompt poorly. A live run replaced
+    # a retired llama-3.3-70b-instruct with meta/codellama-70b purely because
+    # both start with "meta", and every call then 404'd anyway.
+    "code", "coder", "starcoder",
+)
+
+
+def _is_model_error(status: int, body: str) -> bool:
+    """Is this failure about the model id rather than the request?
+
+    404 and 410 are unambiguous. A 400 usually is not -- but providers also use
+    it for an unknown model, and the id is not portable between them: an
+    NVIDIA-style "meta/llama-3.3-70b-instruct" handed to OpenRouter comes back
+    as `400 "... is not a valid model ID"`, since OpenRouter spells the same
+    model "meta-llama/llama-3.3-70b-instruct". Switching providers therefore
+    invalidates the pin, and re-resolving is exactly the right response.
+    """
+    if status in (404, 410):
+        return True
+    if status != 400:
+        return False
+    lowered = body.lower()
+    return any(
+        phrase in lowered
+        for phrase in (
+            "not a valid model", "model not found", "unknown model",
+            "no such model", "invalid model", "end of life",
+        )
+    )
+
+
+async def _resolve_live_model(
+    client: httpx.AsyncClient,
+    base_url: str,
+    headers: dict[str, str],
+    current: str,
+) -> str | None:
+    """Pick a live chat model from the endpoint's own /models listing.
+
+    Used when a configured model has been retired. The provider already knows
+    what it serves, so asking beats hardcoding a successor that will itself be
+    retired later.
+
+    Prefers a model from the same family as the one that died -- a Llama pin
+    should become another Llama, not whatever happens to sort first -- and
+    prefers free variants where the provider marks them, since this runs as a
+    zero-cost fallback.
+    """
+    try:
+        listing = await client.get(f"{base_url}/models", headers=headers)
+        if listing.status_code != 200:
+            return None
+        rows = listing.json().get("data", [])
+    except Exception as exc:
+        log.warning("Could not list models at %s: %s", base_url, exc)
+        return None
+
+    ids = [
+        str(r.get("id", "")) for r in rows
+        if isinstance(r, dict) and r.get("id")
+    ]
+    candidates = [
+        i for i in ids
+        if not any(hint in i.lower() for hint in _NON_CHAT_HINTS)
+    ]
+    if not candidates:
+        return None
+
+    family = current.split("/")[-1].split("-")[0].lower()
+
+    def rank(model_id: str) -> tuple[int, int, int, str]:
+        lowered = model_id.lower()
+        return (
+            # General-purpose first. Family resemblance is a weaker signal than
+            # being an instruct/chat model at all: the whole job here is to
+            # follow a rubric prompt and emit a JSON array.
+            0 if ("instruct" in lowered or "chat" in lowered) else 1,
+            0 if family and family in lowered else 1,
+            0 if lowered.endswith(":free") else 1,
+            model_id,
+        )
+
+    return sorted(candidates, key=rank)[0]
 
 
 class OpenAICompatibleProvider(BaseLLMProvider):
@@ -220,6 +444,9 @@ class OpenAICompatibleProvider(BaseLLMProvider):
         self.base_url = base_url.rstrip("/")
         self.model = model
         self.provider_name = provider_name
+        # Re-resolve at most once per provider instance; a second failure means
+        # the problem is not the model id.
+        self._model_resolved = False
 
     async def complete(
         self,
@@ -240,7 +467,55 @@ class OpenAICompatibleProvider(BaseLLMProvider):
         url = f"{self.base_url}/chat/completions"
         async with httpx.AsyncClient(timeout=120.0) as client:
             resp = await client.post(url, json=payload, headers=headers)
-            resp.raise_for_status()
+            # Same reasoning as GeminiProvider: raise_for_status() throws away
+            # the body, which is where an OpenAI-compatible endpoint explains
+            # itself -- a wrong model name, a bad key, a retired endpoint.
+            # Without it a dead fallback reads as an unexplained "410 Gone" and
+            # the run degrades to metadata scoring with nothing to act on.
+            # A model that has been end-of-lifed is the one failure the caller
+            # can actually recover from unaided: the endpoint is up, the key is
+            # valid, and the replacement is listed at /models. Pinning a model
+            # id is correct for reproducibility right up until the provider
+            # retires it, at which point the pin is just an outage.
+            if _is_model_error(resp.status_code, resp.text) and not self._model_resolved:
+                self._model_resolved = True
+                replacement = await _resolve_live_model(
+                    client, self.base_url, headers, self.model
+                )
+                if replacement:
+                    log.warning(
+                        "%s: model %r is unavailable (%s). Switching to %r for "
+                        "the rest of this run; set LLM_FALLBACK_MODEL to pin it.",
+                        self.provider_name, self.model, resp.status_code, replacement,
+                    )
+                    self.model = replacement
+                    payload["model"] = replacement
+                    resp = await client.post(url, json=payload, headers=headers)
+
+            if resp.status_code >= 400:
+                detail = resp.text[:400].replace("\n", " ")
+                hint = ""
+                if resp.status_code in (403, 410) and "nvidia" in self.base_url:
+                    # Do not send people chasing the URL: NVIDIA's endpoint is
+                    # current, and returns 410/403 when the account's org lacks
+                    # the "Public API Endpoints" permission. Personal orgs do
+                    # not get it by default and have to request it.
+                    hint = (
+                        " — NVIDIA returns this when the account's organization "
+                        "lacks the 'Public API Endpoints' permission, not "
+                        "because the URL is wrong. Request it for your org; "
+                        "changing LLM_FALLBACK_BASE_URL will not help."
+                    )
+                elif resp.status_code in (404, 410):
+                    hint = (
+                        f" — check LLM_FALLBACK_BASE_URL ({self.base_url}) and "
+                        "LLM_FALLBACK_MODEL point at a live OpenAI-compatible "
+                        "endpoint and a model it serves."
+                    )
+                raise RuntimeError(
+                    f"{self.provider_name} {resp.status_code} for model "
+                    f"{self.model}: {detail}{hint}"
+                )
             data = resp.json()
 
         text = data["choices"][0]["message"]["content"]

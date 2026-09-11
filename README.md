@@ -2,7 +2,9 @@
 
 > **Personal podcast intelligence agent** — daily AI-ranked briefing for product leaders at the intersection of AI, retail, and eCommerce.
 
-Podcast Scout automatically discovers, scores, and curates podcast episodes from your subscribed feeds and the open web. It runs every weekday via GitHub Actions, publishes per-category RSS feeds to GitHub Pages, and sends a styled HTML email digest — all for roughly **$0 per week** using the built-in GitHub Models token.
+Podcast Scout automatically discovers, scores, and curates podcast episodes from your subscribed feeds and the open web. It runs every weekday via GitHub Actions, publishes per-category RSS feeds to GitHub Pages, and sends a styled HTML email digest.
+
+> **Engine / instance split.** This repo is the **engine**: code, example configs, tests, and nothing personal. Your preferences, state, history, and brain belong in a separate **private instance repo** that installs this package as a dependency. See [MIGRATION.md](MIGRATION.md).
 
 ---
 
@@ -23,7 +25,9 @@ Subscribe to these RSS feeds in any podcast app (Overcast, Pocket Casts, Castro,
 
 - **Multi-source discovery** — polls RSS feeds directly for followed shows; uses Podcast Index API and web search (Brave / Serper) for outside-feed discovery
 - **Two-stage AI ranking** — fast metadata pre-filter (Stage 1) then deep LLM scoring against a persona-aware rubric (Stage 2)
-- **Free LLM via GitHub Models** — uses `gpt-4.1` through the built-in `GITHUB_TOKEN` (requires `models: read` permission in the workflow); falls back to Gemini if configured
+- **Pluggable LLM** — Gemini primary, with any OpenAI-compatible endpoint as an automatic per-call fallback (defaults to NVIDIA NIM)
+- **Durable brain** — admitted signals become markdown Source pages linked to the Theses they bear on
+- **Falsifier watch** — every active thesis declares what would change your mind; each run tests the day's signals against those falsifiers and leads the brief with whatever argues *against* you
 - **Per-category queues** — episodes are bucketed into `ai_retail`, `startup`, and `personal_growth` so high-volume categories never crowd out others
 - **Weekly synthesis** — cross-episode insight report generated on demand
 - **GitHub Pages output** — per-category RSS feeds (`{slug}.xml`), `listen.xml` / `all.xml`, `index.html` briefing, and `data/latest.json`
@@ -51,10 +55,15 @@ podcast-curation-agent/
 │   ├── rss.py              # RSS/Atom feed builder
 │   ├── state.py            # Run state, seen-GUIDs, history
 │   ├── email_digest.py     # SMTP HTML email sender
+│   ├── brain/              # Durable markdown brain
+│   │   ├── schema.py           # Frontmatter + Thesis/Source/Pattern/Company
+│   │   ├── store.py            # Read/write pages, evidence links, index
+│   │   ├── falsifier.py        # Test signals against thesis falsifiers
+│   │   └── writer.py           # Signals -> Source pages -> thesis evidence
 │   ├── templates/          # Jinja2 HTML templates
 │   └── providers/
 │       ├── base.py             # Abstract provider interfaces
-│       ├── llm.py              # GitHub Models (primary) + Gemini (fallback)
+│       ├── llm.py              # Gemini (primary) + OpenAI-compatible (fallback)
 │       ├── podcast_search.py   # Podcast Index + iTunes providers
 │       ├── transcription.py    # Cascade transcription (Whisper optional)
 │       └── web_search.py       # Brave / Serper / Null providers
@@ -68,7 +77,10 @@ podcast-curation-agent/
 ├── .github/workflows/
 │   ├── daily.yml           # Mon–Fri 05:00 UTC pipeline
 │   └── weekly_synthesis.yml # Weekly synthesis job
+├── scripts/
+│   └── make_instance.py    # Assemble the private instance repo
 ├── .env.example            # All environment variables documented
+├── MIGRATION.md            # Engine/instance split runbook
 └── pyproject.toml          # Hatchling build, deps, ruff + mypy config
 ```
 
@@ -84,7 +96,7 @@ RSS (followed shows) + Podcast Index + Web Search
    ┌───────▼────────┐
    │ per-category   │  (ai_retail / startup / personal_growth)
    │  Stage-1 score │  show prior + guest/competitor signals, O(ms)
-   │  Stage-2 LLM   │  GitHub Models gpt-4.1 (free) or Gemini fallback
+   │  Stage-2 LLM   │  Gemini, with OpenAI-compatible fallback
    │  build_queue() │  RSS + email-only split
    └───────┬────────┘
            │
@@ -97,13 +109,43 @@ RSS (followed shows) + Podcast Index + Web Search
 
 ---
 
+## 🧠 The brain
+
+Ranking answers "what should I read today". The brain answers "what do I now
+believe, and what would change my mind".
+
+```bash
+export BRAIN_DIR=brain
+podcast-scout brain init      # scaffold + seed draft theses
+podcast-scout brain status    # confidence and falsifier coverage
+```
+
+Each Thesis page carries a **falsifier**: the evidence that would change your
+mind. On every run, admitted episodes become `Source` pages, and one batched
+LLM call tests them against the falsifiers of every active thesis. Anything
+that *cuts against* a belief leads the brief — above the queue, in the email,
+and in the HTML.
+
+This exists because ranking optimises for relevance, which by construction
+surfaces material that agrees with you. Without an explicit check against
+falsifiers, a knowledge base accumulates confirmation and calls it learning.
+
+Evidence links are appended to the thesis page with a date, a link, and the
+reasoning. Weak hits are shown in the brief but never written, so the evidence
+trail stays defensible rather than exhaustive. Writes are idempotent: re-running
+over the same signals does not duplicate anything.
+
+`BRAIN_DIR` unset disables all of it — the pipeline runs exactly as before.
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 - Python ≥ 3.12
 - [uv](https://github.com/astral-sh/uv) (recommended) or pip
-- A GitHub account (GitHub Models provides free LLM access — no extra API keys needed in CI)
+- A `GEMINI_API_KEY` (or any OpenAI-compatible endpoint via `LLM_FALLBACK_*`)
 
 ### Local setup
 
@@ -117,8 +159,7 @@ uv sync            # or: pip install -e .
 
 # 3. Configure environment
 cp .env.example .env
-# Edit .env — set GITHUB_TOKEN to a PAT with models:read scope for local runs
-# (In GitHub Actions, the built-in GITHUB_TOKEN is used automatically)
+# Edit .env — set GEMINI_API_KEY (and/or LLM_FALLBACK_API_KEY)
 
 # 4. Validate config
 uv run podcast-scout validate
@@ -138,9 +179,12 @@ uv run podcast-scout run
 
 | Variable | Required | Description |
 |---|---|---|
-| `GITHUB_TOKEN` | **Yes** | Token for GitHub Models (`gpt-4.1`). In Actions, the built-in token is used automatically — just ensure `models: read` permission is declared in the workflow. For local runs, create a PAT with `models: read` scope. |
-| `GEMINI_API_KEY` | No | Google Gemini fallback key — used if GitHub Models is unavailable |
-| `GEMINI_STAGE2_MODEL` | No | Override Gemini model (default: `gemini-2.5-flash`) |
+| `GEMINI_API_KEY` | **Yes*** | Primary LLM. \*At least one of this or `LLM_FALLBACK_API_KEY` is required; with neither, every episode scores at the metadata floor and the curated feed stops updating. |
+| `LLM_FALLBACK_API_KEY` | No | Any OpenAI-compatible endpoint, used automatically on any primary failure. Configure both to get retry behaviour. |
+| `BRAIN_DIR` | No | Enables the brain and falsifier watch. Unset disables all brain writes. |
+| `BRIEFING_DIR` | No | Where `index.html` / `latest.md` / `latest.json` are written. Defaults to `PUBLIC_DIR`; set it separately to keep the briefing out of what gets published. |
+| `GEMINI_STAGE2_MODEL` | No | Override Gemini model (default: `gemini-3.6-flash`). Free-tier quota is **per model**, so this is the first thing to change on a 429. |
+| `GEMINI_THINKING_BUDGET` | No | Thinking token budget (default `0`, disabled). Set `none` to omit the field for models that reject it. |
 | `PODCAST_INDEX_KEY` | No | [Podcast Index](https://api.podcastindex.org) key for broader discovery |
 | `PODCAST_INDEX_SECRET` | No | Podcast Index secret |
 | `WEB_SEARCH_API_KEY` | No | Brave Search or Serper.dev key for outside-feed discovery |
@@ -173,12 +217,12 @@ Custom keyword queries injected into the web search and podcast search providers
 
 ### Daily pipeline (Mon–Fri, 05:00 UTC)
 
-Configured in [`.github/workflows/daily.yml`](.github/workflows/daily.yml). The workflow uses the **built-in `GITHUB_TOKEN`** with `models: read` permission for free LLM access via GitHub Models — no PAT or extra API key required. Supports `workflow_dispatch` with optional `lookback_days` and `dry_run` inputs.
+Configured in [`.github/workflows/daily.yml`](.github/workflows/daily.yml). Supports `workflow_dispatch` with optional `lookback_days` and `dry_run` inputs.
 
 **Required repository secrets:**
 
 ```
-GEMINI_API_KEY          # optional — fallback LLM if GitHub Models is unavailable
+GEMINI_API_KEY          # primary LLM
 PODCAST_INDEX_KEY       # optional
 PODCAST_INDEX_SECRET    # optional
 WEB_SEARCH_API_KEY      # optional
@@ -195,7 +239,7 @@ PAGES_BASE_URL          # e.g. https://iitiff.github.io/podcast-curation-agent
 2. Add the secrets above under **Settings → Secrets and variables → Actions**
 3. Trigger manually via **Actions → Daily Podcast Scout → Run workflow** for the first run
 
-> **Note:** No `GH_MODELS_TOKEN` secret is needed. The workflow's built-in `GITHUB_TOKEN` handles GitHub Models access automatically via the `models: read` permission declared in the workflow.
+> **GitHub Models is gone.** GitHub retired the product on 2026-07-30; the inference endpoint returns `410 Gone` and there is no replacement. Earlier revisions of this README described it as the free primary LLM — that is no longer true. Configure `GEMINI_API_KEY`, and ideally `LLM_FALLBACK_API_KEY` as well.
 
 ### Weekly synthesis
 
@@ -247,7 +291,7 @@ The project uses:
 
 | Package | Purpose |
 |---|---|
-| `openai` | GitHub Models client (Azure-hosted OpenAI-compatible API) |
+| `openai` | OpenAI-compatible fallback client (NVIDIA NIM by default) |
 | `google-genai` | Gemini LLM fallback for ranking & summarization |
 | `feedparser` | RSS/Atom feed parsing |
 | `httpx` | Async HTTP for all external calls |

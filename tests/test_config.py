@@ -3,7 +3,6 @@ import pytest
 
 from podcast_scout.config import Settings, _env
 
-
 # ---------------------------------------------------------------------------
 # _env() strips surrounding whitespace.
 #
@@ -80,3 +79,104 @@ def test_fallback_prefers_generic_over_legacy_name(monkeypatch):
     monkeypatch.setenv("LLM_FALLBACK_API_KEY", "generic")
     monkeypatch.setenv("NVIDIA_API_KEY", "legacy")
     assert Settings().fallback_api_key == "generic"
+
+
+# ---------------------------------------------------------------------------
+# Engine/instance split: output directories and packaged templates
+# ---------------------------------------------------------------------------
+
+def test_briefing_dir_defaults_to_public_dir(monkeypatch):
+    """Unset BRIEFING_DIR must behave exactly as before the split."""
+    from podcast_scout.config import Settings
+
+    monkeypatch.delenv("BRIEFING_DIR", raising=False)
+    monkeypatch.setenv("PUBLIC_DIR", "public")
+    assert Settings().briefing_dir == Settings().public_dir
+
+
+def test_briefing_dir_separates_from_public_dir(monkeypatch):
+    """The briefing describes how the reader thinks and must stay unpublished."""
+    from podcast_scout.config import Settings
+
+    monkeypatch.setenv("PUBLIC_DIR", "feeds")
+    monkeypatch.setenv("BRIEFING_DIR", "briefing")
+    settings = Settings()
+    assert settings.public_dir.name == "feeds"
+    assert settings.briefing_dir.name == "briefing"
+    assert settings.public_dir != settings.briefing_dir
+
+
+def test_brain_dir_is_none_unless_set(monkeypatch):
+    """An instance that has not opted into the brain must be unaffected."""
+    from podcast_scout.config import Settings
+
+    monkeypatch.delenv("BRAIN_DIR", raising=False)
+    assert Settings().brain_dir is None
+    monkeypatch.setenv("BRAIN_DIR", "brain")
+    assert Settings().brain_dir is not None
+
+
+def test_templates_resolve_to_an_absolute_packaged_path(monkeypatch):
+    """Templates must resolve via the package, not relative to the cwd.
+
+    A cwd-relative path silently fails once the engine is pip-installed into a
+    separate instance repo: templates_dir.exists() is False and the briefing
+    stops rendering with no error.
+    """
+    from podcast_scout.config import Settings
+
+    monkeypatch.delenv("TEMPLATES_DIR", raising=False)
+    templates = Settings().templates_dir
+    assert templates.is_absolute()
+    assert (templates / "index.html.j2").exists()
+
+
+def test_provider_named_key_wins_over_the_generic_one(monkeypatch):
+    """An OPENROUTER_API_KEY added to replace a broken setup must take effect.
+
+    A live run kept using NVIDIA because a stale LLM_FALLBACK_API_KEY was still
+    set, so the newly added provider key was silently ignored.
+    """
+    from podcast_scout.config import Settings
+
+    monkeypatch.setenv("LLM_FALLBACK_API_KEY", "stale-nvidia")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "new-openrouter")
+    monkeypatch.delenv("LLM_FALLBACK_BASE_URL", raising=False)
+    monkeypatch.delenv("NVIDIA_BASE_URL", raising=False)
+    s = Settings()
+    assert s.fallback_api_key == "new-openrouter"
+    assert "openrouter" in s.fallback_base_url
+    assert s.fallback_provider_name == "OpenRouter"
+
+
+def test_explicit_base_url_still_overrides(monkeypatch):
+    from podcast_scout.config import Settings
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.setenv("LLM_FALLBACK_BASE_URL", "https://custom.example/v1")
+    assert Settings().fallback_base_url == "https://custom.example/v1"
+
+
+def test_openrouter_key_matched_by_name_shape(monkeypatch):
+    """Enumerating spellings failed three times before the real secret name
+    (OPEN_ROUTER_API) was known. Match the shape instead."""
+    from podcast_scout.config import Settings
+
+    for name in ("LLM_FALLBACK_API_KEY", "NVIDIA_API_KEY", "LLM_FALLBACK_BASE_URL"):
+        monkeypatch.delenv(name, raising=False)
+    for variant in ("OPEN_ROUTER_API", "OPENROUTER_API_KEY", "OpenRouter_Key", "OPEN_ROUTER"):
+        monkeypatch.setenv(variant, "k")
+        s = Settings()
+        assert s.fallback_api_key == "k", f"{variant} must be recognised"
+        assert "openrouter" in s.fallback_base_url
+        monkeypatch.delenv(variant, raising=False)
+
+
+def test_unrelated_vars_are_not_mistaken_for_a_key(monkeypatch):
+    from podcast_scout.config import Settings
+
+    for name in ("LLM_FALLBACK_API_KEY", "NVIDIA_API_KEY"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("ROUTER_CONFIG", "x")
+    monkeypatch.setenv("OPEN_FILES", "y")
+    assert Settings().fallback_api_key == ""

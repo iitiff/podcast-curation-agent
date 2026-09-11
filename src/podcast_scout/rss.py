@@ -57,7 +57,7 @@ def _prefix(r: RankedEpisode, rank: int | None = None) -> str:
 _LISTEN_RANK_RE = re.compile("(\U0001f3a7 LISTEN)(?: #\\d+)?")
 
 
-def _renumber_prior_title(prior: "_PriorItem", rank: int) -> None:
+def _renumber_prior_title(prior: _PriorItem, rank: int) -> None:
     """Rewrite a carried-over item's LISTEN rank in place.
 
     Prior items are appended as raw XML lifted from the previous feed, so their

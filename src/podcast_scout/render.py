@@ -6,6 +6,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from .brain import FalsifierHit
 from .ranking import RankedEpisode
 from .synthesis import WeeklySynthesis
 
@@ -26,6 +27,7 @@ def render_briefing(
     run_date: str,
     feed_url: str = "",
     all_feed_url: str = "",
+    hits: list[FalsifierHit] | None = None,
 ) -> None:
     env = _build_env(templates_dir)
     tmpl = env.get_template("index.html.j2")
@@ -36,6 +38,7 @@ def render_briefing(
         run_date=run_date,
         feed_url=feed_url,
         all_feed_url=all_feed_url,
+        challenges=[h for h in (hits or []) if h.is_challenge],
         generated_at=datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
     )
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -47,8 +50,22 @@ def render_markdown(
     email_only: list[RankedEpisode],
     synthesis: WeeklySynthesis | None,
     run_date: str,
+    hits: list[FalsifierHit] | None = None,
 ) -> str:
     lines = [f"# Podcast Scout — {run_date}\n"]
+
+    # Challenges lead the brief. Ranking optimises for relevance, so the queue
+    # is by construction full of things that agree with the reader; anything
+    # that cuts against a stated belief is the most valuable item of the day
+    # and must not be buried under it.
+    challenges = [h for h in (hits or []) if h.is_challenge]
+    if challenges:
+        lines.append("## ⚡ Challenges to your active theses\n")
+        for hit in challenges:
+            lines.append(f"- **{hit.thesis_title}** — {hit.reasoning}")
+            lines.append(f"  ↳ via _{hit.signal_title}_ ({hit.strength})")
+        lines.append("")
+
     if queued:
         lines.append("## 🎧 In Your Queue Today\n")
         for i, r in enumerate(queued, 1):

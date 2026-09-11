@@ -3,8 +3,6 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Optional
-
 
 # ---------------------------------------------------------------------------
 # Podcast search
@@ -20,7 +18,7 @@ class PodcastSearchResult:
     episode_url: str = ""
     enclosure_url: str = ""
     image_url: str = ""
-    published_timestamp: Optional[int] = None  # Unix timestamp from Podcast Index
+    published_timestamp: int | None = None  # Unix timestamp from Podcast Index
     source: str = ""
 
 
