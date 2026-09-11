@@ -182,8 +182,14 @@ class Settings:
             None if _budget in {"none", "off", "default"} else int(_budget)
         )
 
-        # FALLBACK: any OpenAI-compatible endpoint. Defaults target NVIDIA's
-        # hosted NIM API (build.nvidia.com). Deliberately generic -- to switch to
+        # FALLBACK: any OpenAI-compatible endpoint.
+        #
+        # WARNING: the NVIDIA NIM default below returned 410 Gone in a live run
+        # on 2026-09-11, the same way GitHub Models did. Treat it as a
+        # placeholder, not a working default: set LLM_FALLBACK_BASE_URL and
+        # LLM_FALLBACK_MODEL to a provider you have verified.
+        #
+        # Deliberately generic -- to switch to
         # OpenRouter / Groq / Together / a self-hosted NIM, change only
         # LLM_FALLBACK_BASE_URL and LLM_FALLBACK_MODEL, no code edits required.
         # Legacy NVIDIA_* names are still honoured for convenience.

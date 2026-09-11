@@ -354,7 +354,24 @@ class OpenAICompatibleProvider(BaseLLMProvider):
         url = f"{self.base_url}/chat/completions"
         async with httpx.AsyncClient(timeout=120.0) as client:
             resp = await client.post(url, json=payload, headers=headers)
-            resp.raise_for_status()
+            # Same reasoning as GeminiProvider: raise_for_status() throws away
+            # the body, which is where an OpenAI-compatible endpoint explains
+            # itself -- a wrong model name, a bad key, a retired endpoint.
+            # Without it a dead fallback reads as an unexplained "410 Gone" and
+            # the run degrades to metadata scoring with nothing to act on.
+            if resp.status_code >= 400:
+                detail = resp.text[:400].replace("\n", " ")
+                hint = ""
+                if resp.status_code in (404, 410):
+                    hint = (
+                        f" — {self.base_url} looks retired or wrong. Point "
+                        "LLM_FALLBACK_BASE_URL and LLM_FALLBACK_MODEL at a live "
+                        "OpenAI-compatible endpoint."
+                    )
+                raise RuntimeError(
+                    f"{self.provider_name} {resp.status_code} for model "
+                    f"{self.model}: {detail}{hint}"
+                )
             data = resp.json()
 
         text = data["choices"][0]["message"]["content"]

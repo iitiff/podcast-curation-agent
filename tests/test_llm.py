@@ -294,3 +294,27 @@ def test_waiting_stops_once_a_backoff_proves_futile(monkeypatch):
     with pytest.raises(RuntimeError):
         _run(provider, _Seq((429, _429)))
     assert len(slept) == 1, "must not keep waiting once waiting is known futile"
+
+
+# ---------------------------------------------------------------------------
+# The OpenAI-compatible fallback swallowed its error bodies the same way
+# Gemini did. A live run showed only "Client error '410 Gone'" when the
+# default NVIDIA NIM endpoint turned out to be retired.
+# ---------------------------------------------------------------------------
+
+def test_fallback_error_body_is_surfaced():
+    from podcast_scout.providers.llm import OpenAICompatibleProvider
+    import asyncio
+    from unittest.mock import patch
+
+    provider = OpenAICompatibleProvider(
+        api_key="k", base_url="https://dead.example/v1",
+        model="m", provider_name="Test NIM",
+    )
+    client = _Seq((410, '{"error":"endpoint retired"}'))
+    with patch("podcast_scout.providers.llm.httpx.AsyncClient", lambda **kw: client), \
+         pytest.raises(RuntimeError) as exc:
+        asyncio.run(provider.complete([LLMMessage(role="user", content="hi")]))
+    msg = str(exc.value)
+    assert "410" in msg and "endpoint retired" in msg
+    assert "LLM_FALLBACK_BASE_URL" in msg, "a dead endpoint must name its own fix"
