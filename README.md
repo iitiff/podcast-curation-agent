@@ -68,15 +68,12 @@ podcast-curation-agent/
 │       ├── transcription.py    # Cascade transcription (Whisper optional)
 │       └── web_search.py       # Brave / Serper / Null providers
 ├── config/
-│   ├── preferences.yaml            # Persona, show priors, output caps, watchlists
-│   ├── discovery_queries.yaml      # Custom search query seeds
-│   ├── shows.yaml                  # Per-show category & feed URL overrides
-│   └── subscriptions.opml.example  # Template OPML — copy & rename
-├── data/                   # Runtime state (committed by CI bot)
-├── public/                 # Generated outputs deployed to GitHub Pages
+│   ├── preferences.example.yaml        # Persona, show priors, output caps, watchlists
+│   ├── discovery_queries.example.yaml  # Custom search query seeds
+│   ├── shows.example.yaml              # Per-show category & feed URL overrides
+│   └── subscriptions.opml.example      # Template OPML — copy & rename
 ├── .github/workflows/
-│   ├── daily.yml           # Mon–Fri 05:00 UTC pipeline
-│   └── weekly_synthesis.yml # Weekly synthesis job
+│   └── ci.yml              # ruff, mypy, pytest on every PR
 ├── scripts/
 │   └── make_instance.py    # Assemble the private instance repo
 ├── .env.example            # All environment variables documented
@@ -217,7 +214,7 @@ Custom keyword queries injected into the web search and podcast search providers
 
 ### Daily pipeline (Mon–Fri, 05:00 UTC)
 
-Configured in [`.github/workflows/daily.yml`](.github/workflows/daily.yml). Supports `workflow_dispatch` with optional `lookback_days` and `dry_run` inputs.
+Scheduling lives in the **instance** repo, not here. `scripts/make_instance.py` generates a `daily.yml` that installs this package at a pinned commit and supports `workflow_dispatch` with `lookback_days` and `dry_run` inputs.
 
 **Required repository secrets:**
 
@@ -243,7 +240,7 @@ PAGES_BASE_URL          # e.g. https://iitiff.github.io/podcast-curation-agent
 
 ### Weekly synthesis
 
-Configured in [`.github/workflows/weekly_synthesis.yml`](.github/workflows/weekly_synthesis.yml). Generates a cross-episode insight report appended to the briefing.
+Run with `podcast-scout run --synthesis`. Generates a cross-episode insight report appended to the briefing; schedule it from the instance repo.
 
 ---
 
