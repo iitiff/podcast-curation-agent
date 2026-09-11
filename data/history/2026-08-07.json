@@ -1,0 +1,285 @@
+{
+  "run_date": "2026-08-07",
+  "queued": [
+    {
+      "guid": "1e539d4f8a9cda71",
+      "show": "Retailgentic",
+      "title": "Baird Managing Director of Internet Research Colin Sebastian: What Wall St. Thinks About Agentic Commerce",
+      "score": 87.0,
+      "classification": "Listen Fully",
+      "classification_reason": "Highly relevant to eCommerce and AI product strategy, featuring a top Wall Street analyst providing concrete insights into market shifts, company valuations, and strategic implications of agentic commerce.",
+      "duration_min": 55.0,
+      "url": "https://share.transistor.fm/s/07b550ff",
+      "summary": "This episode features Colin Sebastian, Baird's Managing Director of Internet Research, discussing Wall Street's perspective on the emerging 'agentic commerce' paradigm. He analyzes how professional investors are pricing this shift across mega-cap companies like Meta, Amazon, Google, eBay, and Shopify. Key topics include Baird's 'SPEED' framework for internet winners, the underestimated potential of agentic commerce, and why Meta is a top AI pick due to its consumer reach and business agents. Sebastian also explores how foundation models will commoditize, value will accrue to platforms, Amazon's strategic move to open its catalog to AI agents, and the potential pressure on retail media advertising as agents bypass traditional search. The discussion emphasizes the importance of owning the authenticated consumer experience, from identity to fulfillment.",
+      "key_ideas": [
+        "Wall Street's pricing models and strategic outlook on agentic commerce.",
+        "The 'SPEED' framework for internet winners and Meta's AI advantage.",
+        "Shifts in value capture from foundation models to platforms and the impact on retail media."
+      ],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "b595bf30074b66d4",
+      "show": "Y Combinator Startup Podcast",
+      "title": "Garry Tan: Own Your Intelligence",
+      "score": 85.0,
+      "classification": "Listen Fully",
+      "classification_reason": "This episode is highly relevant, featuring a top authority discussing the strategic implications of AI for product development, team structure, and competitive advantage. The concept of 'personal AGI' and owning intelligence offers novel and actionable insights for a senior PM.",
+      "duration_min": 42.0,
+      "url": "https://podcasters.spotify.com/pod/show/ycombinator/episodes/Garry-Tan-Own-Your-Intelligence-e3n2rc1",
+      "summary": "YC President & CEO Garry Tan discusses the advent of 'personal AGI' and its impact on the future of startups, predicting smaller, more powerful teams. He advocates for founders to 'own their intelligence' by leveraging AI agents on personal infrastructure to compound knowledge and dramatically enhance building capabilities. The episode likely shares practical tools and workflows, offering a strategic vision for how AI will transform productivity, product development, and the competitive landscape for new ventures.",
+      "key_ideas": [
+        "The rise of 'personal AGI' and its impact on startup team size and efficiency.",
+        "The strategic imperative to 'own your intelligence' via AI agents and personal infrastructure.",
+        "Practical tools and workflows for leveraging AI in building products and enhancing productivity."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "2084c15806050019",
+      "show": "No Priors",
+      "title": "Chasing Trillion-Dollar Companies, Founder Ambition, Token Budgets, and Regulatory Capture with Sarah & Elad",
+      "score": 82.0,
+      "classification": "Listen Fully",
+      "classification_reason": "High relevance to AI product strategy, market dynamics, and founder insights from top-tier guests (Elad Gil, Sarah Guo). Provides strategic frameworks and covers important macro trends.",
+      "duration_min": 39.0,
+      "url": "",
+      "summary": "This episode features Sarah and Elad discussing the rapid evolution of the AI landscape, venture capital, and startup dynamics. They delve into the pursuit of multi-trillion-dollar companies, the realities of market sizing versus revenue, and the optimal timing for startup exits. The conversation also covers the impact of major AI labs on founder ambition, potential researcher burnout, and critical bottlenecks in compute power. Furthermore, they explore the implications of regulatory capture and the shifting geographical ecosystems for tech innovation, offering a comprehensive look at the strategic challenges and opportunities facing the tech industry.",
+      "key_ideas": [
+        "The pursuit of multi-trillion-dollar companies and realistic market sizing.",
+        "Impact of AI labs on startup strategy and founder ambition.",
+        "Compute bottlenecks, regulatory capture, and evolving tech ecosystems."
+      ],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "97db65deb61a4199",
+      "show": "AI + a16z",
+      "title": "Inside vLLM: The Engine Powering Open-Source AI",
+      "score": 82.0,
+      "classification": "Listen Fully",
+      "classification_reason": "This episode directly addresses critical strategic areas for a Senior PM: AI infrastructure, open-source models, and the economics of AI. The guest is a highly relevant operator, and the content promises actionable insights for product strategy in AI.",
+      "duration_min": 47.0,
+      "url": "https://ai-a16z.simplecast.com/episodes/inside-vllm-the-engine-powering-open-source-ai-etgKL1N9",
+      "summary": "This episode delves into vLLM, an open-source inference engine, exploring its evolution from a research project to critical AI infrastructure. Simon Mo, co-founder and CEO of Inferact, discusses the rise of open-weight models, why companies seek control over their AI infrastructure, and how open-source inference is enabling next-gen AI applications. The conversation also covers model licensing, the economics of open-weight AI, and the diminishing gap between open and closed AI models, offering strategic insights into the future of AI development and deployment.",
+      "key_ideas": [
+        "Open-source AI's role as critical infrastructure (vLLM) and its evolution.",
+        "Strategic importance and economics of open-weight models and inference in the AI stack.",
+        "Companies' increasing desire for control over their AI infrastructure and its implications."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    }
+  ],
+  "email_only": [
+    {
+      "guid": "c120b83839fb7854",
+      "show": "The a16z Show",
+      "title": "The Engine Powering Open-Source AI",
+      "score": 82.0,
+      "classification": "Listen Fully",
+      "classification_reason": "This episode directly addresses critical strategic areas for a Senior PM: AI infrastructure, open-source models, and the economics of AI. The guest is a highly relevant operator, and the content promises actionable insights for product strategy in AI.",
+      "duration_min": 47.0,
+      "url": "https://a16z.simplecast.com/episodes/how-open-source-ai-became-critical-infrastructure-3yYJbsEz",
+      "summary": "This episode delves into vLLM, an open-source inference engine, exploring its evolution from a research project to critical AI infrastructure. Simon Mo, co-founder and CEO of Inferact, discusses the rise of open-weight models, why companies seek control over their AI infrastructure, and how open-source inference is enabling next-gen AI applications. The conversation also covers model licensing, the economics of open-weight AI, and the diminishing gap between open and closed AI models, offering strategic insights into the future of AI development and deployment.",
+      "key_ideas": [
+        "Open-source AI's role as critical infrastructure (vLLM) and its evolution.",
+        "Strategic importance and economics of open-weight models and inference in the AI stack.",
+        "Companies' increasing desire for control over their AI infrastructure and its implications."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "90ff9e859175a190",
+      "show": "Stratechery",
+      "title": "(Preview) Microsoft\u2019s Plan for Platform Survival, Meta and the Market\u2019s Permission, A Lack of Situational Awareness",
+      "score": 81.0,
+      "classification": "Listen Fully",
+      "classification_reason": "Provides deep strategic analysis of major tech companies' AI strategies and competitive positioning from a highly authoritative source (Ben Thompson), directly relevant to product strategy and market dynamics.",
+      "duration_min": 29.0,
+      "url": "https://sharptech.fm/member/episode/preview-microsofts-plan-for-platform-survival-meta-and-the-markets-permission-a-lack-of-situational-awareness",
+      "summary": "This Stratechery episode, featuring Ben Thompson and Andrew Parker, delves into the recent earnings reports of Microsoft, Meta, and Google. The discussion centers on Microsoft's strategy to become the enterprise AI middle layer, potential long-term threats to its competitive edge, and the implications of the open weights open letter. They then contrast Google's cautious approach to frontier AI with Meta's continued heavy investment and its nascent enterprise ambitions. The episode also touches on the lending environment for hyperscalers, a general market bubble check-in, and other tangential topics, offering a comprehensive strategic overview of the big tech landscape in the age of AI.",
+      "key_ideas": [
+        "Microsoft's enterprise AI strategy and competitive threats.",
+        "Contrasting AI investment strategies of Google and Meta.",
+        "Broader market dynamics and platform survival in the AI era."
+      ],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "a88abede4c44de42",
+      "show": "Masters of Scale",
+      "title": "How to beef up your business, with ButcherBox CEO Mike Salguero",
+      "score": 73.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "Total score 73 is between 50 and 74. (carried over)",
+      "duration_min": 36.0,
+      "url": "",
+      "summary": "ButcherBox CEO and founder Mike Salguero shares his journey of building a $600M+ subscription meat delivery business after a previous VC-backed failure. The episode highlights lessons learned the hard way, focusing on strategies like clean ingredients, clever marketing, and hiring for grit. It also covers the company's expansion into nationwide retail, offering direct insights into eCommerce and D2C scaling.",
+      "key_ideas": [
+        "Scaling a D2C subscription business to significant revenue",
+        "Leveraging marketing and hiring strategies for growth",
+        "Expanding from online delivery into nationwide retail"
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "af0b4b8faf6c9ef1",
+      "show": "Decoder",
+      "title": "The end of the human internet",
+      "score": 68.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "Highly relevant to AI and emerging technology, discussing a critical macro trend (\"the end of the human internet\") that impacts product strategy. While the guest is a journalist rather than an operator, the strategic importance and novelty are high. (carried over)",
+      "duration_min": 43.0,
+      "url": "",
+      "summary": "This episode, a cross-post from The Gray Area, features journalist Charlie Warzel discussing the evolving state of the internet, particularly the increasing prevalence of non-human actors and bots. It explores the implications of the \"dead internet theory\" and how the digital landscape is becoming overrun by AI-driven entities. The conversation delves into what this means for the future of online interaction, trust, and the design of digital products, offering a critical perspective on a significant emerging technology trend.",
+      "key_ideas": [
+        "The increasing dominance of non-human actors (bots, AI) on the internet.",
+        "Implications of the \"dead internet theory\" for digital ecosystems and user experience.",
+        "Strategic considerations for product managers in an internet increasingly shaped by AI."
+      ],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "aa629c66114a730d",
+      "show": "The a16z Show",
+      "title": "Three Startups Reinventing Critical Infrastructure",
+      "score": 67.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "Total score 67 is between 50 and 74. (carried over)",
+      "duration_min": 75.0,
+      "url": "https://a16z.simplecast.com/episodes/three-startups-reinventing-critical-infrastructure-FkRDwjit",
+      "summary": "This episode revisits conversations with founders of three startups tackling critical infrastructure challenges: Ulysses (autonomous underwater robots), Mariana Materials (critical minerals supply chain), and Radiant (portable nuclear microreactors). It explores the technologies and entrepreneurial approaches behind rebuilding America's industrial foundations, offering a look at product strategy in complex, deep tech domains.",
+      "key_ideas": [
+        "Product strategy in deep tech and critical infrastructure",
+        "Innovation in autonomous systems, supply chains, and energy",
+        "Founder challenges in highly complex and regulated industries"
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "499e4c446040be33",
+      "show": "Founders",
+      "title": "#427 How Raymond Plank Built a $50 Billion Oil Company",
+      "score": 65.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "Total score 65 is between 50 and 74. (carried over)",
+      "duration_min": 38.0,
+      "url": "",
+      "summary": "This episode delves into the entrepreneurial philosophy of Raymond Plank, founder of Apache Corporation, which grew from $250,000 to $50 billion. Drawing from his memoir, it focuses on Plank's lessons on opportunity, courage, cost control, resourcefulness, and adaptation over seven decades in business. While the industry is oil and gas, the principles of scaling a massive enterprise and strategic decision-making are highly transferable for a senior PM.",
+      "key_ideas": [
+        "Long-term strategic thinking for massive business growth",
+        "Founder mindset: opportunity, resourcefulness, cost control",
+        "Adaptation and resilience in business over decades"
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "80359a3a91ea3a1c",
+      "show": "Decoder",
+      "title": "Bluesky\u2019s new CEO wants a big tent, not a bubble",
+      "score": 62.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "While featuring a high-authority guest discussing platform strategy and leadership, the specific domain (social media) is not a primary focus for the persona. It offers transferable strategic insights but lacks direct relevance to AI or eCommerce. (carried over)",
+      "duration_min": 75.0,
+      "url": "",
+      "summary": "This episode features an interview with Toni Schneider, the new CEO of Bluesky, a social platform. The discussion centers on Schneider's new priorities and vision for Bluesky, particularly his aim for a \"big tent\" approach rather than a niche \"bubble.\" The conversation likely delves into platform growth strategies, user acquisition, content moderation challenges, and the strategic shifts that come with new leadership, offering insights into building and scaling a tech platform. The value lies in the strategic thinking behind platform growth and leadership, rather than the specific social media context.",
+      "key_ideas": [
+        "Strategic vision and leadership changes for a growing social platform.",
+        "Challenges and strategies for platform growth, user acquisition, and community building.",
+        "The \"big tent\" vs. \"bubble\" approach to platform development and user base."
+      ],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "8815e5930a81f6b2",
+      "show": "Chasing Life",
+      "title": "The Next Breakthrough Addiction Treatment May Be Here",
+      "score": 62.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "This episode discusses a significant emerging technology (GLP-1s) and its potential to disrupt healthcare, aligning with the persona's interest in 'AI and emerging technology' and 'market structure analysis.' The guests are highly authoritative. (carried over)",
+      "duration_min": 29.0,
+      "url": "",
+      "summary": "This episode features Dr. Sanjay Gupta and Dr. Dhruv Khullar discussing the groundbreaking potential of GLP-1 drugs, initially known for diabetes and weight loss, in treating addiction. They explore how these drugs impact the brain's reward system and could offer a new frontier in addiction treatment. The conversation delves into the scientific mechanisms and the broader implications of this medical breakthrough, highlighting how a single class of drugs could transform multiple areas of healthcare and human behavior.",
+      "key_ideas": [
+        "GLP-1 drugs' potential beyond diabetes and weight loss to treat addiction",
+        "Impact of GLP-1s on the brain's reward system",
+        "Implications of medical breakthroughs for new treatment paradigms"
+      ],
+      "confidence": "low",
+      "category": "personal_growth"
+    },
+    {
+      "guid": "f345ee72e455f35f",
+      "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
+      "title": "EP.633 \u300a\u5927\u4eba\u5b78\u9078\u64c7\u300b\u8b80\u5f8c\u5fc3\u5f97\uff1a\u5225\u7576\u87ba\u7d72\u91d8\uff0c\u8981\u6210\u70ba\u767c\u96fb\u6a5f",
+      "score": 53.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "The episode offers frameworks for career decision-making and strategic positioning in the AI era, which is relevant for a Senior PM focused on career growth. While not directly about product strategy, it provides valuable personal strategic insights. The low transcript confidence and the somewhat generic nature of career advice prevent a 'Listen Fully' recommendation.",
+      "duration_min": 55.0,
+      "url": "https://open.firstory.me/story/cmsgzmdxc0fnv01ykaxk61u6f",
+      "summary": "This episode reviews the book 'Adult Learning Choices' and features an interview with its author, Bryan \u59da\u8a69\u8c6a, co-founder of '\u5927\u4eba\u5b78' (Adult Learning). It addresses the challenge of making career decisions in an increasingly complex and AI-driven world, where abundant information can paradoxically lead to more confusion. The core message advocates for moving beyond being a 'screw' (a replaceable cog) to becoming a 'generator' (an indispensable value creator). The discussion promises to introduce decision-making frameworks and strategies for building a personal career map, specifically tailored for the AI era, to help professionals make intentional choices that align with their long-term goals and accumulate valuable experience.",
+      "key_ideas": [
+        "Adopt a 'generator' mindset over a 'screw' mindset for career longevity and impact in the AI era.",
+        "Utilize structured decision-making frameworks to navigate complex career choices.",
+        "Develop a personalized career map to ensure efforts align with long-term professional growth."
+      ],
+      "confidence": "low",
+      "category": "personal_growth"
+    },
+    {
+      "guid": "4d01abccb18efd7d",
+      "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
+      "title": "EP.632 \u300a\u504f\u5fc3\u81ea\u5df1\uff0c\u4e0d\u5fc5\u5411\u8ab0\u8aaa\u660e\u300b\u8b80\u5f8c\u5fc3\u5f97\uff1a\u6d3b\u6210\u81ea\u5df1\u559c\u6b61\u7684\u6a23\u5b50",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "LLM batch entry missing; metadata fallback (carried over)",
+      "duration_min": 46.0,
+      "url": "https://open.firstory.me/story/cmscvvx8c059w01td6fpu5353",
+      "summary": "\u3010\u672c\u96c6\u7bc0\u76ee\u7531 \u74e6\u57fa\u81ea\u5df1 \u8d0a\u52a9\u64ad\u51fa\u3011 \u300aAI \u74e6\u57fa\u7b2c\u4e8c\u5927\u8166\u300b \u5f9e\u601d\u8003\u6846\u67b6\u3001\u5be6\u6230\u5de5\u5177\u5230\u5be6\u969b\u6848\u4f8b\uff0c\u7d66\u4f60\u4e00\u5957\u53ef\u4ee5\u7167\u8457\u505a\u7684 AI \u5354\u4f5c\u7cfb\u7d71\uff1a \u25aa\ufe0f\u4e00\u7ad9\u5f0f\u5b78\u597d AI\uff5c\u601d\u7dad\u5e95\u5c64\u5230\u5be6\u6230\u7522\u51fa\uff0c\u4e00\u6b21\u5b8c\u6574\u5b78 \u25aa\ufe0f10 \u9805\u7368\u5bb6 AI \u5c08\u6848\u5305\uff5c\u6db5\u84cb\u5beb\u4f5c\u3001\u6c7a\u7b56\u3001\u7814\u7a76\u7b49\u5834\u666f \u25aa\ufe0fPACE \u884c\u52d5\u601d\u8003\u5730\u5716\uff5c\u56db\u5927\u8c61\u9650\u5c0d\u61c9\u6240\u6709 AI \u61c9\u7528\u5834\u666f \u25aa\ufe0f\u8cc7\u6599\u5eab\u6301\u7e8c\u66f4\u65b0\uff5c\u96a8\u8457 AI \u8fed\u4ee3\uff0c\u6301\u7e8c\u8ddf\u4f60\u4e00\u8d77\u6210\u9577 \u2728\u5b78\u4e00\u6b21\uff0c\u5efa\u4e00\u5957\u8ddf\u8457\u4f60\u6301\u7e8c\u8907\u5229\u6210\u9577\u7684 AI \u9ad8\u7522\u51fa\u7cfb\u7d71\u2728 \ud83d\udce3\u7d50\u5e33\u8f38\u5165\u6298\u6263\u78bc\uff1aWKWF350\uff0c\u518d\u6298 $350 \ud83d\udce3\u8ab2\u7a0b\u4ecb\u7d39\uff1a https://hi.sat.cool/u6R1Q \u3010\u672c\u96c6\u8a2a\u8ac7\u3011 \u4f60\u6709\u591a\u4e45\uff0c\u6c92\u6709\u628a\u81ea\u5df1\u653e\u5728\u7b2c\u4e00\u4f4d\u4e86\uff1f\u2026",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "personal_growth"
+    },
+    {
+      "guid": "03678c37b28d5133",
+      "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
+      "title": "EP.631 50 \u6b72\u624d\u5b78 AI \u6703\u592a\u665a\u55ce\uff1f\u5433\u6de1\u5982 60 \u6b72\u6d3b\u7528 AI \u653b\u53d6\u7b2c\u4e8c\u535a\u58eb\uff1f",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "LLM batch entry missing; metadata fallback (carried over)",
+      "duration_min": 45.0,
+      "url": "https://open.firstory.me/story/cms8my0jz0d1701zo5ppk1tw5",
+      "summary": "\u3010\u672c\u96c6\u7bc0\u76ee\u7531 \u74e6\u57fa \u8d0a\u52a9\u64ad\u51fa\u3011 \u300aAI \u74e6\u57fa\u7b2c\u4e8c\u5927\u8166\u300b \u5f9e\u601d\u8003\u6846\u67b6\u3001\u5be6\u6230\u5de5\u5177\u5230\u5be6\u969b\u6848\u4f8b\uff0c\u7d66\u4f60\u4e00\u5957\u53ef\u4ee5\u7167\u8457\u505a\u7684 AI \u5354\u4f5c\u7cfb\u7d71\uff1a \u25aa\ufe0f\u4e00\u7ad9\u5f0f\u5b78\u597d AI\uff5c\u601d\u7dad\u5e95\u5c64\u5230\u5be6\u6230\u7522\u51fa\uff0c\u4e00\u6b21\u5b8c\u6574\u5b78 \u25aa\ufe0f10 \u9805\u7368\u5bb6 AI \u5c08\u6848\u5305\uff5c\u6db5\u84cb\u5beb\u4f5c\u3001\u6c7a\u7b56\u3001\u7814\u7a76\u7b49\u5834\u666f \u25aa\ufe0fPACE \u884c\u52d5\u601d\u8003\u5730\u5716\uff5c\u56db\u5927\u8c61\u9650\u5c0d\u61c9\u6240\u6709 AI \u61c9\u7528\u5834\u666f \u25aa\ufe0f\u8cc7\u6599\u5eab\u6301\u7e8c\u66f4\u65b0\uff5c\u96a8\u8457 AI \u8fed\u4ee3\uff0c\u6301\u7e8c\u8ddf\u4f60\u4e00\u8d77\u6210\u9577 \u2728\u5b78\u4e00\u6b21\uff0c\u5efa\u4e00\u5957\u8ddf\u8457\u4f60\u6301\u7e8c\u8907\u5229\u6210\u9577\u7684 AI \u9ad8\u7522\u51fa\u7cfb\u7d71\u2728 \ud83d\udce3\u7d50\u5e33\u8f38\u5165\u6298\u6263\u78bc\uff1aWKWF350\uff0c\u518d\u6298 $350 \ud83d\udce3\u8ab2\u7a0b\u4ecb\u7d39\uff1a https://hi.sat.cool/u6R1Q \u3010\u672c\u96c6\u8a2a\u8ac7\u3011 50 \u6b72\u624d\u5b78 AI \u6703\u592a\u665a\u55ce\uff1f\u2026",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "personal_growth"
+    },
+    {
+      "guid": "671036c3ce644d5e",
+      "show": "\u4e0b\u4e00\u672c\u8b80\u4ec0\u9ebc",
+      "title": "EP.630 \u300a\u6d3b\u51fa\u4f60\u7684\u539f\u5ee0\u8a2d\u5b9a\u300b\u8b80\u5f8c\u5fc3\u5f97\uff1a\u505a\u81ea\u5df1\uff0c\u4e0d\u9808\u8b49\u660e\u7d66\u8ab0\u770b",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "LLM batch entry missing; metadata fallback (carried over)",
+      "duration_min": 59.0,
+      "url": "https://open.firstory.me/story/cms5hcg0a1phb01xfcfka03ge",
+      "summary": "\u3010\u672c\u96c6\u7bc0\u76ee\u7531 PressPlay \u77e5\u5cf6 \u8d0a\u52a9\u64ad\u51fa\u3011 \u300a\u591a\u91cd\u8ff7\u8d70\u795e\u7d93\u5851\u9020\u300b \u8aee\u5546\u5fc3\u7406\u5e2b\u8607\u4e88\u6615\u63a8\u85a6\u4e86 Deb Dana \u958b\u7684\u7dda\u4e0a\u8ab2\u7a0b\uff0c\u9019\u5802\u8ab2\u7528\u516d\u9031\u6642\u9593\uff0c\u5e36\u4f60\u8a8d\u8b58\u795e\u7d93\u7cfb\u7d71\u7684\u4e09\u7a2e\u72c0\u614b\uff0c\u5b78\u6703\u8fa8\u8a8d\u751f\u6d3b\u88e1\u7684\u300c\u5fae\u5149\u6642\u523b\u300d\uff0c\u5efa\u7acb\u81ea\u5df1\u7684\u5b89\u5168\u9328\u9ede\uff0c\u91cd\u65b0\u7406\u89e3\u81ea\u5df1\u7684\u6545\u4e8b\u3002 \ud83d\udccd \u3010\u591a\u91cd\u8ff7\u8d70\u795e\u7d93\u5851\u9020 \u2502 6 \u9031\u6c89\u6d78\u5f0f\u5be6\u8e10\uff0c\u91cd\u5efa\u5b89\u5168\u611f\u8207\u6df1\u5c64\u5167\u5728\u9023\u7d50\u3011 Deb Dana \u662f\u5168\u7403\u591a\u91cd\u8ff7\u8d70\u795e\u7d93\u81e8\u5e8a\u5be6\u8e10\u6b0a\u5a01\uff0c\u5728\u9019\u9019\u5802\u8ab2\u53ef\u4ee5\u5b78\u5230\uff1a \u25aa\ufe0f \u8a8d\u8b58\u795e\u7d93\u7cfb\u7d71\u7684\u4e09\u7a2e\u72c0\u614b\uff0c\u5b78\u6703\u8fa8\u8a8d\u81ea\u5df1\u7576\u4e0b\u8655\u5728\u54ea\u4e00\u7a2e \u25aa\ufe0f \u7df4\u7fd2\u807d\u61c2\u8eab\u9ad4\u767c\u51fa\u7684\u8a0a\u865f\uff0c\u62ff\u634f\u300c\u6709\u76ca\u7684\u6311\u6230\u300d\u548c\u300c\u904e\u5ea6\u7684\u58d3\u529b\u300d \u25aa\ufe0f\u5b78\u6703\u8fa8\u8a8d\u4e26\u653e\u5927\u751f\u6d3b\u4e2d\u7684\u300c\u5fae\u5149\u6642\u523b\u300d\uff0c\u5efa\u7acb\u81ea\u5df1\u7684\u5b89\u5168\u9328\u9ede \u25aa\ufe0f\u2026",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "personal_growth"
+    }
+  ],
+  "accumulated_week": [],
+  "synthesis": null
+}

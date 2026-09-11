@@ -1,0 +1,109 @@
+{
+  "run_date": "2026-08-13",
+  "queued": [
+    {
+      "guid": "a4d2d8ea02ac96a7",
+      "show": "The a16z Show",
+      "title": "Garry Tan on Taste, Agents and Founder Ambition",
+      "score": 86.0,
+      "classification": "Listen Fully",
+      "classification_reason": "This episode features a top-tier guest (Garry Tan) discussing highly relevant and strategic topics like AI's impact on company building, the rise of 'agentic companies,' and the future of SaaS. It offers concrete insights into AI product strategy and organizational design, directly aligning with the persona's focus on AI, product craft, and career growth at a strategic level.",
+      "duration_min": 52.0,
+      "url": "https://a16z.simplecast.com/episodes/garry-tan-on-taste-agents-and-founder-ambition-5Wi5biPg",
+      "summary": "Garry Tan, President and CEO of Y Combinator, explores how AI is fundamentally reshaping the startup playbook and the economics of company building. He discusses the emergence of 'agentic companies' where small teams leverage AI to achieve unprecedented scale, challenging traditional SaaS models and organizational bureaucracy. Tan shares lessons from his two decades in Silicon Valley, emphasizing the pursuit of 'earnest obsessions' over fleeting trends. The conversation delves into the future of consumer AI, the concept of 'harness wars,' and the potential for a slower-than-expected AI adoption, providing strategic foresight for product leaders on building the next generation of intelligent products.",
+      "key_ideas": [
+        "AI enables 'agentic companies' where small teams leverage AI agents to achieve massive scale, fundamentally changing organizational structures and the economics of company building.",
+        "Strategic product development should focus on 'earnest obsessions' rather than chasing 'hot' trends, a lesson drawn from decades of Silicon Valley experience.",
+        "The future of AI involves 'harness wars' and a potentially slower adoption curve than anticipated, requiring product leaders to consider long-term strategic implications for consumer AI."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "b49612650409c25e",
+      "show": "The Tim Ferriss Show",
+      "title": "#879: How to Reinvent Yourself and Make Bold Moves \u2014 Decisive Stories from Matthew McConaughey, Steve Young, Samin Nosrat, and More",
+      "score": 82.0,
+      "classification": "Listen Fully",
+      "classification_reason": "This compilation episode offers deep insights into strategic career reinvention and bold decision-making through the compelling, first-hand accounts of highly authoritative guests, including founders and operators. It directly supports the persona's focus on career growth and provides transferable lessons on high-stakes strategic pivots, even if not directly in AI or eCommerce product craft.",
+      "duration_min": 61.0,
+      "url": "",
+      "summary": "This Tim Ferriss Show compilation explores the theme of reinvention and making bold career moves through the decisive stories of various high-achieving individuals. It features Matthew McConaughey's strategic pivot from romantic comedies, Steve Young's identity shift, Lori Gottlieb's multi-career path, Samin Nosrat's choice to leave a successful business for writing, and Martine Rothblatt's entrepreneurial journey in starting a pharmaceutical company. The episode provides diverse perspectives on shedding old identities, navigating uncertainty, and committing to new professional chapters, offering transferable lessons on strategic career management and risk-taking.",
+      "key_ideas": [
+        "Strategic career pivots require bold decisions and a willingness to shed old identities.",
+        "High-stakes reinvention often involves navigating uncertainty and long-term commitment.",
+        "Lessons from diverse successful individuals can inform personal and professional strategic choices."
+      ],
+      "confidence": "low",
+      "category": "personal_growth"
+    },
+    {
+      "guid": "f6a358c2a3a58acf",
+      "show": "Future Commerce",
+      "title": "Enter Through the Gift Shop: Inside MoMA's Retail Journey",
+      "score": 80.0,
+      "classification": "Listen Fully",
+      "classification_reason": "The episode features a high-authority guest discussing strategic retail innovation, brand extension, and the critical intersection of AI with human craft, directly addressing the persona's core interests in eCommerce, product strategy, and AI. Despite low transcript confidence, the description strongly indicates high strategic value.",
+      "duration_min": 29.0,
+      "url": "https://www.futurecommerce.com/podcasts/enter-through-the-gift-shop-inside-momas-retail-journey",
+      "summary": "This episode delves into MoMA's innovative retail strategy, featuring Chief Retail Officer Jesse Goldstine. It explores how MoMA has transformed its gift shop model from a mere souvenir outlet into a significant revenue driver and brand extension, reaching millions beyond its physical visitors through thoughtfully designed products like apparel and home goods. Goldstine explains the meticulous process of ensuring every product aligns with MoMA's artistic mission and design principles. A key strategic focus is the institution's approach to integrating AI partnerships while safeguarding the integrity of human craft and artistic expression. This discussion offers valuable insights into scaling a brand through product, navigating the complexities of modern retail, and making strategic decisions about technology adoption in a creative context, making it highly relevant for senior product leaders interested in eCommerce, brand strategy, and AI ethics.",
+      "key_ideas": [
+        "Strategic inversion of the museum retail model for brand extension and revenue growth.",
+        "Integrating product craft and brand alignment across a diverse retail catalog.",
+        "Navigating AI partnerships while preserving human creativity and ethical considerations in design."
+      ],
+      "confidence": "low",
+      "category": "ai_retail"
+    }
+  ],
+  "email_only": [
+    {
+      "guid": "c17f3e2fa6d52ca9",
+      "show": "Y Combinator Startup Podcast",
+      "title": "Max Hodak: How Startups Build Speed",
+      "score": 70.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "Provides valuable insights into operational excellence, leadership, and building speed in a complex startup, relevant for a senior PM's craft, though not directly focused on AI or eCommerce. (carried over)",
+      "duration_min": 57.0,
+      "url": "https://podcasters.spotify.com/pod/show/ycombinator/episodes/Max-Hodak-How-Startups-Build-Speed-e3n8178",
+      "summary": "Max Hodak, CEO of Science, discusses how his company, which is developing a retinal implant to restore vision, builds speed and operational efficiency. The episode delves into the critical role of systems for buying and hiring in determining a company's pace. Hodak emphasizes that founders cannot delegate their judgment and that there are no universal \"five bullet points\" for startup success, highlighting the need for context-specific decision-making. While not directly focused on AI or eCommerce, the discussion offers strategic insights into product craft at scale, leadership, and the operational challenges of building a complex, high-impact product, which are valuable for a senior PM.",
+      "key_ideas": [
+        "Operational systems (hiring, procurement) are crucial determinants of startup speed and efficiency.",
+        "Founders/leaders must retain core judgment and cannot delegate critical strategic decisions.",
+        "No one-size-fits-all rules for startup success; context and specific execution matter more than generic advice."
+      ],
+      "confidence": "low",
+      "category": "startup"
+    },
+    {
+      "guid": "deac1283001f853c",
+      "show": "Think Fast Talk Smart",
+      "title": "313. Hold the Headline: How Curiosity Cuts Through Complexity",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "LLM batch entry missing; metadata fallback (carried over)",
+      "duration_min": 27.0,
+      "url": "https://www.fastersmarter.io/313-hold-the-headline-how-curiosity-cuts-through-complexity/",
+      "summary": "\"The dumbest thing you can be is a know-it-all.\" Curiosity isn't about having all the answers\u2014it's about asking better questions. Journalist and podcast host Nayeema Raza believes the strongest communicators balance confidence with openness, using curiosity to better understand people, ideas, and\u2026",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "ai_retail"
+    },
+    {
+      "guid": "5748a497470a67b6",
+      "show": "Decoder",
+      "title": "Bose CEO Lila Snyder on the fight for high-quality audio",
+      "score": 50.0,
+      "classification": "Read Summary Only",
+      "classification_reason": "LLM batch entry missing; metadata fallback (carried over)",
+      "duration_min": 67.0,
+      "url": "",
+      "summary": "My guest today is Lila Snyder, the CEO of Bose. Lila was last on the show about four years ago, and since then she\u2019s dramatically rearchitected the company \u2014 she sold off Bose Professional, acquired the high end audio brands McIntosh Labs and Sonus faber, and, perhaps most importantly, started\u2026",
+      "key_ideas": [],
+      "confidence": "low",
+      "category": "ai_retail"
+    }
+  ],
+  "accumulated_week": [],
+  "synthesis": null
+}

@@ -1,0 +1,94 @@
+# ────────────────────────────────────────────────────────────────────
+# Podcast Scout — Discovery Query Seeds
+#
+# These static seeds are combined with dynamically-generated queries
+# derived from the current week's episode scan (topics, guests, entities).
+#
+# The agent will use at most `max_queries` total (static + dynamic).
+# Set `enabled: false` on any seed to pause it without deleting it.
+# ────────────────────────────────────────────────────────────────────
+
+discovery:
+  max_queries: 15
+  max_raw_candidates: 40
+  max_deep_analysis_candidates: 10
+  max_surfaced_outside_episodes: 3
+  # Minimum score an outside episode must reach to displace a followed-show episode
+  outside_quality_threshold: 60
+
+static_seeds:
+  - query: "AI agents retail eCommerce podcast"
+    enabled: true
+    weight: 1.0
+
+  - query: "agentic commerce product strategy podcast"
+    enabled: true
+    weight: 1.0
+
+  - query: "retail media network monetization podcast"
+    enabled: true
+    weight: 0.9
+
+  - query: "personalization CRM customer experience podcast"
+    enabled: true
+    weight: 0.9
+
+  - query: "marketplace seller platform product management podcast"
+    enabled: true
+    weight: 0.85
+
+  - query: "membership loyalty program strategy podcast"
+    enabled: true
+    weight: 0.85
+
+  - query: "Walmart Target Costco competitive strategy podcast"
+    enabled: true
+    weight: 0.9
+
+  - query: "Amazon Shopify eCommerce platform podcast 2025"
+    enabled: true
+    weight: 0.85
+
+  - query: "AI product team organizational design podcast"
+    enabled: true
+    weight: 0.8
+
+  - query: "large language model enterprise retail application podcast"
+    enabled: true
+    weight: 0.8
+
+  - query: "omnichannel customer journey strategy podcast"
+    enabled: true
+    weight: 0.75
+
+  - query: "product led growth B2C marketplace podcast"
+    enabled: true
+    weight: 0.7
+
+# Entity-specific one-shots (refreshed each run by the agent)
+entity_seeds:
+  competitors:
+    - Amazon
+    - Target
+    - Costco
+    - Instacart
+    - Shopify
+    - Mercado Libre
+    - Loblaw
+    - Walmex
+    - Temu
+    - TikTok Shop
+  ai_companies:
+    - OpenAI
+    - Anthropic
+    - Google DeepMind
+    - Microsoft
+    - Meta AI
+  topic_areas:
+    - "retail AI"
+    - "eCommerce personalization"
+    - "agentic shopping"
+    - "retail media"
+    - "loyalty programs"
+    - "product strategy"
+    - "AI agents"

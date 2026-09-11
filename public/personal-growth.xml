@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:ns0="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns1="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+    <title>Podcast Scout — Personal Growth</title>
+    <description>Curated personal growth, mindfulness, and life philosophy episodes.</description>
+    <link>https://iitiff.github.io/podcast-curation-agent</link>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 10 Sep 2026 09:33:36 +0000</lastBuildDate>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:block>Yes</itunes:block>
+    <atom:link href="https://iitiff.github.io/podcast-curation-agent/personal-growth.xml" rel="self" type="application/rss+xml" />
+    <itunes:owner>
+      <itunes:name>Your Name</itunes:name>
+    </itunes:owner>
+    <item>
+      <title>🎧 LISTEN #1 — 科技浪: EP153 - GPT-6 Astra 強到離譜（大部分情況）</title>
+      <link>https://open.firstory.me/story/cmtqnt4wo0rf501y86xs36zbt</link>
+      <guid isPermaLink="false">53517b203306548a</guid>
+      <pubDate>Mon, 07 Sep 2026 10:06:51 +0000</pubDate>
+      <ns0:duration>4282</ns0:duration>
+      <ns1:encoded>&lt;p&gt;&lt;strong&gt;Score: 72/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 07 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;This episode directly addresses AI and emerging technology, specifically focusing on the capabilities and implications of a new, powerful AI model (GPT-6 Astra). It covers strategic implications for product development, skill obsolescence, and various applications, making it highly relevant for a senior PM in this domain.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;This episode delves into the capabilities of a new AI model, GPT-6 Astra, highlighting its advanced features and potential impact. It discusses Astra&amp;#x27;s perceived &amp;#x27;AGI-like&amp;#x27; qualities, its ability in 3D modeling, applications in robotics, and its proficiency in computer usage, coding, and knowledge work. The hosts explore the significance of these advancements, particularly how they might render traditional &amp;#x27;skills&amp;#x27; obsolete and reshape the landscape of AI development and application. The discussion also touches on the model&amp;#x27;s potential in cybersecurity and its general intelligence, providing a forward-looking perspective on the future of AI.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;GPT-6 Astra&amp;#x27;s capabilities in 3D modeling and computer usage suggest a shift towards AI models that can autonomously interact with and manipulate digital environments, potentially accelerating product development cycles.&lt;/li&gt;&lt;li&gt;The discussion implies that the rapid advancement of models like Astra could lead to the obsolescence of many current &amp;#x27;skills&amp;#x27; in software development and knowledge work, forcing product leaders to rethink team structures and talent acquisition strategies.&lt;/li&gt;&lt;li&gt;Astra&amp;#x27;s demonstrated proficiency in coding and cybersecurity suggests that future AI products will increasingly incorporate advanced autonomous capabilities, requiring product managers to understand AI&amp;#x27;s role as both a creator and a defender.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;The advancements discussed imply a need for senior PMs to re-evaluate their product roadmaps, consider integrating more autonomous AI capabilities, and prepare for a workforce where traditional skills are augmented or replaced by AI. It also highlights the strategic importance of staying abreast of cutting-edge AI model developments for competitive advantage.&lt;/p&gt;&lt;p&gt;&lt;a href="https://open.firstory.me/story/cmtqnt4wo0rf501y86xs36zbt"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</ns1:encoded>
+      <description>This episode delves into the capabilities of a new AI model, GPT-6 Astra, highlighting its advanced features and potential impact. It discusses Astra's perceived 'AGI-like' qualities, its ability in 3D modeling, applications in robotics, and its proficiency in computer usage, coding, and knowledge work. The hosts explore the significance of these advancements, particularly how they might render traditional 'skills' obsolete and reshape the landscape of AI development and application. The discussion also touches on the model's potential in cybersecurity and its general intelligence, providing a forward-looking perspective on the future of AI.</description>
+      <enclosure url="https://m.cdn.firstory.me/track/cm3o5681s06e801v3fxpjehwb/cmtqnt4wo0rf501y86xs36zbt/https%3A%2F%2Ffile.cdn.firstory.me%2FRecord%2Fcm3o5681s06e801v3fxpjehwb%2Fcmtqnt4wo0rf601y84slx6y2h.mp3?v=1788750550327" type="audio/mpeg" length="0" />
+      <ns0:image href="https://image.firstory-cdn.me/Avatar/cm3o5681s06e801v3fxpjehwb/1733832011044.jpg" />
+    </item>
+  </channel>
+</rss>

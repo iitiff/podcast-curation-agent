@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+    <title>Podcast Scout — AI &amp; Retail</title>
+    <description>Curated AI, retail, eCommerce, and product craft episodes.</description>
+    <link>https://example.com</link>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 11 Sep 2026 07:27:01 +0000</lastBuildDate>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:block>Yes</itunes:block>
+    <atom:link href="" rel="self" type="application/rss+xml" />
+    <itunes:owner>
+      <itunes:name>Your Name</itunes:name>
+    </itunes:owner>
+    <item>
+      <title>🎧 LISTEN #1 — No Priors: Coinbase’s Everything Exchange: Agentic Finance, Stablecoins, and Tokenization with CEO Brian Armstrong</title>
+      <link />
+      <guid isPermaLink="false">2c893e6d4ee1ca4b</guid>
+      <pubDate>Fri, 11 Sep 2026 07:27:01 +0000</pubDate>
+      <itunes:duration>2709</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 87/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 10 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Top-tier founder guest addressing high-level market structure across AI agent finance, asset tokenization, and internal AI productivity drivers.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;In this episode of No Priors, Coinbase co-founder and CEO Brian Armstrong joins host Elad Gil to discuss the intersection of crypto infrastructure, artificial intelligence, and biotech. Armstrong outlines Coinbase’s vision for the &amp;#x27;Everything Exchange,&amp;#x27; which seeks to tokenize traditional real-world equities and prediction markets onto unified rails. The conversation dives into &amp;#x27;agentic finance&amp;#x27;—exploring how autonomous AI agents will leverage stablecoins and smart contracts for programmatic payments without traditional banking friction. Armstrong also detail how Coinbase uses internal AI tooling to drive headcount productivity and scales company output without expanding team size.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Coinbase is positioning stablecoin infrastructure and smart contracts as the default transaction layer for &amp;#x27;agentic finance,&amp;#x27; allowing autonomous AI agents to hold balances, execute payments, and interact with prediction markets.&lt;/li&gt;&lt;li&gt;The &amp;#x27;Everything Exchange&amp;#x27; strategy seeks to tokenize real-world assets like traditional equities onto crypto rails, creating unified cross-asset liquidity and instantaneous settlement.&lt;/li&gt;&lt;li&gt;Coinbase treats internal AI integration as an explicit organizational leverage tool designed to decouple employee headcount growth from platform operational scale.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;PMs designing AI agent workflows should evaluate stablecoins and smart contracts as low-friction payment infrastructure. Executive product leaders can benchmark internal AI adoption to keep team sizes lean while expanding feature velocity.&lt;/p&gt;</content:encoded>
+      <description>In this episode of No Priors, Coinbase co-founder and CEO Brian Armstrong joins host Elad Gil to discuss the intersection of crypto infrastructure, artificial intelligence, and biotech. Armstrong outlines Coinbase’s vision for the 'Everything Exchange,' which seeks to tokenize traditional real-world equities and prediction markets onto unified rails. The conversation dives into 'agentic finance'—exploring how autonomous AI agents will leverage stablecoins and smart contracts for programmatic payments without traditional banking friction. Armstrong also detail how Coinbase uses internal AI tooling to drive headcount productivity and scales company output without expanding team size.</description>
+      <enclosure url="https://traffic.megaphone.fm/PDP7232498988.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/2ecd3b38-aca0-11f1-b6c4-13e4bbce7d30/image/4a485501e97d68aa4911f8105bd15212.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,38 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+*.env.local
+
+# Secrets / private feeds
+config/subscriptions.opml
+
+# Runtime state (tracked separately in git)
+# data/state.json and data/history/ ARE committed by CI
+
+# Byte-compiled
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# macOS
+.DS_Store
+
+# Test cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Generated public outputs (built by CI, served via Pages)
+public/
+!public/.gitkeep

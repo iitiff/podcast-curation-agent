@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+    <title>Podcast Scout — Startup</title>
+    <description>Curated startup, founder, and business strategy episodes.</description>
+    <link>https://example.com</link>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 11 Sep 2026 07:27:01 +0000</lastBuildDate>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:block>Yes</itunes:block>
+    <atom:link href="" rel="self" type="application/rss+xml" />
+    <itunes:owner>
+      <itunes:name>Your Name</itunes:name>
+    </itunes:owner>
+    <item>
+      <title>🎧 LISTEN #1 — The SaaS Podcast: Founder-Led Sales to $1M ARR With Just 10 Customers</title>
+      <link />
+      <guid isPermaLink="false">6c3f046cbc800bbc</guid>
+      <pubDate>Fri, 11 Sep 2026 07:27:01 +0000</pubDate>
+      <itunes:duration>2948</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 76/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 10 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;High relevance to eCommerce and product strategy. Features Felix Hoffmann (ex-Zalando pricing lead) sharing concrete tactical frameworks for data cold-starts, algorithm risk mitigation, and SaaS pricing.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Felix Hoffmann, founder of 7Learnings and former price optimization lead at Zalando, details how he built a predictive pricing SaaS for large retailers from zero to $1M ARR with only 10 customers. He covers solving the initial data cold-start problem by selling a paid consulting project to acquire retailer transaction data, structuring risk-reducing A/B test pilots for conservative retail buyers, navigating early algorithmic failures, and choosing fixed SaaS pricing over gain-share models.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;7Learnings solved the enterprise AI data cold start by selling a paid consulting project to a major retailer and retaining rights to train its predictive pricing models on the transaction dataset.&lt;/li&gt;&lt;li&gt;To overcome enterprise retail buyer aversion to automated pricing, early pilots were structured as 50/50 product assortment A/B tests where the algorithm managed half the portfolio alongside human merchandisers.&lt;/li&gt;&lt;li&gt;7Learnings intentionally rejected gain-share or success-based pricing despite proven uplift, choosing predictable fixed SaaS pricing to eliminate customer disputes over baseline sales attribution.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;[&amp;#x27;Product managers building B2B AI products can overcome data bootstrap issues by packaging initial custom services that grant data licensing rights.&amp;#x27;, &amp;#x27;Enterprise risk can be de-risked by designing products to support side-by-side A/B deployment directly against existing legacy/manual workflows.&amp;#x27;]&lt;/p&gt;</content:encoded>
+      <description>Felix Hoffmann, founder of 7Learnings and former price optimization lead at Zalando, details how he built a predictive pricing SaaS for large retailers from zero to $1M ARR with only 10 customers. He covers solving the initial data cold-start problem by selling a paid consulting project to acquire retailer transaction data, structuring risk-reducing A/B test pilots for conservative retail buyers, navigating early algorithmic failures, and choosing fixed SaaS pricing over gain-share models.</description>
+      <enclosure url="https://traffic.megaphone.fm/AHARO8420023047.mp3" type="audio/mpeg" length="0" />
+      <itunes:image href="https://megaphone.imgix.net/podcasts/a7e9f7cc-046b-11ed-9c6d-13dc01eb807a/image/56aa351592d4af156f6e323fc03f036d.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
+    </item>
+  </channel>
+</rss>

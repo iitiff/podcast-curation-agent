@@ -1,0 +1,86 @@
+# ────────────────────────────────────────────────────────────────────
+# Podcast Scout — Preferences (EXAMPLE)
+#
+# Copy to preferences.yaml and edit. In the two-repo setup this file lives
+# in your PRIVATE instance repo and is pointed at with CONFIG_DIR — it
+# encodes what you read, who you follow, and what you compete with, which
+# is not something to publish.
+# ────────────────────────────────────────────────────────────────────
+
+feed:
+  title: "My Podcast Scout"
+  description: "A ranked listening queue curated by AI."
+  owner_name: "Your Name"
+  owner_email: ""
+  language: "en-us"
+  base_url: ""          # e.g. https://<user>.github.io/<repo>
+
+categories:
+  ai_retail:
+    slug: ai-retail
+    title: "Podcast Scout — AI & Industry"
+    description: "Curated AI, industry, and product craft episodes."
+    max_listen_fully: 2
+    max_read_summary: 5
+  startup:
+    slug: startup
+    title: "Podcast Scout — Startup"
+    description: "Curated startup, founder, and business strategy episodes."
+    max_listen_fully: 2
+    max_read_summary: 3
+
+# Sent to the LLM as ranking context. Be specific: a vague persona produces
+# a queue of things that are merely on-topic.
+persona:
+  role: "Senior product manager"
+  focus: "Product strategy and craft, AI and emerging technology"
+  seniority: "senior"          # junior | mid | senior | executive
+  preferred_depth: "strategic" # tactical | strategic | both
+
+geography:
+  united_states: 1.0
+  europe: 0.6
+  asia_pacific: 0.5
+  global: 0.7
+
+length:
+  preferred_min_minutes: 20
+  preferred_max_minutes: 90
+  hard_max_minutes: 240
+  max_weekly_listen_hours: 4.0
+
+classification:
+  listen_fully_min_score: 75
+  read_summary_min_score: 50
+  boundary_override_max: 5
+
+output_caps:
+  max_listen_fully: 2
+  max_read_summary: 5
+  max_outside_feed: 3
+  max_total_surfaced: 10
+
+# Shows you follow, and how much to trust each by default (0.0–1.0).
+# Substring match against the show title; 0.5 is the default for anything absent.
+show_priors:
+  "Acquired": 0.90
+  "Lenny's Podcast": 0.85
+  "No Priors": 0.85
+  "Decoder": 0.70
+
+topic_exclusions:
+  - "crypto speculation"
+  - "day trading"
+  - "celebrity gossip"
+
+# Named guests worth surfacing an episode for even from an unfollowed show.
+guest_watchlist:
+  - "Marty Cagan"
+  - "Benedict Evans"
+
+# Entities whose mention raises an episode's relevance. Keep this tight —
+# adding ubiquitous names (Google, OpenAI) inflates scores on nearly every
+# tech episode and flattens the ranking.
+competitor_watchlist:
+  - "Amazon"
+  - "Shopify"
