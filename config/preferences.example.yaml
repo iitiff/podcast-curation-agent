@@ -15,17 +15,33 @@ feed:
   language: "en-us"
   base_url: ""          # e.g. https://<user>.github.io/<repo>
 
+# Each category is one queue with its own caps and its own RSS feed, so a
+# high-volume lane can never crowd out a quieter one.
+#
+# `routing_hint` is what Stage 2 reads when deciding which lane an item belongs
+# in. It is judged per ITEM, not per show, so a specialist lane can be filled by
+# topic from shows that usually sit elsewhere. Omit it and `description` is used
+# instead -- but subscriber-facing copy is usually too vague to route on. With
+# fewer than two categories configured, nothing is asked and the show mapping in
+# shows.yaml decides on its own.
 categories:
   ai_retail:
     slug: ai-retail
     title: "Podcast Scout — AI & Industry"
     description: "Curated AI, industry, and product craft episodes."
+    routing_hint: >-
+      Industry dynamics, company and market strategy, AI capability shifts,
+      and product craft. The broad lane -- anything that does not clearly
+      belong to a more specific one lands here.
     max_listen_fully: 2
     max_read_summary: 5
   startup:
     slug: startup
     title: "Podcast Scout — Startup"
     description: "Curated startup, founder, and business strategy episodes."
+    routing_hint: >-
+      Founding, fundraising, early-stage go-to-market, and operator stories
+      from companies still finding their shape.
     max_listen_fully: 2
     max_read_summary: 3
 

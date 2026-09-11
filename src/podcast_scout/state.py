@@ -33,6 +33,11 @@ class EpisodeRecord(BaseModel):
     classification_reason: str = ""
     is_outside_feed: bool = False
     source_feed_url: str = ""
+    # Topical lane as finally resolved, INCLUDING any Stage 2 override. Without
+    # this, carryover re-derives the lane from the show title alone, so an
+    # episode routed into a specialist lane by topic silently snaps back to its
+    # show's default lane the moment it fails to win a slot on the first run.
+    category: str = ""
     # --- persisted LLM output + episode metadata (see docstring) ---
     summary: str = ""
     key_ideas: list[str] = Field(default_factory=list)
