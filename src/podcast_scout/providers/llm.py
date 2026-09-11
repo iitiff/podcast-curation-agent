@@ -1,7 +1,9 @@
 """LLM provider implementations."""
 from __future__ import annotations
 
+import asyncio
 import logging
+import re
 from typing import Any
 
 import httpx
@@ -9,6 +11,27 @@ import httpx
 from .base import BaseLLMProvider, LLMMessage, LLMResponse
 
 log = logging.getLogger(__name__)
+
+# Longer than this and the job is better off failing fast than stalling: a
+# daily run should not sit in sleep() for minutes waiting on a free-tier reset.
+_MAX_RETRY_WAIT = 75.0
+_RETRY_DELAY_RE = re.compile(r"retry in ([0-9.]+)s", re.IGNORECASE)
+
+
+def _retry_delay_seconds(body: str) -> float | None:
+    """Pull the retry delay out of a Gemini 429 body.
+
+    The message reads "Please retry in 49.83645608s". Google knows exactly when
+    the window resets, so using its number beats guessing an exponential
+    backoff that is either too short to help or far too long.
+    """
+    match = _RETRY_DELAY_RE.search(body)
+    if not match:
+        return None
+    try:
+        return float(match.group(1))
+    except ValueError:
+        return None
 
 
 class GitHubModelsProvider(BaseLLMProvider):
@@ -212,11 +235,17 @@ class GeminiProvider(BaseLLMProvider):
             # and retry on any 400 while it is present.
             if resp.status_code == 400 and "thinkingConfig" in payload["generationConfig"]:
                 log.warning(
-                    "%s rejected thinkingConfig; retrying without it. Set "
-                    "GEMINI_THINKING_BUDGET=none to skip this retry on every call.",
+                    "%s rejected thinkingConfig; retrying without it and "
+                    "omitting it for the rest of this run.",
                     self.model,
                 )
                 del payload["generationConfig"]["thinkingConfig"]
+                # Sticky. Without this every single call costs two requests --
+                # one rejected, one retried -- which halves the effective rate
+                # limit. Free-tier Gemini allows 20 requests/minute, so paying
+                # the probe twice per batch is the difference between a run
+                # that completes and one that 429s halfway through.
+                self.thinking_budget = None
                 resp = await client.post(url, json=payload, headers=headers)
 
             # A 400 names the offending field in its body -- an unknown name, an
@@ -224,6 +253,20 @@ class GeminiProvider(BaseLLMProvider):
             # of it and leaves only "Client error '400 Bad Request'", which is
             # how one rejected field becomes an unexplained run of metadata-only
             # scoring with nothing in the log to act on.
+            # 429 carries the exact wait in its body ("Please retry in 49.8s").
+            # Honouring it once turns a rate limit into a slow run instead of a
+            # run that silently scores everything at the metadata floor.
+            if resp.status_code == 429:
+                delay = _retry_delay_seconds(resp.text)
+                if delay is not None and delay <= _MAX_RETRY_WAIT:
+                    log.warning(
+                        "%s rate-limited; waiting %.0fs and retrying once "
+                        "(the API supplied this delay).",
+                        self.model, delay,
+                    )
+                    await asyncio.sleep(delay)
+                    resp = await client.post(url, json=payload, headers=headers)
+
             if resp.status_code >= 400:
                 detail = resp.text[:600].replace("\n", " ")
                 raise RuntimeError(

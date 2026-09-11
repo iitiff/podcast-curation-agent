@@ -210,3 +210,62 @@ def test_api_key_is_not_in_the_url():
     with pytest.raises(RuntimeError) as exc:
         _run(GeminiProvider("SECRET-KEY", "m", thinking_budget=None), client)
     assert "SECRET-KEY" not in str(exc.value)
+
+
+# ---------------------------------------------------------------------------
+# Rate limiting. Free-tier Gemini allows 20 requests/minute, and a live run
+# exhausted it halfway through because every call was costing two requests.
+# ---------------------------------------------------------------------------
+
+_429 = ('{"error":{"code":429,"message":"Quota exceeded for metric: '
+        'generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash. '
+        'Please retry in 49.83645608s.","status":"RESOURCE_EXHAUSTED"}}')
+
+
+def test_retry_delay_is_parsed_from_the_body():
+    from podcast_scout.providers.llm import _retry_delay_seconds
+    assert _retry_delay_seconds(_429) == pytest.approx(49.83645608)
+    assert _retry_delay_seconds('{"error":"no delay here"}') is None
+
+
+def test_429_waits_the_supplied_delay_then_retries(monkeypatch):
+    import podcast_scout.providers.llm as mod
+    slept = []
+
+    async def _fake_sleep(seconds): slept.append(seconds)
+    monkeypatch.setattr(mod.asyncio, "sleep", _fake_sleep)
+
+    client = _Seq((429, _429), (200, _OK))
+    resp = _run(GeminiProvider("k", "m", thinking_budget=None), client)
+    assert resp.content == "ok"
+    assert slept == [pytest.approx(49.83645608)]
+
+
+def test_excessive_retry_delay_is_not_waited_out(monkeypatch):
+    """A daily job should fail fast, not sleep for minutes."""
+    import podcast_scout.providers.llm as mod
+    slept = []
+
+    async def _fake_sleep(seconds): slept.append(seconds)
+    monkeypatch.setattr(mod.asyncio, "sleep", _fake_sleep)
+
+    body = _429.replace("49.83645608", "600")
+    client = _Seq((429, body))
+    with pytest.raises(RuntimeError):
+        _run(GeminiProvider("k", "m", thinking_budget=None), client)
+    assert slept == []
+
+
+def test_thinking_config_disable_is_sticky_across_calls():
+    """Otherwise every call costs two requests and halves the rate limit."""
+    body = '{"error":{"code":400,"message":"Request contains an invalid argument."}}'
+    provider = GeminiProvider("k", "m", thinking_budget=0)
+
+    first = _Seq((400, body), (200, _OK))
+    _run(provider, first)
+    assert provider.thinking_budget is None
+
+    second = _Seq((200, _OK))
+    _run(provider, second)
+    assert "thinkingConfig" not in second.payloads[0]["generationConfig"]
+    assert len(second.payloads) == 1, "second call must not re-probe"
