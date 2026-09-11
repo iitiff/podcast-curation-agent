@@ -296,6 +296,51 @@ jobs:
           git push origin gh-pages
 """
 
+LLM_DOCTOR_WORKFLOW = """\
+name: LLM Doctor
+
+# Manual only. Answers "what can this key actually call?" by asking the API
+# rather than reading the docs: docs say which models exist, not which ones
+# this project can reach or has quota for.
+on:
+  workflow_dispatch:
+    inputs:
+      probe:
+        description: 'Send a minimal request to each Flash model'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  doctor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh && echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install engine
+        run: uv pip install --system "podcast-scout @ git+{public_url}@{ref}"
+
+      - name: Ask the API what this key can use
+        env:
+          GEMINI_API_KEY: ${{{{ secrets.GEMINI_API_KEY }}}}
+        run: |
+          if [ "${{{{ inputs.probe }}}}" = "false" ]; then
+            podcast-scout llm-doctor --no-probe
+          else
+            podcast-scout llm-doctor
+          fi
+"""
+
 
 def copy_path(src: Path, dst: Path) -> str:
     if not src.exists():
@@ -348,6 +393,7 @@ def main() -> int:
     workflows = target / ".github" / "workflows"
     workflows.mkdir(parents=True, exist_ok=True)
     (workflows / "daily.yml").write_text(DAILY_WORKFLOW.format(**fmt), encoding="utf-8")
+    (workflows / "llm-doctor.yml").write_text(LLM_DOCTOR_WORKFLOW.format(**fmt), encoding="utf-8")
 
     static = target / "static"
     static.mkdir(exist_ok=True)

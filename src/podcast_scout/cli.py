@@ -1141,3 +1141,124 @@ def brain_status() -> None:
             "They can only ever accumulate confirmation — the watch will never "
             "flag anything against them."
         )
+
+
+# ---------------------------------------------------------------------------
+# llm-doctor — what can this key actually use?
+# ---------------------------------------------------------------------------
+
+@main.command("llm-doctor")
+@click.option("--probe/--no-probe", default=True,
+              help="Send a minimal request to each Flash model to see which respond.")
+def llm_doctor(probe: bool) -> None:
+    """List Gemini models this API key can use, and which actually answer.
+
+    Reading Google's docs tells you which models exist; it does not tell you
+    which ones *your* project can call or has quota for. A 429 on the first
+    request of a run is indistinguishable from a bad model choice unless you
+    ask the API directly.
+
+    Prints no credential: the key travels in a header, never in a URL, so it
+    cannot leak through a logged request line.
+    """
+    import httpx
+
+    settings = Settings()
+    if not settings.gemini_api_key:
+        console.print("[red]GEMINI_API_KEY is not set.[/red]")
+        raise SystemExit(1)
+
+    headers = {"x-goog-api-key": settings.gemini_api_key}
+    base = "https://generativelanguage.googleapis.com/v1beta"
+
+    try:
+        with httpx.Client(timeout=30.0) as client:
+            resp = client.get(f"{base}/models", headers=headers, params={"pageSize": 200})
+    except Exception as exc:
+        console.print(f"[red]Could not reach the Gemini API: {exc}[/red]")
+        raise SystemExit(1) from exc
+
+    if resp.status_code != 200:
+        console.print(
+            f"[red]models.list returned {resp.status_code}.[/red]\n"
+            f"{resp.text[:400]}\n"
+            "401/403 means the key is invalid or the Generative Language API is "
+            "not enabled on its project. 429 means the project has no quota."
+        )
+        raise SystemExit(1)
+
+    models = [
+        m for m in resp.json().get("models", [])
+        if "generateContent" in m.get("supportedGenerationMethods", [])
+    ]
+    if not models:
+        console.print("[red]No models on this key support generateContent.[/red]")
+        raise SystemExit(1)
+
+    table = Table(title=f"generateContent models visible to this key ({len(models)})")
+    table.add_column("model id", style="bold")
+    table.add_column("input tokens", justify="right")
+    table.add_column("output tokens", justify="right")
+    for m in sorted(models, key=lambda m: str(m.get("name", "")), reverse=True):
+        table.add_row(
+            str(m.get("name", "")).removeprefix("models/"),
+            str(m.get("inputTokenLimit", "?")),
+            str(m.get("outputTokenLimit", "?")),
+        )
+    console.print(table)
+
+    if not probe:
+        return
+
+    # Visibility is not usability. A model can be listed and still 429 because
+    # the project has no quota for it -- which is the failure this command
+    # exists to tell apart from a wrong model name.
+    flash = [
+        str(m["name"]).removeprefix("models/")
+        for m in models
+        if "flash" in str(m.get("name", "")).lower()
+        and "preview" not in str(m.get("name", "")).lower()
+    ]
+    console.print(f"\n[bold]Probing {len(flash)} non-preview Flash model(s)[/bold]")
+
+    probe_table = Table()
+    probe_table.add_column("model id", style="bold")
+    probe_table.add_column("status")
+    probe_table.add_column("verdict")
+    usable: list[str] = []
+    with httpx.Client(timeout=60.0) as client:
+        for model in flash:
+            payload = {
+                "contents": [{"role": "user", "parts": [{"text": "Reply with: ok"}]}],
+                "generationConfig": {"maxOutputTokens": 8, "temperature": 0},
+            }
+            try:
+                r = client.post(
+                    f"{base}/models/{model}:generateContent", headers=headers, json=payload
+                )
+                code = r.status_code
+            except Exception as exc:
+                probe_table.add_row(model, "—", f"[red]unreachable: {exc}[/red]")
+                continue
+            if code == 200:
+                probe_table.add_row(model, "200", "[green]usable[/green]")
+                usable.append(model)
+            elif code == 429:
+                probe_table.add_row(model, "429", "[yellow]no quota / throttled[/yellow]")
+            else:
+                detail = r.text[:80].replace("\n", " ")
+                probe_table.add_row(model, str(code), f"[red]{detail}[/red]")
+    console.print(probe_table)
+
+    if usable:
+        console.print(
+            f"\n[green]Set GEMINI_STAGE2_MODEL to one of:[/green] {', '.join(usable)}"
+        )
+    else:
+        console.print(
+            "\n[red]No Flash model answered.[/red] Every one was throttled or "
+            "refused, so the project itself has no usable quota — a different "
+            "model will not help. Enable billing on the key's project, or "
+            "configure LLM_FALLBACK_API_KEY with another provider."
+        )
+        raise SystemExit(2)
