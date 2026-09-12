@@ -635,3 +635,28 @@ async def test_a_failed_listing_degrades_quietly():
     from podcast_scout.providers.llm import _discover_gemini_models
 
     assert await _discover_gemini_models(_StubClient(status=500), "k", "u") == []
+
+
+# -- thinking tokens are billed against maxOutputTokens ----------------------
+
+def test_headroom_is_added_when_thinking_cannot_be_disabled():
+    """thinking_budget None means thinkingConfig is not sent, so the model
+    thinks by default and the answer needs room beyond the thoughts."""
+    from podcast_scout.providers.llm import _THINKING_HEADROOM_TOKENS
+
+    assert _THINKING_HEADROOM_TOKENS >= 2048
+
+
+async def test_a_thinking_model_gets_more_than_the_caller_asked_for():
+    from podcast_scout.providers.llm import _THINKING_HEADROOM_TOKENS, GeminiProvider
+
+    disabled = GeminiProvider("k", "m", thinking_budget=0)
+    unavailable = GeminiProvider("k", "m", thinking_budget=None)
+
+    # Mirrors the calculation in complete(): only the model that will think
+    # gets the extra room.
+    def effective(g, asked):
+        return asked if g.thinking_budget is not None else asked + _THINKING_HEADROOM_TOKENS
+
+    assert effective(disabled, 1500) == 1500
+    assert effective(unavailable, 1500) == 1500 + _THINKING_HEADROOM_TOKENS

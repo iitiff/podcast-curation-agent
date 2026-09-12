@@ -27,6 +27,22 @@ log = logging.getLogger(__name__)
 # theses and 20 signals would otherwise be 160 LLM round-trips per run.
 MAX_SIGNALS_PER_CHECK = 25
 
+# Output budget for one batched check. Each hit carries an id, a direction, a
+# strength and a sentence of reasoning, so the ceiling scales with how many
+# beliefs are being tested rather than sitting at a constant.
+#
+# It was a flat 1500, chosen when a single thesis was active. Six actives and a
+# day of signals can legitimately produce more hits than that can hold, and an
+# over-run is not a clean failure: the array is truncated mid-JSON and the
+# parser recovers only the entries that fit, so the check appears to run and
+# quietly finds less than it should.
+_BASE_CHECK_TOKENS = 800
+_TOKENS_PER_TARGET = 300
+
+
+def _check_token_budget(targets: int) -> int:
+    return _BASE_CHECK_TOKENS + _TOKENS_PER_TARGET * max(1, targets)
+
 
 class FalsifierHit(BaseModel):
     thesis_id: str
@@ -121,7 +137,7 @@ async def check_falsifiers(
     try:
         resp = await llm.complete(
             messages=[LLMMessage(role="user", content=_build_prompt(theses, capped))],
-            max_tokens=1500,
+            max_tokens=_check_token_budget(len(theses)),
         )
     except Exception as exc:
         # A brain that cannot run the check must still produce a brief; the
@@ -251,7 +267,7 @@ async def check_questions(
     try:
         resp = await llm.complete(
             messages=[LLMMessage(role="user", content=_build_question_prompt(questions, capped))],
-            max_tokens=1500,
+            max_tokens=_check_token_budget(len(questions)),
         )
     except Exception as exc:
         log.warning("Question check failed, skipping: %s", exc)

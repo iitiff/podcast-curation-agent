@@ -205,6 +205,15 @@ async def _discover_gemini_models(
     return sorted(names, key=rank)
 
 
+# Extra output budget requested when thinkingConfig is NOT being sent, because
+# the model then thinks by default and thinking tokens are billed against
+# maxOutputTokens. Observed on gemini-3.6-flash, which rejects thinkingConfig
+# outright: a 1500-token request spent 1436 on thoughts and returned ~64 tokens
+# of answer, so the caller got a truncated response from a call that succeeded.
+# The caller asks for a budget for its ANSWER; this is what makes that true.
+_THINKING_HEADROOM_TOKENS = 4096
+
+
 class GeminiProvider(BaseLLMProvider):
     """Google Gemini API provider — the primary (and currently only) LLM."""
 
@@ -301,10 +310,17 @@ class GeminiProvider(BaseLLMProvider):
 
         contents = [{"role": "user", "parts": [{"text": "\n\n".join(user_parts)}]}]
 
+        # When thinking cannot be turned off, the requested budget has to cover
+        # the thoughts as well or there is nothing left to answer with.
+        effective_max_tokens = (
+            max_tokens if self.thinking_budget is not None
+            else max_tokens + _THINKING_HEADROOM_TOKENS
+        )
+
         payload: dict[str, Any] = {
             "contents": contents,
             "generationConfig": {
-                "maxOutputTokens": max_tokens,
+                "maxOutputTokens": effective_max_tokens,
                 "temperature": 0.3,
                 # CRITICAL: disable thinking.
                 #
@@ -360,6 +376,11 @@ class GeminiProvider(BaseLLMProvider):
                     self.model,
                 )
                 del payload["generationConfig"]["thinkingConfig"]
+                # This retry is the first call that will actually think, so it
+                # needs the headroom the original payload was not built with.
+                payload["generationConfig"]["maxOutputTokens"] = (
+                    max_tokens + _THINKING_HEADROOM_TOKENS
+                )
                 # Sticky. Without this every single call costs two requests --
                 # one rejected, one retried -- which halves the effective rate
                 # limit. Free-tier Gemini allows 20 requests/minute, so paying
