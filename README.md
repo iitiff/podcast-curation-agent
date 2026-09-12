@@ -17,6 +17,7 @@ Subscribe to these RSS feeds in any podcast app (Overcast, Pocket Casts, Castro,
 | 🤖 AI & Retail | `https://feeds.feedburner.com/Podcast-scout/ai-retail` |
 | 🚀 Startup & Strategy | `https://feeds.feedburner.com/Podcast-scout/startup` |
 
+
 📄 **[View the latest briefing →](https://iitiff.github.io/podcast-curation-agent/)**
 
 ---
@@ -315,6 +316,7 @@ After each run, the following are published to **GitHub Pages** at `https://iiti
 |---|---|
 | `index.html` | Human-readable weekly briefing |
 | `listen.xml` | RSS feed — listen-queue episodes only |
+| `summaries.xml` | RSS feed — the "worth knowing about, not worth the hour" tier, with the summary readable in the player |
 | `all.xml` | RSS feed — all surfaced episodes |
 | `ai-retail.xml` | AI, retail & product craft episodes |
 | `startup.xml` | Startup & business strategy episodes |

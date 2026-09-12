@@ -199,3 +199,72 @@ def test_a_carried_item_still_parses_and_reads_correctly():
 def test_no_undeclared_prefix_appears_in_any_feed(undeclared):
     for xml in (_feed_for([_ranked()]), _carried_feed()):
         assert f"{undeclared}:" not in xml
+
+
+# ---------------------------------------------------------------------------
+# The summaries feed: the read-only tier, readable in a player
+# ---------------------------------------------------------------------------
+
+def _summary_item(classification: str, *, audio: bool = True, guid: str = "g1", score: float = 60.0):
+    from datetime import UTC, datetime
+
+    from podcast_scout.normalize import Enclosure, NormalizedEpisode
+    from podcast_scout.ranking import RankedEpisode, RubricScore
+
+    ep = NormalizedEpisode(
+        guid=guid, source_feed_url="https://f.example/x", original_guid=guid,
+        show_title="A Show", episode_title="An Episode", description="Body text",
+        published=datetime(2026, 9, 12, tzinfo=UTC), duration_seconds=1800,
+        enclosure=Enclosure(url="https://cdn/x.mp3", mime_type="audio/mpeg", length=1) if audio else None,
+    )
+    return RankedEpisode(
+        episode=ep, score=score, rubric=RubricScore(),
+        classification=classification, summary="What this episode covers.",
+    )
+
+
+def _summaries_feed(items):
+    import tempfile
+    from pathlib import Path
+
+    from podcast_scout.config import Preferences
+    from podcast_scout.rss import build_feed
+    from podcast_scout.state import StateManager
+
+    with tempfile.TemporaryDirectory() as d:
+        return build_feed(items, Preferences(), "summaries", "", StateManager(Path(d)))
+
+
+def test_summaries_feed_carries_the_read_only_tier():
+    xml = _summaries_feed([_summary_item("Read Summary Only")])
+
+    assert "SUMMARY" in xml
+    assert "An Episode" in xml
+
+
+def test_summaries_feed_excludes_listen_fully():
+    """Those already have listen.xml; duplicating them defeats the split."""
+    xml = _summaries_feed([_summary_item("Listen Fully", guid="lf")])
+
+    assert "An Episode" not in xml
+
+
+def test_summaries_feed_excludes_skips():
+    xml = _summaries_feed([_summary_item("Skip", guid="sk")])
+
+    assert "An Episode" not in xml
+
+
+def test_summaries_feed_requires_audio():
+    """A player hides an item it cannot play, making the feed look broken."""
+    xml = _summaries_feed([_summary_item("Read Summary Only", audio=False, guid="na")])
+
+    assert "An Episode" not in xml
+
+
+def test_summary_lands_where_players_actually_look():
+    """content:encoded alone is not read by most clients -- the #30 lesson."""
+    xml = _summaries_feed([_summary_item("Read Summary Only")])
+
+    assert "itunes:summary" in xml
+    assert "itunes:subtitle" in xml
