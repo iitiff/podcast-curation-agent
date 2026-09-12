@@ -262,6 +262,36 @@ def _classify(score: float, prefs: Preferences) -> str:
     return "Skip"
 
 
+def _reconcile_classification(
+    llm_label: str, score: float, prefs: Preferences
+) -> tuple[str, bool]:
+    """Let the score decide, except within `boundary_override_max` of a threshold.
+
+    The thresholds are the reader's stated policy. The model's own label was
+    previously taken verbatim and `_classify` used only when the field was
+    missing, so the policy was advisory: an episode scoring 81 against a
+    listen threshold of 75 was filed as "Read Summary Only" because the model
+    said so, and every playable feed came out empty.
+
+    `boundary_override_max` has been config since the beginning and was never
+    read by anything. This is what it was for: near a boundary the model's
+    judgement is worth more than a point of arithmetic, and further away the
+    reader's threshold wins. Returns the label and whether an override was
+    allowed.
+    """
+    by_score = _classify(score, prefs)
+    if not llm_label or llm_label == by_score:
+        return by_score, False
+    margin = prefs.classification.boundary_override_max
+    thresholds = (
+        prefs.classification.listen_fully_min_score,
+        prefs.classification.read_summary_min_score,
+    )
+    if any(abs(score - t) <= margin for t in thresholds):
+        return llm_label, True
+    return by_score, False
+
+
 def build_daily_queue(
     ranked: list[RankedEpisode],
     max_minutes: float = 480.0,
@@ -507,9 +537,12 @@ PENALTIES (negative):
 - repetition_penalty: 0 to -15  (topic covered in recent episodes of same show)
 - generic_penalty: 0 to -15  (content applies to anyone, not specifically to this persona)
 - weak_evidence_penalty: 0 to -10  (opinion without data or real examples)
-- confidence_penalty: 0 to -15  (scoring based on description only with no transcript.
-  Does NOT apply to a written source: an article, paper or filing IS its own full text,
-  so there is nothing missing to discount.)
+- confidence_penalty: 0 to -15  (reserve this for an item whose available text is
+  UNUSUALLY thin for its kind -- a two-line blurb, a title with no description. Do NOT
+  apply it merely because a transcript is absent: transcripts are off by default, so
+  every podcast lacks one, and a penalty every podcast takes is a handicap on audio
+  rather than a signal about any particular episode. Does NOT apply to a written source
+  either: an article, paper or filing IS its own full text.)
 - motivational_penalty: 0 to -10  (inspirational/feel-good without strategic substance)
 - relevance_penalty: 0 to -20  (off-topic relative to THIS persona's stated focus above --
   judge against that focus, not against a general "tech content" bar. Depth inside the focus
@@ -548,6 +581,10 @@ an insight — rewrite it or drop it.
 If TRANSCRIPT CONFIDENCE is low or the source text is description-only, do not fabricate
 specificity that isn't in the text — return fewer key_ideas (even an empty list) rather than
 disguising a topic label as an insight.
+
+Low transcript confidence is a reason to claim LESS, not to rate lower twice. Whatever
+discount it deserves belongs in the rubric numbers alone; do not then also downgrade the
+classification for the same reason. Classify from the total you produced.
 
 For EACH episode return an object with keys:
   rubric (dict), classification, classification_reason,
@@ -645,10 +682,9 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
                     episode=ep,
                     score=score,
                     rubric=rubric,
-                    classification=_str(
-                        data.get("classification"),
-                        _classify(score, prefs),
-                    ),
+                    classification=_reconcile_classification(
+                        _str(data.get("classification")), score, prefs
+                    )[0],
                     classification_reason=_str(
                         data.get("classification_reason")
                     ),
