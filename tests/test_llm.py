@@ -797,3 +797,23 @@ async def test_tier_still_outranks_generation():
     ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
 
     assert ranked[0] == "gemini-2.5-flash-lite"
+
+
+# -- a safety classifier is not a chat fallback ------------------------------
+
+def test_safety_classifiers_are_not_eligible_chat_models():
+    """They answer with a verdict, not a rubric, so an auto-resolve that picks
+    one produces unparseable output from a call that succeeded."""
+    from podcast_scout.providers.llm import _NON_CHAT_HINTS
+
+    for model in ("nvidia/nemotron-content-safety", "meta/llama-guard-4-12b",
+                  "some/moderation-model"):
+        assert any(h in model.lower() for h in _NON_CHAT_HINTS), model
+
+
+def test_general_chat_models_stay_eligible():
+    from podcast_scout.providers.llm import _NON_CHAT_HINTS
+
+    for model in ("moonshotai/kimi-k3", "nvidia/nemotron-3-super-120b-a12b",
+                  "deepseek-ai/deepseek-v4-flash", "google/gemma-4-31b-it"):
+        assert not any(h in model.lower() for h in _NON_CHAT_HINTS), model
