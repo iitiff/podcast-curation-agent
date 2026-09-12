@@ -153,6 +153,58 @@ def _extract_gemini_text(data: dict[str, Any], max_tokens: int) -> str:
 
 
 
+async def _discover_gemini_models(
+    client: httpx.AsyncClient, api_key: str, base_url: str
+) -> list[str]:
+    """Ask the API which models this key can actually call.
+
+    A hardcoded successor list goes stale: model ids are added and retired
+    faster than anyone edits config, and a name the key cannot reach fails as a
+    quiet 404 that looks exactly like the quota exhaustion it was meant to
+    solve. The API already knows the answer, so ask it.
+
+    Ordering matters more here than in the OpenRouter case, because this list
+    is walked under an already-spent quota: prefer the cheap high-allowance
+    tiers, since free-tier request limits are far more generous for flash and
+    lite models than for pro, and a pro model will usually exhaust first.
+    """
+    try:
+        listing = await client.get(base_url, params={"key": api_key})
+        if listing.status_code != 200:
+            return []
+        rows = listing.json().get("models", [])
+    except Exception as exc:
+        log.warning("Could not list Gemini models: %s", exc)
+        return []
+
+    names: list[str] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        # Only models that can answer a generateContent call. This drops
+        # embedding, and any listed model that only supports counting tokens.
+        if "generateContent" not in (row.get("supportedGenerationMethods") or []):
+            continue
+        name = str(row.get("name", "")).removeprefix("models/")
+        if name:
+            names.append(name)
+
+    def rank(model_id: str) -> tuple[int, int, int, str]:
+        lowered = model_id.lower()
+        return (
+            # Cheapest tier with the largest free allowance goes first.
+            0 if "lite" in lowered else 1 if "flash" in lowered else 2,
+            # Preview and experimental ids come and go, and sometimes carry
+            # stricter limits. Usable, but only after the stable ones.
+            1 if any(h in lowered for h in ("preview", "exp", "experimental")) else 0,
+            # Prefer an unversioned alias: a dated pin is retired on a schedule.
+            1 if any(ch.isdigit() for ch in lowered.rsplit("-", 1)[-1]) else 0,
+            model_id,
+        )
+
+    return sorted(names, key=rank)
+
+
 class GeminiProvider(BaseLLMProvider):
     """Google Gemini API provider — the primary (and currently only) LLM."""
 
@@ -163,9 +215,21 @@ class GeminiProvider(BaseLLMProvider):
         api_key: str,
         model: str = "gemini-2.0-flash",
         thinking_budget: int | None = 0,
+        model_fallbacks: list[str] | None = None,
     ) -> None:
         self.api_key = api_key
         self.model = model
+        # Free-tier quota is per MODEL, not per key, so an exhausted daily
+        # allowance on one model says nothing about the next. Rotating is
+        # strictly better than dropping to another provider, which may have no
+        # credit at all -- the observed failure was a 429 here followed
+        # immediately by a 402 there, and every episode scoring at the
+        # metadata floor as a result.
+        self._model_fallbacks = list(model_fallbacks or [])
+        self._exhausted: set[str] = set()
+        # None means "not asked yet"; [] means asked and nothing usable came
+        # back, which must not trigger a second lookup on every later 429.
+        self._discovered: list[str] | None = None
         # None omits thinkingConfig from the payload entirely. The budget below
         # was tuned against 2.5 Flash; a model generation that does not accept
         # the field would otherwise reject every request, and there has to be a
@@ -173,6 +237,55 @@ class GeminiProvider(BaseLLMProvider):
         self.thinking_budget = thinking_budget
         # Set once a backoff proves the limit is not per-minute; see complete().
         self._rate_limited = False
+
+    async def _candidates(self, client: httpx.AsyncClient) -> list[str]:
+        """Models to rotate onto, explicit list first, otherwise discovered.
+
+        An operator who names a list wins: they may know something the listing
+        does not, such as which models their billing actually covers. With no
+        list, the API is asked once per run and the answer cached.
+        """
+        if self._model_fallbacks:
+            return self._model_fallbacks
+        if self._discovered is None:
+            self._discovered = await _discover_gemini_models(
+                client, self.api_key, self.BASE_URL
+            )
+            if self._discovered:
+                log.info(
+                    "Discovered %d callable Gemini model(s) to rotate through: %s",
+                    len(self._discovered), ", ".join(self._discovered[:6]),
+                )
+        return self._discovered
+
+    async def _rotate_model(self, client: httpx.AsyncClient) -> bool:
+        """Switch to the next model with an unspent daily allowance.
+
+        Returns False when there is nothing left to try, which lets the caller
+        fall through to the configured secondary provider exactly as before.
+        The swap persists for the rest of the run: re-trying a model already
+        known to be spent would just buy another 429.
+        """
+        self._exhausted.add(self.model)
+        for candidate in await self._candidates(client):
+            if candidate not in self._exhausted:
+                log.warning(
+                    "%s has exhausted its daily quota — switching to %s for the "
+                    "rest of this run. Free-tier quota is per model, so this is "
+                    "a fresh allowance rather than a retry.",
+                    self.model, candidate,
+                )
+                self.model = candidate
+                # The new model has its own allowance, so the per-minute
+                # backoff earns its cost again.
+                self._rate_limited = False
+                return True
+        log.warning(
+            "Every reachable Gemini model is out of quota (%s). Falling through "
+            "to the secondary provider.",
+            ", ".join(sorted(self._exhausted)),
+        )
+        return False
 
     async def complete(
         self,
@@ -304,6 +417,13 @@ class GeminiProvider(BaseLLMProvider):
                             self.model, delay,
                         )
                         self._rate_limited = True
+
+            # A 429 that a wait cannot clear is a spent daily allowance. Since
+            # that allowance is per model, try the next model before giving up
+            # on Gemini entirely.
+            if resp.status_code == 429 and await self._rotate_model(client):
+                url = f"{self.BASE_URL}/{self.model}:generateContent"
+                resp = await client.post(url, json=payload, headers=headers)
 
             if resp.status_code >= 400:
                 detail = resp.text[:600].replace("\n", " ")

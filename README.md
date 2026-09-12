@@ -17,6 +17,7 @@ Subscribe to these RSS feeds in any podcast app (Overcast, Pocket Casts, Castro,
 | 🤖 AI & Retail | `https://feeds.feedburner.com/Podcast-scout/ai-retail` |
 | 🚀 Startup & Strategy | `https://feeds.feedburner.com/Podcast-scout/startup` |
 
+
 📄 **[View the latest briefing →](https://iitiff.github.io/podcast-curation-agent/)**
 
 ---
@@ -184,6 +185,7 @@ uv run podcast-scout run
 | `BRAIN_DIR` | No | Enables the brain and falsifier watch. Unset disables all brain writes. |
 | `BRIEFING_DIR` | No | Where `index.html` / `latest.md` / `latest.json` are written. Defaults to `PUBLIC_DIR`; set it separately to keep the briefing out of what gets published. |
 | `GEMINI_STAGE2_MODEL` | No | Override Gemini model (default: `gemini-3.6-flash`). Free-tier quota is **per model**, so this is the first thing to change on a 429. |
+| `GEMINI_MODEL_FALLBACKS` | No | Comma-separated models to rotate onto when the one above spends its **daily** quota. Because the allowance is per model, this is a second allowance rather than a retry — and it beats dropping to a secondary provider that may be out of credit. Empty by default. |
 | `GEMINI_THINKING_BUDGET` | No | Thinking token budget (default `0`, disabled). Set `none` to omit the field for models that reject it. |
 | `PODCAST_INDEX_KEY` | No | [Podcast Index](https://api.podcastindex.org) key for broader discovery |
 | `PODCAST_INDEX_SECRET` | No | Podcast Index secret |
@@ -314,6 +316,7 @@ After each run, the following are published to **GitHub Pages** at `https://iiti
 |---|---|
 | `index.html` | Human-readable weekly briefing |
 | `listen.xml` | RSS feed — listen-queue episodes only |
+| `summaries.xml` | RSS feed — the "worth knowing about, not worth the hour" tier, with the summary readable in the player |
 | `all.xml` | RSS feed — all surfaced episodes |
 | `ai-retail.xml` | AI, retail & product craft episodes |
 | `startup.xml` | Startup & business strategy episodes |

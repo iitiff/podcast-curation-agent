@@ -119,8 +119,11 @@ def _make_llm(settings: Settings) -> BaseLLMProvider | None:
             settings.gemini_api_key,
             settings.gemini_stage2_model,
             thinking_budget=settings.gemini_thinking_budget,
+            model_fallbacks=settings.gemini_model_fallbacks,
         )
         primary_name = f"Gemini ({settings.gemini_stage2_model})"
+        if settings.gemini_model_fallbacks:
+            primary_name += f" → {' → '.join(settings.gemini_model_fallbacks)}"
 
     if settings.fallback_api_key:
         compat = OpenAICompatibleProvider(
@@ -770,9 +773,16 @@ async def _run_pipeline(
 
     listen_xml = build_feed(rss_queue, prefs, "listen", base_url, state,
                             public_dir=settings.public_dir, curated_at=curated_at)
+    # The "good enough to know about, not worth the hour" tier. It used to
+    # exist only inside the email, which meant going back through a mailbox to
+    # find out what an episode was about; as a feed the summary is readable in
+    # the player next to everything else.
+    summaries_xml = build_feed(all_surfaced, prefs, "summaries", base_url, state,
+                               public_dir=settings.public_dir, curated_at=curated_at)
     all_xml = build_feed(all_surfaced, prefs, "all", base_url, state,
                          public_dir=settings.public_dir, curated_at=curated_at)
     (settings.public_dir / "listen.xml").write_text(listen_xml, encoding="utf-8")
+    (settings.public_dir / "summaries.xml").write_text(summaries_xml, encoding="utf-8")
     (settings.public_dir / "all.xml").write_text(all_xml, encoding="utf-8")
 
     # Briefing artifacts go to briefing_dir, NOT public_dir. public_dir holds

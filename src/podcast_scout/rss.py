@@ -454,9 +454,16 @@ def build_category_feed(
             SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
             SubElement(item, "pubDate").text = _item_pub_date(r, curated_at)
             SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
+            notes_html = _show_notes_html(r)
             notes = SubElement(item, "content:encoded")
-            notes.text = _show_notes_html(r)
+            notes.text = notes_html
             SubElement(item, "description").text = r.summary or r.episode.description[:300]
+            # Same fix the category feeds already carry: content:encoded alone
+            # is not where most players look, so the summary never reached the
+            # listener. It matters most in the summaries feed, where reading
+            # the summary IS the point of the item.
+            SubElement(item, "itunes:summary").text = _cdata(notes_html)
+            SubElement(item, "itunes:subtitle").text = _subtitle(r)
             if r.episode.enclosure:
                 enc = SubElement(item, "enclosure")
                 enc.set("url", r.episode.enclosure.url)
@@ -492,13 +499,23 @@ def build_feed(
     curated_at: datetime | None = None,
 ) -> str:
     curated_at = curated_at or utcnow()
-    slug = "listen.xml" if feed_type == "listen" else "all.xml"
+    slug = {"listen": "listen.xml", "summaries": "summaries.xml"}.get(feed_type, "all.xml")
     feed_url = f"{base_url.rstrip('/')}/{slug}" if base_url else ""
     retention_cutoff = utcnow() - timedelta(days=FEED_RETENTION_DAYS)
 
     if feed_type == "listen":
         # listen feed: Listen Fully only, enclosure required for actual audio playback
         new_items = [r for r in episodes if r.classification == "Listen Fully" and r.episode.enclosure]
+    elif feed_type == "summaries":
+        # summaries feed: the "good enough to know about, not worth the hour"
+        # tier, which otherwise only ever appeared in the email. An enclosure is
+        # required for the same reason the category feeds require one -- a
+        # player hides an item it cannot play, so a written source here would
+        # make the feed look broken. Those still reach the briefing and email.
+        new_items = [
+            r for r in episodes
+            if r.classification == "Read Summary Only" and r.episode.enclosure
+        ]
     else:
         # all feed: Listen Fully + Read Summary Only (for reference)
         new_items = [r for r in episodes if r.classification in ("Listen Fully", "Read Summary Only")]
@@ -535,9 +552,15 @@ def build_feed(
             SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
             SubElement(item, "pubDate").text = _item_pub_date(r, curated_at)
             SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
+            notes_html = _show_notes_html(r)
             notes = SubElement(item, "content:encoded")
-            notes.text = _show_notes_html(r)
+            notes.text = notes_html
             SubElement(item, "description").text = r.summary or r.episode.description[:300]
+            # content:encoded alone is not where most players look. It matters
+            # most in summaries.xml, where reading the summary IS the point of
+            # the item rather than a preview of something to play.
+            SubElement(item, "itunes:summary").text = _cdata(notes_html)
+            SubElement(item, "itunes:subtitle").text = _subtitle(r)
             if r.episode.enclosure:
                 enc = SubElement(item, "enclosure")
                 enc.set("url", r.episode.enclosure.url)

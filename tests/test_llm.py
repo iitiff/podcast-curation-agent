@@ -491,3 +491,147 @@ def test_persistent_overload_gives_up_for_the_fallback(monkeypatch):
         _run(GeminiProvider("k", "m", thinking_budget=None), client)
     assert "503" in str(exc.value)
     assert len(client.payloads) == 3, "initial attempt plus two retries"
+
+
+# ---------------------------------------------------------------------------
+# Daily quota is per MODEL, so rotate before giving up on Gemini
+# ---------------------------------------------------------------------------
+
+class _StubClient:
+    """Stands in for httpx.AsyncClient's .get for the models listing."""
+
+    def __init__(self, payload=None, status=200):
+        self.payload = payload if payload is not None else {"models": []}
+        self.status = status
+        self.calls = 0
+
+    async def get(self, url, params=None, headers=None):
+        self.calls += 1
+
+        class _R:
+            status_code = self.status
+            def json(_self):
+                return self.payload
+
+        return _R()
+
+
+def _gemini(**kw):
+    from podcast_scout.providers.llm import GeminiProvider
+
+    return GeminiProvider("key", kw.pop("model", "model-a"), **kw)
+
+
+def _listing(*names):
+    return {"models": [
+        {"name": f"models/{n}", "supportedGenerationMethods": ["generateContent"]}
+        for n in names
+    ]}
+
+
+async def test_rotation_moves_to_the_next_model_and_persists():
+    g = _gemini(model_fallbacks=["model-b", "model-c"])
+
+    assert await g._rotate_model(_StubClient()) is True
+    assert g.model == "model-b"
+    assert "model-a" in g._exhausted
+
+
+async def test_rotation_skips_models_already_known_spent():
+    g = _gemini(model_fallbacks=["model-b", "model-c"])
+    c = _StubClient()
+    await g._rotate_model(c)
+    await g._rotate_model(c)
+
+    assert g.model == "model-c"
+    assert g._exhausted == {"model-a", "model-b"}
+
+
+async def test_rotation_gives_up_once_every_model_is_spent():
+    """Returning False is what lets the caller fall through to the secondary."""
+    g = _gemini(model_fallbacks=["model-b"])
+    c = _StubClient()
+    await g._rotate_model(c)
+
+    assert await g._rotate_model(c) is False
+
+
+async def test_rotation_restores_the_per_minute_backoff():
+    """A fresh model has its own allowance, so the wait is worth paying again."""
+    g = _gemini(model_fallbacks=["model-b"])
+    g._rate_limited = True
+
+    await g._rotate_model(_StubClient())
+
+    assert g._rate_limited is False
+
+
+# -- discovery: the list maintains itself ------------------------------------
+
+async def test_models_are_discovered_when_no_list_is_configured():
+    g = _gemini(model_fallbacks=[])
+    c = _StubClient(_listing("gemini-x-pro", "gemini-x-flash"))
+
+    assert await g._rotate_model(c) is True
+    # flash outranks pro: free-tier request limits are far more generous.
+    assert g.model == "gemini-x-flash"
+
+
+async def test_an_explicit_list_wins_over_discovery():
+    """The operator may know what their billing covers; the listing does not."""
+    g = _gemini(model_fallbacks=["chosen-model"])
+    c = _StubClient(_listing("gemini-x-flash"))
+
+    await g._rotate_model(c)
+
+    assert g.model == "chosen-model"
+    assert c.calls == 0
+
+
+async def test_discovery_happens_once_per_run():
+    g = _gemini(model_fallbacks=[])
+    c = _StubClient(_listing("gemini-x-flash", "gemini-y-flash"))
+    await g._rotate_model(c)
+    await g._rotate_model(c)
+
+    assert c.calls == 1
+
+
+async def test_an_empty_listing_is_not_re_fetched():
+    """[] must be cached; otherwise every later 429 pays for the same lookup."""
+    g = _gemini(model_fallbacks=[])
+    c = _StubClient({"models": []})
+
+    assert await g._rotate_model(c) is False
+    assert await g._rotate_model(c) is False
+    assert c.calls == 1
+
+
+async def test_models_that_cannot_generate_are_excluded():
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient({"models": [
+        {"name": "models/embed-thing", "supportedGenerationMethods": ["embedContent"]},
+        {"name": "models/counter", "supportedGenerationMethods": ["countTokens"]},
+        {"name": "models/gemini-x-flash", "supportedGenerationMethods": ["generateContent"]},
+    ]})
+
+    assert await _discover_gemini_models(c, "key", "https://example/models") == ["gemini-x-flash"]
+
+
+async def test_discovery_prefers_lite_then_flash_then_pro_and_stable_over_preview():
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing(
+        "gemini-x-pro", "gemini-x-flash-preview", "gemini-x-flash", "gemini-x-flash-lite",
+    ))
+
+    assert await _discover_gemini_models(c, "k", "u") == [
+        "gemini-x-flash-lite", "gemini-x-flash", "gemini-x-flash-preview", "gemini-x-pro",
+    ]
+
+
+async def test_a_failed_listing_degrades_quietly():
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    assert await _discover_gemini_models(_StubClient(status=500), "k", "u") == []
