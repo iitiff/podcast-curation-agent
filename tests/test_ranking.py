@@ -581,3 +581,54 @@ def test_a_zero_margin_makes_the_thresholds_absolute():
 
     assert label == "Listen Fully"
     assert overrode is False
+
+
+# ---------------------------------------------------------------------------
+# Per-lane persona emphasis
+# ---------------------------------------------------------------------------
+
+@pytest.mark.asyncio
+async def test_lane_emphasis_reaches_the_rubric():
+    llm = _CapturingLLM(1)
+    await stage2_batch_rank(
+        [(_make_ep(), _no_transcript())], _make_prefs(), llm,
+        persona_emphasis="depth in this subject is the point",
+    )
+
+    assert "FOR THIS BATCH SPECIFICALLY: depth in this subject is the point" in llm.prompts[0]
+
+
+@pytest.mark.asyncio
+async def test_emphasis_is_placed_after_the_persona_so_it_can_qualify_it():
+    """The persona sets the standing bar; the emphasis says how it applies here."""
+    llm = _CapturingLLM(1)
+    await stage2_batch_rank(
+        [(_make_ep(), _no_transcript())], _make_prefs(), llm,
+        persona_emphasis="do not penalise foundational treatment",
+    )
+    prompt = llm.prompts[0]
+
+    assert prompt.index("whose focus is") < prompt.index("FOR THIS BATCH SPECIFICALLY")
+
+
+@pytest.mark.asyncio
+async def test_no_emphasis_leaves_the_prompt_untouched():
+    """Lanes without one must not pay tokens for an empty section."""
+    llm = _CapturingLLM(1)
+    await stage2_batch_rank([(_make_ep(), _no_transcript())], _make_prefs(), llm)
+
+    assert "FOR THIS BATCH SPECIFICALLY" not in llm.prompts[0]
+
+
+def test_emphasis_is_read_from_category_config():
+    from podcast_scout.config import CategoryFeedConfig
+
+    cfg = CategoryFeedConfig(slug="p", title="P", persona_emphasis="judge on rigour")
+
+    assert cfg.persona_emphasis == "judge on rigour"
+
+
+def test_emphasis_defaults_to_empty():
+    from podcast_scout.config import CategoryFeedConfig
+
+    assert CategoryFeedConfig(slug="p", title="P").persona_emphasis == ""

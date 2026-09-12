@@ -47,6 +47,7 @@ async def process_episodes(
     # 3000 left no headroom once Gemini's overhead was included.
     token_budget_per_episode: int = 5000,
     total_token_budget: int = 400_000,
+    persona_emphasis: str = "",
 ) -> list[RankedEpisode]:
     """Stage 1 filter then Stage 2 deep-rank top candidates.
 
@@ -102,7 +103,11 @@ async def process_episodes(
         # token_budget passed is per-episode * batch size so the model has
         # enough room to write all summaries
         batch_token_budget = token_budget_per_episode * len(batch)
-        batch_results = await stage2_batch_rank(items, prefs, llm, token_budget=batch_token_budget)
+        batch_results = await stage2_batch_rank(
+            items, prefs, llm,
+            token_budget=batch_token_budget,
+            persona_emphasis=persona_emphasis,
+        )
 
         for r in batch_results:
             tokens_used += r.tokens_used
