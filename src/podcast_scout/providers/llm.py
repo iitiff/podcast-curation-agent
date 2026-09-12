@@ -153,8 +153,36 @@ def _extract_gemini_text(data: dict[str, Any], max_tokens: int) -> str:
 
 
 
+def _model_generation(model_id: str) -> float:
+    """The generation number in an id: gemini-3.1-flash-lite -> 3.1.
+
+    Returns -1.0 for an unversioned id such as gemini-flash-lite-latest, which
+    sorts it behind every explicit version. A moving alias is a reasonable last
+    resort but a poor first choice: it can be repointed underneath a run, and
+    it may well resolve to the model that just ran out.
+    """
+    for part in model_id.lower().split("-"):
+        try:
+            return float(part)
+        except ValueError:
+            continue
+    return -1.0
+
+
+def _model_family(model_id: str) -> str:
+    """The generation an id belongs to: gemini-2.5-flash-001 -> gemini-2.5.
+
+    Used to prefer rotating ACROSS generations. Whether an alias and its dated
+    pin share one quota bucket is not documented and not something this code
+    can find out without spending a request to try; a different generation is
+    the case where a separate allowance is nearly certain, so it goes first and
+    the question never has to be answered.
+    """
+    return "-".join(model_id.lower().split("-")[:2])
+
+
 async def _discover_gemini_models(
-    client: httpx.AsyncClient, api_key: str, base_url: str
+    client: httpx.AsyncClient, api_key: str, base_url: str, current: str = ""
 ) -> list[str]:
     """Ask the API which models this key can actually call.
 
@@ -189,20 +217,43 @@ async def _discover_gemini_models(
         if name:
             names.append(name)
 
-    def rank(model_id: str) -> tuple[int, int, int, str]:
+    current_family = _model_family(current) if current else ""
+
+    def rank(model_id: str) -> tuple[int, int, int, int, float, str]:
         lowered = model_id.lower()
         return (
-            # Cheapest tier with the largest free allowance goes first.
+            # A different generation first. The exhausted model's own family is
+            # where a shared quota bucket is most likely, and a rotation inside
+            # it can cost a request only to earn the same 429.
+            1 if current_family and _model_family(model_id) == current_family else 0,
+            # Then the cheapest tier, which carries the largest free allowance.
             0 if "lite" in lowered else 1 if "flash" in lowered else 2,
             # Preview and experimental ids come and go, and sometimes carry
             # stricter limits. Usable, but only after the stable ones.
             1 if any(h in lowered for h in ("preview", "exp", "experimental")) else 0,
             # Prefer an unversioned alias: a dated pin is retired on a schedule.
             1 if any(ch.isdigit() for ch in lowered.rsplit("-", 1)[-1]) else 0,
+            # NEWEST GENERATION FIRST. Everything above this routinely ties --
+            # a list of lite models from different generations is identical on
+            # every earlier component -- so whatever sits here is what actually
+            # decides. It used to be model_id, i.e. plain alphabetical, which
+            # sorts 2.5 ahead of 3.5 and so systematically picked the OLDEST
+            # generation available: the one nearest end-of-life and furthest
+            # behind on quality.
+            -_model_generation(model_id),
             model_id,
         )
 
     return sorted(names, key=rank)
+
+
+# Extra output budget requested when thinkingConfig is NOT being sent, because
+# the model then thinks by default and thinking tokens are billed against
+# maxOutputTokens. Observed on gemini-3.6-flash, which rejects thinkingConfig
+# outright: a 1500-token request spent 1436 on thoughts and returned ~64 tokens
+# of answer, so the caller got a truncated response from a call that succeeded.
+# The caller asks for a budget for its ANSWER; this is what makes that true.
+_THINKING_HEADROOM_TOKENS = 4096
 
 
 class GeminiProvider(BaseLLMProvider):
@@ -216,8 +267,16 @@ class GeminiProvider(BaseLLMProvider):
         model: str = "gemini-2.0-flash",
         thinking_budget: int | None = 0,
         model_fallbacks: list[str] | None = None,
+        api_keys: list[str] | None = None,
     ) -> None:
-        self.api_key = api_key
+        # Quota is per KEY and per MODEL, so the space to search is keys x
+        # models. Keys are tried first, holding the configured model: a second
+        # key restores the model that was actually chosen, where a second model
+        # is a downgrade to something cheaper. Only when every key is spent on
+        # a model is it worth moving to a lesser one.
+        self._api_keys = [k for k in (api_keys or [api_key]) if k]
+        self._key_index = 0
+        self.api_key = self._api_keys[0] if self._api_keys else api_key
         self.model = model
         # Free-tier quota is per MODEL, not per key, so an exhausted daily
         # allowance on one model says nothing about the next. Rotating is
@@ -226,7 +285,8 @@ class GeminiProvider(BaseLLMProvider):
         # immediately by a 402 there, and every episode scoring at the
         # metadata floor as a result.
         self._model_fallbacks = list(model_fallbacks or [])
-        self._exhausted: set[str] = set()
+        # (key index, model) pairs proven spent, since the allowance is per pair.
+        self._exhausted: set[tuple[int, str]] = set()
         # None means "not asked yet"; [] means asked and nothing usable came
         # back, which must not trigger a second lookup on every later 429.
         self._discovered: list[str] | None = None
@@ -249,7 +309,7 @@ class GeminiProvider(BaseLLMProvider):
             return self._model_fallbacks
         if self._discovered is None:
             self._discovered = await _discover_gemini_models(
-                client, self.api_key, self.BASE_URL
+                client, self.api_key, self.BASE_URL, current=self.model
             )
             if self._discovered:
                 log.info(
@@ -266,24 +326,46 @@ class GeminiProvider(BaseLLMProvider):
         The swap persists for the rest of the run: re-trying a model already
         known to be spent would just buy another 429.
         """
-        self._exhausted.add(self.model)
-        for candidate in await self._candidates(client):
-            if candidate not in self._exhausted:
+        self._exhausted.add((self._key_index, self.model))
+
+        # A different key on the SAME model first: it restores the model that
+        # was configured, rather than trading it for a cheaper one.
+        for index in range(len(self._api_keys)):
+            if (index, self.model) not in self._exhausted:
                 log.warning(
-                    "%s has exhausted its daily quota — switching to %s for the "
-                    "rest of this run. Free-tier quota is per model, so this is "
-                    "a fresh allowance rather than a retry.",
-                    self.model, candidate,
+                    "%s is out of quota on key %d — switching to key %d, which "
+                    "has its own allowance for the same model.",
+                    self.model, self._key_index + 1, index + 1,
+                )
+                self._key_index = index
+                self.api_key = self._api_keys[index]
+                self._rate_limited = False
+                return True
+
+        # Every key is spent on this model, so accept a lesser one -- and start
+        # again from the first key, whose allowance for it is untouched.
+        for candidate in await self._candidates(client):
+            for index in range(len(self._api_keys)):
+                if (index, candidate) in self._exhausted:
+                    continue
+                log.warning(
+                    "%s has exhausted its daily quota on every key — switching "
+                    "to %s on key %d. Free-tier quota is per key and per model, "
+                    "so this is a fresh allowance rather than a retry.",
+                    self.model, candidate, index + 1,
                 )
                 self.model = candidate
-                # The new model has its own allowance, so the per-minute
-                # backoff earns its cost again.
+                self._key_index = index
+                self.api_key = self._api_keys[index]
+                # The new pair has its own allowance, so the per-minute backoff
+                # earns its cost again.
                 self._rate_limited = False
                 return True
         log.warning(
-            "Every reachable Gemini model is out of quota (%s). Falling through "
-            "to the secondary provider.",
-            ", ".join(sorted(self._exhausted)),
+            "Every reachable Gemini model is out of quota on all %d key(s) (%s). "
+            "Falling through to the secondary provider.",
+            len(self._api_keys),
+            ", ".join(sorted(f"key{i + 1}:{m}" for i, m in self._exhausted)),
         )
         return False
 
@@ -301,10 +383,17 @@ class GeminiProvider(BaseLLMProvider):
 
         contents = [{"role": "user", "parts": [{"text": "\n\n".join(user_parts)}]}]
 
+        # When thinking cannot be turned off, the requested budget has to cover
+        # the thoughts as well or there is nothing left to answer with.
+        effective_max_tokens = (
+            max_tokens if self.thinking_budget is not None
+            else max_tokens + _THINKING_HEADROOM_TOKENS
+        )
+
         payload: dict[str, Any] = {
             "contents": contents,
             "generationConfig": {
-                "maxOutputTokens": max_tokens,
+                "maxOutputTokens": effective_max_tokens,
                 "temperature": 0.3,
                 # CRITICAL: disable thinking.
                 #
@@ -360,6 +449,11 @@ class GeminiProvider(BaseLLMProvider):
                     self.model,
                 )
                 del payload["generationConfig"]["thinkingConfig"]
+                # This retry is the first call that will actually think, so it
+                # needs the headroom the original payload was not built with.
+                payload["generationConfig"]["maxOutputTokens"] = (
+                    max_tokens + _THINKING_HEADROOM_TOKENS
+                )
                 # Sticky. Without this every single call costs two requests --
                 # one rejected, one retried -- which halves the effective rate
                 # limit. Free-tier Gemini allows 20 requests/minute, so paying

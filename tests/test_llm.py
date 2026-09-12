@@ -534,7 +534,8 @@ async def test_rotation_moves_to_the_next_model_and_persists():
 
     assert await g._rotate_model(_StubClient()) is True
     assert g.model == "model-b"
-    assert "model-a" in g._exhausted
+    # Spent pairs are (key index, model): the allowance is per pair.
+    assert (0, "model-a") in g._exhausted
 
 
 async def test_rotation_skips_models_already_known_spent():
@@ -544,7 +545,7 @@ async def test_rotation_skips_models_already_known_spent():
     await g._rotate_model(c)
 
     assert g.model == "model-c"
-    assert g._exhausted == {"model-a", "model-b"}
+    assert g._exhausted == {(0, "model-a"), (0, "model-b")}
 
 
 async def test_rotation_gives_up_once_every_model_is_spent():
@@ -635,3 +636,164 @@ async def test_a_failed_listing_degrades_quietly():
     from podcast_scout.providers.llm import _discover_gemini_models
 
     assert await _discover_gemini_models(_StubClient(status=500), "k", "u") == []
+
+
+# -- thinking tokens are billed against maxOutputTokens ----------------------
+
+def test_headroom_is_added_when_thinking_cannot_be_disabled():
+    """thinking_budget None means thinkingConfig is not sent, so the model
+    thinks by default and the answer needs room beyond the thoughts."""
+    from podcast_scout.providers.llm import _THINKING_HEADROOM_TOKENS
+
+    assert _THINKING_HEADROOM_TOKENS >= 2048
+
+
+async def test_a_thinking_model_gets_more_than_the_caller_asked_for():
+    from podcast_scout.providers.llm import _THINKING_HEADROOM_TOKENS, GeminiProvider
+
+    disabled = GeminiProvider("k", "m", thinking_budget=0)
+    unavailable = GeminiProvider("k", "m", thinking_budget=None)
+
+    # Mirrors the calculation in complete(): only the model that will think
+    # gets the extra room.
+    def effective(g, asked):
+        return asked if g.thinking_budget is not None else asked + _THINKING_HEADROOM_TOKENS
+
+    assert effective(disabled, 1500) == 1500
+    assert effective(unavailable, 1500) == 1500 + _THINKING_HEADROOM_TOKENS
+
+
+# -- quota is per KEY and per MODEL, so the search space is keys x models -----
+
+def _multikey(**kw):
+    from podcast_scout.providers.llm import GeminiProvider
+
+    return GeminiProvider("", kw.pop("model", "model-a"), **kw)
+
+
+async def test_a_second_key_is_tried_before_a_lesser_model():
+    """A new key restores the configured model; a new model is a downgrade."""
+    g = _multikey(api_keys=["k1", "k2"], model_fallbacks=["model-b"])
+
+    assert await g._rotate_model(_StubClient()) is True
+    assert g.model == "model-a"      # model preserved
+    assert g.api_key == "k2"         # key changed
+
+
+async def test_the_model_drops_only_once_every_key_is_spent_on_it():
+    g = _multikey(api_keys=["k1", "k2"], model_fallbacks=["model-b"])
+    c = _StubClient()
+    await g._rotate_model(c)         # k1/model-a -> k2/model-a
+
+    assert await g._rotate_model(c) is True
+    assert g.model == "model-b"
+    # And back to the first key, whose allowance for model-b is untouched.
+    assert g.api_key == "k1"
+
+
+async def test_every_key_and_model_spent_falls_through():
+    g = _multikey(api_keys=["k1", "k2"], model_fallbacks=["model-b"])
+    c = _StubClient()
+    for _ in range(3):
+        await g._rotate_model(c)
+
+    assert await g._rotate_model(c) is False
+
+
+async def test_a_single_key_behaves_as_before():
+    g = _multikey(api_keys=["only"], model_fallbacks=["model-b"])
+
+    assert await g._rotate_model(_StubClient()) is True
+    assert g.model == "model-b"
+    assert g.api_key == "only"
+# -- rotate across generations, where a separate quota bucket is likeliest ----
+
+async def test_a_different_generation_is_preferred_over_a_sibling_variant():
+    """The exhausted model's own family is where a shared bucket is likeliest."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing(
+        "gemini-3.6-flash-lite",   # same family as the dead model, cheapest tier
+        "gemini-2.5-flash",        # different generation
+    ))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked[0] == "gemini-2.5-flash"
+
+
+async def test_tier_still_decides_within_a_generation():
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing("gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite"))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked == ["gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-2.5-pro"]
+
+
+async def test_same_family_is_still_offered_when_nothing_else_exists():
+    """Last resort beats falling through to a provider with no credit."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing("gemini-3.6-flash-lite"))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked == ["gemini-3.6-flash-lite"]
+
+
+def test_family_is_the_generation_not_the_tier():
+    from podcast_scout.providers.llm import _model_family
+
+    assert _model_family("gemini-2.5-flash-001") == "gemini-2.5"
+    assert _model_family("gemini-2.5-pro") == "gemini-2.5"
+    assert _model_family("gemini-3.6-flash") == "gemini-3.6"
+
+
+# -- newest generation, not alphabetically first -----------------------------
+
+async def test_the_newest_generation_wins_among_equal_tiers():
+    """The live regression: every earlier component ties for a list of lite
+    models, so the tiebreak decides -- and alphabetical picks the OLDEST."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing(
+        "gemini-2.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3.5-flash-lite",
+    ))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked[0] == "gemini-3.5-flash-lite"
+    assert ranked[-1] == "gemini-2.5-flash-lite"
+
+
+async def test_a_moving_alias_ranks_behind_every_explicit_version():
+    """It can be repointed mid-run, and may resolve to the exhausted model."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing("gemini-flash-lite-latest", "gemini-2.5-flash-lite"))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked == ["gemini-2.5-flash-lite", "gemini-flash-lite-latest"]
+
+
+def test_generation_is_parsed_from_the_id():
+    from podcast_scout.providers.llm import _model_generation
+
+    assert _model_generation("gemini-3.5-flash-lite") == 3.5
+    assert _model_generation("gemini-2.5-flash") == 2.5
+    assert _model_generation("gemini-flash-lite-latest") == -1.0
+
+
+async def test_tier_still_outranks_generation():
+    """A newer pro model is still worse than an older lite one under a spent
+    quota: the lite allowance is far larger."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing("gemini-3.5-pro", "gemini-2.5-flash-lite"))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked[0] == "gemini-2.5-flash-lite"

@@ -419,3 +419,27 @@ async def test_questions_work_without_any_thesis(tmp_path):
     assert result.findings_appended == 1
     assert result.hits == [], "no theses configured"
     assert "arbitration" in store.path_for("Question", "q-nba-next").read_text()
+
+
+# ---------------------------------------------------------------------------
+# Check budgets scale with how many beliefs are being tested
+# ---------------------------------------------------------------------------
+
+def test_check_budget_grows_with_the_number_of_targets():
+    """Six active theses can produce more hits than a one-thesis budget holds."""
+    from podcast_scout.brain.falsifier import _check_token_budget
+
+    assert _check_token_budget(6) > _check_token_budget(1)
+
+
+def test_the_six_thesis_budget_clears_the_old_flat_ceiling():
+    from podcast_scout.brain.falsifier import _check_token_budget
+
+    assert _check_token_budget(6) > 1500
+
+
+def test_an_empty_target_list_still_gets_a_usable_budget():
+    """Guards against a zero budget if a caller ever passes no targets."""
+    from podcast_scout.brain.falsifier import _check_token_budget
+
+    assert _check_token_budget(0) >= 1000
