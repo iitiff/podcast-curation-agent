@@ -5,12 +5,34 @@
     <description>A ranked weekly listening queue curated by AI.</description>
     <link>https://example.com</link>
     <language>en-us</language>
-    <lastBuildDate>Sat, 12 Sep 2026 01:55:27 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Sep 2026 17:59:01 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href="" rel="self" type="application/rss+xml" />
     <itunes:owner>
       <itunes:name>Your Name</itunes:name>
     </itunes:owner>
+    <item>
+      <title>🎧 LISTEN #1 — Recsperts: #33: Useful Recommender Systems and 20 Years of RecSys with Joseph Konstan</title>
+      <link>https://share.transistor.fm/s/c07c7bf6</link>
+      <guid isPermaLink="false">f4df2bc41c3f7df4</guid>
+      <pubDate>Sat, 12 Sep 2026 17:59:01 +0000</pubDate>
+      <itunes:duration>5077</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 85/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 01 Sep 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;High-signal conversation with RecSys co-founder Joe Konstan on fundamental recommender metrics, utility vs accuracy, offline evaluation biases, and multi-objective recommendation design.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Joseph Konstan (co-founder of GroupLens and ACM RecSys chair) critiques the modern recommender community&amp;#x27;s reliance on predictive offline accuracy over actual behavioral utility. He argues that early recommender systems were valuable specifically because their errors led to serendipity, whereas modern high-precision systems often deliver accurate yet useless recommendations. Konstan addresses the flaws of leave-one-out evaluation, why optimizing for click-through produces degraded user experiences like clickbait, and why recommender system value depends as much on surrounding decision affordances (ratings, reviews, comparison tools) as on core ranking algorithms.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Offline leave-one-out evaluation assumes the target item was already known to the user and simply forgotten, causing algorithm tuning to penalize novelty and serendipity in favor of predictable items.&lt;/li&gt;&lt;li&gt;Recommender utility is fundamentally bounded by non-algorithmic UI affordances—such as review distributions and comparison tables—which frequently drive behavior change more effectively than incremental predictive modeling gains.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;Principal personalization architects should re-evaluate offline evaluation suites that rely on leave-one-out metrics, shifting balance toward multi-objective metrics and serendipity-preserving offline evaluators.&lt;/p&gt;&lt;p&gt;&lt;a href="https://share.transistor.fm/s/c07c7bf6"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Joseph Konstan (co-founder of GroupLens and ACM RecSys chair) critiques the modern recommender community's reliance on predictive offline accuracy over actual behavioral utility. He argues that early recommender systems were valuable specifically because their errors led to serendipity, whereas modern high-precision systems often deliver accurate yet useless recommendations. Konstan addresses the flaws of leave-one-out evaluation, why optimizing for click-through produces degraded user experiences like clickbait, and why recommender system value depends as much on surrounding decision affordances (ratings, reviews, comparison tools) as on core ranking algorithms.</description>
+      <enclosure url="https://media.transistor.fm/c07c7bf6/8a10e95d.mp3" type="audio/mpeg" length="82430062" />
+      <itunes:image href="https://img.transistorcdn.com/-rOKjh8ZhGAy2cIivOXkfP7cCMgd1rWULuC3vRKkPW4/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS9zaG93/LzI0Mzc3LzE2MzIz/NDExMjMtYXJ0d29y/ay5qcGc.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #2 — Google DeepMind: The Podcast: Understanding the inner thoughts of AI</title>
+      <link>https://deepmind.com/podcast</link>
+      <guid isPermaLink="false">a5a3f80b21fe7819</guid>
+      <pubDate>Sat, 12 Sep 2026 17:59:01 +0000</pubDate>
+      <itunes:duration>3186</itunes:duration>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 79/100&lt;/strong&gt; | Listen Fully | Confidence: low&lt;/p&gt;&lt;p&gt;&lt;em&gt;Originally published 10 Jul 2026&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Features DeepMind mechanistic interpretability expert Neel Nanda exploring how to reverse-engineer neural networks. Highly relevant to AI capability shifts, inspectability, governance, and trust in automated agentic and decisioning architectures.&lt;/em&gt;&lt;/p&gt;&lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Host Hannah Fry speaks with Neel Nanda, lead researcher in mechanistic interpretability at Google DeepMind. The conversation centers on how researchers are developing methods to peer inside the &amp;#x27;black box&amp;#x27; of deep learning models, translating high-dimensional numerical weights into understandable concepts and algorithms to explain how AI models reason and reach decisions.&lt;/p&gt;&lt;h3&gt;Key Ideas&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Mechanistic interpretability aims to reverse-engineer neural network weights—which exist as abstract arrays of floating-point numbers—into discrete, human-understandable circuits and algorithmic primitives.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Implications&lt;/h3&gt;&lt;p&gt;As AI agents and LLM-driven decision engines handle high-stakes customer interactions and multi-objective personalization, interpretability frameworks will be necessary to audit black-box recommendations, prevent hallucinated decisions, and satisfy regulatory constraints.&lt;/p&gt;&lt;p&gt;&lt;a href="https://deepmind.com/podcast"&gt;Listen / Read original&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <description>Host Hannah Fry speaks with Neel Nanda, lead researcher in mechanistic interpretability at Google DeepMind. The conversation centers on how researchers are developing methods to peer inside the 'black box' of deep learning models, translating high-dimensional numerical weights into understandable concepts and algorithms to explain how AI models reason and reach decisions.</description>
+      <enclosure url="https://afp-920373-injected.calisto.simplecastaudio.com/36cf10bf-f6dd-4a98-96a9-8eda9f59db4f/episodes/d9f67ae3-d4f2-4dbc-aaed-a71adac28c24/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=36cf10bf-f6dd-4a98-96a9-8eda9f59db4f&amp;awEpisodeId=d9f67ae3-d4f2-4dbc-aaed-a71adac28c24&amp;feed=JT6pbPkg" type="audio/mpeg" length="50982067" />
+      <itunes:image href="https://image.simplecastcdn.com/images/69d76c2c-4017-4f2f-8838-a33d03d55657/9b71642f-c5e5-4b2d-9e05-93c103dda9fe/3000x3000/03neelnandaepisode_art.jpg?aid=rss_feed" />
+    </item>
   </channel>
 </rss>
