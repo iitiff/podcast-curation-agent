@@ -5,6 +5,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
@@ -175,6 +176,29 @@ def _ascii_clean(value: str) -> str:
     return value.encode("ascii", "ignore").decode("ascii").strip()
 
 
+
+# Google displays an app password as four space-separated groups of four
+# ("abcd efgh ijkl mnop") and the spaces are presentational, but SMTP AUTH
+# sends the string verbatim and Gmail rejects it. _ascii_clean only strips the
+# ENDS, so a straight copy-paste authenticates with the spaces still in it and
+# fails as "534 Application-specific password required" -- the same error an
+# ordinary account password gives, which sends you looking in the wrong place.
+_APP_PASSWORD_RE = re.compile(r"^[a-z]{4}(?: [a-z]{4}){3}$", re.IGNORECASE)
+
+
+def _smtp_password(raw: str) -> str:
+    """Accept a Google app password in the shape it is displayed.
+
+    Only that exact shape is de-spaced. A space inside any other password is
+    assumed to be deliberate, because silently rewriting a real one would
+    produce an auth failure with no way to tell why.
+    """
+    cleaned = _ascii_clean(raw)
+    if _APP_PASSWORD_RE.match(cleaned):
+        return cleaned.replace(" ", "")
+    return cleaned
+
+
 def _smtp_from_env() -> SMTPConfig | None:
     # Use `or` fallback instead of the default= arg so that empty-string env
     # vars injected by GitHub Actions for unset secrets are treated as absent.
@@ -193,7 +217,7 @@ def _smtp_from_env() -> SMTPConfig | None:
         # the username and the password. Real SMTP passwords (app passwords,
         # etc.) are always plain ASCII, so it's safe to strip any stray
         # non-ASCII byte here too.
-        password=_ascii_clean(os.getenv("SMTP_PASSWORD") or ""),
+        password=_smtp_password(os.getenv("SMTP_PASSWORD") or ""),
         to=_ascii_clean(os.getenv("SMTP_TO") or user),
         from_addr=_ascii_clean(os.getenv("SMTP_FROM") or user),
         use_tls=(os.getenv("SMTP_USE_TLS") or "true").strip().lower() != "false",

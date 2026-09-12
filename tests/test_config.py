@@ -180,3 +180,35 @@ def test_unrelated_vars_are_not_mistaken_for_a_key(monkeypatch):
     monkeypatch.setenv("ROUTER_CONFIG", "x")
     monkeypatch.setenv("OPEN_FILES", "y")
     assert Settings().fallback_api_key == ""
+
+
+# ---------------------------------------------------------------------------
+# A Google app password is displayed spaced and must be sent unspaced
+# ---------------------------------------------------------------------------
+
+def test_a_spaced_app_password_is_accepted_as_displayed():
+    """Google shows "abcd efgh ijkl mnop"; SMTP AUTH needs it without spaces."""
+    from podcast_scout.cli import _smtp_password
+
+    assert _smtp_password("abcd efgh ijkl mnop") == "abcdefghijklmnop"
+
+
+def test_an_unspaced_app_password_is_untouched():
+    from podcast_scout.cli import _smtp_password
+
+    assert _smtp_password("abcdefghijklmnop") == "abcdefghijklmnop"
+
+
+def test_a_space_in_any_other_password_is_left_alone():
+    """Rewriting a real password would fail auth with no way to tell why."""
+    from podcast_scout.cli import _smtp_password
+
+    assert _smtp_password("correct horse battery staple") == "correct horse battery staple"
+    assert _smtp_password("two words") == "two words"
+
+
+def test_surrounding_whitespace_is_still_stripped():
+    from podcast_scout.cli import _smtp_password
+
+    assert _smtp_password("  abcd efgh ijkl mnop  ") == "abcdefghijklmnop"
+    assert _smtp_password("  plainsecret  ") == "plainsecret"
