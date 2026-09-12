@@ -512,3 +512,72 @@ async def test_no_category_is_asked_for_when_only_one_lane_exists():
     await stage2_batch_rank([(_make_ep(), _no_transcript())], prefs, llm)
 
     assert "CATEGORY — which lane" not in llm.prompts[0]
+
+
+# ---------------------------------------------------------------------------
+# Classification: the reader's thresholds are policy, not a suggestion
+# ---------------------------------------------------------------------------
+
+def _cls_prefs(listen=75.0, read=50.0, margin=5.0):
+    from podcast_scout.config import ClassificationConfig
+
+    return _make_prefs(classification=ClassificationConfig(
+        listen_fully_min_score=listen,
+        read_summary_min_score=read,
+        boundary_override_max=margin,
+    ))
+
+
+def test_score_wins_when_the_model_downgrades_from_well_above_threshold():
+    """The live 2026-09-12 case: 81 against a 75 bar, filed Read Summary Only.
+
+    Every playable feed came out empty because of this.
+    """
+    from podcast_scout.ranking import _reconcile_classification
+
+    label, overrode = _reconcile_classification("Read Summary Only", 81.0, _cls_prefs())
+
+    assert label == "Listen Fully"
+    assert overrode is False
+
+
+def test_model_may_override_near_a_boundary():
+    """Within the margin its judgement beats a point of arithmetic."""
+    from podcast_scout.ranking import _reconcile_classification
+
+    label, overrode = _reconcile_classification("Read Summary Only", 77.0, _cls_prefs())
+
+    assert label == "Read Summary Only"
+    assert overrode is True
+
+
+def test_model_may_promote_near_a_boundary_too():
+    from podcast_scout.ranking import _reconcile_classification
+
+    label, overrode = _reconcile_classification("Listen Fully", 72.0, _cls_prefs())
+
+    assert label == "Listen Fully"
+    assert overrode is True
+
+
+def test_a_missing_label_falls_back_to_the_score():
+    from podcast_scout.ranking import _reconcile_classification
+
+    assert _reconcile_classification("", 81.0, _cls_prefs())[0] == "Listen Fully"
+    assert _reconcile_classification("", 60.0, _cls_prefs())[0] == "Read Summary Only"
+    assert _reconcile_classification("", 10.0, _cls_prefs())[0] == "Skip"
+
+
+def test_agreement_is_not_recorded_as_an_override():
+    from podcast_scout.ranking import _reconcile_classification
+
+    assert _reconcile_classification("Listen Fully", 90.0, _cls_prefs()) == ("Listen Fully", False)
+
+
+def test_a_zero_margin_makes_the_thresholds_absolute():
+    from podcast_scout.ranking import _reconcile_classification
+
+    label, overrode = _reconcile_classification("Read Summary Only", 76.0, _cls_prefs(margin=0))
+
+    assert label == "Listen Fully"
+    assert overrode is False
