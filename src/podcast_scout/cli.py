@@ -119,8 +119,11 @@ def _make_llm(settings: Settings) -> BaseLLMProvider | None:
             settings.gemini_api_key,
             settings.gemini_stage2_model,
             thinking_budget=settings.gemini_thinking_budget,
+            model_fallbacks=settings.gemini_model_fallbacks,
         )
         primary_name = f"Gemini ({settings.gemini_stage2_model})"
+        if settings.gemini_model_fallbacks:
+            primary_name += f" → {' → '.join(settings.gemini_model_fallbacks)}"
 
     if settings.fallback_api_key:
         compat = OpenAICompatibleProvider(

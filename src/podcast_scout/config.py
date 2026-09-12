@@ -188,6 +188,18 @@ class Settings:
         # the family, which is what a first run tends to hit as a 429.
         self.gemini_stage1_model = _env("GEMINI_STAGE1_MODEL", "gemini-3.6-flash")
         self.gemini_stage2_model = _env("GEMINI_STAGE2_MODEL", "gemini-3.6-flash")
+        # Models to rotate onto when the configured one exhausts its DAILY
+        # free-tier quota. The allowance is per model, so a second model is a
+        # second allowance -- and rotating is strictly better than falling
+        # through to a different provider that may have no credit at all.
+        # Comma-separated; empty (the default) keeps the old single-model
+        # behaviour. No default chain is shipped because a wrong model id is
+        # silently useless: name models this key is known to have access to.
+        self.gemini_model_fallbacks = [
+            m.strip()
+            for m in (_env("GEMINI_MODEL_FALLBACKS", "") or "").split(",")
+            if m.strip()
+        ]
 
         # thinkingConfig.thinkingBudget was tuned against 2.5 Flash. "none"
         # omits the field so a model generation that rejects it can still be

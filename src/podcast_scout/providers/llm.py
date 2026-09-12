@@ -163,9 +163,18 @@ class GeminiProvider(BaseLLMProvider):
         api_key: str,
         model: str = "gemini-2.0-flash",
         thinking_budget: int | None = 0,
+        model_fallbacks: list[str] | None = None,
     ) -> None:
         self.api_key = api_key
         self.model = model
+        # Free-tier quota is per MODEL, not per key, so an exhausted daily
+        # allowance on one model says nothing about the next. Rotating is
+        # strictly better than dropping to another provider, which may have no
+        # credit at all -- the observed failure was a 429 here followed
+        # immediately by a 402 there, and every episode scoring at the
+        # metadata floor as a result.
+        self._model_fallbacks = list(model_fallbacks or [])
+        self._exhausted: set[str] = set()
         # None omits thinkingConfig from the payload entirely. The budget below
         # was tuned against 2.5 Flash; a model generation that does not accept
         # the field would otherwise reject every request, and there has to be a
@@ -173,6 +182,36 @@ class GeminiProvider(BaseLLMProvider):
         self.thinking_budget = thinking_budget
         # Set once a backoff proves the limit is not per-minute; see complete().
         self._rate_limited = False
+
+    def _rotate_model(self) -> bool:
+        """Switch to the next model with an unspent daily allowance.
+
+        Returns False when there is nothing left to try, which lets the caller
+        fall through to the configured secondary provider exactly as before.
+        The swap persists for the rest of the run: re-trying a model already
+        known to be spent would just buy another 429.
+        """
+        self._exhausted.add(self.model)
+        for candidate in self._model_fallbacks:
+            if candidate not in self._exhausted:
+                log.warning(
+                    "%s has exhausted its daily quota — switching to %s for the "
+                    "rest of this run. Free-tier quota is per model, so this is "
+                    "a fresh allowance rather than a retry.",
+                    self.model, candidate,
+                )
+                self.model = candidate
+                # The new model has its own allowance, so the per-minute
+                # backoff earns its cost again.
+                self._rate_limited = False
+                return True
+        if self._model_fallbacks:
+            log.warning(
+                "Every configured Gemini model is out of quota (%s). Falling "
+                "through to the secondary provider.",
+                ", ".join(sorted(self._exhausted)),
+            )
+        return False
 
     async def complete(
         self,
@@ -304,6 +343,13 @@ class GeminiProvider(BaseLLMProvider):
                             self.model, delay,
                         )
                         self._rate_limited = True
+
+            # A 429 that a wait cannot clear is a spent daily allowance. Since
+            # that allowance is per model, try the next model before giving up
+            # on Gemini entirely.
+            if resp.status_code == 429 and self._rotate_model():
+                url = f"{self.BASE_URL}/{self.model}:generateContent"
+                resp = await client.post(url, json=payload, headers=headers)
 
             if resp.status_code >= 400:
                 detail = resp.text[:600].replace("\n", " ")

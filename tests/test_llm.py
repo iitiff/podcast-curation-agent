@@ -491,3 +491,57 @@ def test_persistent_overload_gives_up_for_the_fallback(monkeypatch):
         _run(GeminiProvider("k", "m", thinking_budget=None), client)
     assert "503" in str(exc.value)
     assert len(client.payloads) == 3, "initial attempt plus two retries"
+
+
+# ---------------------------------------------------------------------------
+# Daily quota is per MODEL, so rotate before giving up on Gemini
+# ---------------------------------------------------------------------------
+
+def _gemini(**kw):
+    from podcast_scout.providers.llm import GeminiProvider
+
+    return GeminiProvider("key", kw.pop("model", "model-a"), **kw)
+
+
+def test_rotation_moves_to_the_next_model_and_persists():
+    g = _gemini(model_fallbacks=["model-b", "model-c"])
+
+    assert g._rotate_model() is True
+    assert g.model == "model-b"
+    # The swap sticks: re-trying a model known to be spent just buys another 429.
+    assert "model-a" in g._exhausted
+
+
+def test_rotation_skips_models_already_known_spent():
+    g = _gemini(model_fallbacks=["model-b", "model-c"])
+    g._rotate_model()          # a -> b
+    g._rotate_model()          # b -> c
+
+    assert g.model == "model-c"
+    assert g._exhausted == {"model-a", "model-b"}
+
+
+def test_rotation_gives_up_once_every_model_is_spent():
+    """Returning False is what lets the caller fall through to the secondary."""
+    g = _gemini(model_fallbacks=["model-b"])
+    g._rotate_model()
+
+    assert g._rotate_model() is False
+    assert g.model == "model-b"
+
+
+def test_no_fallbacks_configured_changes_nothing():
+    g = _gemini()
+
+    assert g._rotate_model() is False
+    assert g.model == "model-a"
+
+
+def test_rotation_restores_the_per_minute_backoff():
+    """A fresh model has its own allowance, so the wait is worth paying again."""
+    g = _gemini(model_fallbacks=["model-b"])
+    g._rate_limited = True
+
+    g._rotate_model()
+
+    assert g._rate_limited is False
