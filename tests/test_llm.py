@@ -749,3 +749,51 @@ def test_family_is_the_generation_not_the_tier():
     assert _model_family("gemini-2.5-flash-001") == "gemini-2.5"
     assert _model_family("gemini-2.5-pro") == "gemini-2.5"
     assert _model_family("gemini-3.6-flash") == "gemini-3.6"
+
+
+# -- newest generation, not alphabetically first -----------------------------
+
+async def test_the_newest_generation_wins_among_equal_tiers():
+    """The live regression: every earlier component ties for a list of lite
+    models, so the tiebreak decides -- and alphabetical picks the OLDEST."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing(
+        "gemini-2.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3.5-flash-lite",
+    ))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked[0] == "gemini-3.5-flash-lite"
+    assert ranked[-1] == "gemini-2.5-flash-lite"
+
+
+async def test_a_moving_alias_ranks_behind_every_explicit_version():
+    """It can be repointed mid-run, and may resolve to the exhausted model."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing("gemini-flash-lite-latest", "gemini-2.5-flash-lite"))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked == ["gemini-2.5-flash-lite", "gemini-flash-lite-latest"]
+
+
+def test_generation_is_parsed_from_the_id():
+    from podcast_scout.providers.llm import _model_generation
+
+    assert _model_generation("gemini-3.5-flash-lite") == 3.5
+    assert _model_generation("gemini-2.5-flash") == 2.5
+    assert _model_generation("gemini-flash-lite-latest") == -1.0
+
+
+async def test_tier_still_outranks_generation():
+    """A newer pro model is still worse than an older lite one under a spent
+    quota: the lite allowance is far larger."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing("gemini-3.5-pro", "gemini-2.5-flash-lite"))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked[0] == "gemini-2.5-flash-lite"

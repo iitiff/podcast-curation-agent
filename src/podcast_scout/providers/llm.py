@@ -153,6 +153,22 @@ def _extract_gemini_text(data: dict[str, Any], max_tokens: int) -> str:
 
 
 
+def _model_generation(model_id: str) -> float:
+    """The generation number in an id: gemini-3.1-flash-lite -> 3.1.
+
+    Returns -1.0 for an unversioned id such as gemini-flash-lite-latest, which
+    sorts it behind every explicit version. A moving alias is a reasonable last
+    resort but a poor first choice: it can be repointed underneath a run, and
+    it may well resolve to the model that just ran out.
+    """
+    for part in model_id.lower().split("-"):
+        try:
+            return float(part)
+        except ValueError:
+            continue
+    return -1.0
+
+
 def _model_family(model_id: str) -> str:
     """The generation an id belongs to: gemini-2.5-flash-001 -> gemini-2.5.
 
@@ -203,7 +219,7 @@ async def _discover_gemini_models(
 
     current_family = _model_family(current) if current else ""
 
-    def rank(model_id: str) -> tuple[int, int, int, int, str]:
+    def rank(model_id: str) -> tuple[int, int, int, int, float, str]:
         lowered = model_id.lower()
         return (
             # A different generation first. The exhausted model's own family is
@@ -217,6 +233,14 @@ async def _discover_gemini_models(
             1 if any(h in lowered for h in ("preview", "exp", "experimental")) else 0,
             # Prefer an unversioned alias: a dated pin is retired on a schedule.
             1 if any(ch.isdigit() for ch in lowered.rsplit("-", 1)[-1]) else 0,
+            # NEWEST GENERATION FIRST. Everything above this routinely ties --
+            # a list of lite models from different generations is identical on
+            # every earlier component -- so whatever sits here is what actually
+            # decides. It used to be model_id, i.e. plain alphabetical, which
+            # sorts 2.5 ahead of 3.5 and so systematically picked the OLDEST
+            # generation available: the one nearest end-of-life and furthest
+            # behind on quality.
+            -_model_generation(model_id),
             model_id,
         )
 
