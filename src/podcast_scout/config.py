@@ -32,6 +32,12 @@ class CategoryFeedConfig:
     # ("Curated AI and retail episodes"), so routing gets its own field and
     # falls back to the description when unset.
     routing_hint: str = ""
+    # Extra rubric context for items scored in this lane. The persona is shared
+    # across every lane, which is right for the quality bar and wrong for a
+    # specialty: a persona that says "you already know this subject" suppresses
+    # the very depth a specialist lane exists to surface. This says what
+    # "good" means HERE without changing the bar anywhere else.
+    persona_emphasis: str = ""
 
 
 @dataclass
@@ -318,6 +324,7 @@ def _parse_categories(raw: dict[str, Any]) -> dict[str, CategoryFeedConfig]:
             max_listen_fully=val.get("max_listen_fully", 3),
             max_read_summary=val.get("max_read_summary", 5),
             routing_hint=val.get("routing_hint", ""),
+            persona_emphasis=val.get("persona_emphasis", ""),
         )
     return result
 

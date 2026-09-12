@@ -546,6 +546,11 @@ _NON_CHAT_HINTS = (
     # a retired llama-3.3-70b-instruct with meta/codellama-70b purely because
     # both start with "meta", and every call then 404'd anyway.
     "code", "coder", "starcoder",
+    # Safety classifiers answer with a verdict, not a rubric. "guard" already
+    # caught llama-guard; nvidia/nemotron-content-safety uses none of the hints
+    # above and was eligible to be auto-selected as a chat fallback, which
+    # would have produced unparseable output from a call that succeeded.
+    "safety", "moderation", "classifier",
 )
 
 

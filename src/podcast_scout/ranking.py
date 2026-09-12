@@ -488,6 +488,7 @@ async def stage2_batch_rank(
     prefs: Preferences,
     llm: BaseLLMProvider,
     token_budget: int = 8000,
+    persona_emphasis: str = "",
 ) -> list[RankedEpisode]:
     """Rank multiple episodes in a SINGLE LLM call to conserve API quota."""
     if not items:
@@ -498,6 +499,10 @@ async def stage2_batch_rank(
         f"{prefs.persona.role} whose focus is: {prefs.persona.focus}. "
         f"Preferred depth: {prefs.persona.preferred_depth}."
     )
+    if persona_emphasis:
+        # Placed after the persona so it can qualify it. The persona sets the
+        # standing bar; this says how that bar applies to this lane's subject.
+        persona_ctx += f"\n\nFOR THIS BATCH SPECIFICALLY: {persona_emphasis}"
     kinds = {ep.source_type for ep, _ in items}
     mixed_media = kinds != {"podcast"}
 

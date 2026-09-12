@@ -33,6 +33,12 @@ categories:
       Industry dynamics, company and market strategy, AI capability shifts,
       and product craft. The broad lane -- anything that does not clearly
       belong to a more specific one lands here.
+    # `persona_emphasis` (optional) is extra rubric context for items scored in
+    # this lane. The persona is shared across every lane, which is right for the
+    # quality bar and wrong for a specialty: a persona saying "you already know
+    # this subject" suppresses exactly the depth a specialist lane exists to
+    # surface. Use it to say what "good" means HERE, without moving the bar
+    # anywhere else. Omit it and the prompt is unchanged.
     max_listen_fully: 2
     max_read_summary: 5
   startup:

@@ -582,6 +582,14 @@ async def _run_pipeline(
                 # show after low scorers are classified Skip.
                 max_deep_articles=prefs.output_caps.max_reading * 2,
                 total_token_budget=token_budget_per_category,
+                # The lane an episode is SCORED in is its show's default, which
+                # is not always where routing finally puts it. The emphasis
+                # therefore lands reliably on shows dedicated to a subject and
+                # only incidentally on a one-off episode from elsewhere.
+                persona_emphasis=(
+                    prefs.categories[category].persona_emphasis
+                    if category in prefs.categories else ""
+                ),
             )
         else:
             category_ranked = [
