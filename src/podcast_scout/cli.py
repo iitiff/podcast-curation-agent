@@ -121,8 +121,11 @@ def _make_llm(settings: Settings) -> BaseLLMProvider | None:
             settings.gemini_stage2_model,
             thinking_budget=settings.gemini_thinking_budget,
             model_fallbacks=settings.gemini_model_fallbacks,
+            api_keys=settings.gemini_api_keys,
         )
         primary_name = f"Gemini ({settings.gemini_stage2_model})"
+        if len(settings.gemini_api_keys) > 1:
+            primary_name += f" × {len(settings.gemini_api_keys)} keys"
         if settings.gemini_model_fallbacks:
             primary_name += f" → {' → '.join(settings.gemini_model_fallbacks)}"
 

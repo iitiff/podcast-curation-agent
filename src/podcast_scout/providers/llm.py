@@ -225,8 +225,16 @@ class GeminiProvider(BaseLLMProvider):
         model: str = "gemini-2.0-flash",
         thinking_budget: int | None = 0,
         model_fallbacks: list[str] | None = None,
+        api_keys: list[str] | None = None,
     ) -> None:
-        self.api_key = api_key
+        # Quota is per KEY and per MODEL, so the space to search is keys x
+        # models. Keys are tried first, holding the configured model: a second
+        # key restores the model that was actually chosen, where a second model
+        # is a downgrade to something cheaper. Only when every key is spent on
+        # a model is it worth moving to a lesser one.
+        self._api_keys = [k for k in (api_keys or [api_key]) if k]
+        self._key_index = 0
+        self.api_key = self._api_keys[0] if self._api_keys else api_key
         self.model = model
         # Free-tier quota is per MODEL, not per key, so an exhausted daily
         # allowance on one model says nothing about the next. Rotating is
@@ -235,7 +243,8 @@ class GeminiProvider(BaseLLMProvider):
         # immediately by a 402 there, and every episode scoring at the
         # metadata floor as a result.
         self._model_fallbacks = list(model_fallbacks or [])
-        self._exhausted: set[str] = set()
+        # (key index, model) pairs proven spent, since the allowance is per pair.
+        self._exhausted: set[tuple[int, str]] = set()
         # None means "not asked yet"; [] means asked and nothing usable came
         # back, which must not trigger a second lookup on every later 429.
         self._discovered: list[str] | None = None
@@ -275,24 +284,46 @@ class GeminiProvider(BaseLLMProvider):
         The swap persists for the rest of the run: re-trying a model already
         known to be spent would just buy another 429.
         """
-        self._exhausted.add(self.model)
-        for candidate in await self._candidates(client):
-            if candidate not in self._exhausted:
+        self._exhausted.add((self._key_index, self.model))
+
+        # A different key on the SAME model first: it restores the model that
+        # was configured, rather than trading it for a cheaper one.
+        for index in range(len(self._api_keys)):
+            if (index, self.model) not in self._exhausted:
                 log.warning(
-                    "%s has exhausted its daily quota — switching to %s for the "
-                    "rest of this run. Free-tier quota is per model, so this is "
-                    "a fresh allowance rather than a retry.",
-                    self.model, candidate,
+                    "%s is out of quota on key %d — switching to key %d, which "
+                    "has its own allowance for the same model.",
+                    self.model, self._key_index + 1, index + 1,
+                )
+                self._key_index = index
+                self.api_key = self._api_keys[index]
+                self._rate_limited = False
+                return True
+
+        # Every key is spent on this model, so accept a lesser one -- and start
+        # again from the first key, whose allowance for it is untouched.
+        for candidate in await self._candidates(client):
+            for index in range(len(self._api_keys)):
+                if (index, candidate) in self._exhausted:
+                    continue
+                log.warning(
+                    "%s has exhausted its daily quota on every key — switching "
+                    "to %s on key %d. Free-tier quota is per key and per model, "
+                    "so this is a fresh allowance rather than a retry.",
+                    self.model, candidate, index + 1,
                 )
                 self.model = candidate
-                # The new model has its own allowance, so the per-minute
-                # backoff earns its cost again.
+                self._key_index = index
+                self.api_key = self._api_keys[index]
+                # The new pair has its own allowance, so the per-minute backoff
+                # earns its cost again.
                 self._rate_limited = False
                 return True
         log.warning(
-            "Every reachable Gemini model is out of quota (%s). Falling through "
-            "to the secondary provider.",
-            ", ".join(sorted(self._exhausted)),
+            "Every reachable Gemini model is out of quota on all %d key(s) (%s). "
+            "Falling through to the secondary provider.",
+            len(self._api_keys),
+            ", ".join(sorted(f"key{i + 1}:{m}" for i, m in self._exhausted)),
         )
         return False
 

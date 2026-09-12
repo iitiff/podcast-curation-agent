@@ -534,7 +534,8 @@ async def test_rotation_moves_to_the_next_model_and_persists():
 
     assert await g._rotate_model(_StubClient()) is True
     assert g.model == "model-b"
-    assert "model-a" in g._exhausted
+    # Spent pairs are (key index, model): the allowance is per pair.
+    assert (0, "model-a") in g._exhausted
 
 
 async def test_rotation_skips_models_already_known_spent():
@@ -544,7 +545,7 @@ async def test_rotation_skips_models_already_known_spent():
     await g._rotate_model(c)
 
     assert g.model == "model-c"
-    assert g._exhausted == {"model-a", "model-b"}
+    assert g._exhausted == {(0, "model-a"), (0, "model-b")}
 
 
 async def test_rotation_gives_up_once_every_model_is_spent():
@@ -660,3 +661,48 @@ async def test_a_thinking_model_gets_more_than_the_caller_asked_for():
 
     assert effective(disabled, 1500) == 1500
     assert effective(unavailable, 1500) == 1500 + _THINKING_HEADROOM_TOKENS
+
+
+# -- quota is per KEY and per MODEL, so the search space is keys x models -----
+
+def _multikey(**kw):
+    from podcast_scout.providers.llm import GeminiProvider
+
+    return GeminiProvider("", kw.pop("model", "model-a"), **kw)
+
+
+async def test_a_second_key_is_tried_before_a_lesser_model():
+    """A new key restores the configured model; a new model is a downgrade."""
+    g = _multikey(api_keys=["k1", "k2"], model_fallbacks=["model-b"])
+
+    assert await g._rotate_model(_StubClient()) is True
+    assert g.model == "model-a"      # model preserved
+    assert g.api_key == "k2"         # key changed
+
+
+async def test_the_model_drops_only_once_every_key_is_spent_on_it():
+    g = _multikey(api_keys=["k1", "k2"], model_fallbacks=["model-b"])
+    c = _StubClient()
+    await g._rotate_model(c)         # k1/model-a -> k2/model-a
+
+    assert await g._rotate_model(c) is True
+    assert g.model == "model-b"
+    # And back to the first key, whose allowance for model-b is untouched.
+    assert g.api_key == "k1"
+
+
+async def test_every_key_and_model_spent_falls_through():
+    g = _multikey(api_keys=["k1", "k2"], model_fallbacks=["model-b"])
+    c = _StubClient()
+    for _ in range(3):
+        await g._rotate_model(c)
+
+    assert await g._rotate_model(c) is False
+
+
+async def test_a_single_key_behaves_as_before():
+    g = _multikey(api_keys=["only"], model_fallbacks=["model-b"])
+
+    assert await g._rotate_model(_StubClient()) is True
+    assert g.model == "model-b"
+    assert g.api_key == "only"

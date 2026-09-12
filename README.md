@@ -186,6 +186,7 @@ uv run podcast-scout run
 | `BRIEFING_DIR` | No | Where `index.html` / `latest.md` / `latest.json` are written. Defaults to `PUBLIC_DIR`; set it separately to keep the briefing out of what gets published. |
 | `GEMINI_STAGE2_MODEL` | No | Override Gemini model (default: `gemini-3.6-flash`). Free-tier quota is **per model**, so this is the first thing to change on a 429. |
 | `GEMINI_MODEL_FALLBACKS` | No | Comma-separated models to rotate onto when the one above spends its **daily** quota. Because the allowance is per model, this is a second allowance rather than a retry — and it beats dropping to a secondary provider that may be out of credit. Empty by default. |
+| `GEMINI_API_KEY1` … `GEMINI_API_KEY9` | No | Additional keys. Quota is per key **and** per model, so each extra key is another full allowance across every model. Tried before a lesser model, since a new key restores the model you configured. |
 | `GEMINI_THINKING_BUDGET` | No | Thinking token budget (default `0`, disabled). Set `none` to omit the field for models that reject it. |
 | `PODCAST_INDEX_KEY` | No | [Podcast Index](https://api.podcastindex.org) key for broader discovery |
 | `PODCAST_INDEX_SECRET` | No | Podcast Index secret |

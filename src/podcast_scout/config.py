@@ -183,6 +183,15 @@ class Settings:
         # "return ONLY a raw JSON array" contract that stage2_batch_rank parses,
         # plus large context headroom for batched episodes.
         self.gemini_api_key = _env("GEMINI_API_KEY")
+        # Additional keys, GEMINI_API_KEY1..9. Free-tier quota is per key AND
+        # per model, so a second key is a second full allowance across every
+        # model rather than one more model's worth. Order is the order tried.
+        self.gemini_api_keys = [
+            key for key in (
+                [self.gemini_api_key]
+                + [_env(f"GEMINI_API_KEY{n}") for n in range(1, 10)]
+            ) if key
+        ]
         # Defaults track a current generally-available Flash model. 2.5 Flash
         # was two generations stale and carries the tightest free-tier quota of
         # the family, which is what a first run tends to hit as a 429.
