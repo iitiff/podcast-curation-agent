@@ -706,3 +706,46 @@ async def test_a_single_key_behaves_as_before():
     assert await g._rotate_model(_StubClient()) is True
     assert g.model == "model-b"
     assert g.api_key == "only"
+# -- rotate across generations, where a separate quota bucket is likeliest ----
+
+async def test_a_different_generation_is_preferred_over_a_sibling_variant():
+    """The exhausted model's own family is where a shared bucket is likeliest."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing(
+        "gemini-3.6-flash-lite",   # same family as the dead model, cheapest tier
+        "gemini-2.5-flash",        # different generation
+    ))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked[0] == "gemini-2.5-flash"
+
+
+async def test_tier_still_decides_within_a_generation():
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing("gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite"))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked == ["gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-2.5-pro"]
+
+
+async def test_same_family_is_still_offered_when_nothing_else_exists():
+    """Last resort beats falling through to a provider with no credit."""
+    from podcast_scout.providers.llm import _discover_gemini_models
+
+    c = _StubClient(_listing("gemini-3.6-flash-lite"))
+
+    ranked = await _discover_gemini_models(c, "k", "u", current="gemini-3.6-flash")
+
+    assert ranked == ["gemini-3.6-flash-lite"]
+
+
+def test_family_is_the_generation_not_the_tier():
+    from podcast_scout.providers.llm import _model_family
+
+    assert _model_family("gemini-2.5-flash-001") == "gemini-2.5"
+    assert _model_family("gemini-2.5-pro") == "gemini-2.5"
+    assert _model_family("gemini-3.6-flash") == "gemini-3.6"

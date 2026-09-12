@@ -153,8 +153,20 @@ def _extract_gemini_text(data: dict[str, Any], max_tokens: int) -> str:
 
 
 
+def _model_family(model_id: str) -> str:
+    """The generation an id belongs to: gemini-2.5-flash-001 -> gemini-2.5.
+
+    Used to prefer rotating ACROSS generations. Whether an alias and its dated
+    pin share one quota bucket is not documented and not something this code
+    can find out without spending a request to try; a different generation is
+    the case where a separate allowance is nearly certain, so it goes first and
+    the question never has to be answered.
+    """
+    return "-".join(model_id.lower().split("-")[:2])
+
+
 async def _discover_gemini_models(
-    client: httpx.AsyncClient, api_key: str, base_url: str
+    client: httpx.AsyncClient, api_key: str, base_url: str, current: str = ""
 ) -> list[str]:
     """Ask the API which models this key can actually call.
 
@@ -189,10 +201,16 @@ async def _discover_gemini_models(
         if name:
             names.append(name)
 
-    def rank(model_id: str) -> tuple[int, int, int, str]:
+    current_family = _model_family(current) if current else ""
+
+    def rank(model_id: str) -> tuple[int, int, int, int, str]:
         lowered = model_id.lower()
         return (
-            # Cheapest tier with the largest free allowance goes first.
+            # A different generation first. The exhausted model's own family is
+            # where a shared quota bucket is most likely, and a rotation inside
+            # it can cost a request only to earn the same 429.
+            1 if current_family and _model_family(model_id) == current_family else 0,
+            # Then the cheapest tier, which carries the largest free allowance.
             0 if "lite" in lowered else 1 if "flash" in lowered else 2,
             # Preview and experimental ids come and go, and sometimes carry
             # stricter limits. Usable, but only after the stable ones.
@@ -267,7 +285,7 @@ class GeminiProvider(BaseLLMProvider):
             return self._model_fallbacks
         if self._discovered is None:
             self._discovered = await _discover_gemini_models(
-                client, self.api_key, self.BASE_URL
+                client, self.api_key, self.BASE_URL, current=self.model
             )
             if self._discovered:
                 log.info(
