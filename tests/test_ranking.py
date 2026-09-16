@@ -10,6 +10,8 @@ from podcast_scout.ranking import (
     RankedEpisode,
     RubricScore,
     _build_item_block,
+    _topic_affinity,
+    _topic_terms,
     build_daily_queue,
     stage1_metadata_score,
     stage2_batch_rank,
@@ -703,3 +705,85 @@ async def test_the_prompt_asks_for_the_index_to_be_echoed():
     await stage2_batch_rank([(_make_ep(), _no_transcript())], _make_prefs(), llm)
 
     assert "item (the integer from that item's" in llm.prompts[0]
+
+
+# ── Stage 1 topic affinity ────────────────────────────────────────────
+#
+# Before this, Stage 1 had no topical signal: the score was show prior plus
+# guest and competitor name hits. Every item from a single-title source (an
+# arXiv feed, an engineering blog) therefore scored identically, so which ones
+# reached Stage 2 was settled by feed order.
+
+_AFFINITY_PERSONA = {
+    "role": "personalization product leader",
+    "focus": "agentic commerce, customer decisioning and personalization systems, "
+             "contextual bandits and off-policy evaluation",
+    "seniority": "principal",
+    "preferred_depth": "both",
+}
+
+
+def _affinity_prefs(**kwargs) -> Preferences:
+    return _make_prefs(persona=_AFFINITY_PERSONA, **kwargs)
+
+
+def test_topic_affinity_splits_focus_on_and():
+    """"contextual bandits and off-policy evaluation" is two subjects, not one.
+
+    Matched only as the whole comma-part, the phrase tier would almost never
+    fire, because no real title joins those two subjects with that "and".
+    """
+    phrases, _ = _topic_terms(_affinity_prefs())
+    assert "contextual bandits" in phrases
+    assert "off-policy evaluation" in phrases
+
+
+def test_topic_affinity_separates_items_sharing_a_show_prior():
+    """Two items from the same source must no longer score identically."""
+    prefs = _affinity_prefs()
+    on_topic = _make_ep(
+        guid="a", show_title="arXiv cs.IR",
+        episode_title="Off-policy evaluation for a production recommender",
+        description="Customer decisioning and personalization systems, ranking and calibration.",
+    )
+    off_topic = _make_ep(
+        guid="b", show_title="arXiv cs.IR",
+        episode_title="A benchmark for full-text scientific entity extraction",
+        description="A corpus for evaluating named entity extraction in scientific papers.",
+    )
+    assert stage1_metadata_score(on_topic, prefs).score > stage1_metadata_score(off_topic, prefs).score
+
+
+def test_topic_affinity_survives_the_followed_show_floor():
+    """Affinity is added after the floor, not before it.
+
+    Applied before, the clamp to 50 would erase it for exactly the items that
+    need it most — a followed show scores under 50 on prior alone, so a 0-point
+    and a 20-point item would both leave Stage 1 at exactly 50.
+    """
+    prefs = _affinity_prefs(show_priors={"Test Show": 0.5})
+    on_topic = _make_ep(
+        guid="a",
+        episode_title="Contextual bandits and off-policy evaluation in production",
+        description="How customer decisioning and personalization systems are measured.",
+    )
+    off_topic = _make_ep(guid="b", episode_title="A chat", description="A wide-ranging conversation.")
+    hi = stage1_metadata_score(on_topic, prefs)
+    lo = stage1_metadata_score(off_topic, prefs)
+    assert lo.score == 50.0, "unrelated followed show should sit exactly on the floor"
+    assert hi.score > lo.score, "affinity must lift an on-topic item above the floor"
+
+
+def test_topic_affinity_is_bounded():
+    """A keyword prior must not be able to outweigh the show prior wholesale."""
+    prefs = _affinity_prefs()
+    stuffed = _make_ep(
+        show_title="arXiv cs.IR",
+        episode_title="agentic commerce customer decisioning contextual bandits",
+        description=("off-policy evaluation personalization systems ranking calibration "
+                     "incrementality experimentation retrieval " * 20),
+    )
+    points, _, _ = _topic_affinity(
+        f"{stuffed.show_title} {stuffed.episode_title} {stuffed.description}".lower(), prefs
+    )
+    assert points <= 20.0
