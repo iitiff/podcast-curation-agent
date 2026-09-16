@@ -592,6 +592,8 @@ discount it deserves belongs in the rubric numbers alone; do not then also downg
 classification for the same reason. Classify from the total you produced.
 
 For EACH episode return an object with keys:
+  item (the integer from that item's "--- ITEM N ---" header; copy it exactly,
+    it is how the answer is matched back to the right episode),
   rubric (dict), classification, classification_reason,
   summary (100-200 words — what the episode covers, for orientation),
   key_ideas (list of 0-3 strings — specific, sourced, persona-relevant insights per the
@@ -635,9 +637,44 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
         log.warning("Batch Stage 2 LLM call failed: %s — falling back to metadata for all", exc)
         entries = []
 
+    # Match on the echoed item index, not on position.
+    #
+    # The prompt says "one object per item, in the same order" and nothing
+    # enforced it. A single reordered or dropped entry shifted every later one
+    # silently, so an episode was scored, summarised and routed using ANOTHER
+    # item's answer -- observed live: a Jason & Scot podcast episode published
+    # into the personalization feed carrying an arXiv RAG paper's summary,
+    # score and lane. Nothing errors, and the output looks entirely plausible
+    # until someone reads the summary next to the title.
+    by_index: dict[int, dict[str, Any]] = {}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        raw = entry.get("item")
+        if raw is None:
+            continue
+        try:
+            by_index[int(raw)] = entry
+        except (TypeError, ValueError):
+            continue
+
+    if by_index and len(by_index) < len(items):
+        log.warning(
+            "Stage 2 echoed %d item index(es) for %d episodes — the rest fall "
+            "back to metadata rather than borrowing a neighbour's answer.",
+            len(by_index), len(items),
+        )
+
     results: list[RankedEpisode] = []
     for i, (ep, transcript) in enumerate(items):
-        data = entries[i] if i < len(entries) and isinstance(entries[i], dict) else {}
+        if by_index:
+            # Once any entry is labelled, trust only labels: a positional guess
+            # mixed in is exactly the failure this replaces.
+            data = by_index.get(i, {})
+        else:
+            # No entry carried an index. Older behaviour, kept so a model that
+            # ignores the field still produces a usable run.
+            data = entries[i] if i < len(entries) and isinstance(entries[i], dict) else {}
         if not data:
             log.warning(
                 "No batch result for episode %d (%s) — using metadata fallback",
