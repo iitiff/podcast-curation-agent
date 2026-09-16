@@ -632,3 +632,74 @@ def test_emphasis_defaults_to_empty():
     from podcast_scout.config import CategoryFeedConfig
 
     assert CategoryFeedConfig(slug="p", title="P").persona_emphasis == ""
+
+
+# ---------------------------------------------------------------------------
+# Batch answers are matched by echoed item index, not by position
+# ---------------------------------------------------------------------------
+
+class _ShuffledLLM:
+    """Returns entries in the WRONG order, each labelled with its item index."""
+
+    def __init__(self, order):
+        self.order = order
+
+    async def complete(self, messages, max_tokens=4096):
+        from podcast_scout.providers.base import LLMResponse
+
+        body = json.dumps([
+            {
+                "item": i,
+                "rubric": {"relevance": 10 * (i + 1)},
+                "classification": "Read Summary Only",
+                "classification_reason": f"answer for item {i}",
+                "summary": f"summary for item {i}",
+                "key_ideas": [], "implications": "", "who_should_listen": "",
+                "summary_captures_value": "partial", "listen_nuance": "",
+            }
+            for i in self.order
+        ])
+        return LLMResponse(content=body, input_tokens=1, output_tokens=1)
+
+
+def _three_items():
+    return [(_make_ep(guid=f"g{i}", episode_title=f"Episode {i}"), _no_transcript())
+            for i in range(3)]
+
+
+@pytest.mark.asyncio
+async def test_a_reordered_response_still_lands_on_the_right_episode():
+    """The live bug: a podcast was published carrying an arXiv paper's summary."""
+    ranked = await stage2_batch_rank(_three_items(), _make_prefs(), _ShuffledLLM([2, 0, 1]))
+
+    for i, r in enumerate(ranked):
+        assert r.episode.guid == f"g{i}"
+        assert r.summary == f"summary for item {i}", f"item {i} got another item's answer"
+
+
+@pytest.mark.asyncio
+async def test_a_missing_entry_does_not_shift_its_neighbours():
+    """Item 1 is absent; 0 and 2 must keep their own answers, not slide."""
+    ranked = await stage2_batch_rank(_three_items(), _make_prefs(), _ShuffledLLM([0, 2]))
+
+    assert ranked[0].summary == "summary for item 0"
+    assert ranked[2].summary == "summary for item 2"
+    # The unanswered one degrades to metadata rather than borrowing a neighbour.
+    assert "summary for item" not in ranked[1].summary
+
+
+@pytest.mark.asyncio
+async def test_unlabelled_entries_still_fall_back_to_position():
+    """A model that ignores the field must still produce a usable run."""
+    llm = _CapturingLLM(1)
+    ranked = await stage2_batch_rank([(_make_ep(), _no_transcript())], _make_prefs(), llm)
+
+    assert ranked[0].summary == "stub"
+
+
+@pytest.mark.asyncio
+async def test_the_prompt_asks_for_the_index_to_be_echoed():
+    llm = _CapturingLLM(1)
+    await stage2_batch_rank([(_make_ep(), _no_transcript())], _make_prefs(), llm)
+
+    assert "item (the integer from that item's" in llm.prompts[0]
