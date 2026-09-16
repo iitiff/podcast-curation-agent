@@ -233,7 +233,18 @@ def _ensure_notes_fields(item_el: Element) -> None:
         SubElement(item_el, "itunes:summary").text = _cdata(notes)
     # Re-wrap the fields that already exist: they were written before CDATA and
     # carry entity-escaped markup that some clients print as literal tags.
-    for tag in (_CONTENT_ENCODED, "content:encoded", "description"):
+    #
+    # itunes:summary belongs in this loop too. It was only ever ADDED when
+    # absent, so a carried item that already had one kept it in whatever form
+    # the round trip left behind -- and that round trip is lossy by
+    # construction: parsing collapses a CDATA section to plain text and
+    # tostring() re-escapes it. An item therefore lost its CDATA on the first
+    # day it survived, which is why the published feeds held a mix of both
+    # forms rather than one or the other.
+    for tag in (
+        _CONTENT_ENCODED, "content:encoded", "description",
+        _ITUNES_SUMMARY, "itunes:summary",
+    ):
         found = item_el.find(tag)
         if found is not None and found.text and not found.text.startswith(_CDATA_OPEN):
             found.text = _cdata(found.text)
@@ -339,44 +350,6 @@ def _build_channel(
     return channel
 
 
-def _add_new_items(
-    channel: Element,
-    episodes: list[RankedEpisode],
-    state: StateManager,
-    listen_rank_start: int = 1,
-) -> int:
-    listen_rank = listen_rank_start
-    for r in episodes:
-        item = SubElement(channel, "item")
-        rank = listen_rank if r.classification == "Listen Fully" else None
-        SubElement(item, "title").text = _prefix(r, rank)
-        if r.classification == "Listen Fully":
-            listen_rank += 1
-        SubElement(item, "link").text = r.episode.episode_url or ""
-        SubElement(item, "guid", attrib={"isPermaLink": "false"}).text = r.episode.guid
-        SubElement(item, "pubDate").text = r.episode.published.strftime("%a, %d %b %Y %H:%M:%S +0000")  # noqa: E501  (legacy helper, unused)
-        SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
-        notes_html = _show_notes_html(r)
-        SubElement(item, "content:encoded").text = _cdata(notes_html)
-        SubElement(item, "description").text = _cdata(notes_html)
-        # itunes:summary is the field Apple Podcasts, Pocket Casts and Overcast
-        # actually read for the notes panel. Without it the summary was in the
-        # feed -- in <description> and <content:encoded> -- but not in the
-        # place most players look, so it never reached the listener.
-        SubElement(item, "itunes:summary").text = _cdata(notes_html)
-        SubElement(item, "itunes:subtitle").text = _subtitle(r)
-        if r.episode.enclosure:
-            enc = SubElement(item, "enclosure")
-            enc.set("url", r.episode.enclosure.url)
-            enc.set("type", r.episode.enclosure.mime_type)
-            enc.set("length", str(r.episode.enclosure.length))
-        if r.episode.image_url:
-            img = SubElement(item, "itunes:image")
-            img.set("href", r.episode.image_url)
-        state.add_published(r.episode.guid)
-    return listen_rank
-
-
 def _add_prior_item(channel: Element, prior: _PriorItem) -> None:
     channel.append(prior.xml_element)
 
@@ -470,7 +443,13 @@ def build_category_feed(
             SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
             notes_html = _show_notes_html(r)
             notes = SubElement(item, "content:encoded")
-            notes.text = notes_html
+            # CDATA, for the reason _cdata() documents: clients disagree about
+            # entity-escaped markup, and some print the tags. itunes:summary
+            # below was already wrapped; content:encoded -- the older and more
+            # widely read of the two -- was not, so the shipped feeds carried
+            # the escaped form. The only test asserting CDATA ran against
+            # _add_new_items, which nothing in the pipeline called.
+            notes.text = _cdata(notes_html)
             SubElement(item, "description").text = r.summary or r.episode.description[:300]
             # Same fix the category feeds already carry: content:encoded alone
             # is not where most players look, so the summary never reached the
@@ -594,7 +573,13 @@ def build_feed(
             SubElement(item, "itunes:duration").text = str(r.episode.duration_seconds)
             notes_html = _show_notes_html(r)
             notes = SubElement(item, "content:encoded")
-            notes.text = notes_html
+            # CDATA, for the reason _cdata() documents: clients disagree about
+            # entity-escaped markup, and some print the tags. itunes:summary
+            # below was already wrapped; content:encoded -- the older and more
+            # widely read of the two -- was not, so the shipped feeds carried
+            # the escaped form. The only test asserting CDATA ran against
+            # _add_new_items, which nothing in the pipeline called.
+            notes.text = _cdata(notes_html)
             SubElement(item, "description").text = r.summary or r.episode.description[:300]
             # content:encoded alone is not where most players look. It matters
             # most in summaries.xml, where reading the summary IS the point of

@@ -16,17 +16,17 @@ import feedparser
 import pytest
 from bs4 import BeautifulSoup
 
-from podcast_scout.config import FeedConfig
+from podcast_scout.config import FeedConfig, Preferences
 from podcast_scout.normalize import Enclosure, NormalizedEpisode
 from podcast_scout.ranking import RankedEpisode, RubricScore
 from podcast_scout.rss import (
     _RSS_NS,
-    _add_new_items,
     _add_prior_item,
     _build_channel,
     _load_prior_items,
     _subtitle,
     _xml_string,
+    build_feed,
 )
 from podcast_scout.state import StateManager
 
@@ -62,12 +62,18 @@ def _ranked(**kwargs) -> RankedEpisode:
 
 
 def _feed_for(ranked: list[RankedEpisode]) -> str:
-    rss = Element("rss", attrib=_RSS_NS)
-    channel = _build_channel(
-        rss, FeedConfig(title="t", description="d"), None, "https://x/l.xml", "https://x"
-    )
-    _add_new_items(channel, ranked, StateManager(Path(tempfile.mkdtemp())))
-    return _xml_string(rss)
+    """Render through the function production actually calls.
+
+    These assertions previously ran against `_add_new_items`, a helper nothing
+    in the pipeline invoked. So the show-notes guarantees below were verified on
+    a code path no subscriber ever received, and `build_feed` could have
+    diverged from every one of them without a test going red.
+    """
+    with tempfile.TemporaryDirectory() as directory:
+        return build_feed(
+            ranked, Preferences(feed=FeedConfig(title="t", description="d")),
+            "listen", "https://x", StateManager(Path(directory)),
+        )
 
 
 def _rendered(entry) -> str:
@@ -381,3 +387,37 @@ def test_listen_feed_keeps_its_history():
 def test_all_feed_keeps_both_tiers():
     assert _accumulates("all", "all.xml", "Read Summary Only")
     assert _accumulates("all", "all.xml", "Listen Fully")
+
+
+def test_carried_items_do_not_lose_their_cdata():
+    """The round trip is lossy: parsing collapses a CDATA section to plain text
+    and tostring() re-escapes it. An item therefore lost its CDATA on the first
+    day it survived, which is why published feeds held a mix of both forms."""
+    import tempfile
+    from pathlib import Path
+
+    from podcast_scout.config import Preferences
+    from podcast_scout.state import EpisodeRecord, StateManager
+
+    directory = Path(tempfile.mkdtemp())
+    state = StateManager(Path(tempfile.mkdtemp()))
+    for guid in ("day1", "day2", "day3"):
+        state.mark_processed(EpisodeRecord(
+            guid=guid, classification="Listen Fully", score=80.0,
+            enclosure_url="https://cdn/x.mp3",
+        ))
+
+    xml = build_feed(
+        [_summary_item("Listen Fully", guid="day1")], Preferences(), "listen",
+        "https://x", state, public_dir=directory,
+    )
+    for guid in ("day2", "day3"):
+        (directory / "listen.xml").write_text(xml, encoding="utf-8")
+        xml = build_feed(
+            [_summary_item("Listen Fully", guid=guid)], Preferences(), "listen",
+            "https://x", state, public_dir=directory,
+        )
+
+    assert xml.count("<item>") == 3, "items should be accumulating"
+    assert "&lt;p&gt;" not in xml, "a carried item re-escaped its notes"
+    assert "<![CDATA[" in xml
