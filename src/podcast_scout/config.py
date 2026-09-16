@@ -38,6 +38,14 @@ class CategoryFeedConfig:
     # the very depth a specialist lane exists to surface. This says what
     # "good" means HERE without changing the bar anywhere else.
     persona_emphasis: str = ""
+    # Stage 2 slots held for this lane before the rest are filled globally.
+    # Stage 2 is the scarce resource, and its slots were allocated purely by
+    # Stage 1 score across one pool -- so an abundant lane (one show publishing
+    # daily) reliably outbid a scarce one (a show publishing monthly), and the
+    # scarce lane's episodes were never LLM-scored at all. A reservation is a
+    # FLOOR, not a quota: slots a lane cannot fill go back to the global pool,
+    # so an unused reservation costs nothing. 0 means no reservation.
+    min_deep_slots: int = 0
 
 
 @dataclass
@@ -325,6 +333,7 @@ def _parse_categories(raw: dict[str, Any]) -> dict[str, CategoryFeedConfig]:
             max_read_summary=val.get("max_read_summary", 5),
             routing_hint=val.get("routing_hint", ""),
             persona_emphasis=val.get("persona_emphasis", ""),
+            min_deep_slots=int(val.get("min_deep_slots", 0) or 0),
         )
     return result
 

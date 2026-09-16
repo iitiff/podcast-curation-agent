@@ -52,6 +52,10 @@ class Stage1Result(BaseModel):
     score: float
     reason: str
     should_deep_process: bool
+    # Best-guess lane from metadata alone, used only to reserve Stage 2 slots.
+    # Stage 2 makes the real routing call with the full text in front of it;
+    # this just decides who gets to be looked at. Empty when nothing matched.
+    predicted_category: str = ""
 
 
 class RankedEpisode(BaseModel):
@@ -184,6 +188,151 @@ def _parse_llm_json_array(raw: str) -> list[Any]:
     raise ValueError(f"Could not parse LLM JSON array (length={len(raw)})")
 
 
+# Words too common to distinguish one item from another once the persona's focus
+# and the category routing hints are shredded into terms. Kept deliberately short:
+# the length floor in `_topic_terms` does most of the filtering.
+_STAGE1_STOPWORDS = frozenset({
+    "about", "above", "across", "after", "against", "already", "always", "among",
+    "another", "anything", "around", "because", "been", "before", "being", "below",
+    "better", "between", "beyond", "both", "build", "building", "built", "came",
+    "cannot", "come", "coming", "could", "course", "design", "designed", "different",
+    "does", "doing", "done", "during", "each", "either", "enough", "especially", "even",
+    "every", "everything", "from", "further", "getting", "give", "given", "going",
+    "great", "have", "having", "here", "however", "into", "itself", "just", "keep",
+    "known", "large", "later", "least", "less", "like", "likely", "made", "make",
+    "makes", "making", "many", "matter", "more", "most", "much", "must", "need",
+    "needs", "never", "next", "nothing", "often", "once", "only", "other", "others",
+    "over", "particular", "perhaps", "place", "rather", "really", "right", "same",
+    "seems", "several", "should", "since", "some", "something", "sometimes",
+    "somewhere", "still", "such", "take", "taken", "than", "that", "their", "them",
+    "then", "there", "these", "they", "thing", "things", "think", "this", "those",
+    "though", "three", "through", "time", "together", "toward", "under", "until",
+    "upon", "used", "uses", "using", "very", "want", "well", "were", "what", "when",
+    "where", "whether", "which", "while", "whole", "will", "with", "within", "without",
+    "would", "your",
+})
+
+# Terms are derived per (focus, routing hints) pair, not per episode: Stage 1 runs
+# once per discovered item and there can be several hundred in a run.
+_TOPIC_TERM_CACHE: dict[tuple[str, ...], tuple[tuple[str, ...], tuple[str, ...]]] = {}
+
+
+def _topic_terms(prefs: Preferences) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """Return (phrases, words) describing what this reader is actually about.
+
+    `phrases` are the subjects named in `persona.focus`, split apart below — a hit
+    on one of those is strong evidence. `words` are the distinctive single words
+    from that focus plus every category's `routing_hint`, which is already a
+    curated topical vocabulary for its lane. A word hit is weak evidence on its
+    own, so it is worth a quarter of a phrase hit.
+    """
+    key = (prefs.persona.focus,) + tuple(
+        (c.routing_hint or "") for _, c in sorted(prefs.categories.items())
+    )
+    cached = _TOPIC_TERM_CACHE.get(key)
+    if cached is not None:
+        return cached
+
+    # Split on " and " as well as on commas. A focus part like "contextual bandits
+    # and off-policy evaluation" is two subjects, and neither ever appears in a
+    # title joined by that "and" -- matched only as the whole part, the phrase tier
+    # almost never fires and the score collapses to the weak word tier.
+    phrases: list[str] = []
+    for part in re.split(r"[,;\u2013\u2014]", prefs.persona.focus):
+        for sub in re.split(r"\band\b", part):
+            cleaned = " ".join(sub.split()).strip().lower()
+            if len(cleaned) >= 8:
+                phrases.append(cleaned)
+
+    words: set[str] = set()
+    hint_text = " ".join((c.routing_hint or "") for _, c in sorted(prefs.categories.items()))
+    for token in re.findall(r"[a-z][a-z\-]{5,}", f"{prefs.persona.focus} {hint_text}".lower()):
+        if token not in _STAGE1_STOPWORDS:
+            words.add(token)
+
+    result = (tuple(phrases), tuple(sorted(words)))
+    _TOPIC_TERM_CACHE[key] = result
+    return result
+
+
+def _topic_affinity(text: str, prefs: Preferences) -> tuple[float, int, int]:
+    """Points (0-20) for how much of the reader's subject this item's metadata names.
+
+    Stage 1 previously had NO topical signal at all: the score was show prior plus
+    guest and competitor name hits. For any source where every item shares one show
+    title -- an arXiv feed, an engineering blog -- that made every item score
+    identically, so which ones reached Stage 2 was decided by feed order. Observed:
+    20 of 32 cs.IR papers were never LLM-scored, including several squarely on the
+    reader's declared specialty, while less relevant ones from the same feed were.
+    Followed podcasts had the same problem one tier up, all tied at the 50 floor.
+    """
+    phrases, words = _topic_terms(prefs)
+    phrase_hits = sum(1 for ph in phrases if ph in text)
+    word_hits = sum(1 for w in words if w in text)
+    points = min(20.0, phrase_hits * 4.0 + word_hits * 1.0)
+    return points, phrase_hits, word_hits
+
+
+
+# Per-lane vocabularies, cached like _topic_terms and for the same reason.
+_CATEGORY_TERM_CACHE: dict[tuple[str, ...], dict[str, tuple[str, ...]]] = {}
+
+
+def _category_terms(prefs: Preferences) -> dict[str, tuple[str, ...]]:
+    """Distinctive words per category, taken from its routing hint.
+
+    The hint is written to tell Stage 2 what belongs in the lane, which makes it
+    the best lane vocabulary already in the config. Falling back to the feed
+    description is deliberate but weak -- subscriber-facing copy rarely
+    discriminates ("Curated AI and retail episodes").
+    """
+    key = tuple(
+        f"{name}\x00{cfg.routing_hint or cfg.description}"
+        for name, cfg in sorted(prefs.categories.items())
+    )
+    cached = _CATEGORY_TERM_CACHE.get(key)
+    if cached is not None:
+        return cached
+
+    per_cat: dict[str, set[str]] = {}
+    for name, cfg in prefs.categories.items():
+        source = cfg.routing_hint or cfg.description
+        per_cat[name] = {
+            t for t in re.findall(r"[a-z][a-z\-]{5,}", source.lower())
+            if t not in _STAGE1_STOPWORDS
+        }
+
+    # A word shared by every lane cannot assign an item to one of them.
+    if len(per_cat) > 1:
+        shared = set.intersection(*per_cat.values())
+        for terms in per_cat.values():
+            terms -= shared
+
+    result = {name: tuple(sorted(terms)) for name, terms in per_cat.items()}
+    _CATEGORY_TERM_CACHE[key] = result
+    return result
+
+
+def predict_category(text: str, prefs: Preferences) -> str:
+    """Guess an item's lane from its metadata, or "" when nothing matches.
+
+    Deliberately crude: measured against Stage 2's own assignments over 124
+    routed items it agrees about two thirds of the time, and it does not
+    normalise for hint length, so a lane with a long routing hint wins ties of
+    substance. That is the right trade here because this only decides who gets
+    LOOKED AT, not where anything lands. Recall on the scarce lane is what
+    matters (19 of 21 in that sample); a false positive costs one reserved slot,
+    which is then spent on a candidate that would very likely have won a global
+    slot anyway. Stage 2 still assigns the real category from the full text.
+    """
+    best_name, best_hits = "", 0
+    for name, terms in sorted(_category_terms(prefs).items()):
+        hits = sum(1 for t in terms if t in text)
+        if hits > best_hits:
+            best_name, best_hits = name, hits
+    return best_name
+
+
 def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Result:
     """Fast metadata-only pre-filter score. No LLM call.
 
@@ -191,7 +340,8 @@ def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Re
     Followed shows are guaranteed a minimum score of 50 (Read Summary)
     so they always surface rather than being silently dropped.
     Scoring is otherwise based on show priors, guest watchlist,
-    competitor watchlist, duration, and topic exclusions.
+    competitor watchlist, duration, topic exclusions, and topic affinity
+    against the persona's focus and the category routing hints.
     """
     score = 0.0
     reasons: list[str] = []
@@ -236,6 +386,15 @@ def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Re
         score = 50.0
         reasons.append("followed_show_floor")
 
+    # Topic affinity is added AFTER the floor, not before it. Applied before, it
+    # would be erased for exactly the items that need it most: a followed show
+    # under 50 gets clamped up to 50 whether its topic points were 0 or 20, which
+    # is the tie this signal exists to break.
+    topic_points, phrase_hits, word_hits = _topic_affinity(text, prefs)
+    if topic_points:
+        score = min(100.0, score + topic_points)
+        reasons.append(f"topic={topic_points:.0f}(p{phrase_hits}/w{word_hits})")
+
     # Lower threshold: send any followed show or score >= 20 to Stage 2
     # so that shows whose RSS title doesn't perfectly match the prior key
     # still get LLM evaluation rather than being silently dropped.
@@ -250,6 +409,7 @@ def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Re
         score=score,
         reason=", ".join(reasons) or "metadata_baseline",
         should_deep_process=should_deep,
+        predicted_category=predict_category(text, prefs),
     )
 
 
@@ -516,25 +676,41 @@ You will receive {len(items)} item(s). Score EACH on a 100-point rubric and retu
 JSON ARRAY (one object per item, in the same order). Do NOT wrap in markdown fences.
 {_media_guidance() if mixed_media else ""}{_category_routing_block(prefs)}
 SCORING PHILOSOPHY for this persona:
-- Prioritise episodes with concrete strategic insight, real business cases, or named expert guests.
+- The persona's focus list above IS the reward list. Score substance on ANY item in it, and
+  do not substitute a narrower idea of what "strategic" content looks like. Business framing
+  and technical depth are equally valid routes to a high score: how a ranking objective is
+  chosen, calibrated and measured counts exactly as much as market structure analysis.
+- Prioritise concrete specifics — named systems, real deployments, numbers, mechanisms,
+  first-hand accounts of what broke. A well-defended technical argument is concrete; an
+  enthusiastic overview of a relevant topic is not, whatever its subject.
 - Penalise heavily: generic communication/soft-skills content (e.g. "how to give feedback",
-  "speak with confidence"), motivational fluff, and episodes that could apply to anyone at any
-  level rather than a senior executive making product and business decisions.
-- Reward: AI product strategy, eCommerce and retail industry dynamics, founder/operator
-  stories with transferable lessons, product craft at scale, market structure analysis.
-- A 17-minute episode scored 79 is almost certainly wrong — short soft-skills episodes should
-  score below 60 for this persona unless the guest is a top-tier authority.
+  "speak with confidence"), motivational fluff, and items that could apply to anyone at any
+  level rather than to someone doing this persona's job.
+- A SHORT SOFT-SKILLS episode scoring near 79 is almost certainly wrong; those belong below
+  60 unless the speaker is a top-tier authority. That is a rule about soft-skills content,
+  NOT a rule about length. A dense 20-minute technical episode is a good use of 20 minutes
+  and must not be marked down for being short.
 
 RUBRIC (base points):
 - relevance: 0-30  (is the topic directly useful to this persona's strategic focus?)
 - novelty: 0-15  (does it surface new frameworks, data, or perspectives?)
-- guest_authority: 0-15  (is the guest a genuine expert or operator, not just a coach?)
+- guest_authority: 0-15  (does whoever is speaking have DIRECT experience of the thing
+  under discussion — they built it, they run it, they decided it, or they researched it
+  rigorously? A researcher presenting their own work scores as highly here as an operator
+  presenting their own P&L. What scores low is a commentator, a coach, or a host
+  summarising work that is not theirs.)
 - actionability: 0-15  (does it produce decisions or strategies the listener can act on?)
 - evidence: 0-10  (are claims backed by data, case studies, or first-hand experience?)
-- strategic_importance: 0-10  (does it change how someone at {prefs.persona.seniority} scope
-  allocates people, capital or years -- multi-org blast radius, multi-year bets, or problems
-  where the objective itself is still contested? Tactics that a single team ships next sprint
-  score low here no matter how well executed.)
+- strategic_importance: 0-10  (score the HIGHER of two routes.
+  (a) SCOPE — does it change how someone at {prefs.persona.seniority} scope allocates people,
+      capital or years: multi-org blast radius, multi-year bets, or problems where the
+      objective itself is still contested?
+  (b) MASTERY — is it a rigorous treatment of a discipline the persona's focus names as their
+      own, the kind of material someone builds durable and teachable expertise from?
+  Route (b) exists because depth of craft inside a declared specialty IS a multi-year bet for
+  this reader; without it, every deep technical item on their own subject would score near
+  zero here. A tactic a single team ships next sprint that generalises to nothing still
+  scores low on both routes.)
 - learning_per_minute: 0-5  (signal density relative to length — of the episode for a
   podcast, of the text for anything else)
 
