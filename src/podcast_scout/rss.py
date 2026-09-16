@@ -243,6 +243,7 @@ def _load_prior_items(
     feed_path: Path,
     state: StateManager,
     retention_cutoff: datetime,
+    keep_classifications: tuple[str, ...] = ("Listen Fully",),
 ) -> list[_PriorItem]:
     if not feed_path.exists():
         return []
@@ -270,9 +271,22 @@ def _load_prior_items(
         score = rec.score if rec else 0.0
         classification = rec.classification if rec else "Listen Fully"
 
-        # Only carry forward Listen Fully items — Summary items should never
-        # have been in the RSS feed in the first place; drop them on reload.
-        if classification != "Listen Fully":
+        # Carry forward only the tier this feed publishes. The default is
+        # Listen Fully, which is right for listen.xml and the category feeds.
+        # It was ALSO applied to summaries.xml, whose every item is Read
+        # Summary Only -- so that feed dropped its entire history on every run
+        # and only ever showed the current day's items. A feed meant to be read
+        # at leisure in a player instead churned daily.
+        if classification not in keep_classifications:
+            continue
+
+        # ...and only playable ones. Filtering new items alone is not enough:
+        # anything already published survives here for FEED_RETENTION_DAYS, so
+        # without this the written sources that all.xml used to admit would be
+        # carried forward for days after the rule that admitted them was
+        # removed. Checking the published XML rather than state also catches
+        # items whose record has since been pruned.
+        if item_el.find("enclosure") is None:
             continue
 
         if score == 0.0:
@@ -517,14 +531,40 @@ def build_feed(
             if r.classification == "Read Summary Only" and r.episode.enclosure
         ]
     else:
-        # all feed: Listen Fully + Read Summary Only (for reference)
-        new_items = [r for r in episodes if r.classification in ("Listen Fully", "Read Summary Only")]
+        # all feed: Listen Fully + Read Summary Only (for reference).
+        #
+        # An enclosure is required here for the same reason every other feed
+        # requires one: this is an RSS feed a podcast client subscribes to, and
+        # a client hides an item it cannot play. This branch was the last one
+        # without the check, so all.xml was publishing papers and engineering
+        # posts -- ranked with a headphones badge ("LISTEN #1 - arXiv cs.IR:
+        # ChronicleRec..."), which is both unplayable and mislabelled. Written
+        # sources reach the reader through the briefing and the email digest,
+        # which is where they belong.
+        playable = [
+            r for r in episodes
+            if r.classification in ("Listen Fully", "Read Summary Only")
+        ]
+        new_items = [r for r in playable if r.episode.enclosure]
+        for r in playable:
+            if not r.episode.enclosure:
+                log.warning(
+                    "Excluding %r from the all feed: no audio enclosure, so it would "
+                    "not be playable in a podcast app.", r.episode.episode_title[:60],
+                )
+
+    # Prior items must match what this feed publishes, or the feed silently
+    # loses its history between runs.
+    keep: tuple[str, ...] = {
+        "listen": ("Listen Fully",),
+        "summaries": ("Read Summary Only",),
+    }.get(feed_type, ("Listen Fully", "Read Summary Only"))
 
     new_guids = {r.episode.guid for r in new_items}
     prior_items: list[_PriorItem] = []
     if public_dir is not None:
         feed_path = public_dir / slug
-        for p in _load_prior_items(feed_path, state, retention_cutoff):
+        for p in _load_prior_items(feed_path, state, retention_cutoff, keep):
             if p.guid not in new_guids:
                 prior_items.append(p)
 

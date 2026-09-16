@@ -140,6 +140,7 @@ xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
 <channel><title>t</title>
 <item><title>Carried</title><guid isPermaLink="false">gOLD</guid>
 <pubDate>{pub}</pubDate>
+<enclosure url="https://cdn.example.com/ep.mp3" type="audio/mpeg" length="123"/>
 <itunes:duration>3600</itunes:duration>
 <content:encoded>&lt;p&gt;&lt;strong&gt;Score: 90/100&lt;/strong&gt;&lt;/p&gt;\
 &lt;h3&gt;Summary&lt;/h3&gt;&lt;p&gt;Ben &amp;amp; Marc on arbitration.&lt;/p&gt;</content:encoded>
@@ -268,3 +269,115 @@ def test_summary_lands_where_players_actually_look():
 
     assert "itunes:summary" in xml
     assert "itunes:subtitle" in xml
+
+
+# ── Every published feed is audio-only ────────────────────────────────
+#
+# These are RSS feeds a podcast client subscribes to, and a client hides an
+# item it cannot play. Written sources reach the reader through the briefing
+# and the email digest instead.
+
+_NO_AUDIO_FEED = """<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" \
+xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" \
+xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<channel><title>t</title>
+<item><title>A paper</title><guid isPermaLink="false">gPAPER</guid>
+<pubDate>{pub}</pubDate>
+<content:encoded>&lt;p&gt;&lt;strong&gt;Score: 93/100&lt;/strong&gt;&lt;/p&gt;</content:encoded>
+<description>no enclosure</description></item>
+</channel></rss>"""
+
+
+def test_prior_items_without_audio_are_not_carried_forward():
+    """Filtering new items alone leaves the old ones in for FEED_RETENTION_DAYS.
+
+    all.xml admitted written sources until the rule was removed; those items
+    would otherwise have survived in the published feed for three more weeks.
+    """
+    pub = (datetime.now(UTC) - timedelta(days=2)).strftime("%a, %d %b %Y %H:%M:%S +0000")
+    directory = Path(tempfile.mkdtemp())
+    (directory / "all.xml").write_text(_NO_AUDIO_FEED.format(pub=pub), encoding="utf-8")
+    priors = _load_prior_items(
+        directory / "all.xml",
+        StateManager(Path(tempfile.mkdtemp())),
+        datetime.now(UTC) - timedelta(days=21),
+    )
+    assert priors == [], "an item with no enclosure must not be carried forward"
+
+
+def _all_feed(items):
+    import tempfile
+    from pathlib import Path
+
+    from podcast_scout.config import Preferences
+    from podcast_scout.rss import build_feed
+    from podcast_scout.state import StateManager
+
+    with tempfile.TemporaryDirectory() as d:
+        return build_feed(items, Preferences(), "all", "", StateManager(Path(d)))
+
+
+def test_all_feed_excludes_items_with_no_audio():
+    """all.xml was the last feed without the check, so it published papers —
+    ranked with a headphones badge, and unplayable in any client."""
+    xml = _all_feed([
+        _summary_item("Listen Fully", guid="pod", score=80.0),
+        _summary_item("Listen Fully", audio=False, guid="paper", score=93.0),
+    ])
+    assert "pod" in xml
+    assert "paper" not in xml
+
+
+def test_all_feed_still_carries_both_tiers_when_they_are_playable():
+    xml = _all_feed([
+        _summary_item("Listen Fully", guid="lf", score=80.0),
+        _summary_item("Read Summary Only", guid="rso", score=60.0),
+    ])
+    assert "lf" in xml
+    assert "rso" in xml
+
+
+def _accumulates(feed_type: str, slug: str, classification: str) -> bool:
+    """Publish one item, then a different one, and report whether the first survives."""
+    import tempfile
+    from pathlib import Path
+
+    from podcast_scout.config import Preferences
+    from podcast_scout.rss import build_feed
+    from podcast_scout.state import EpisodeRecord, StateManager
+
+    directory = Path(tempfile.mkdtemp())
+    state = StateManager(Path(tempfile.mkdtemp()))
+    for guid in ("day1", "day2"):
+        state.mark_processed(EpisodeRecord(
+            guid=guid, classification=classification, score=60.0,
+            enclosure_url="https://cdn/x.mp3",
+        ))
+    day1 = build_feed(
+        [_summary_item(classification, guid="day1")], Preferences(), feed_type, "",
+        state, public_dir=directory,
+    )
+    (directory / slug).write_text(day1, encoding="utf-8")
+    day2 = build_feed(
+        [_summary_item(classification, guid="day2")], Preferences(), feed_type, "",
+        state, public_dir=directory,
+    )
+    return "day1" in day2
+
+
+def test_summaries_feed_keeps_its_history():
+    """Prior-item retention defaulted to Listen Fully, which is every item this
+    feed does NOT contain — so it dropped its whole history on every run and
+    only ever showed the current day. A read-at-leisure feed that churns daily
+    is the one failure it cannot have."""
+    assert _accumulates("summaries", "summaries.xml", "Read Summary Only")
+
+
+def test_listen_feed_keeps_its_history():
+    assert _accumulates("listen", "listen.xml", "Listen Fully")
+
+
+def test_all_feed_keeps_both_tiers():
+    assert _accumulates("all", "all.xml", "Read Summary Only")
+    assert _accumulates("all", "all.xml", "Listen Fully")
