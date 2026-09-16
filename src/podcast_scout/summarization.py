@@ -35,6 +35,61 @@ log = logging.getLogger(__name__)
 _BATCH_SIZE = int(os.getenv("STAGE2_BATCH_SIZE") or 3)
 
 
+def _allocate_deep_slots(
+    candidates: list[NormalizedEpisode],
+    limit: int,
+    s1_by_guid: dict[str, Stage1Result],
+    prefs: Preferences,
+) -> list[NormalizedEpisode]:
+    """Pick which candidates get a Stage 2 call, honouring per-lane reservations.
+
+    `candidates` must already be sorted best-first. Any lane configured with
+    `min_deep_slots` takes its best few first; everything left is filled purely
+    by Stage 1 score, exactly as before.
+
+    Reservations are applied per track (podcasts and articles are allocated
+    separately), so a lane configured for 2 slots can take 2 of each. That is
+    intentional: the two tracks have independent allowances precisely because
+    one must not starve the other.
+
+    A reservation is a floor, not a quota. A lane with nothing to offer on a
+    given day reserves nothing, and its slots are filled globally.
+    """
+    if limit <= 0:
+        return []
+    chosen: list[NormalizedEpisode] = []
+    taken: set[str] = set()
+
+    for name, cfg in sorted(prefs.categories.items()):
+        if cfg.min_deep_slots <= 0:
+            continue
+        lane = [
+            ep for ep in candidates
+            if ep.guid not in taken
+            and s1_by_guid[ep.guid].predicted_category == name
+        ]
+        for ep in lane[:cfg.min_deep_slots]:
+            if len(chosen) >= limit:
+                break
+            chosen.append(ep)
+            taken.add(ep.guid)
+        if lane:
+            log.info(
+                "Reserved %d/%d Stage 2 slot(s) for lane %r",
+                min(len(lane), cfg.min_deep_slots), cfg.min_deep_slots, name,
+            )
+
+    for ep in candidates:
+        if len(chosen) >= limit:
+            break
+        if ep.guid in taken:
+            continue
+        chosen.append(ep)
+        taken.add(ep.guid)
+
+    return chosen
+
+
 async def process_episodes(
     episodes: list[NormalizedEpisode],
     prefs: Preferences,
@@ -72,8 +127,13 @@ async def process_episodes(
     articles = [ep for ep in eligible if ep.source_type != "podcast"]
     # Re-sorted into one list so batching still groups the highest scorers
     # together; the caps above are what keeps the two tracks independent.
+    s1_by_guid = {s1.guid: s1 for _, s1 in s1_results}
     chosen = {
-        ep.guid for ep in podcasts[:max_deep_process] + articles[:max_deep_articles]
+        ep.guid
+        for ep in (
+            _allocate_deep_slots(podcasts, max_deep_process, s1_by_guid, prefs)
+            + _allocate_deep_slots(articles, max_deep_articles, s1_by_guid, prefs)
+        )
     }
     deep_candidates = [ep for ep in eligible if ep.guid in chosen]
 

@@ -4,7 +4,7 @@ from datetime import UTC, datetime
 
 import pytest
 
-from podcast_scout.config import PersonaConfig, Preferences
+from podcast_scout.config import CategoryFeedConfig, PersonaConfig, Preferences
 from podcast_scout.normalize import NormalizedEpisode
 from podcast_scout.ranking import (
     RankedEpisode,
@@ -13,6 +13,7 @@ from podcast_scout.ranking import (
     _topic_affinity,
     _topic_terms,
     build_daily_queue,
+    predict_category,
     stage1_metadata_score,
     stage2_batch_rank,
 )
@@ -787,3 +788,51 @@ def test_topic_affinity_is_bounded():
         f"{stuffed.show_title} {stuffed.episode_title} {stuffed.description}".lower(), prefs
     )
     assert points <= 20.0
+
+
+# ── Stage 1 lane prediction ───────────────────────────────────────────
+
+def _lane_prefs() -> Preferences:
+    return _make_prefs(
+        persona=_AFFINITY_PERSONA,
+        categories={
+            "personalization": CategoryFeedConfig(
+                slug="personalization", title="Personalization",
+                routing_hint="recommendation ranking retrieval calibration incrementality "
+                             "bandits off-policy decisioning",
+                min_deep_slots=2,
+            ),
+            "startup": CategoryFeedConfig(
+                slug="startup", title="Startup",
+                routing_hint="founding fundraising early-stage go-to-market operator stories",
+            ),
+        },
+    )
+
+
+def test_predict_category_picks_the_matching_lane():
+    prefs = _lane_prefs()
+    text = "a paper on calibration and off-policy ranking for a production recommender"
+    assert predict_category(text, prefs) == "personalization"
+    assert predict_category("fundraising lessons from an early-stage founding team", prefs) == "startup"
+
+
+def test_predict_category_is_empty_when_nothing_matches():
+    assert predict_category("a gentle history of beekeeping", _lane_prefs()) == ""
+
+
+def test_predict_category_is_deterministic_on_a_tie():
+    """Ties must not depend on dict ordering — the lane reservation reads this."""
+    prefs = _lane_prefs()
+    text = "calibration and fundraising"   # exactly one term from each lane
+    assert predict_category(text, prefs) == predict_category(text, prefs)
+    assert predict_category(text, prefs) in {"personalization", "startup"}
+
+
+def test_stage1_reports_its_predicted_category():
+    prefs = _lane_prefs()
+    ep = _make_ep(
+        episode_title="Off-policy evaluation for a production recommender",
+        description="Ranking, calibration and incrementality in a decisioning system.",
+    )
+    assert stage1_metadata_score(ep, prefs).predicted_category == "personalization"
