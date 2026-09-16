@@ -353,6 +353,7 @@ def _load_carryover_candidates(
             duration_seconds=rec.duration_seconds,
             episode_url=rec.episode_url,
             source_feed_url=rec.source_feed_url,
+            source_type=rec.source_type,
             enclosure=(
                 Enclosure(
                     url=rec.enclosure_url,
@@ -429,6 +430,7 @@ def _load_accumulated_this_week(
             duration_seconds=rec.duration_seconds,
             episode_url=rec.episode_url,
             source_feed_url=rec.source_feed_url,
+            source_type=rec.source_type,
             enclosure=(
                 Enclosure(
                     url=rec.enclosure_url,
@@ -664,6 +666,7 @@ async def _run_pipeline(
                 is_outside_feed=False,
                 source_feed_url=r.episode.source_feed_url,
                 category=r.episode.category,
+                source_type=r.episode.source_type,
                 # Persist the LLM output and episode metadata. Stage 2 runs
                 # ONCE per episode; without saving these, every later run
                 # rebuilds the episode as an insight-free stub.
@@ -897,11 +900,21 @@ async def _run_pipeline(
         already_emailed = state.emailed_guids()
         new_queued = [r for r in rss_queue if r.episode.guid not in already_emailed]
         new_extra = [r for r in email_only if r.episode.guid not in already_emailed]
-        suppressed = (len(rss_queue) - len(new_queued)) + (len(email_only) - len(new_extra))
+        # The reading track has no enclosure, so the email is the ONLY place it
+        # can reach the reader -- it cannot be carried by any playable feed.
+        # Leaving it out of both the body and this gate meant a day whose
+        # podcasts were all repeats sent nothing, while that same day's papers
+        # (routinely the highest scores of the run) were silently dropped.
+        new_reading = [r for r in reading if r.episode.guid not in already_emailed]
+        suppressed = (
+            (len(rss_queue) - len(new_queued))
+            + (len(email_only) - len(new_extra))
+            + (len(reading) - len(new_reading))
+        )
 
         # The weekly accumulated section is deliberately NOT filtered: it is a
         # consolidation of the week's near-misses, so repetition is the point.
-        if not new_queued and not new_extra and not accumulated_this_week:
+        if not new_queued and not new_extra and not new_reading and not accumulated_this_week:
             console.print(
                 f"[dim]Nothing new to email "
                 f"({suppressed} episode(s) already sent in a previous digest) "
@@ -913,13 +926,24 @@ async def _run_pipeline(
                 new_queued, new_extra, run_date, feed_url,
                 accumulated_week=accumulated_this_week,
                 challenges=brain_result.challenges if brain_result else None,
+                reading=new_reading,
             )
-            subject = f"Your Podcast Scout — {run_date} ({len(new_queued)} queued)"
+            # "(0 queued)" reads as a broken run on a day that is genuinely all
+            # reading, which is common now that the reading track is included.
+            counts = []
+            if new_queued:
+                counts.append(f"{len(new_queued)} queued")
+            if new_reading:
+                counts.append(f"{len(new_reading)} to read")
+            if not counts and new_extra:
+                counts.append(f"{len(new_extra)} worth a look")
+            detail = f" ({', '.join(counts)})" if counts else ""
+            subject = f"Your Podcast Scout — {run_date}{detail}"
             try:
                 send_digest(smtp, subject, html_body)
                 # Mark ONLY after a successful send, so a transient SMTP failure
                 # doesn't permanently suppress an episode from the next attempt.
-                for r in new_queued + new_extra:
+                for r in new_queued + new_extra + new_reading:
                     state.add_emailed(r.episode.guid)
                 state.save()
                 if suppressed:

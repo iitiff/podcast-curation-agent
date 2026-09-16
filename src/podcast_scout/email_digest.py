@@ -50,8 +50,13 @@ def _episode_row_html(r: RankedEpisode, label: str) -> str:
     """
     ep = r.episode
     link = ep.episode_url or ep.source_feed_url
-    dur = _duration_str(ep.duration_minutes)
-    score_badge = f"<span style='color:#888;font-size:12px'>Score {r.score:.0f}/100 · {dur}</span>"
+    # A written source has no runtime, and "unknown length" on a paper reads as
+    # missing data rather than as "this is not audio". Name the kind instead.
+    if ep.source_type and ep.source_type != "podcast":
+        meta = ep.source_type.replace("-", " ")
+    else:
+        meta = _duration_str(ep.duration_minutes)
+    score_badge = f"<span style='color:#888;font-size:12px'>Score {r.score:.0f}/100 · {meta}</span>"
 
     ideas = [strip_html(i).strip() for i in r.key_ideas]
     ideas = [i for i in ideas if i]
@@ -104,11 +109,18 @@ def build_email_html(
     feed_url: str = "",
     accumulated_week: list[RankedEpisode] | None = None,
     challenges: list[FalsifierHit] | None = None,
+    reading: list[RankedEpisode] | None = None,
 ) -> str:
     """Build the full HTML email body.
 
     accumulated_week: episodes that scored well this week but never won a
     category-feed playlist slot. Only included on Friday synthesis runs.
+
+    reading: the non-podcast track — papers, engineering posts, filings and
+    trade press. These carry no enclosure, so they can never appear in a
+    playable feed; before this they reached the briefing page and the brain but
+    not the inbox, which in practice meant the highest-scoring items of the day
+    were the only ones the reader never received.
 
     challenges: signals that cut against an active thesis. Rendered first,
     above the queue, because the ranked queue is by construction agreeable and
@@ -165,6 +177,14 @@ you currently believe.</p>
             sections.append(f"""
 <h2 style='font-size:18px;margin:24px 0 8px;color:#111'>&#127760; Outside Your Feed</h2>
 <p style='color:#555;font-size:13px;margin:0 0 12px'>Discovered beyond your subscriptions.</p>
+<table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
+
+    if reading:
+        rows = "".join(_episode_row_html(r, "&#128196; Worth Reading") for r in reading)
+        sections.append(f"""
+<h2 style='font-size:18px;margin:24px 0 8px;color:#111'>&#128196; Worth Reading ({len(reading)})</h2>
+<p style='color:#555;font-size:13px;margin:0 0 12px'>Papers, engineering posts and filings. No
+audio, so these never reach a podcast feed.</p>
 <table width='100%' cellpadding='0' cellspacing='0'>{rows}</table>""")
 
     # Weekly accumulated digest — only rendered on Friday synthesis runs
