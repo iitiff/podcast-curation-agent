@@ -38,6 +38,11 @@ class EpisodeRecord(BaseModel):
     # episode routed into a specialist lane by topic silently snaps back to its
     # show's default lane the moment it fails to win a slot on the first run.
     category: str = ""
+    # Whether this is audio or text. Carryover rebuilt every episode as a
+    # podcast, so a paper or engineering post came back claiming a runtime it
+    # never had and rendered as "unknown length" in the digest. It also decides
+    # how the rubric reads a row, so the wrong value is not merely cosmetic.
+    source_type: str = "podcast"
     # --- persisted LLM output + episode metadata (see docstring) ---
     summary: str = ""
     key_ideas: list[str] = Field(default_factory=list)
