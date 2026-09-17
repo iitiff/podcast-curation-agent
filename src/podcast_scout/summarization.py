@@ -8,6 +8,8 @@ from .config import Preferences
 from .normalize import NormalizedEpisode
 from .providers.base import BaseLLMProvider, BaseTranscriptionProvider, TranscriptResult
 from .ranking import (
+    BUDGET_EXHAUSTED_REASON,
+    STAGE1_ONLY_REASON,
     RankedEpisode,
     RubricScore,
     Stage1Result,
@@ -182,7 +184,10 @@ async def process_episodes(
                 score=s1.score,
                 rubric=RubricScore(),
                 classification=_classify(s1.score, prefs),
-                classification_reason="stage1 only" if ep.guid not in deep_guids else "token budget exhausted",
+                classification_reason=(
+                    STAGE1_ONLY_REASON if ep.guid not in deep_guids
+                    else BUDGET_EXHAUSTED_REASON
+                ),
                 evidence_confidence="low",
                 summary=ep.description[:300] or "No summary available.",
             ))

@@ -8,7 +8,7 @@ from typing import Any
 
 import httpx
 
-from .base import BaseLLMProvider, LLMMessage, LLMResponse
+from .base import BaseLLMProvider, LLMMessage, LLMResponse, describe_exception
 
 log = logging.getLogger(__name__)
 
@@ -779,9 +779,20 @@ class FallbackLLMProvider(BaseLLMProvider):
     ) -> LLMResponse:
         try:
             return await self.primary.complete(messages, max_tokens=max_tokens)
-        except Exception as exc:
+        except Exception as primary_exc:
             log.warning(
                 "%s LLM call failed (%s) — retrying with %s",
-                self.primary_name, exc, self.secondary_name,
+                self.primary_name, describe_exception(primary_exc), self.secondary_name,
             )
-            return await self.secondary.complete(messages, max_tokens=max_tokens)
+            try:
+                return await self.secondary.complete(messages, max_tokens=max_tokens)
+            except Exception as secondary_exc:
+                # The caller only sees the secondary's exception, and its own
+                # handler may render it as bare %s -- so if that exception has
+                # no message (httpx timeouts do not) the log says nothing at
+                # all about either attempt. Name both before re-raising.
+                log.warning(
+                    "%s also failed (%s); both providers are down for this call",
+                    self.secondary_name, describe_exception(secondary_exc),
+                )
+                raise

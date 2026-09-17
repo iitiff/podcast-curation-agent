@@ -32,7 +32,16 @@ from .providers.llm import (
 from .providers.podcast_search import ITunesSearchProvider, PodcastIndexProvider
 from .providers.transcription import CascadeTranscriptionProvider
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
-from .ranking import RankedEpisode, RubricScore, _classify, build_daily_queue, stage1_metadata_score
+from .ranking import (
+    BUDGET_EXHAUSTED_REASON,
+    STAGE1_ONLY_REASON,
+    RankedEpisode,
+    RubricScore,
+    _classify,
+    build_daily_queue,
+    is_transient_fallback,
+    stage1_metadata_score,
+)
 from .render import render_briefing, render_markdown
 from .review import generate_monthly_review, write_review
 from .rss import build_category_feed, build_feed
@@ -633,7 +642,7 @@ async def _run_pipeline(
         # this guard stayed silent through two totally failed live runs.
         attempted = [
             r for r in fresh
-            if r.classification_reason not in {"stage1 only", "token budget exhausted"}
+            if r.classification_reason not in {STAGE1_ONLY_REASON, BUDGET_EXHAUSTED_REASON}
         ]
         degraded = [r for r in attempted if "metadata fallback" in r.classification_reason]
         if attempted and len(degraded) == len(attempted):
@@ -667,6 +676,12 @@ async def _run_pipeline(
                 source_feed_url=r.episode.source_feed_url,
                 category=r.episode.category,
                 source_type=r.episode.source_type,
+                # A floor score left by a failed or starved Stage 2 call is
+                # provisional. Flagging it here is what lets the next run try
+                # again; the all-or-nothing guard above only rescues a run in
+                # which EVERY episode degraded, and a single dead batch among
+                # several never tripped it.
+                needs_rescore=is_transient_fallback(r.classification_reason),
                 # Persist the LLM output and episode metadata. Stage 2 runs
                 # ONCE per episode; without saving these, every later run
                 # rebuilds the episode as an insight-free stub.

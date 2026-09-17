@@ -7,12 +7,16 @@ import pytest
 from podcast_scout.config import CategoryFeedConfig, PersonaConfig, Preferences
 from podcast_scout.normalize import NormalizedEpisode
 from podcast_scout.ranking import (
+    BATCH_MISSING_REASON,
+    BUDGET_EXHAUSTED_REASON,
+    STAGE1_ONLY_REASON,
     RankedEpisode,
     RubricScore,
     _build_item_block,
     _topic_affinity,
     _topic_terms,
     build_daily_queue,
+    is_transient_fallback,
     predict_category,
     stage1_metadata_score,
     stage2_batch_rank,
@@ -836,3 +840,26 @@ def test_stage1_reports_its_predicted_category():
         description="Ranking, calibration and incrementality in a decisioning system.",
     )
     assert stage1_metadata_score(ep, prefs).predicted_category == "personalization"
+
+
+# ── Which metadata floors are worth retrying ──────────────────────────
+
+def test_stage1_only_is_a_decision_not_a_failure():
+    """It was never chosen for Stage 2. Retrying spends the same budget on the
+    same losing candidate."""
+    assert not is_transient_fallback(STAGE1_ONLY_REASON)
+
+
+def test_a_dead_batch_and_a_starved_one_are_both_retryable():
+    assert is_transient_fallback(BATCH_MISSING_REASON)
+    assert is_transient_fallback(BUDGET_EXHAUSTED_REASON)
+
+
+def test_a_carried_over_fallback_is_still_recognised():
+    """Carryover appends " (carried over)" to whatever reason it was given."""
+    assert is_transient_fallback(f"{BATCH_MISSING_REASON} (carried over)")
+
+
+def test_a_real_llm_verdict_is_never_retryable():
+    assert not is_transient_fallback("Outstanding industrial personalization paper")
+    assert not is_transient_fallback("")

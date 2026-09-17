@@ -99,3 +99,16 @@ class BaseTranscriptionProvider(ABC):
         self, episode_url: str, description: str = ""
     ) -> TranscriptResult:
         ...
+
+
+def describe_exception(exc: BaseException) -> str:
+    """Render an exception so the log line always says something.
+
+    httpx's timeout exceptions carry no message, so `str(exc)` is "" and a
+    log line built with %s reads "LLM call failed:  — falling back", which
+    cannot distinguish a timeout from a refusal from a malformed response.
+    Observed in production 2026-09-17: a two-minute NVIDIA fallback died with
+    an empty reason and took the run's only personalization batch with it.
+    """
+    text = str(exc).strip()
+    return f"{type(exc).__name__}: {text}" if text else type(exc).__name__

@@ -817,3 +817,23 @@ def test_general_chat_models_stay_eligible():
     for model in ("moonshotai/kimi-k3", "nvidia/nemotron-3-super-120b-a12b",
                   "deepseek-ai/deepseek-v4-flash", "google/gemma-4-31b-it"):
         assert not any(h in model.lower() for h in _NON_CHAT_HINTS), model
+
+
+# ── Log lines that say something ───────────────────────────────────────
+
+def test_describe_exception_names_the_type_when_there_is_no_message():
+    """httpx timeouts carry no message, so "%s" renders as empty and the log
+    reads "LLM call failed:  — falling back". Observed 2026-09-17: a two-minute
+    NVIDIA fallback died with an empty reason and took a batch with it."""
+    import httpx
+
+    from podcast_scout.providers.base import describe_exception
+
+    assert str(httpx.ReadTimeout("")) == "", "premise: the message really is empty"
+    assert describe_exception(httpx.ReadTimeout("")) == "ReadTimeout"
+
+
+def test_describe_exception_keeps_a_real_message():
+    from podcast_scout.providers.base import describe_exception
+
+    assert describe_exception(ValueError("quota spent")) == "ValueError: quota spent"
