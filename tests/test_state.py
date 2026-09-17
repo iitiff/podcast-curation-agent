@@ -439,3 +439,46 @@ def test_emailed_survives_legacy_state_without_the_key(tmp_path):
     assert reloaded.emailed_guids() == set()
     reloaded.add_emailed("x")
     assert reloaded.emailed_guids() == {"x"}
+
+
+# ── Provisional scores ────────────────────────────────────────────────
+#
+# A metadata floor left by a failed Stage 2 call used to be permanent: the
+# episode was written to `processed`, `seen_guids` treated it as done, and
+# nothing short of forget_processed() could revisit it. Observed 2026-09-17,
+# when one dead batch capped three episodes at the floor for good.
+
+def test_seen_guids_hides_a_record_awaiting_rescore(tmp_path: Path):
+    state = _make_state(tmp_path)
+    state.mark_processed(EpisodeRecord(guid="settled", score=82.0))
+    state.mark_processed(EpisodeRecord(guid="provisional", score=50.0, needs_rescore=True))
+
+    assert state.seen_guids() == {"settled"}, "a provisional score must not suppress dedup"
+
+
+def test_a_record_awaiting_rescore_is_still_kept(tmp_path: Path):
+    """It is hidden from dedup, not deleted — its floor score still carries the
+    episode in the brief while it waits for another attempt."""
+    state = _make_state(tmp_path)
+    state.mark_processed(EpisodeRecord(guid="provisional", score=50.0, needs_rescore=True))
+
+    rec = state.get_record("provisional")
+    assert rec is not None
+    assert rec.needs_rescore is True
+    assert rec.score == 50.0
+
+
+def test_rescoring_settles_the_record(tmp_path: Path):
+    state = _make_state(tmp_path)
+    state.mark_processed(EpisodeRecord(guid="g", score=50.0, needs_rescore=True))
+    state.mark_processed(EpisodeRecord(guid="g", score=82.0))
+
+    assert state.seen_guids() == {"g"}
+
+
+def test_state_written_before_the_flag_existed_is_treated_as_settled(tmp_path: Path):
+    state = _make_state(tmp_path)
+    state._state["processed"] = {"old": {"guid": "old", "score": 70.0}}
+
+    assert state.seen_guids() == {"old"}
+    assert EpisodeRecord(guid="old").needs_rescore is False

@@ -11,7 +11,12 @@ from pydantic import BaseModel, Field
 
 from .config import Preferences
 from .normalize import NormalizedEpisode, clean_snippet
-from .providers.base import BaseLLMProvider, LLMMessage, TranscriptResult
+from .providers.base import (
+    BaseLLMProvider,
+    LLMMessage,
+    TranscriptResult,
+    describe_exception,
+)
 
 log = logging.getLogger(__name__)
 
@@ -331,6 +336,32 @@ def predict_category(text: str, prefs: Preferences) -> str:
         if hits > best_hits:
             best_name, best_hits = name, hits
     return best_name
+
+
+# Why an episode carries a metadata-only score. The distinction matters at
+# persist time: one of these is a decision, the others are failures.
+#
+#   STAGE1_ONLY      — never chosen for Stage 2. A deliberate budget decision.
+#                      Re-running it tomorrow spends the same budget on the
+#                      same losing candidate, so it must NOT be retried.
+#   BUDGET_EXHAUSTED — chosen, then the run ran out of tokens before reaching it.
+#   BATCH_MISSING    — chosen, called, and the answer never arrived.
+#
+# The last two are transient: the episode was meant to be scored and was not.
+STAGE1_ONLY_REASON = "stage1 only"
+BUDGET_EXHAUSTED_REASON = "token budget exhausted"
+BATCH_MISSING_REASON = "LLM batch entry missing; metadata fallback"
+
+_TRANSIENT_FALLBACK_REASONS = (BUDGET_EXHAUSTED_REASON, BATCH_MISSING_REASON)
+
+
+def is_transient_fallback(reason: str) -> bool:
+    """True when this score is a floor left by a failure, not by a judgement.
+
+    Substring rather than equality because a carried-over episode has
+    " (carried over)" appended to whatever reason it was first given.
+    """
+    return any(r in reason for r in _TRANSIENT_FALLBACK_REASONS)
 
 
 def stage1_metadata_score(ep: NormalizedEpisode, prefs: Preferences) -> Stage1Result:
@@ -810,7 +841,10 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
                 len(entries), len(items), len(items) - len(entries),
             )
     except Exception as exc:
-        log.warning("Batch Stage 2 LLM call failed: %s — falling back to metadata for all", exc)
+        log.warning(
+            "Batch Stage 2 LLM call failed (%s) — falling back to metadata for all",
+            describe_exception(exc),
+        )
         entries = []
 
     # Match on the echoed item index, not on position.
@@ -864,7 +898,7 @@ Return ONLY a raw JSON array of {len(items)} objects. No prose, no markdown."""
                     score=s1.score,
                     rubric=RubricScore(relevance=min(30, s1.score * 0.4)),
                     classification=_classify(s1.score, prefs),
-                    classification_reason="LLM batch entry missing; metadata fallback",
+                    classification_reason=BATCH_MISSING_REASON,
                     evidence_confidence="low",
                     summary=clean_snippet(ep.description, 300) or "Summary unavailable — no AI analysis for this episode.",
                     transcript_source=transcript.source,

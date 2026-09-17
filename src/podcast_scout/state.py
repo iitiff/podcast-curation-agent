@@ -43,6 +43,15 @@ class EpisodeRecord(BaseModel):
     # never had and rendered as "unknown length" in the digest. It also decides
     # how the rubric reads a row, so the wrong value is not merely cosmetic.
     source_type: str = "podcast"
+    # True when this score is a metadata floor left by a Stage 2 failure rather
+    # than by a judgement. Such a record is kept -- it still carries the
+    # episode's metadata and can still be carried over -- but it no longer
+    # counts as "seen", so the next run rediscovers and re-scores it.
+    #
+    # Without this, one transient outage capped an episode at the floor
+    # permanently: it was written to `processed`, `seen_guids` then treated it
+    # as done, and nothing short of forget_processed() could ever revisit it.
+    needs_rescore: bool = False
     # --- persisted LLM output + episode metadata (see docstring) ---
     summary: str = ""
     key_ideas: list[str] = Field(default_factory=list)
@@ -84,7 +93,17 @@ class StateManager:
         self._path.write_text(json.dumps(self._state, indent=2, default=str), encoding="utf-8")
 
     def seen_guids(self) -> set[str]:
-        return set(self._state.get("processed", {}).keys())
+        """GUIDs dedup should suppress: everything processed AND settled.
+
+        A record flagged `needs_rescore` is deliberately absent, so the episode
+        is rediscovered and gets another Stage 2 attempt. It stays in
+        `processed`, so its floor score is still available for carryover in the
+        meantime and nothing disappears from the brief while it waits.
+        """
+        return {
+            guid for guid, rec in self._state.get("processed", {}).items()
+            if not (isinstance(rec, dict) and rec.get("needs_rescore"))
+        }
 
     def published_guids(self) -> set[str]:
         """Return the set of episode GUIDs that have appeared in any RSS feed or email digest."""
