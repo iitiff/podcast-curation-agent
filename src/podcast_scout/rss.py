@@ -368,7 +368,12 @@ def build_category_feed(
     slug = cat_cfg.slug if cat_cfg else category.replace("_", "-")
     feed_url = f"{base_url.rstrip('/')}/{slug}.xml" if base_url else ""
 
+    # A non-positive cap means "no limit" -- the same convention build_daily_queue
+    # uses. With the rank in each item's title ("LISTEN #3"), a longer feed is
+    # still an ordered one, so there is no reason the feed must be shorter than
+    # the set of episodes that cleared the threshold.
     max_listen = cat_cfg.max_listen_fully if cat_cfg else prefs.output_caps.max_listen_fully
+    uncapped = max_listen <= 0
 
     cat_episodes = [r for r in episodes if getattr(r.episode, "category", None) == category]
     # RSS feed contains ONLY Listen Fully episodes.
@@ -413,13 +418,13 @@ def build_category_feed(
     final_order: list[tuple[str, RankedEpisode | _PriorItem]] = []
 
     for r in new_listen_sorted:
-        if listen_count >= max_listen:
+        if not uncapped and listen_count >= max_listen:
             break
         final_order.append(("new", r))
         listen_count += 1
 
     for p in prior_sorted:
-        if listen_count >= max_listen:
+        if not uncapped and listen_count >= max_listen:
             break
         final_order.append(("prior", p))
         listen_count += 1

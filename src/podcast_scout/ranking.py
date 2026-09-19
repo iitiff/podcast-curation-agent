@@ -483,13 +483,29 @@ def _reconcile_classification(
     return by_score, False
 
 
+def _uncapped(limit: int) -> bool:
+    """A non-positive cap means "no limit", not "nothing".
+
+    Every cap below reads this, so the convention is the same wherever a
+    number appears in preferences.yaml. It exists because the natural way to
+    say "surface everything that clears the threshold" is to remove the cap,
+    and there was previously no way to say that at all.
+    """
+    return limit <= 0
+
+
 def build_daily_queue(
     ranked: list[RankedEpisode],
     max_minutes: float = 480.0,
     max_listen_fully: int = 3,
-    max_read_summary: int = 5,
+    # The email cap. This used to be `max_read_summary` in the signature and
+    # `max_email_only` in the body: the caller passed the former, the body read
+    # the latter, and nothing connected them. So the per-category
+    # max_read_summary in preferences.yaml was inert and the real limit was
+    # this parameter's default, applied once PER CATEGORY -- which is how a run
+    # configured for "4 summaries" emitted 34.
+    max_read_summary: int = 10,
     max_outside: int = 3,
-    max_email_only: int = 10,
     max_reading: int = 5,
 ) -> tuple[list[RankedEpisode], list[RankedEpisode], list[RankedEpisode]]:
     """Split ranked items into the RSS queue, email-only overflow, and reading.
@@ -509,7 +525,7 @@ def build_daily_queue(
     Non-playable items used to fall through the "Listen Fully" path. They
     cannot be listened to, and rss.py drops them for want of an <enclosure>,
     so each one silently consumed a listening slot and left the feed short.
-    They also competed with podcasts for max_email_only, and a radar run
+    They also competed with podcasts for the email cap, and a radar run
     returning 18 articles could crowd the podcast summaries out entirely.
     """
     rss: list[RankedEpisode] = []
@@ -528,29 +544,33 @@ def build_daily_queue(
         # called it. Its budget is separate in both directions: it can neither
         # take a listening slot nor be pushed out of the brief by one.
         if not getattr(r.episode, "is_playable", True):
-            if len(reading) < max_reading:
+            if _uncapped(max_reading) or len(reading) < max_reading:
                 reading.append(r)
             continue
 
         # Read Summary Only → always email, never RSS
         if r.classification == "Read Summary Only":
-            if len(email_only) < max_email_only:
+            if _uncapped(max_read_summary) or len(email_only) < max_read_summary:
                 email_only.append(r)
             continue
 
         # Listen Fully below
         is_outside = getattr(r.episode, "is_outside_feed", False)
 
-        if listen_count >= max_listen_fully:
-            if len(email_only) < max_email_only:
+        if not _uncapped(max_listen_fully) and listen_count >= max_listen_fully:
+            if _uncapped(max_read_summary) or len(email_only) < max_read_summary:
                 email_only.append(r)
             continue
-        if is_outside and outside_count >= max_outside:
-            if len(email_only) < max_email_only:
+        if is_outside and not _uncapped(max_outside) and outside_count >= max_outside:
+            if _uncapped(max_read_summary) or len(email_only) < max_read_summary:
                 email_only.append(r)
             continue
-        if minutes_used + r.episode.duration_minutes > max_minutes and rss:
-            if len(email_only) < max_email_only:
+        if (
+            max_minutes > 0
+            and minutes_used + r.episode.duration_minutes > max_minutes
+            and rss
+        ):
+            if _uncapped(max_read_summary) or len(email_only) < max_read_summary:
                 email_only.append(r)
             continue
 

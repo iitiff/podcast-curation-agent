@@ -577,7 +577,15 @@ async def _run_pipeline(
     token_budget_per_category = settings.max_llm_tokens_per_run // max(1, len(non_empty_categories))
     newly_ranked: dict[str, list[RankedEpisode]] = {}
 
-    minutes_budget = max(480.0, prefs.length.max_weekly_listen_hours * 60)
+    # 0 (or less) means no listen-time budget, matching every other cap. The
+    # floor below is what makes the configured hours a MINIMUM of 8 rather than
+    # a limit, so without this branch there is no value of
+    # max_weekly_listen_hours that turns the budget off, and lifting
+    # max_listen_fully would just hand the demotion to this instead.
+    minutes_budget = (
+        0.0 if prefs.length.max_weekly_listen_hours <= 0
+        else max(480.0, prefs.length.max_weekly_listen_hours * 60)
+    )
 
     for category in active_categories:
         candidates = episodes_by_category.get(category, [])
