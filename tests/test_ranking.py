@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 import pytest
 
 from podcast_scout.config import CategoryFeedConfig, PersonaConfig, Preferences
-from podcast_scout.normalize import NormalizedEpisode
+from podcast_scout.normalize import Enclosure, NormalizedEpisode
 from podcast_scout.ranking import (
     BATCH_MISSING_REASON,
     BUDGET_EXHAUSTED_REASON,
@@ -232,14 +232,14 @@ def test_articles_never_take_a_listening_slot():
 
 
 def test_articles_do_not_crowd_out_podcast_summaries():
-    """max_reading is a separate pot from max_email_only."""
+    """max_reading is a separate pot from the email cap."""
     items = [
         _queue_item("Listen Fully", 90.0 - i, source_type="research-paper", duration=0, n=i)
         for i in range(12)
     ] + [_queue_item("Read Summary Only", 60.0, n=99)]
 
     _, email_only, reading = build_daily_queue(
-        items, max_reading=3, max_email_only=5
+        items, max_reading=3, max_read_summary=5
     )
 
     assert len(reading) == 3
@@ -863,3 +863,68 @@ def test_a_carried_over_fallback_is_still_recognised():
 def test_a_real_llm_verdict_is_never_retryable():
     assert not is_transient_fallback("Outstanding industrial personalization paper")
     assert not is_transient_fallback("")
+
+
+# ── "no cap" has to be sayable ─────────────────────────────────────────
+#
+# The natural way to ask for "everything that clears the threshold" is to
+# remove the limit, and there was previously no way to express that: every cap
+# was a positive integer and 0 would have meant "nothing".
+
+def _playable(guid: str, score: float, classification: str = "Listen Fully") -> RankedEpisode:
+    """An episode the queue will treat as audio.
+
+    An enclosure is what makes it playable; without one build_daily_queue sends
+    it to the reading track no matter how it was classified.
+    """
+    ep = _make_ep(
+        guid=guid,
+        duration_seconds=3600,
+        enclosure=Enclosure(url="https://cdn/x.mp3", mime_type="audio/mpeg", length=1),
+    )
+    return RankedEpisode(
+        episode=ep, score=score, rubric=RubricScore(),
+        classification=classification, summary="s",
+    )
+
+
+def test_a_positive_listen_cap_still_caps():
+    items = [_playable(f"g{i}", 90 - i) for i in range(6)]
+    rss, email_only, _ = build_daily_queue(items, max_listen_fully=2, max_minutes=0)
+    assert len(rss) == 2
+    assert len(email_only) == 4, "the rest are demoted, not dropped"
+
+
+def test_a_zero_listen_cap_means_no_limit():
+    items = [_playable(f"g{i}", 90 - i) for i in range(6)]
+    rss, email_only, _ = build_daily_queue(items, max_listen_fully=0, max_minutes=0)
+    assert len(rss) == 6
+    assert email_only == []
+
+
+def test_a_zero_minutes_budget_means_no_limit():
+    """Otherwise the listen-time budget re-imposes the cap that was just lifted."""
+    items = [_playable(f"g{i}", 90 - i) for i in range(6)]  # 6h of audio
+    rss, _, _ = build_daily_queue(items, max_listen_fully=0, max_minutes=0)
+    assert len(rss) == 6
+
+
+def test_the_minutes_budget_still_bites_when_set():
+    items = [_playable(f"g{i}", 90 - i) for i in range(6)]
+    rss, email_only, _ = build_daily_queue(items, max_listen_fully=0, max_minutes=150)
+    assert len(rss) < 6
+    assert email_only, "over-budget episodes are demoted, not dropped"
+
+
+def test_a_zero_summary_cap_means_no_limit():
+    items = [_playable(f"g{i}", 60 - i, "Read Summary Only") for i in range(12)]
+    _, email_only, _ = build_daily_queue(items, max_read_summary=0)
+    assert len(email_only) == 12
+
+
+def test_the_summary_cap_is_the_one_the_caller_passes():
+    """It was declared in the signature and ignored by the body, so the
+    configured value did nothing and an unrelated default applied instead."""
+    items = [_playable(f"g{i}", 60 - i, "Read Summary Only") for i in range(12)]
+    _, email_only, _ = build_daily_queue(items, max_read_summary=4)
+    assert len(email_only) == 4

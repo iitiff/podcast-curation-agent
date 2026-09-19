@@ -577,7 +577,15 @@ async def _run_pipeline(
     token_budget_per_category = settings.max_llm_tokens_per_run // max(1, len(non_empty_categories))
     newly_ranked: dict[str, list[RankedEpisode]] = {}
 
-    minutes_budget = max(480.0, prefs.length.max_weekly_listen_hours * 60)
+    # 0 (or less) means no listen-time budget, matching every other cap. The
+    # floor below is what makes the configured hours a MINIMUM of 8 rather than
+    # a limit, so without this branch there is no value of
+    # max_weekly_listen_hours that turns the budget off, and lifting
+    # max_listen_fully would just hand the demotion to this instead.
+    minutes_budget = (
+        0.0 if prefs.length.max_weekly_listen_hours <= 0
+        else max(480.0, prefs.length.max_weekly_listen_hours * 60)
+    )
 
     for category in active_categories:
         candidates = episodes_by_category.get(category, [])
@@ -1563,6 +1571,90 @@ def _fallback_doctor(settings: Settings, probe: bool) -> None:
             "LLM_FALLBACK_MODEL likely needs to match one of the ids above."
             "[/yellow]"
         )
+
+
+def _mask_addr(addr: str) -> str:
+    """Show enough of an address to recognise it, not enough to harvest it.
+
+    The whole point of this command is answering "is that the inbox I watch?",
+    which a fully redacted address cannot do. Actions masks only exact secret
+    values, so a partial rendering survives into the log where it is useful.
+    """
+    if not addr or "@" not in addr:
+        return addr or "(empty)"
+    local, _, domain = addr.partition("@")
+    shown = local[0] + "***" + local[-1] if len(local) > 2 else "***"
+    return f"{shown}@{domain}"
+
+
+@main.command("mail-doctor")
+@click.option("--send/--no-send", default=False,
+              help="Actually deliver a short test message to SMTP_TO.")
+def mail_doctor(send: bool) -> None:
+    """Show where the digest is being sent, and optionally send a test.
+
+    A digest that the SMTP server accepts is logged as sent and counted in
+    state, which is indistinguishable from one that arrives. When those two
+    diverge the question is always the same -- which address did it go to --
+    and that is exactly what the run log redacts.
+
+    Prints no password and no whole address.
+    """
+    smtp = _smtp_from_env()
+    if smtp is None:
+        console.print("[red]SMTP is not configured — SMTP_HOST or SMTP_USER is empty.[/red]")
+        console.print("The daily run skips email entirely in this state.")
+        raise SystemExit(1)
+
+    explicit_to = bool(_ascii_clean(os.getenv("SMTP_TO") or ""))
+    explicit_from = bool(_ascii_clean(os.getenv("SMTP_FROM") or ""))
+
+    console.print("[bold]Resolved SMTP configuration[/bold]")
+    console.print(f"  host        {smtp.host}:{smtp.port}  (STARTTLS: {smtp.use_tls})")
+    console.print(f"  user        {_mask_addr(smtp.user)}")
+    console.print(f"  password    {'set, ' + str(len(smtp.password)) + ' chars' if smtp.password else '[red]EMPTY[/red]'}")
+    console.print(f"  From        {_mask_addr(smtp.from_addr)}"
+                  f"{'' if explicit_from else '   [yellow](SMTP_FROM unset — defaulted to SMTP_USER)[/yellow]'}")
+    console.print(f"  To          {_mask_addr(smtp.to)}"
+                  f"{'' if explicit_to else '   [yellow](SMTP_TO unset — defaulted to SMTP_USER)[/yellow]'}")
+
+    if not explicit_to:
+        console.print(
+            "\n[yellow]The digest is going to the sending account itself.[/yellow] "
+            "That is the default when SMTP_TO is unset, and it is the usual reason "
+            "a digest is 'sent' every day and never seen: it is sitting in the "
+            "mailbox the agent authenticates as, not the one being watched."
+        )
+    if smtp.from_addr != smtp.user:
+        console.print(
+            "\n[yellow]From does not match the authenticated user.[/yellow] "
+            "Most providers either rewrite it or let the receiver treat the "
+            "message as spoofed; Gmail files it as spam rather than rejecting it, "
+            "so the send still looks successful."
+        )
+
+    if not send:
+        console.print("\n[dim]Re-run with --send to deliver a test message.[/dim]")
+        return
+
+    from .email_digest import send_digest
+    body = (
+        "<p>This is a test from <strong>podcast-scout mail-doctor</strong>.</p>"
+        "<p>If you are reading it, the daily digest can reach this inbox and "
+        "anything missing is a filtering or content problem rather than a "
+        "delivery one.</p>"
+    )
+    try:
+        send_digest(smtp, "Podcast Scout — mail-doctor test", body)
+    except Exception as exc:
+        console.print(f"\n[red]Send failed: {exc}[/red]")
+        raise SystemExit(1) from exc
+    console.print(f"\n[green]Accepted by {smtp.host} for {_mask_addr(smtp.to)}.[/green]")
+    console.print(
+        "[dim]Acceptance is not delivery. If nothing arrives within a few "
+        "minutes, check spam, then check that the address above is the inbox "
+        "you actually read.[/dim]"
+    )
 
 @main.command("llm-doctor")
 @click.option("--probe/--no-probe", default=True,
