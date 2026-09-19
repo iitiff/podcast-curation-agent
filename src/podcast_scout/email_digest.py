@@ -7,6 +7,7 @@ import smtplib
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.utils import formatdate, make_msgid
 from typing import NamedTuple
 
 from .brain import FalsifierHit
@@ -236,9 +237,18 @@ def send_digest(
     msg["Subject"] = Header(subject, "utf-8").encode()
     msg["From"] = _clean(from_addr)
     msg["To"] = _clean(smtp.to)
+    # Date and Message-ID were absent. Some submission services add them; a
+    # plain SMTP relay does not, and a message reaching a recipient without
+    # either is treated as unsolicited by most filters -- a mail that is
+    # accepted by the server, logged as sent, and then quietly binned.
+    # RFC 5322 requires both on an originated message anyway.
+    msg["Date"] = formatdate(localtime=True)
+    msg["Message-ID"] = make_msgid(domain=_clean(from_addr).rpartition("@")[2] or None)
 
-    if text_body:
-        msg.attach(MIMEText(text_body, "plain", "utf-8"))
+    # A multipart/alternative carrying only an HTML part is malformed in spirit
+    # and is itself a spam signal. Derive a text part from the HTML when the
+    # caller supplies none, so the alternative has something to alternate with.
+    msg.attach(MIMEText(text_body or strip_html(html_body), "plain", "utf-8"))
     msg.attach(MIMEText(html_body, "html", "utf-8"))
 
     try:
