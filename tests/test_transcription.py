@@ -142,6 +142,15 @@ async def test_a_lost_chunk_fails_the_episode_instead_of_passing_as_complete(aud
     assert result.text == "" and not result.is_full
 
 
+async def test_repeated_failures_stop_audio_for_the_run(httpx_mock):
+    httpx_mock.add_response(url="https://cdn.example.com/1.mp3", content=_FRAME * 30, is_reusable=True)
+    fake = _FakeTranscriber(fail_part=1)
+    provider = AudioTranscriptionProvider(fake, retries=0, retry_delay_s=0)
+    for _ in range(3):
+        await provider.transcribe_episode(_ep())
+    assert len(fake.calls) == 2
+
+
 async def test_audio_cap_per_run():
     provider = AudioTranscriptionProvider(_FakeTranscriber(), max_episodes=1)
     provider.episodes_attempted = 1

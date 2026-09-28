@@ -398,6 +398,7 @@ class AudioTranscriptionProvider(BaseTranscriptionProvider):
         max_episodes: int = 8,
         retries: int = 2,
         retry_delay_s: float = 20.0,
+        max_consecutive_failures: int = 2,
     ) -> None:
         self.transcriber = transcriber
         self.chunk_bytes = int(chunk_mb * 1024 * 1024)
@@ -405,6 +406,11 @@ class AudioTranscriptionProvider(BaseTranscriptionProvider):
         self.max_episodes = max_episodes
         self.retries = retries
         self.retry_delay_s = retry_delay_s
+        # An exhausted quota fails every chunk the same way, and each failure
+        # costs the full retry wait. Two episodes in a row is the signal to stop
+        # for the run instead of spending minutes on certain failures.
+        self.max_consecutive_failures = max_consecutive_failures
+        self.consecutive_failures = 0
         self.episodes_attempted = 0
 
     async def transcribe(self, episode_url: str, description: str = "") -> TranscriptResult:
@@ -436,6 +442,10 @@ class AudioTranscriptionProvider(BaseTranscriptionProvider):
         if self.max_episodes > 0 and self.episodes_attempted >= self.max_episodes:
             log.info("Audio transcription cap (%d/run) reached; skipping %s", self.max_episodes, url)
             return _EMPTY
+        if self.max_consecutive_failures > 0 and self.consecutive_failures >= self.max_consecutive_failures:
+            log.info("Audio transcription stopped for this run after %d failures; skipping %s",
+                     self.consecutive_failures, url)
+            return _EMPTY
         self.episodes_attempted += 1
         mime_type = (mime_type or "audio/mpeg").lower()
 
@@ -460,8 +470,10 @@ class AudioTranscriptionProvider(BaseTranscriptionProvider):
         for i, chunk in enumerate(chunks, start=1):
             text = await self._chunk_with_retry(chunk, mime_type, i, len(chunks), url)
             if text is None:
+                self.consecutive_failures += 1
                 return _EMPTY
             texts.append(text)
+        self.consecutive_failures = 0
 
         full = "\n\n".join(texts).strip()
         if len(full) < 200:
