@@ -10,6 +10,7 @@ from podcast_scout.providers.transcription import (
     AudioChunkTranscriber,
     AudioTranscriptionProvider,
     CascadeTranscriptionProvider,
+    GeminiAudioTranscriber,
     _extract_transcript_urls,
     _is_frame_sync,
     extract_item_transcripts,
@@ -194,3 +195,32 @@ async def test_no_tag_falls_to_audio_then_description(httpx_mock):
 
     fallback = await CascadeTranscriptionProvider().transcribe_episode(_ep())
     assert fallback.source == "description" and not fallback.is_full
+
+
+# -- Gemini backend -----------------------------------------------------------------
+
+_GEMINI = "https://generativelanguage.googleapis.com/v1beta/models"
+_OK = {"candidates": [{"content": {"parts": [
+    {"text": "thinking...", "thought": True}, {"text": "Speaker 1: hello"},
+]}}]}
+
+
+async def test_gemini_drops_thinking_config_when_rejected(httpx_mock):
+    httpx_mock.add_response(url=f"{_GEMINI}/m:generateContent", status_code=400,
+                            text="thinkingConfig is not supported")
+    httpx_mock.add_response(url=f"{_GEMINI}/m:generateContent", json=_OK)
+    t = GeminiAudioTranscriber("k", model="m", thinking_budget=0)
+    assert await t.transcribe_chunk(b"x", "audio/mpeg", 1, 1) == "Speaker 1: hello"
+    sent = httpx_mock.get_requests()
+    assert b"thinkingConfig" in sent[0].content and b"thinkingConfig" not in sent[1].content
+
+
+async def test_gemini_finds_a_live_model_when_the_configured_one_is_gone(httpx_mock):
+    httpx_mock.add_response(url=f"{_GEMINI}/gone:generateContent", status_code=404, text="not found")
+    httpx_mock.add_response(url=f"{_GEMINI}?key=k", json={"models": [
+        {"name": "models/gemini-9-flash-lite", "supportedGenerationMethods": ["generateContent"]},
+    ]})
+    httpx_mock.add_response(url=f"{_GEMINI}/gemini-9-flash-lite:generateContent", json=_OK)
+    t = GeminiAudioTranscriber("k", model="gone", thinking_budget=None)
+    assert await t.transcribe_chunk(b"x", "audio/mpeg", 1, 1) == "Speaker 1: hello"
+    assert t.model == "gemini-9-flash-lite"

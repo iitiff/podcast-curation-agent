@@ -18,6 +18,7 @@ from .base import (
     TranscriptResult,
     describe_exception,
 )
+from .llm import _discover_gemini_models
 
 if TYPE_CHECKING:
     from ..normalize import NormalizedEpisode
@@ -320,12 +321,13 @@ class GeminiAudioTranscriber(AudioChunkTranscriber):
         self.api_key = api_key
         self.model = model
         self.thinking_budget = thinking_budget
+        self._rediscovered = False
 
-    async def transcribe_chunk(self, data: bytes, mime_type: str, part: int, total: int) -> str:
+    def _payload(self, data: bytes, mime_type: str, part: int, total: int) -> dict[str, object]:
         generation: dict[str, object] = {"temperature": 0.0, "maxOutputTokens": 32768}
         if self.thinking_budget is not None:
             generation["thinkingConfig"] = {"thinkingBudget": self.thinking_budget}
-        payload = {
+        return {
             "contents": [{
                 "role": "user",
                 "parts": [
@@ -338,12 +340,32 @@ class GeminiAudioTranscriber(AudioChunkTranscriber):
             }],
             "generationConfig": generation,
         }
+
+    async def _post(
+        self, client: httpx.AsyncClient, data: bytes, mime_type: str, part: int, total: int
+    ) -> httpx.Response:
+        return await client.post(
+            f"{self.BASE_URL}/{self.model}:generateContent",
+            headers={"x-goog-api-key": self.api_key},
+            json=self._payload(data, mime_type, part, total),
+        )
+
+    async def transcribe_chunk(self, data: bytes, mime_type: str, part: int, total: int) -> str:
         async with httpx.AsyncClient(timeout=600.0) as client:
-            resp = await client.post(
-                f"{self.BASE_URL}/{self.model}:generateContent",
-                headers={"x-goog-api-key": self.api_key},
-                json=payload,
-            )
+            resp = await self._post(client, data, mime_type, part, total)
+            # Some generations reject thinkingConfig outright; drop it for the run.
+            if (resp.status_code == 400 and self.thinking_budget is not None
+                    and "thinking" in resp.text.lower()):
+                self.thinking_budget = None
+                resp = await self._post(client, data, mime_type, part, total)
+            # A retired model id is a 404; ask the API for one this key can call.
+            if resp.status_code == 404 and not self._rediscovered:
+                self._rediscovered = True
+                live = await _discover_gemini_models(client, self.api_key, self.BASE_URL)
+                if live:
+                    log.warning("Audio model %s unavailable; switching to %s", self.model, live[0])
+                    self.model = live[0]
+                    resp = await self._post(client, data, mime_type, part, total)
         if resp.status_code != 200:
             raise RuntimeError(f"Gemini audio HTTP {resp.status_code}: {resp.text[:300]}")
         body = resp.json()
