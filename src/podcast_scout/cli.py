@@ -30,7 +30,13 @@ from .providers.llm import (
     OpenAICompatibleProvider,
 )
 from .providers.podcast_search import ITunesSearchProvider, PodcastIndexProvider
-from .providers.transcription import CascadeTranscriptionProvider
+from .providers.transcription import (
+    AudioChunkTranscriber,
+    AudioTranscriptionProvider,
+    CascadeTranscriptionProvider,
+    GeminiAudioTranscriber,
+    OpenAIAudioTranscriber,
+)
 from .providers.web_search import BraveSearchProvider, NullWebSearchProvider, SerperSearchProvider
 from .ranking import (
     BUDGET_EXHAUSTED_REASON,
@@ -54,6 +60,7 @@ from .sources import (
 from .state import EpisodeRecord, StateManager
 from .summarization import process_episodes
 from .synthesis import generate_synthesis
+from .transcripts import TranscriptArchive
 
 console = Console()
 log = logging.getLogger(__name__)
@@ -92,6 +99,40 @@ def _make_web_search(
             return SerperSearchProvider(settings.web_search_api_key)
         return BraveSearchProvider(settings.web_search_api_key)
     return NullWebSearchProvider()
+
+
+def _make_audio_transcription(settings: Settings) -> AudioTranscriptionProvider | None:
+    """Audio transcription backend, or None when disabled or unconfigured."""
+    if not settings.enable_audio_transcription:
+        return None
+    provider = settings.audio_transcription_provider or (
+        "gemini" if settings.gemini_api_key else "openai"
+    )
+    transcriber: AudioChunkTranscriber
+    if provider == "gemini" and settings.gemini_api_key:
+        transcriber = GeminiAudioTranscriber(
+            settings.gemini_api_key,
+            model=settings.audio_transcription_model or "gemini-2.5-flash",
+            thinking_budget=settings.gemini_thinking_budget,
+        )
+    elif provider == "openai" and settings.openai_api_key:
+        transcriber = OpenAIAudioTranscriber(
+            settings.openai_api_key,
+            model=settings.audio_transcription_model or "whisper-1",
+        )
+    else:
+        console.print(
+            f"[yellow]ENABLE_AUDIO_TRANSCRIPTION is set but provider {provider!r} has no API key; "
+            "audio will not be transcribed.[/yellow]"
+        )
+        return None
+    console.print(f"Audio transcription: {provider} ({type(transcriber).__name__})")
+    return AudioTranscriptionProvider(
+        transcriber,
+        chunk_mb=settings.audio_chunk_mb,
+        max_audio_mb=settings.max_audio_mb,
+        max_episodes=settings.max_audio_transcriptions_per_run,
+    )
 
 
 def _make_llm(settings: Settings) -> BaseLLMProvider | None:
@@ -569,9 +610,10 @@ async def _run_pipeline(
     llm = _make_llm(settings)
 
     # 5. Rank new episodes
-    transcription = CascadeTranscriptionProvider(
-        openai_api_key=None,
-        enable_whisper=settings.enable_audio_transcription,
+    transcription = CascadeTranscriptionProvider(audio=_make_audio_transcription(settings))
+    archive = (
+        TranscriptArchive(settings.transcripts_dir, settings.transcript_retention_days)
+        if settings.archive_transcripts else None
     )
     non_empty_categories = [category for category in active_categories if episodes_by_category.get(category)]
     token_budget_per_category = settings.max_llm_tokens_per_run // max(1, len(non_empty_categories))
@@ -595,7 +637,7 @@ async def _run_pipeline(
         if llm:
             category_ranked = await process_episodes(
                 candidates,
-                prefs=prefs, llm=llm, transcription=transcription,
+                prefs=prefs, llm=llm, transcription=transcription, archive=archive,
                 max_deep_process=15,
                 # Headroom over max_reading so the track still has something to
                 # show after low scorers are classified Skip.
@@ -628,6 +670,13 @@ async def _run_pipeline(
     moved = _apply_assigned_categories(newly_ranked, set(active_categories))
     if moved:
         console.print(f"  [dim]Re-routed {moved} item(s) by topic[/dim]")
+
+    # Written before the degraded-run guard below: a transcript is valid even
+    # when the ranking that read it failed, and the retry reuses it.
+    if archive is not None:
+        archive.annotate(r for cat_ranked in newly_ranked.values() for r in cat_ranked)
+        archive.flush()
+        console.print(f"Transcript archive: {len(archive)} full transcript(s) in {settings.transcripts_dir}")
 
     # 5b. Abort if an LLM was configured but every episode still degraded to
     # metadata-only scoring.

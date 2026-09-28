@@ -301,7 +301,28 @@ class Settings:
         self.podcast_index_secret = _env("PODCAST_INDEX_SECRET")
         self.web_search_api_key = _env("WEB_SEARCH_API_KEY")
         self.web_search_provider = _env("WEB_SEARCH_PROVIDER", "brave")
+        # ---- Transcripts ----------------------------------------------------
+        # Most shows publish no podcast:transcript, so reading an entire episode
+        # means transcribing its audio. Off by default because it is the one
+        # step that downloads whole episodes and spends quota on each.
         self.enable_audio_transcription = _env("ENABLE_AUDIO_TRANSCRIPTION", "false").lower() == "true"
+        # "gemini" reuses GEMINI_API_KEY; "openai" needs OPENAI_API_KEY. Empty
+        # picks gemini when a Gemini key exists, else openai.
+        self.audio_transcription_provider = _env("AUDIO_TRANSCRIPTION_PROVIDER", "").lower()
+        self.audio_transcription_model = _env("AUDIO_TRANSCRIPTION_MODEL", "")
+        self.openai_api_key = _env("OPENAI_API_KEY")
+        # Each episode is several requests (one per ~12MB of audio), so this is
+        # the lever on both cost and free-tier quota. 0 means no cap.
+        self.max_audio_transcriptions_per_run = int(_env("MAX_AUDIO_TRANSCRIPTIONS_PER_RUN", "8"))
+        self.max_audio_mb = float(_env("MAX_AUDIO_MB", "400"))
+        self.audio_chunk_mb = float(_env("AUDIO_CHUNK_MB", "12"))
+        # Full transcripts are archived for downstream readers. Empty
+        # ARCHIVE_TRANSCRIPTS=false turns it off; retention 0 keeps everything.
+        self.archive_transcripts = _env("ARCHIVE_TRANSCRIPTS", "true").lower() == "true"
+        self.transcripts_dir = (
+            Path(_env("TRANSCRIPTS_DIR")) if _env("TRANSCRIPTS_DIR") else self.data_dir / "transcripts"
+        )
+        self.transcript_retention_days = int(_env("TRANSCRIPT_RETENTION_DAYS", "60"))
         self.max_cost_usd_per_run = float(_env("MAX_COST_USD_PER_RUN", "2.00"))
         self.max_llm_tokens_per_run = int(_env("MAX_LLM_TOKENS_PER_RUN", "500000"))
         self.lookback_days = int(_env("LOOKBACK_DAYS", "3"))

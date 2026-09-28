@@ -3,6 +3,10 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..normalize import NormalizedEpisode
 
 # ---------------------------------------------------------------------------
 # Podcast search
@@ -89,8 +93,19 @@ class BaseLLMProvider(ABC):
 @dataclass
 class TranscriptResult:
     text: str = ""
-    source: str = "none"      # "whisper" | "publisher" | "description" | "none"
+    # "publisher" | "audio" (Gemini) | "whisper" (OpenAI) | "description" | "none"
+    source: str = "none"
     confidence: str = "low"   # "high" | "medium" | "low" | "none"
+
+    @property
+    def is_full(self) -> bool:
+        """Is this the whole episode, rather than a description standing in for it?"""
+        return bool(self.text) and self.source in FULL_TRANSCRIPT_SOURCES
+
+
+# Sources that carry the entire spoken episode. Everything else is the show
+# notes, which say what an episode is about but not what was said in it.
+FULL_TRANSCRIPT_SOURCES = frozenset({"publisher", "audio", "whisper"})
 
 
 class BaseTranscriptionProvider(ABC):
@@ -99,6 +114,15 @@ class BaseTranscriptionProvider(ABC):
         self, episode_url: str, description: str = ""
     ) -> TranscriptResult:
         ...
+
+    async def transcribe_episode(self, episode: NormalizedEpisode) -> TranscriptResult:
+        """Transcribe with everything known about the episode.
+
+        The default keeps providers that only understand a URL working; the
+        cascade overrides it to use the feed, the per-item transcript tags and
+        the audio enclosure, none of which fit through `transcribe()`.
+        """
+        return await self.transcribe(episode.episode_url, episode.description)
 
 
 def describe_exception(exc: BaseException) -> str:
