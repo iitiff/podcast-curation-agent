@@ -67,7 +67,7 @@ podcast-curation-agent/
 │       ├── base.py             # Abstract provider interfaces
 │       ├── llm.py              # Gemini (primary) + OpenAI-compatible (fallback)
 │       ├── podcast_search.py   # Podcast Index + iTunes providers
-│       ├── transcription.py    # Cascade transcription (Whisper optional)
+│       ├── transcription.py    # Publisher transcript → chunked audio → description
 │       └── web_search.py       # Brave / Serper / Null providers
 ├── config/
 │   ├── preferences.example.yaml        # Persona, show priors, output caps, watchlists
@@ -192,7 +192,14 @@ uv run podcast-scout run
 | `PODCAST_INDEX_SECRET` | No | Podcast Index secret |
 | `WEB_SEARCH_API_KEY` | No | Brave Search or Serper.dev key for outside-feed discovery |
 | `WEB_SEARCH_PROVIDER` | No | `brave` (default) or `serper` |
-| `ENABLE_AUDIO_TRANSCRIPTION` | No | `true` to enable Whisper transcription (increases cost) |
+| `ENABLE_AUDIO_TRANSCRIPTION` | No | `true` to transcribe the audio of episodes whose show publishes no transcript. Spends quota per ~12MB chunk |
+| `AUDIO_TRANSCRIPTION_PROVIDER` | No | `gemini` (uses `GEMINI_API_KEY`) or `openai` (uses `OPENAI_API_KEY`). Empty picks Gemini when a key exists |
+| `AUDIO_TRANSCRIPTION_MODEL` | No | Override the transcription model (defaults: `gemini-2.5-flash`, `whisper-1`) |
+| `MAX_AUDIO_TRANSCRIPTIONS_PER_RUN` | No | Episodes transcribed from audio per run (default `8`, `0` = no cap) |
+| `MAX_AUDIO_MB` / `AUDIO_CHUNK_MB` | No | Largest episode downloaded (default `400`) and chunk size per request (default `12`) |
+| `ARCHIVE_TRANSCRIPTS` | No | Write full transcripts to `TRANSCRIPTS_DIR` (default `true`) |
+| `TRANSCRIPTS_DIR` | No | Transcript archive location (default `DATA_DIR/transcripts`) |
+| `TRANSCRIPT_RETENTION_DAYS` | No | Days a transcript is kept (default `60`, `0` = forever) |
 | `MAX_COST_USD_PER_RUN` | No | Cost circuit-breaker (default: `2.00`) |
 | `MAX_LLM_TOKENS_PER_RUN` | No | Token budget across all categories (default: `500000`) |
 | `SMTP_HOST` | No | SMTP server for email digest |
@@ -324,6 +331,20 @@ After each run, the following are published to **GitHub Pages** at `https://iiti
 | `personal-growth.xml` | Personal growth & mindfulness episodes |
 | `data/latest.json` | Machine-readable run output with scores, summaries, key ideas |
 | `latest.md` | Markdown version of the briefing |
+
+### Transcript archive
+
+Every episode that reaches Stage 2 with a **full** transcript (the show's own
+`podcast:transcript`, or its audio transcribed) is kept in `DATA_DIR/transcripts/`
+so other tools can read what was actually said, not just the summary:
+
+| Path | Description |
+|---|---|
+| `transcripts/index.json` | `{generated_at, count, episodes: [...]}`, newest first. Each entry: `guid, show, title, published, episode_url, feed_url, audio_url, duration_min, category, transcript_source, chars, path, archived_at, score, classification, summary, key_ideas` |
+| `transcripts/<guid>.txt` | The transcript text |
+
+Show notes standing in for a transcript are never archived. These stay in the data
+directory, not on GitHub Pages: the text belongs to the shows.
 
 ---
 
