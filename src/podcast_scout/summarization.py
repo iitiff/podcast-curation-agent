@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 import os
+from typing import TYPE_CHECKING
 
 from .config import Preferences
 from .normalize import NormalizedEpisode
@@ -17,6 +18,9 @@ from .ranking import (
     stage1_metadata_score,
     stage2_batch_rank,
 )
+
+if TYPE_CHECKING:
+    from .transcripts import TranscriptArchive
 
 log = logging.getLogger(__name__)
 
@@ -105,6 +109,7 @@ async def process_episodes(
     token_budget_per_episode: int = 5000,
     total_token_budget: int = 400_000,
     persona_emphasis: str = "",
+    archive: TranscriptArchive | None = None,
 ) -> list[RankedEpisode]:
     """Stage 1 filter then Stage 2 deep-rank top candidates.
 
@@ -143,14 +148,21 @@ async def process_episodes(
     ranked: list[RankedEpisode] = []
     tokens_used = 0
 
-    # Fetch transcripts for all deep candidates first (these are cheap/free)
+    # Fetch transcripts for all deep candidates first. Publisher transcripts
+    # are free; audio transcription is capped per run by its provider.
     transcript_map: dict[str, TranscriptResult] = {}
     for ep in deep_candidates:
-        transcript = await transcription.transcribe(
-            episode_url=ep.episode_url,
-            description=ep.description,
-        )
+        cached = archive.load(ep.guid) if archive is not None else None
+        if cached is not None:
+            transcript_map[ep.guid] = cached
+            continue
+        transcript = await transcription.transcribe_episode(ep)
         transcript_map[ep.guid] = transcript
+        # Saved before ranking so a Stage 2 failure cannot lose a transcript
+        # that may have cost an hour of audio transcription.
+        if archive is not None and archive.save(ep, transcript):
+            log.info("Archived %s transcript for %s (%d chars)",
+                     transcript.source, ep.guid, len(transcript.text))
 
     # Batch Stage 2 LLM calls: process _BATCH_SIZE episodes per API call
     for batch_start in range(0, len(deep_candidates), _BATCH_SIZE):

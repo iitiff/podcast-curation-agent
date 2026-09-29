@@ -22,6 +22,12 @@ class Enclosure(BaseModel):
     length: int = 0
 
 
+class TranscriptRef(BaseModel):
+    """A transcript the publisher links from this episode's <podcast:transcript> tag."""
+    url: str
+    mime_type: str = "text/vtt"
+
+
 class NormalizedEpisode(BaseModel):
     guid: str
     source_feed_url: str
@@ -45,6 +51,10 @@ class NormalizedEpisode(BaseModel):
     source_type: str = "podcast"
     credibility: str = "medium"  # high | medium | low
     bias_notes: str = ""
+    # Captured from the episode's own <item> at parse time. Feedparser keeps
+    # only the last podcast:transcript tag per entry, and re-fetching the feed
+    # later cannot tell which item's tag belongs to this episode.
+    transcript_urls: list[TranscriptRef] = Field(default_factory=list)
 
     @property
     def is_playable(self) -> bool:

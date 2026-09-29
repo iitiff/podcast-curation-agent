@@ -8,7 +8,8 @@ from typing import Any
 import feedparser
 import httpx
 
-from .normalize import Enclosure, NormalizedEpisode, make_guid, utcnow
+from .normalize import Enclosure, NormalizedEpisode, TranscriptRef, make_guid, utcnow
+from .providers.transcription import extract_item_transcripts
 
 log = logging.getLogger(__name__)
 
@@ -58,6 +59,10 @@ def parse_feed_entries(
     if hasattr(parsed.feed, "image") and parsed.feed.image:
         image_url = _safe_str(getattr(parsed.feed.image, "href", ""))
 
+    # feedparser keeps only one podcast:transcript per entry, so read the tags
+    # from the raw XML, keyed by each item's guid and enclosure URL.
+    transcripts_by_item = extract_item_transcripts(text)
+
     episodes: list[NormalizedEpisode] = []
     for entry in parsed.entries[:max_entries * 3]:
         pub = _parse_struct_time(getattr(entry, "published_parsed", None))
@@ -86,6 +91,10 @@ def parse_feed_entries(
                 )
                 break
 
+        refs = transcripts_by_item.get(orig_guid) or (
+            transcripts_by_item.get(enclosure.url, []) if enclosure else []
+        )
+
         ep = NormalizedEpisode(
             guid=make_guid(feed_url, orig_guid),
             source_feed_url=feed_url,
@@ -98,6 +107,7 @@ def parse_feed_entries(
             episode_url=link,
             enclosure=enclosure,
             image_url=image,
+            transcript_urls=[TranscriptRef(url=url, mime_type=mime) for url, mime in refs],
         )
         episodes.append(ep)
         if len(episodes) >= max_entries:
