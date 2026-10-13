@@ -583,11 +583,46 @@ def build_daily_queue(
     return rss, email_only, reading
 
 
-# Both the transcript and the description path are capped. The description was
-# previously passed whole, which was harmless while every item was a podcast
-# and `description` meant a short RSS blurb -- an earnings exhibit carries
+# The transcript path and the description path are capped separately, because
+# they are not the same kind of text.
+#
+# A real transcript is the whole point of Stage 2. Clipping it to 2500
+# characters left the model ~400-600 words -- an opening ad read and a round of
+# introductions -- so summaries and key ideas were being derived from material
+# that had not reached the substance yet, negating the transcript fetch.
+#
+# A description is not a transcript and gets no such room. It was previously
+# passed whole, which was harmless while every item was a podcast and
+# `description` meant a short RSS blurb -- an earnings exhibit carries
 # thousands of words and would silently blow the batch's token budget.
-_MAX_SOURCE_TEXT = 2500
+_MAX_SOURCE_TEXT = 40_000
+_MAX_DESCRIPTION_TEXT = 2500
+
+# Output-token allowances per item, used to size the completion budget to what
+# the batch actually contains. A transcript-backed item yields a fuller rubric,
+# a longer summary and more key ideas than a description-only one, so it needs
+# more room to come back without truncating the JSON array.
+_TOKENS_PER_ITEM_DESCRIPTION = 800
+_TOKENS_PER_ITEM_TRANSCRIPT = 1_500
+
+
+def _batch_token_budget(
+    items: list[tuple[NormalizedEpisode, TranscriptResult]],
+    default: int = 8_000,
+) -> int:
+    """Return an output-token budget sized to actual batch content.
+
+    The caller's value is a floor, never a ceiling: this only ever raises the
+    budget. It guards the JSON array against being truncated mid-way, which
+    drops every unmatched episode to the metadata floor.
+    """
+    high_confidence_sources = {"publisher", "whisper"}
+    total = sum(
+        _TOKENS_PER_ITEM_TRANSCRIPT if transcript.source in high_confidence_sources
+        else _TOKENS_PER_ITEM_DESCRIPTION
+        for _, transcript in items
+    )
+    return max(default, total)
 
 
 def _media_guidance() -> str:
@@ -671,7 +706,7 @@ def _build_item_block(idx: int, ep: NormalizedEpisode, transcript: TranscriptRes
     source_text = (
         transcript.text[:_MAX_SOURCE_TEXT]
         if transcript.text
-        else f"{ep.episode_title}\n\n{ep.description}"[:_MAX_SOURCE_TEXT]
+        else f"{ep.episode_title}\n\n{ep.description}"[:_MAX_DESCRIPTION_TEXT]
     )
     if ep.source_type == "podcast":
         return (
@@ -704,6 +739,9 @@ async def stage2_batch_rank(
     """Rank multiple episodes in a SINGLE LLM call to conserve API quota."""
     if not items:
         return []
+
+    # Treat the caller-supplied value as a floor; increase it only when needed.
+    token_budget = _batch_token_budget(items, default=token_budget)
 
     persona_ctx = (
         f"You are ranking research material for a {prefs.persona.seniority} "

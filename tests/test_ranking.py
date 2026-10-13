@@ -6,12 +6,14 @@ import pytest
 
 from podcast_scout.config import CategoryFeedConfig, PersonaConfig, Preferences
 from podcast_scout.normalize import Enclosure, NormalizedEpisode
+from podcast_scout.providers.base import TranscriptResult
 from podcast_scout.ranking import (
     BATCH_MISSING_REASON,
     BUDGET_EXHAUSTED_REASON,
     STAGE1_ONLY_REASON,
     RankedEpisode,
     RubricScore,
+    _batch_token_budget,
     _build_item_block,
     _topic_affinity,
     _topic_terms,
@@ -318,6 +320,58 @@ def test_long_source_text_is_capped():
     block = _build_item_block(0, huge, _no_transcript())
 
     assert len(block) < 4_000
+
+
+def _transcript(source: str, length: int = 100) -> TranscriptResult:
+    return TranscriptResult(text="y" * length, confidence="high", source=source)
+
+
+def test_transcript_text_gets_far_more_room_than_a_description():
+    """The description cap is not the transcript cap. Clipping a real
+    transcript to a couple of thousand characters left the model an ad read and
+    the introductions, which is what the transcript fetch exists to get past."""
+    block = _build_item_block(0, _make_ep(), _transcript("publisher", 50_000))
+
+    assert len(block) > 39_000
+
+
+def test_transcript_text_is_still_capped():
+    """More room is not unlimited room -- a multi-item batch still has to fit."""
+    block = _build_item_block(0, _make_ep(), _transcript("publisher", 200_000))
+
+    assert len(block) < 41_000
+
+
+def test_batch_token_budget_never_lowers_the_callers_value():
+    """The caller's per-episode arithmetic is a floor. Returning less than it
+    asked for would truncate the JSON array it had already sized for."""
+    items = [(_make_ep(), _no_transcript())]
+
+    assert _batch_token_budget(items, default=15_000) == 15_000
+
+
+def test_description_only_batch_keeps_the_standard_floor():
+    items = [(_make_ep(), _no_transcript()) for _ in range(3)]
+
+    assert _batch_token_budget(items, default=8_000) == 8_000
+
+
+@pytest.mark.parametrize("source", ["publisher", "whisper"])
+def test_transcript_backed_batch_raises_the_budget_above_the_floor(source):
+    """A real transcript yields a fuller rubric and a longer summary, so a big
+    batch of them needs more output room than the default floor allows."""
+    items = [(_make_ep(), _transcript(source)) for _ in range(10)]
+
+    assert _batch_token_budget(items, default=8_000) == 15_000
+
+
+def test_mixed_batch_counts_each_item_by_its_own_source():
+    items = [
+        (_make_ep(), _transcript("publisher")),
+        (_make_ep(), _no_transcript()),
+    ]
+
+    assert _batch_token_budget(items, default=0) == 1_500 + 800
 
 
 class _CapturingLLM:
