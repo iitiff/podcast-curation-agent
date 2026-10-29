@@ -5,7 +5,7 @@
     <description>Curated AI, retail, eCommerce, and product craft episodes.</description>
     <link>https://example.com</link>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Oct 2026 10:58:09 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 29 Oct 2026 11:17:02 +0000</lastBuildDate>
     <itunes:explicit>false</itunes:explicit>
     <itunes:block>Yes</itunes:block>
     <atom:link href="" rel="self" type="application/rss+xml" />
@@ -13,7 +13,33 @@
       <itunes:name>Your Name</itunes:name>
     </itunes:owner>
     <item>
-      <title>🎧 LISTEN #1 — Long Strange Trip: Luca Ferrari: The Operating System Behind Bending Spoons</title>
+      <title>🎧 LISTEN #1 — Retailgentic: Shoppers Take the Agent’s Top Pick: Growth Memo Author Kevin Indig on How People Really Shop in ChatGPT and AI Mode</title>
+      <link>https://share.transistor.fm/s/db9d2239</link>
+      <guid isPermaLink="false">7af048210548b0ef</guid>
+      <pubDate>Thu, 29 Oct 2026 11:17:02 +0000</pubDate>
+      <itunes:duration>2694</itunes:duration>
+      <content:encoded><![CDATA[<p><strong>Score: 88/100</strong> | Listen Fully | Confidence: low</p><p><em>Originally published 29 Oct 2026</em></p><p><em>Exceptionally high signal density and empirical rigor regarding consumer behavioral shifts in AI-native search and recommendation interfaces. Provides critical data for multi-year agentic commerce strategies.</em></p><h3>Summary</h3><p>Kevin Indig shares concrete findings from five user-behavior studies tracking how consumers interact with AI interfaces like ChatGPT and Google&#x27;s AI modes during product discovery. The conversation reveals that consumers overwhelmingly accept AI recommendations without secondary verification, exhibiting an extreme top-position bias. Indig breaks down query fan-out mechanics, the shifting importance of Google Merchant Center over Search Console, and provides realistic timelines for agentic commerce adoption versus AI research.</p><h3>Key Ideas</h3><ul><li>Over 88% of users accept the frame presented by an AI product shortlist without questioning it, and 75% choose the first item listed, while only 3% attempt cross-verification on external sites.</li><li>Strong brand equity serves as the primary mechanism capable of breaking AI list position bias: recognized brands at position 5 consistently beat non-brands in position 1.</li><li>AI engines perform live multi-query &#x27;fan-outs&#x27; across dozens to hundreds of keywords; optimizing for ranking in these fan-out sub-queries directly determines citation frequency and carousel insertion.</li></ul><h3>Implications</h3><p>[&#x27;Product leaders must pivot optimization strategies away from traditional SEO/Search Console toward Merchant Center structured feed precision and AI fan-out query coverage.&#x27;, &#x27;Because user verification on AI shortlists is near zero (3%), placement in AI decision carousels will consolidate market share into top-ranked items faster than traditional SERPs.&#x27;]</p><p><a href="https://share.transistor.fm/s/db9d2239">Listen / Read original</a></p>]]></content:encoded>
+      <description>Kevin Indig shares concrete findings from five user-behavior studies tracking how consumers interact with AI interfaces like ChatGPT and Google's AI modes during product discovery. The conversation reveals that consumers overwhelmingly accept AI recommendations without secondary verification, exhibiting an extreme top-position bias. Indig breaks down query fan-out mechanics, the shifting importance of Google Merchant Center over Search Console, and provides realistic timelines for agentic commerce adoption versus AI research.</description>
+      <itunes:summary><![CDATA[<p><strong>Score: 88/100</strong> | Listen Fully | Confidence: low</p><p><em>Originally published 29 Oct 2026</em></p><p><em>Exceptionally high signal density and empirical rigor regarding consumer behavioral shifts in AI-native search and recommendation interfaces. Provides critical data for multi-year agentic commerce strategies.</em></p><h3>Summary</h3><p>Kevin Indig shares concrete findings from five user-behavior studies tracking how consumers interact with AI interfaces like ChatGPT and Google&#x27;s AI modes during product discovery. The conversation reveals that consumers overwhelmingly accept AI recommendations without secondary verification, exhibiting an extreme top-position bias. Indig breaks down query fan-out mechanics, the shifting importance of Google Merchant Center over Search Console, and provides realistic timelines for agentic commerce adoption versus AI research.</p><h3>Key Ideas</h3><ul><li>Over 88% of users accept the frame presented by an AI product shortlist without questioning it, and 75% choose the first item listed, while only 3% attempt cross-verification on external sites.</li><li>Strong brand equity serves as the primary mechanism capable of breaking AI list position bias: recognized brands at position 5 consistently beat non-brands in position 1.</li><li>AI engines perform live multi-query &#x27;fan-outs&#x27; across dozens to hundreds of keywords; optimizing for ranking in these fan-out sub-queries directly determines citation frequency and carousel insertion.</li></ul><h3>Implications</h3><p>[&#x27;Product leaders must pivot optimization strategies away from traditional SEO/Search Console toward Merchant Center structured feed precision and AI fan-out query coverage.&#x27;, &#x27;Because user verification on AI shortlists is near zero (3%), placement in AI decision carousels will consolidate market share into top-ranked items faster than traditional SERPs.&#x27;]</p><p><a href="https://share.transistor.fm/s/db9d2239">Listen / Read original</a></p>]]></itunes:summary>
+      <itunes:subtitle>88/100 — Kevin Indig shares concrete findings from five user-behavior studies tracking how consumers interact with AI interfaces like ChatGPT and Google's AI modes during product discovery.</itunes:subtitle>
+      <enclosure url="https://media.transistor.fm/db9d2239/18afd93b.mp3" type="audio/mpeg" length="43156534" />
+      <itunes:image href="https://img.transistorcdn.com/z0WaWp5HA63aG4pjK6yukeoxil8yfMjQ612brGpkOQw/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS9jOTY0/ZWE2NzE4ZDI5MGRk/OWVlZjI2ZWJiOGQx/YzY1Yy5qcGc.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #2 — Mobile Dev Memo: Season 8, Episode 4: Designing eCommerce for agentic discovery (with Rishabh Jain)</title>
+      <link>https://podcasters.spotify.com/pod/show/mobile-dev-memo/episodes/Season-8--Episode-4-Designing-eCommerce-for-agentic-discovery-with-Rishabh-Jain-e3r905a</link>
+      <guid isPermaLink="false">08e90f983e2307e4</guid>
+      <pubDate>Thu, 29 Oct 2026 11:17:02 +0000</pubDate>
+      <itunes:duration>3075</itunes:duration>
+      <content:encoded><![CDATA[<p><strong>Score: 84/100</strong> | Listen Fully | Confidence: low</p><p><em>Originally published 28 Oct 2026</em></p><p><em>Directly targets agentic discovery, e-commerce site architecture modifications for agents, and shifting monetization models (ads vs subscriptions) for AI product recommendations, perfectly matching the persona&#x27;s focus on agentic commerce and platform strategy.</em></p><h3>Summary</h3><p>Eric Seufert interviews Rishabh Jain, founder of FERMÀT Commerce, on how specialized AI agents are transforming e-commerce discovery and transaction mechanics. The discussion covers the transition from structured search interfaces to natural language agent interactions, structural changes required for merchant sites to serve agent requests (beyond human-centric UI/UX), and how agentic discovery alters customer trust in high-value e-commerce transactions. They analyze structural business model shifts, specifically whether recommendation and ranking in agentic commerce will be funded via traditional ad auctions or subscription fees, and how independent brands can use agentic discovery protocols to counter Amazon&#x27;s distribution dominance. The conversation also explores human-in-the-loop dependencies in agentic buying decisions and the rewiring of social commerce funnels.</p><h3>Key Ideas</h3><ul><li>Merchant websites must evolve their underlying architecture to expose machine-readable data structures and API endpoints optimized for autonomous agent interactions, rather than relying exclusively on human-oriented visual UI.</li><li>Agentic commerce shifts the primary discovery monetization model, forcing platforms to evaluate whether product placement and ranking will be driven by sponsored ad auctions or subscription-based neutral optimization.</li><li>AI agent mediation can resolve multi-category trust barriers in e-commerce by programmatically verifying return policies, fit metrics, and product authenticity before transaction execution.</li></ul><h3>Implications</h3><p>[&#x27;Retail product leaders must evaluate whether their current e-commerce catalog APIs and decisioning layers are readable and transactional for third-party AI agents.&#x27;, &#x27;Personalization teams need to map out how agent-mediated customer states differ from direct human browsing state models.&#x27;, &#x27;Strategic planning should account for shifts in advertising spend if recommendation algorithms move from cost-per-click ad auctions to agent-driven conversion optimization.&#x27;]</p><p><a href="https://podcasters.spotify.com/pod/show/mobile-dev-memo/episodes/Season-8--Episode-4-Designing-eCommerce-for-agentic-discovery-with-Rishabh-Jain-e3r905a">Listen / Read original</a></p>]]></content:encoded>
+      <description>Eric Seufert interviews Rishabh Jain, founder of FERMÀT Commerce, on how specialized AI agents are transforming e-commerce discovery and transaction mechanics. The discussion covers the transition from structured search interfaces to natural language agent interactions, structural changes required for merchant sites to serve agent requests (beyond human-centric UI/UX), and how agentic discovery alters customer trust in high-value e-commerce transactions. They analyze structural business model shifts, specifically whether recommendation and ranking in agentic commerce will be funded via traditional ad auctions or subscription fees, and how independent brands can use agentic discovery protocols to counter Amazon's distribution dominance. The conversation also explores human-in-the-loop dependencies in agentic buying decisions and the rewiring of social commerce funnels.</description>
+      <itunes:summary><![CDATA[<p><strong>Score: 84/100</strong> | Listen Fully | Confidence: low</p><p><em>Originally published 28 Oct 2026</em></p><p><em>Directly targets agentic discovery, e-commerce site architecture modifications for agents, and shifting monetization models (ads vs subscriptions) for AI product recommendations, perfectly matching the persona&#x27;s focus on agentic commerce and platform strategy.</em></p><h3>Summary</h3><p>Eric Seufert interviews Rishabh Jain, founder of FERMÀT Commerce, on how specialized AI agents are transforming e-commerce discovery and transaction mechanics. The discussion covers the transition from structured search interfaces to natural language agent interactions, structural changes required for merchant sites to serve agent requests (beyond human-centric UI/UX), and how agentic discovery alters customer trust in high-value e-commerce transactions. They analyze structural business model shifts, specifically whether recommendation and ranking in agentic commerce will be funded via traditional ad auctions or subscription fees, and how independent brands can use agentic discovery protocols to counter Amazon&#x27;s distribution dominance. The conversation also explores human-in-the-loop dependencies in agentic buying decisions and the rewiring of social commerce funnels.</p><h3>Key Ideas</h3><ul><li>Merchant websites must evolve their underlying architecture to expose machine-readable data structures and API endpoints optimized for autonomous agent interactions, rather than relying exclusively on human-oriented visual UI.</li><li>Agentic commerce shifts the primary discovery monetization model, forcing platforms to evaluate whether product placement and ranking will be driven by sponsored ad auctions or subscription-based neutral optimization.</li><li>AI agent mediation can resolve multi-category trust barriers in e-commerce by programmatically verifying return policies, fit metrics, and product authenticity before transaction execution.</li></ul><h3>Implications</h3><p>[&#x27;Retail product leaders must evaluate whether their current e-commerce catalog APIs and decisioning layers are readable and transactional for third-party AI agents.&#x27;, &#x27;Personalization teams need to map out how agent-mediated customer states differ from direct human browsing state models.&#x27;, &#x27;Strategic planning should account for shifts in advertising spend if recommendation algorithms move from cost-per-click ad auctions to agent-driven conversion optimization.&#x27;]</p><p><a href="https://podcasters.spotify.com/pod/show/mobile-dev-memo/episodes/Season-8--Episode-4-Designing-eCommerce-for-agentic-discovery-with-Rishabh-Jain-e3r905a">Listen / Read original</a></p>]]></itunes:summary>
+      <itunes:subtitle>84/100 — Eric Seufert interviews Rishabh Jain, founder of FERMÀT Commerce, on how specialized AI agents are transforming e-commerce discovery and transaction mechanics.</itunes:subtitle>
+      <enclosure url="https://anchor.fm/s/45369a8/podcast/play/128269930/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-28%2F8a5571dc-9159-a45c-74ad-934f3e453dad.mp3" type="audio/mpeg" length="73820496" />
+      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/625754/625754-1527005004224-aa658e3335357.jpg" />
+    </item>
+    <item>
+      <title>🎧 LISTEN #3 — Long Strange Trip: Luca Ferrari: The Operating System Behind Bending Spoons</title>
       <link />
       <guid isPermaLink="false">ef9cd6b2f6c060f3</guid>
       <pubDate>Thu, 08 Oct 2026 11:55:16 +0000</pubDate>
@@ -26,7 +52,7 @@
       <itunes:image href="https://megaphone.imgix.net/podcasts/f29bb210-c299-11f1-af86-9b6bfb10fcc2/image/95e2d586da998b309c292cc30a116f98.jpg?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #2 — Retailgentic: “Bad Data Equals Bad AI”: Ekta Chopra, e.l.f. Beauty’s Chief Technology &amp; AI Officer - Live from Retailclub</title>
+      <title>🎧 LISTEN #4 — Retailgentic: “Bad Data Equals Bad AI”: Ekta Chopra, e.l.f. Beauty’s Chief Technology &amp; AI Officer - Live from Retailclub</title>
       <link>https://share.transistor.fm/s/c6b20fb7</link>
       <guid isPermaLink="false">f0b8b9f4b4b5e4e2</guid>
       <pubDate>Fri, 09 Oct 2026 11:42:48 +0000</pubDate>
@@ -39,7 +65,7 @@
       <itunes:image href="https://img.transistorcdn.com/T-ohGS_rkc5jqgdqIjYR-_d1k7h2JU9bExq3xWcogJY/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS9jNDk2/NTE0MjJjOTg4ZTgx/OWMxM2JmN2UxZTk5/NzZmMi5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #3 — Retailgentic: The Shelf Is a Zero-Sum Game: Wilde Brands Senior Director Justin Bomberowitz on Growing Challenger CPGs in the Agentic Commerce Era</title>
+      <title>🎧 LISTEN #5 — Retailgentic: The Shelf Is a Zero-Sum Game: Wilde Brands Senior Director Justin Bomberowitz on Growing Challenger CPGs in the Agentic Commerce Era</title>
       <link>https://share.transistor.fm/s/3607249a</link>
       <guid isPermaLink="false">ca0287ac70078271</guid>
       <pubDate>Thu, 15 Oct 2026 09:37:37 +0000</pubDate>
@@ -52,7 +78,7 @@
       <itunes:image href="https://img.transistorcdn.com/XYZl6yrW9b6okLcUtrXy47QU6FlS1SKq6u3VcX0F71E/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS9iODBk/ZjJlNzhlY2VhZDg0/NzZjMWI2ODQzOGNi/ZTczMC5qcGc.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #4 — Mobile Dev Memo: Season 8, Episode 3: Amazon and Agentic Commerce (with Adam Epstein)</title>
+      <title>🎧 LISTEN #6 — Mobile Dev Memo: Season 8, Episode 3: Amazon and Agentic Commerce (with Adam Epstein)</title>
       <link>https://podcasters.spotify.com/pod/show/mobile-dev-memo/episodes/Season-8--Episode-3-Amazon-and-Agentic-Commerce-with-Adam-Epstein-e3qrjq5</link>
       <guid isPermaLink="false">4a1734ad3809451c</guid>
       <pubDate>Thu, 22 Oct 2026 09:51:07 +0000</pubDate>
@@ -65,7 +91,7 @@
       <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/625754/625754-1527005004224-aa658e3335357.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #5 — Mobile Dev Memo: Season 8, Episode 2: Will consumers adopt agentic commerce? (with Michael Morton)</title>
+      <title>🎧 LISTEN #7 — Mobile Dev Memo: Season 8, Episode 2: Will consumers adopt agentic commerce? (with Michael Morton)</title>
       <link>https://podcasters.spotify.com/pod/show/mobile-dev-memo/episodes/Season-8--Episode-2-Will-consumers-adopt-agentic-commerce--with-Michael-Morton-e3qgc8m</link>
       <guid isPermaLink="false">8b31bd2773af4b1f</guid>
       <pubDate>Thu, 15 Oct 2026 09:37:37 +0000</pubDate>
@@ -78,7 +104,7 @@
       <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/625754/625754-1527005004224-aa658e3335357.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #6 — Jason &amp; Scot Show: Episode 352 - Is Agentic Commerce a Mirage? Jason &amp; Scot Debate It Live</title>
+      <title>🎧 LISTEN #8 — Jason &amp; Scot Show: Episode 352 - Is Agentic Commerce a Mirage? Jason &amp; Scot Debate It Live</title>
       <link>https://jasonandscot.com/episode-353-is-agentic-commerce-a-mirage-jason-scot-debate-it-live</link>
       <guid isPermaLink="false">805003749cecc023</guid>
       <pubDate>Tue, 20 Oct 2026 09:46:39 +0000</pubDate>
@@ -91,7 +117,7 @@
       <itunes:image href="https://static.libsyn.com/p/assets/b/3/a/c/b3accd73068df180a04421dee9605cbd/JASS_AI_Debate_Breakthrough_AUPHONIC_AUDIO.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #7 — Jason &amp; Scot Show: EP350 - Live Commerce Is Where E-commerce Was in 2005: Whatnot's Tom Verrilli</title>
+      <title>🎧 LISTEN #9 — Jason &amp; Scot Show: EP350 - Live Commerce Is Where E-commerce Was in 2005: Whatnot's Tom Verrilli</title>
       <link>https://jasonandscot.com/ep350-live-commerce-is-where-e-commerce-was-in-2005-whatnots-tom-verrilli</link>
       <guid isPermaLink="false">cdcb823df7ffa8f8</guid>
       <pubDate>Fri, 09 Oct 2026 11:42:48 +0000</pubDate>
@@ -104,7 +130,7 @@
       <itunes:image href="https://static.libsyn.com/p/assets/b/3/f/c/b3fcec44eccb1fe188c4a68c3ddbc4f2/JASS_Tom_AUPHONIC_AUDIO.jpg" />
     </item>
     <item>
-      <title>🎧 LISTEN #8 — No Priors: The Changing Physics of Cybersecurity and Drug Development with OpenAI President Greg Brockman</title>
+      <title>🎧 LISTEN #10 — No Priors: The Changing Physics of Cybersecurity and Drug Development with OpenAI President Greg Brockman</title>
       <link />
       <guid isPermaLink="false">5fec44f0a2b9f297</guid>
       <pubDate>Mon, 19 Oct 2026 10:32:43 +0000</pubDate>
@@ -117,7 +143,7 @@
       <itunes:image href="https://megaphone.imgix.net/podcasts/6fed676e-c84d-11f1-a40c-678dc1ca0b76/image/ac30484e106c988c70d3ad6445d5646d.png?ixlib=rails-4.3.1&amp;max-w=3000&amp;max-h=3000&amp;fit=crop&amp;auto=format,compress" />
     </item>
     <item>
-      <title>🎧 LISTEN #9 — Cheeky Pint: Muse Wonder: Zuckerberg and Wang's $100B AI</title>
+      <title>🎧 LISTEN #11 — Cheeky Pint: Muse Wonder: Zuckerberg and Wang's $100B AI</title>
       <link>https://share.transistor.fm/s/bb7b9a51</link>
       <guid isPermaLink="false">92c026ede3314687</guid>
       <pubDate>Tue, 13 Oct 2026 12:27:37 +0000</pubDate>
